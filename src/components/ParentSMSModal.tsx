@@ -161,7 +161,6 @@ export const ParentSMSModal: React.FC<ParentSMSModalProps> = ({
       subjects,
       totalPoints: totalPts,
       overallRubric: `${overall.level} (${overall.name})`,
-      attendanceRate: learner.attendanceRate || 95,
       comment:
         learner.comments?.classTeacherComment ||
         learner.comments?.generalComment ||
@@ -181,7 +180,6 @@ export const ParentSMSModal: React.FC<ParentSMSModalProps> = ({
       subjects: rep.subjects,
       totalPoints: rep.totalPoints,
       overallRubric: rep.overallRubric,
-      attendanceRate: rep.attendanceRate,
       classTeacherComment: rep.comment,
       reopeningDate,
       schoolName: SCHOOL_INFO.name,

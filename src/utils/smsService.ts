@@ -8,7 +8,7 @@ export interface SmsMessageRecord {
   channel?: 'sms' | 'whatsapp';
   learnerAdmNo?: string;
   learnerName?: string;
-  messageType: 'report_card' | 'general_announcement' | 'fee_reminder' | 'attendance_alert' | 'academic_clinic';
+  messageType: 'report_card' | 'general_announcement' | 'fee_reminder' | 'academic_clinic';
   content: string;
   status: 'sent' | 'delivered' | 'pending';
   timestamp: string;
@@ -48,7 +48,7 @@ export function saveSmsRecord(record: SmsMessageRecord) {
 /**
  * Generates an official Kenyan CBC Report Card SMS text message
  * including individual subject rubric levels, total points (/72),
- * attendance, teacher remarks, and reopening date.
+ * teacher remarks, and reopening date.
  */
 export function formatReportCardSms(options: {
   learnerName: string;
@@ -59,7 +59,6 @@ export function formatReportCardSms(options: {
   subjects?: SubjectRubricSummary[];
   totalPoints: number;
   overallRubric: string;
-  attendanceRate?: number;
   classTeacherComment?: string;
   reopeningDate?: string;
   schoolName?: string;
@@ -184,7 +183,6 @@ export function formatReportCardWhatsApp(options: {
   subjects?: SubjectRubricSummary[];
   totalPoints: number;
   overallRubric: string;
-  attendanceRate?: number;
   classTeacherComment?: string;
   reopeningDate?: string;
   schoolName?: string;

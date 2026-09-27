@@ -39,7 +39,7 @@ interface AuthModalProps {
   defaultMode?: 'signup' | 'login';
 }
 
-const MAX_TEACHERS = 15;
+const MAX_TEACHERS = 100;
 
 export const AuthModal: React.FC<AuthModalProps> = ({
   isOpen,
@@ -53,14 +53,9 @@ export const AuthModal: React.FC<AuthModalProps> = ({
 }) => {
   // Modes: 'signup' (create account) | 'login' (sign in)
   const [authMode, setAuthMode] = useState<'signup' | 'login'>(() => {
-    if (defaultMode) return defaultMode;
     if (!currentUser) return 'signup';
-    try {
-      const hasSignedUp = localStorage.getItem('reberwet_has_signed_up');
-      return hasSignedUp ? 'login' : 'signup';
-    } catch {
-      return 'signup';
-    }
+    if (defaultMode) return defaultMode;
+    return 'signup';
   });
   // Steps: 'form' | 'verify' | 'success'
   const [step, setStep] = useState<'form' | 'verify' | 'success'>('form');
@@ -138,13 +133,18 @@ export const AuthModal: React.FC<AuthModalProps> = ({
   // Reset form when modal opens
   useEffect(() => {
     if (isOpen) {
+      if (!currentUser) {
+        setAuthMode('signup');
+      } else if (defaultMode) {
+        setAuthMode(defaultMode);
+      }
       setStep('form');
       setEnteredOtp(['', '', '', '', '', '']);
       setVerificationError(null);
       setRealtimeNotification(null);
       setIsProcessing(false);
     }
-  }, [isOpen]);
+  }, [isOpen, defaultMode, currentUser]);
 
   if (!isOpen) return null;
 
@@ -645,12 +645,12 @@ export const AuthModal: React.FC<AuthModalProps> = ({
 
         {/* New Device Access Notice */}
         {!canClose && (
-          <div className="p-3 bg-rose-50 border border-rose-200 rounded-2xl flex items-center gap-2.5 text-xs text-[#6b1426]">
-            <ShieldCheck className="w-5 h-5 shrink-0 text-[#6b1426]" />
+          <div className="p-3.5 bg-rose-50 border border-rose-200 rounded-2xl flex items-start gap-2.5 text-xs text-[#6b1426]">
+            <ShieldCheck className="w-5 h-5 shrink-0 text-[#6b1426] mt-0.5" />
             <div>
-              <p className="font-extrabold text-stone-900">New Device / Shared App Access</p>
-              <p className="text-[11px] text-stone-600 mt-0.5">
-                Welcome to Reberwet JSS! Please register your teacher profile or sign in to activate the portal on this phone.
+              <p className="font-extrabold text-stone-900 text-sm">Teacher Registration Required</p>
+              <p className="text-[11px] text-stone-600 mt-0.5 leading-relaxed">
+                Welcome to Reberwet JSS! This application is running on a new phone. Please register your teacher account (or sign in if already registered) to activate your portal session.
               </p>
             </div>
           </div>
@@ -673,7 +673,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({
               ? `A 6-digit real-time verification code was dispatched via SMS to ${activeDestination}.`
               : step === 'success'
               ? 'Creating your official teacher profile and signing you in...'
-              : 'Teacher registration & secure sign in with Password & Biometrics.'}
+              : 'Register or sign in with Password & Biometrics.'}
           </p>
         </div>
 
@@ -698,7 +698,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({
                 }`}
               >
                 <Sparkles className="w-3.5 h-3.5" />
-                <span>Sign Up (New Teacher)</span>
+                <span>Register / Sign Up</span>
               </button>
               <button
                 type="button"

@@ -468,7 +468,7 @@ export default function App() {
           <MarksEntry
             learners={learners}
             marks={marks}
-            currentUser={currentUser}
+            currentUser={activeUser}
             onSaveMarks={handleSaveMarks}
             isSimulatedOffline={isSimulatedOffline}
             onOpenHelp={() => setHelpModalOpen(true)}
@@ -481,7 +481,7 @@ export default function App() {
         {currentView === 'learners' && (
           <LearnerDirectory
             learners={learners}
-            currentUser={currentUser}
+            currentUser={activeUser}
             onSelectLearner={(learner) => setSelectedLearner(learner)}
             onAddLearner={handleAddLearner}
             onNavigateToMarks={() => navigateTo('marks')}
@@ -492,8 +492,8 @@ export default function App() {
           <PrintCenter
             learners={learners}
             marks={marks}
-            currentUser={currentUser}
-            initialGrade={currentUser.assignments?.[0]?.grade || 'Grade 8'}
+            currentUser={activeUser}
+            initialGrade={activeUser.assignments?.[0]?.grade || 'Grade 8'}
             onShowSuccessToast={showToast}
           />
         )}
@@ -502,7 +502,7 @@ export default function App() {
           <AnnouncementsAndCalendar
             announcements={announcements}
             events={events}
-            currentUser={currentUser}
+            currentUser={activeUser}
             onAddAnnouncement={handleAddAnnouncement}
             onShowSuccessToast={showToast}
           />
@@ -512,7 +512,7 @@ export default function App() {
           <AnnouncementsAndCalendar
             announcements={announcements}
             events={events}
-            currentUser={currentUser}
+            currentUser={activeUser}
             onAddAnnouncement={handleAddAnnouncement}
             onShowSuccessToast={showToast}
           />
@@ -521,7 +521,7 @@ export default function App() {
         {currentView === 'documents' && (
           <DocumentCenter
             documents={documents}
-            currentUser={currentUser}
+            currentUser={activeUser}
             onAddDocument={handleAddDocument}
             onShowSuccessToast={showToast}
           />
@@ -529,7 +529,7 @@ export default function App() {
 
         {currentView === 'profile' && (
           <TeacherProfile
-            currentUser={currentUser}
+            currentUser={activeUser}
             onNavigate={navigateTo}
             onUpdateCurrentUser={handleUpdateCurrentUser}
             onLogout={handleLogout}
@@ -538,7 +538,7 @@ export default function App() {
 
         {currentView === 'admin' && (
           <AdminPanel
-            currentUser={currentUser}
+            currentUser={activeUser}
             auditLogs={auditLogs}
             onBulkImportLearners={handleBulkImportLearners}
             onShowSuccessToast={showToast}
@@ -588,7 +588,7 @@ export default function App() {
 
       {/* 3. Teacher Onboarding Guide Modal */}
       <OnboardingModal
-        isOpen={onboardingOpen}
+        isOpen={onboardingOpen && currentUser !== null}
         onClose={() => setOnboardingOpen(false)}
         onNavigate={navigateTo}
       />
@@ -626,7 +626,7 @@ export default function App() {
 
       {/* 7. Auth Modal (Username/Password, Real-time SMS Code, Biometrics) */}
       <AuthModal
-        isOpen={authModalOpen}
+        isOpen={authModalOpen || !currentUser}
         onClose={() => {
           if (currentUser) {
             setAuthModalOpen(false);

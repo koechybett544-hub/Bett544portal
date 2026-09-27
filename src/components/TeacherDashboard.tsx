@@ -333,7 +333,7 @@ export const TeacherDashboard: React.FC<TeacherDashboardProps> = ({
         isOpen={teachersModalOpen}
         onClose={() => setTeachersModalOpen(false)}
         teachers={teachers}
-        currentUser={currentUser || DEFAULT_USERS[0]}
+        currentUser={currentUser || teachers[0]}
         onUpdateTeachers={onUpdateTeachers}
         onShowSuccessToast={onShowSuccessToast}
       />

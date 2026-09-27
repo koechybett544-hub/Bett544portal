@@ -349,7 +349,6 @@ export async function generateClassLearnersPdf(
     gender: 'M' | 'F';
     guardianName?: string;
     guardianPhone?: string;
-    attendanceRate: number;
     status?: string;
   }>,
   academicYear: string = '2026',
@@ -407,7 +406,7 @@ export async function generateClassLearnersPdf(
     doc.text('LEARNER FULL NAME', 44, startY + 5);
     doc.text('GENDER', 105, startY + 5);
     doc.text('PARENT / GUARDIAN', 123, startY + 5);
-    doc.text('ATTENDANCE', 172, startY + 5);
+    doc.text('STATUS', 172, startY + 5);
 
     startY += 7.5;
 
@@ -431,7 +430,7 @@ export async function generateClassLearnersPdf(
         doc.text('LEARNER FULL NAME', 44, startY + 5);
         doc.text('GENDER', 105, startY + 5);
         doc.text('PARENT / GUARDIAN', 123, startY + 5);
-        doc.text('ATTENDANCE', 172, startY + 5);
+        doc.text('STATUS', 172, startY + 5);
 
         startY += 7.5;
       }
@@ -462,7 +461,7 @@ export async function generateClassLearnersPdf(
 
       doc.setFont('helvetica', 'bold');
       doc.setTextColor(16, 185, 129); // green
-      doc.text(`${lrn.attendanceRate}%`, 175, startY + 5);
+      doc.text(lrn.status || 'Active', 172, startY + 5);
 
       startY += rowHeight;
     });

@@ -213,7 +213,6 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
             gender,
             academicYear: '2026',
             status: 'Active',
-            attendanceRate: 95,
           });
         }
       }

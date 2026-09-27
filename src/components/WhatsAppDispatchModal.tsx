@@ -104,7 +104,6 @@ export const WhatsAppDispatchModal: React.FC<WhatsAppDispatchModalProps> = ({
       subjects,
       totalPoints: totalPts,
       overallRubric: `${overall.level} (${overall.name})`,
-      attendanceRate: learner.attendanceRate || 95,
       comment:
         learner.comments?.classTeacherComment ||
         learner.comments?.generalComment ||
@@ -125,7 +124,6 @@ export const WhatsAppDispatchModal: React.FC<WhatsAppDispatchModalProps> = ({
       subjects: reportDetails.subjects,
       totalPoints: reportDetails.totalPoints,
       overallRubric: reportDetails.overallRubric,
-      attendanceRate: reportDetails.attendanceRate,
       classTeacherComment: reportDetails.comment,
       reopeningDate,
       schoolName: SCHOOL_INFO.name,

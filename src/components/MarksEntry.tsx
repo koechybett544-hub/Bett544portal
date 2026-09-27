@@ -663,7 +663,7 @@ export const MarksEntry: React.FC<MarksEntryProps> = ({
                       <td className="py-3.5 px-4">
                         <div className="font-bold text-stone-900">{learner.fullName}</div>
                         <div className="text-[11px] text-stone-500">
-                          {learner.gender === 'M' ? 'Male' : 'Female'} • Att: {learner.attendanceRate}%
+                          {learner.gender === 'M' ? 'Male' : 'Female'}
                         </div>
                       </td>
 

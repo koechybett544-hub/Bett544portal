@@ -5,7 +5,6 @@ import {
   GraduationCap,
   Users,
   BookOpen,
-  CheckSquare,
   FileSpreadsheet,
 } from 'lucide-react';
 
@@ -40,7 +39,7 @@ export const MyClasses: React.FC<MyClassesProps> = ({
           <span>My Classes</span>
         </h1>
         <p className="text-xs text-stone-600">
-          All 3 Junior Secondary School classes. Easily enter marks, take attendance, or view broadsheets and rosters.
+          All 3 Junior Secondary School classes. Easily enter marks or view broadsheets and rosters.
         </p>
       </div>
 

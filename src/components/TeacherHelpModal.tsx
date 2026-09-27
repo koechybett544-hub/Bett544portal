@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import { X, HelpCircle, BookOpen, CheckSquare, FileText, Award, Smartphone, ShieldCheck } from 'lucide-react';
+import { X, HelpCircle, BookOpen, FileText, Award, Smartphone, ShieldCheck } from 'lucide-react';
 import { ASSESSMENT_LEVELS } from '../utils/grading';
 
 interface TeacherHelpModalProps {
   isOpen: boolean;
   onClose: () => void;
-  defaultTab?: 'marks' | 'attendance' | 'reports' | 'levels';
+  defaultTab?: 'marks' | 'reports' | 'levels';
 }
 
 export const TeacherHelpModal: React.FC<TeacherHelpModalProps> = ({
@@ -13,7 +13,7 @@ export const TeacherHelpModal: React.FC<TeacherHelpModalProps> = ({
   onClose,
   defaultTab = 'marks',
 }) => {
-  const [activeTab, setActiveTab] = useState<'marks' | 'reports' | 'levels'>(defaultTab === 'attendance' ? 'marks' : defaultTab);
+  const [activeTab, setActiveTab] = useState<'marks' | 'reports' | 'levels'>(defaultTab);
 
   if (!isOpen) return null;
 
@@ -152,7 +152,7 @@ export const TeacherHelpModal: React.FC<TeacherHelpModalProps> = ({
               <div className="p-3 bg-stone-50 rounded-xl border border-stone-200">
                 <h4 className="font-semibold text-stone-900 text-sm mb-1">Learner Profile</h4>
                 <p className="text-xs text-stone-600">
-                  Click on any learner in <strong>MY LEARNERS</strong> to view their photo, admission number, attendance percentage, current term performance, previous term performance, and previous year performance.
+                  Click on any learner in <strong>MY LEARNERS</strong> to view their photo, admission number, current term performance, previous term performance, and previous year performance.
                 </p>
               </div>
 
@@ -166,7 +166,7 @@ export const TeacherHelpModal: React.FC<TeacherHelpModalProps> = ({
               <div className="p-3 bg-stone-50 rounded-xl border border-stone-200">
                 <h4 className="font-semibold text-stone-900 text-sm mb-1">Print Centre</h4>
                 <p className="text-xs text-stone-600">
-                  From the Print Centre, preview and print official <strong>Report Cards</strong>, <strong>Class Mark Sheets</strong>, and <strong>Attendance Summaries</strong> with the Reberwet JSS school badge.
+                  From the Print Centre, preview and print official <strong>Report Cards</strong>, <strong>Class Mark Sheets</strong>, and <strong>Grade Broadsheets</strong> with the Reberwet JSS school badge.
                 </p>
               </div>
             </div>

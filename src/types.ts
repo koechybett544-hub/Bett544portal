@@ -49,7 +49,7 @@ export interface Learner {
   stream?: string;
   gender: 'M' | 'F';
   academicYear: string;
-  attendanceRate: number; // percentage
+  attendanceRate?: number; // legacy optional
   status: 'Active' | 'Archived' | 'Graduated';
   photo?: string;
   guardianName?: string;
@@ -85,20 +85,6 @@ export interface AssessmentLevelConfig {
   points: number;
   description: string;
   colorClass: string;
-}
-
-export type AttendanceStatus = 'present' | 'absent' | 'late';
-
-export interface AttendanceRecord {
-  id: string;
-  date: string; // YYYY-MM-DD
-  grade: string;
-  stream?: string;
-  term: string;
-  academicYear: string;
-  statuses: Record<string, AttendanceStatus>; // learnerId -> status
-  submittedBy: string;
-  submittedAt: string;
 }
 
 export interface Announcement {
@@ -168,6 +154,6 @@ export interface TeacherActivity {
   id: string;
   action: string;
   time: string;
-  category: 'marks' | 'attendance' | 'report' | 'document' | 'circular';
+  category: 'marks' | 'report' | 'document' | 'circular';
   details?: string;
 }

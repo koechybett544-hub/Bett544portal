@@ -134,7 +134,6 @@ export const LearnerDirectory: React.FC<LearnerDirectoryProps> = ({
       gender: newGender,
       academicYear: selectedYear,
       status: 'Active',
-      attendanceRate: 96,
       guardianName: newGuardianName.trim() || 'Parent / Guardian',
       guardianPhone: newGuardianPhone.trim() || '+254 700 000 000',
     };
@@ -185,7 +184,7 @@ export const LearnerDirectory: React.FC<LearnerDirectoryProps> = ({
       ? learners
       : learners.filter((l) => l.grade === gradeToDownload);
 
-    const headers = ['#', 'ADM NO', 'FULL NAME', 'GRADE', 'GENDER', 'GUARDIAN NAME', 'GUARDIAN PHONE', 'ATTENDANCE %', 'ACADEMIC YEAR'];
+    const headers = ['#', 'ADM NO', 'FULL NAME', 'GRADE', 'GENDER', 'GUARDIAN NAME', 'GUARDIAN PHONE', 'ACADEMIC YEAR'];
     const rows = targetLearners.map((lrn, i) => [
       i + 1,
       `"${lrn.admNo}"`,
@@ -194,7 +193,6 @@ export const LearnerDirectory: React.FC<LearnerDirectoryProps> = ({
       lrn.gender === 'M' ? 'Male' : 'Female',
       `"${lrn.guardianName || ''}"`,
       `"${lrn.guardianPhone || ''}"`,
-      `${lrn.attendanceRate}%`,
       lrn.academicYear || selectedYear,
     ].join(','));
 
