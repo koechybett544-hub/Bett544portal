@@ -65,6 +65,14 @@ export const MoreMenuModal: React.FC<MoreMenuModalProps> = ({
           )}
 
           <button
+            onClick={() => handleSelect('timetable')}
+            className="flex flex-col items-center justify-center p-3 rounded-xl bg-stone-50 hover:bg-rose-50 border border-stone-200 text-stone-800 hover:text-[#6b1426] font-bold transition"
+          >
+            <Calendar className="w-5 h-5 text-[#6b1426] mb-1" />
+            <span>Timetable</span>
+          </button>
+
+          <button
             onClick={() => handleSelect('classes')}
             className="flex flex-col items-center justify-center p-3 rounded-xl bg-stone-50 hover:bg-orange-50 border border-stone-200 text-stone-800 hover:text-orange-950 font-bold transition"
           >

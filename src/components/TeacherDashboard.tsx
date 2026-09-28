@@ -16,7 +16,6 @@ import {
   GraduationCap,
   Clock,
   ChevronRight,
-  Sparkles,
   Calendar,
   AlertCircle,
   Mail,
@@ -141,7 +140,7 @@ export const TeacherDashboard: React.FC<TeacherDashboardProps> = ({
     }, (msg) => onShowSuccessToast(msg));
 
     if (result.success) {
-      onShowSuccessToast('PDF downloaded successfully. Check your Downloads folder.');
+      onShowSuccessToast('Saved to Documents');
     } else {
       onShowSuccessToast(`PDF download failed: ${result.message}`);
     }
@@ -260,74 +259,6 @@ export const TeacherDashboard: React.FC<TeacherDashboardProps> = ({
         </div>
       </div>
 
-      {/* Section 1: Quick Actions */}
-      <div>
-        <div className="flex items-center justify-between mb-3">
-          <h2 className="text-xs font-bold uppercase tracking-wider text-stone-500 flex items-center gap-1.5">
-            <Sparkles className="w-3.5 h-3.5 text-[#6b1426]" />
-            <span>Quick Actions</span>
-          </h2>
-        </div>
-
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
-          {/* Enter Marks */}
-          <button
-            id="quick-action-enter-marks"
-            onClick={() => onNavigate('marks')}
-            className="group relative flex flex-col items-start p-4 bg-white hover:bg-rose-50/50 rounded-2xl border-2 border-stone-200 hover:border-[#6b1426] shadow-xs hover:shadow-md transition text-left active:scale-[0.98]"
-          >
-            <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-rose-50 text-[#6b1426] group-hover:bg-[#6b1426] group-hover:text-white transition mb-3">
-              <BookOpen className="w-6 h-6" />
-            </div>
-            <div className="text-base font-extrabold text-stone-900 group-hover:text-[#6b1426]">
-              Enter Marks
-            </div>
-            <div className="text-xs text-stone-500 mt-1 line-clamp-1">
-              Independent % Score &amp; Rubrics
-            </div>
-            {pendingMarksCount > 0 && (
-              <span className="mt-2 text-[10px] font-bold bg-sky-100 text-sky-900 px-2 py-0.5 rounded-full border border-sky-300">
-                {pendingMarksCount} Pending
-              </span>
-            )}
-          </button>
-
-          {/* Reports & Broadsheet (Replaced Gmail Desk with Reports) */}
-          <button
-            id="quick-action-reports"
-            onClick={() => onNavigate('reports')}
-            className="group relative flex flex-col items-start p-4 bg-white hover:bg-sky-50/50 rounded-2xl border-2 border-stone-200 hover:border-sky-700 shadow-xs hover:shadow-md transition text-left active:scale-[0.98]"
-          >
-            <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-sky-50 text-sky-800 group-hover:bg-sky-700 group-hover:text-white transition mb-3">
-              <FileText className="w-6 h-6" />
-            </div>
-            <div className="text-base font-extrabold text-stone-900 group-hover:text-sky-950">
-              Reports
-            </div>
-            <div className="text-xs text-stone-500 mt-1 line-clamp-1">
-              Broadsheet &amp; Report Cards
-            </div>
-          </button>
-
-          {/* Teachers Details */}
-          <button
-            id="quick-action-teachers-details"
-            onClick={() => setTeachersModalOpen(true)}
-            className="group relative flex flex-col items-start p-4 bg-white hover:bg-rose-50/50 rounded-2xl border-2 border-stone-200 hover:border-[#6b1426] shadow-xs hover:shadow-md transition text-left active:scale-[0.98]"
-          >
-            <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-rose-50 text-[#6b1426] group-hover:bg-[#6b1426] group-hover:text-white transition mb-3">
-              <Users className="w-6 h-6" />
-            </div>
-            <div className="text-base font-extrabold text-stone-900 group-hover:text-[#6b1426]">
-              Teachers Details
-            </div>
-            <div className="text-xs text-stone-500 mt-1 line-clamp-1">
-              Faculty roster &amp; contacts
-            </div>
-          </button>
-        </div>
-      </div>
-
       {/* Teachers Details Modal */}
       <TeachersDetailsModal
         isOpen={teachersModalOpen}
@@ -338,7 +269,7 @@ export const TeacherDashboard: React.FC<TeacherDashboardProps> = ({
         onShowSuccessToast={onShowSuccessToast}
       />
 
-      {/* Section 2: Academic Management Modules */}
+      {/* Academic Management Modules */}
       <div>
         <h2 className="text-xs font-bold uppercase tracking-wider text-stone-500 mb-3">
           Academic Management Modules
@@ -373,6 +304,22 @@ export const TeacherDashboard: React.FC<TeacherDashboardProps> = ({
               ALL LEARNERS
             </div>
             <div className="text-[11px] text-stone-500 mt-0.5">Directory &amp; Register</div>
+          </button>
+
+          {/* TIMETABLE */}
+          <button
+            id="module-timetable"
+            onClick={() => onNavigate('timetable')}
+            className="flex flex-col p-4 rounded-2xl bg-white border-2 border-rose-300 hover:border-[#6b1426] shadow-xs hover:shadow-md transition text-left active:scale-[0.98] group relative overflow-hidden"
+          >
+            <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-rose-50 text-[#6b1426] group-hover:bg-[#6b1426] group-hover:text-white transition mb-2.5">
+              <Calendar className="w-5 h-5" />
+            </div>
+            <div className="text-sm font-extrabold text-stone-900 group-hover:text-[#6b1426]">
+              TIMETABLE
+            </div>
+            <div className="text-[11px] text-stone-500 mt-0.5">Preview &amp; Download</div>
+            <span className="absolute top-2 right-2 flex h-2 w-2 rounded-full bg-[#6b1426]" />
           </button>
 
           {/* REPORTS & BROADSHEET (Replaced Gmail Desk position with Reports) */}
@@ -485,6 +432,8 @@ export const TeacherDashboard: React.FC<TeacherDashboardProps> = ({
           </button>
         </div>
       </div>
+
+
 
       {/* ========================================================================= */}
       {/* 1. MODAL: YOUR RECENT ACTIVITY (Full List of Teacher Activities) */}

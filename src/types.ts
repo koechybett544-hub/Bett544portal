@@ -157,3 +157,35 @@ export interface TeacherActivity {
   category: 'marks' | 'report' | 'document' | 'circular';
   details?: string;
 }
+
+export type TimetableDay = 'Monday' | 'Tuesday' | 'Wednesday' | 'Thursday' | 'Friday';
+
+export interface TimetablePeriodDef {
+  periodNumber: number; // 1 to 8
+  label: string; // 'Period 1', 'Period 2', ...
+  startTime: string; // '8:00'
+  endTime: string; // '8:40'
+  timeRange: string; // '8:00 to 8:40'
+  isBreak?: boolean;
+  breakType?: 'short_break' | 'tea_break' | 'lunch';
+}
+
+export interface TimetableLesson {
+  id: string;
+  day: TimetableDay;
+  periodNumber: number; // 1 to 8
+  grade: 'Grade 7' | 'Grade 8' | 'Grade 9';
+  subject: string;
+  teacherId?: string;
+  teacherName?: string;
+  isDouble?: boolean; // For Integrated Science double lesson
+  room?: string;
+}
+
+export interface TimetableData {
+  academicYear: string;
+  term: string;
+  lessons: TimetableLesson[];
+  updatedAt: string;
+  generatedBy?: string;
+}

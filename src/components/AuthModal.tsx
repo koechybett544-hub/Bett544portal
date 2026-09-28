@@ -1055,7 +1055,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({
                       >
                         <div>
                           <strong className="text-stone-900 block">{t.name}</strong>
-                          <span className="text-[10px] text-stone-500 font-mono">@{t.username || t.phone}</span>
+                          <span className="text-[10px] text-stone-500 font-medium">{t.primarySubject || 'Faculty'} • {t.phone}</span>
                         </div>
                         <span className="text-[10px] font-bold text-stone-500 bg-white border border-stone-200 px-1.5 py-0.5 rounded">
                           {t.role === 'school_admin' ? 'Admin' : 'Teacher'}

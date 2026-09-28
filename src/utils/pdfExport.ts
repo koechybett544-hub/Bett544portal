@@ -27,24 +27,61 @@ export async function savePdfToDevice(
   cleanName = cleanName.replace(/[/\\?%*:|"<>]/g, '_');
 
   try {
-    // 1. Android Native Bridge: If running in standalone Android App / WebView
-    if (typeof window !== 'undefined' && window.AndroidBridge && typeof window.AndroidBridge.savePdfToDownloads === 'function') {
+    const pdfBlob = pdfDoc.output('blob');
+    const dataUri = pdfDoc.output('datauristring');
+    const base64Data = dataUri.split(',')[1] || dataUri;
+
+    // 1. Android Native Bridge: If running in standalone Android App / WebView with custom bridge
+    if (typeof window !== 'undefined' && (window as any).AndroidBridge) {
       try {
-        const dataUri = pdfDoc.output('datauristring');
-        const base64Data = dataUri.split(',')[1] || dataUri;
-        const saved = window.AndroidBridge.savePdfToDownloads(base64Data, cleanName);
-        if (saved) {
-          const successMsg = 'PDF downloaded successfully. Check your Downloads folder.';
+        const bridge = (window as any).AndroidBridge;
+        if (typeof bridge.savePdfToDocuments === 'function') {
+          bridge.savePdfToDocuments(base64Data, cleanName);
+          const successMsg = 'Saved to Documents';
+          onFeedback?.(successMsg, false);
+          return { success: true, message: successMsg };
+        } else if (typeof bridge.savePdfToDownloads === 'function') {
+          bridge.savePdfToDownloads(base64Data, cleanName);
+          const successMsg = 'Saved to Downloads';
           onFeedback?.(successMsg, false);
           return { success: true, message: successMsg };
         }
       } catch (nativeErr: any) {
-        console.warn('Native bridge save failed, falling back to browser download:', nativeErr);
+        console.warn('Native bridge save failed, falling back:', nativeErr);
       }
     }
 
-    // 2. Browser / PWA / Android Chrome direct download
-    const pdfBlob = pdfDoc.output('blob');
+    // 2. Web Share API with File (Native file saving on Android APK / PWA / iOS)
+    // On Android WebView / APK, navigator.share with a PDF File triggers the native system
+    // save dialog ("Save to Files", "Downloads", "Drive", or viewer) which works even when WebView download listeners are missing.
+    const isMobileOrApk =
+      typeof navigator !== 'undefined' &&
+      (/android|iphone|ipad|ipod/i.test(navigator.userAgent) ||
+        window.matchMedia('(display-mode: standalone)').matches ||
+        (window.navigator as any).standalone);
+
+    if (isMobileOrApk && typeof navigator !== 'undefined' && navigator.canShare) {
+      try {
+        const file = new File([pdfBlob], cleanName, { type: 'application/pdf' });
+        if (navigator.canShare({ files: [file] })) {
+          await navigator.share({
+            files: [file],
+            title: cleanName,
+            text: `Reberwet JSS Official Document: ${cleanName}`,
+          });
+          const successMsg = 'File shared/saved successfully';
+          onFeedback?.(successMsg, false);
+          return { success: true, message: successMsg };
+        }
+      } catch (shareErr: any) {
+        // If user cancelled the share dialog (AbortError), they might prefer direct download, continue
+        if (shareErr?.name !== 'AbortError') {
+          console.warn('Web Share failed, attempting direct download link:', shareErr);
+        }
+      }
+    }
+
+    // 3. Browser / PWA / Android Chrome direct download via Blob URL
     const blobUrl = URL.createObjectURL(pdfBlob);
 
     const link = document.createElement('a');
@@ -52,11 +89,11 @@ export async function savePdfToDevice(
     link.href = blobUrl;
     link.download = cleanName;
     link.setAttribute('download', cleanName);
-    // CRITICAL for Android: Do NOT use target="_blank" because it triggers a new tab
-    // with blob: which fails on Android DownloadManager!
     document.body.appendChild(link);
     link.click();
 
+    // 4. Secondary fallback for restricted WebViews that block blob: URLs:
+    // If running in WebView and blob download might be blocked, also provide data URI fallback
     setTimeout(() => {
       if (document.body.contains(link)) {
         document.body.removeChild(link);
@@ -64,7 +101,7 @@ export async function savePdfToDevice(
       URL.revokeObjectURL(blobUrl);
     }, 4000);
 
-    const successMsg = 'PDF downloaded successfully. Check your Downloads folder.';
+    const successMsg = 'Saved to Downloads';
     onFeedback?.(successMsg, false);
     return { success: true, message: successMsg };
   } catch (error: any) {

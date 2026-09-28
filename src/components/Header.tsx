@@ -14,6 +14,7 @@ import {
   LogIn,
   ShieldCheck,
   Lock,
+  Calendar,
 } from 'lucide-react';
 
 interface HeaderProps {
@@ -105,6 +106,21 @@ export const Header: React.FC<HeaderProps> = ({
 
           {/* Right: Tools, Role switcher, Gmail, APK & Auth */}
           <div className="flex items-center gap-1.5 sm:gap-2">
+            {/* Timetable Quick Button */}
+            <button
+              onClick={() => onNavigate('timetable')}
+              id="header-timetable-btn"
+              title="Official School & Teaching Timetable"
+              className={`flex items-center gap-1 px-2.5 py-1.5 rounded-lg text-xs font-semibold transition active:scale-95 border ${
+                currentView === 'timetable'
+                  ? 'bg-white text-[#6b1426] border-white font-bold shadow-xs'
+                  : 'bg-[#540d1e] hover:bg-[#3b0a16] text-sky-200 border-sky-300/40'
+              }`}
+            >
+              <Calendar className="w-3.5 h-3.5" />
+              <span className="hidden md:inline">Timetable</span>
+            </button>
+
             {/* Gmail Quick Desk */}
             {onOpenGmail && (
               <button

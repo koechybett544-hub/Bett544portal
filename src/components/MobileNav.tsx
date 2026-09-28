@@ -79,7 +79,7 @@ export const MobileNav: React.FC<MobileNavProps> = ({
         <button
           onClick={onOpenMoreMenu}
           className={`flex flex-col items-center justify-center py-1 rounded-xl transition ${
-            ['reports', 'announcements', 'documents', 'classes', 'profile', 'admin'].includes(currentView)
+            ['timetable', 'reports', 'announcements', 'documents', 'classes', 'profile', 'admin'].includes(currentView)
               ? 'text-[#6b1426] font-bold bg-rose-50'
               : 'text-stone-500 hover:text-stone-900'
           }`}

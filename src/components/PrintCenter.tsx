@@ -289,7 +289,7 @@ export const PrintCenter: React.FC<PrintCenterProps> = ({
       setPdfProgressText('');
 
       if (result.success) {
-        onShowSuccessToast('PDF downloaded successfully. Check your Downloads folder.');
+        onShowSuccessToast('Saved to Documents');
       } else {
         onShowSuccessToast(`PDF download failed: ${result.message}`);
       }
@@ -312,7 +312,7 @@ export const PrintCenter: React.FC<PrintCenterProps> = ({
       setPdfProgressText('');
 
       if (result.success) {
-        onShowSuccessToast('PDF downloaded successfully. Check your Downloads folder.');
+        onShowSuccessToast('Saved to Documents');
       } else {
         onShowSuccessToast(`PDF download failed: ${result.message}`);
       }
@@ -334,7 +334,7 @@ export const PrintCenter: React.FC<PrintCenterProps> = ({
       onFeedback: (msg) => onShowSuccessToast(msg),
     });
     if (result.success) {
-      onShowSuccessToast('PDF downloaded successfully. Check your Downloads folder.');
+      onShowSuccessToast('Saved to Documents');
     } else {
       onShowSuccessToast(`PDF download failed: ${result.message}`);
     }

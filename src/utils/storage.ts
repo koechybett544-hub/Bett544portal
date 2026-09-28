@@ -7,7 +7,9 @@ import {
   AuditLog,
   TeacherActivity,
   UserProfile,
+  TimetableData,
 } from '../types';
+import { getTimetableFromStorage, saveTimetableToStorage } from './timetableService';
 import {
   INITIAL_LEARNERS,
   INITIAL_MARKS,
@@ -32,6 +34,7 @@ const STORAGE_KEYS = {
   LAST_SELECTION: 'reberwet_teacher_last_selection_v3',
   ONBOARDING_SEEN: 'reberwet_teacher_onboarding_seen_v3',
   FIRST_MARKS_HELP_SEEN: 'reberwet_first_marks_help_seen_v3',
+  TIMETABLE: 'reberwet_timetable_v1',
 };
 
 export interface TeacherLastSelection {
@@ -47,7 +50,66 @@ export const StorageService = {
   getTeachers(): UserProfile[] {
     try {
       const saved = localStorage.getItem(STORAGE_KEYS.TEACHERS);
-      if (saved) return JSON.parse(saved);
+      if (saved) {
+        const parsed: UserProfile[] = JSON.parse(saved);
+        // Ensure Mr John Koech is assigned Creative Arts and Sports
+        const koech = parsed.find(
+          (t) => t.name.toLowerCase().includes('koech') || t.id === 'user-super-1'
+        );
+        if (
+          koech &&
+          (!koech.assignments ||
+            koech.assignments.length === 0 ||
+            !koech.assignments.some((a) =>
+              a.subject.toLowerCase().includes('creative') ||
+              a.subject.toLowerCase().includes('art') ||
+              a.subject.toLowerCase().includes('sport')
+            ))
+        ) {
+          koech.primarySubject = 'Creative Arts and Sports';
+          koech.assignments = [
+            { grade: 'Grade 7', subject: 'Creative Arts and Sports' },
+            { grade: 'Grade 8', subject: 'Creative Arts and Sports' },
+            { grade: 'Grade 9', subject: 'Creative Arts and Sports' },
+          ];
+          this.saveTeachers(parsed);
+        }
+
+        // Ensure Madam Nelly Korir is assigned CRE (Christian Religious Education)
+        const nelly = parsed.find(
+          (t) => t.name.toLowerCase().includes('nelly') || t.id === 'user-teacher-7'
+        );
+        if (nelly) {
+          const hasCre = nelly.assignments?.some(
+            (a) => a.subject.toLowerCase() === 'cre' || a.subject.toLowerCase().includes('religious')
+          );
+          if (!hasCre) {
+            nelly.assignments = [
+              ...(nelly.assignments || []),
+              { grade: 'Grade 7', subject: 'CRE' },
+              { grade: 'Grade 8', subject: 'CRE' },
+              { grade: 'Grade 9', subject: 'CRE' },
+            ];
+            this.saveTeachers(parsed);
+          }
+        }
+
+        // Ensure Madam Faith Chepkirui does NOT teach CRE
+        const faith = parsed.find(
+          (t) => t.name.toLowerCase().includes('faith') || t.id === 'user-teacher-8'
+        );
+        if (faith && faith.assignments) {
+          const filtered = faith.assignments.filter(
+            (a) => !a.subject.toLowerCase().includes('cre') && !a.subject.toLowerCase().includes('religious')
+          );
+          if (filtered.length !== faith.assignments.length) {
+            faith.assignments = filtered;
+            this.saveTeachers(parsed);
+          }
+        }
+
+        return parsed;
+      }
     } catch {
       // ignore
     }
@@ -359,6 +421,49 @@ export const StorageService = {
     const current = this.getDocuments();
     const updated = [doc, ...current];
     this.saveDocuments(updated);
+  },
+
+  // Timetable
+  getTimetable(teachers: UserProfile[]): TimetableData {
+    return getTimetableFromStorage(teachers);
+  },
+
+  saveTimetable(data: TimetableData) {
+    saveTimetableToStorage(data);
+  },
+
+  // 100% Offline Pre-population: Ensures all data is cached locally in device memory so app works in airplane mode
+  primeAllDataForOffline(teachers: UserProfile[]) {
+    try {
+      if (!localStorage.getItem(STORAGE_KEYS.TEACHERS)) {
+        this.saveTeachers(teachers && teachers.length > 0 ? teachers : DEFAULT_USERS);
+      }
+      if (!localStorage.getItem(STORAGE_KEYS.LEARNERS)) {
+        this.saveLearners(INITIAL_LEARNERS);
+      }
+      if (!localStorage.getItem(STORAGE_KEYS.MARKS)) {
+        this.saveMarks(INITIAL_MARKS);
+      }
+      if (!localStorage.getItem(STORAGE_KEYS.ANNOUNCEMENTS)) {
+        this.saveAnnouncements(INITIAL_ANNOUNCEMENTS);
+      }
+      if (!localStorage.getItem(STORAGE_KEYS.CALENDAR)) {
+        localStorage.setItem(STORAGE_KEYS.CALENDAR, JSON.stringify(INITIAL_CALENDAR_EVENTS));
+      }
+      if (!localStorage.getItem(STORAGE_KEYS.DOCUMENTS)) {
+        this.saveDocuments(INITIAL_DOCUMENTS);
+      }
+      if (!localStorage.getItem(STORAGE_KEYS.AUDIT_LOGS)) {
+        localStorage.setItem(STORAGE_KEYS.AUDIT_LOGS, JSON.stringify(INITIAL_AUDIT_LOGS));
+      }
+      if (!localStorage.getItem(STORAGE_KEYS.TEACHER_ACTIVITIES)) {
+        localStorage.setItem(STORAGE_KEYS.TEACHER_ACTIVITIES, JSON.stringify(INITIAL_TEACHER_ACTIVITIES));
+      }
+      // Ensure timetable is pre-calculated and cached
+      this.getTimetable(teachers);
+    } catch {
+      // ignore
+    }
   },
 
   // Reset to default data

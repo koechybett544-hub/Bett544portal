@@ -10,6 +10,7 @@ interface AndroidBridgeInterface {
   isAndroidApp(): boolean;
   getAppVersion(): string;
   savePdfToDownloads?(base64Data: string, fileName: string): boolean;
+  savePdfToDocuments?(base64Data: string, fileName: string): boolean;
   downloadPdf?(base64Data: string, fileName: string): void;
 }
 

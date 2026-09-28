@@ -22,6 +22,7 @@ import { AnnouncementsAndCalendar } from './components/AnnouncementsAndCalendar'
 import { DocumentCenter } from './components/DocumentCenter';
 import { TeacherProfile } from './components/TeacherProfile';
 import { AdminPanel } from './components/AdminPanel';
+import { TimetableManager } from './components/TimetableManager';
 import { TeacherHelpModal } from './components/TeacherHelpModal';
 import { OnboardingModal } from './components/OnboardingModal';
 import { UnsavedChangesModal } from './components/UnsavedChangesModal';
@@ -97,8 +98,11 @@ export default function App() {
     }, 3500);
   }, []);
 
-  // Initialize Firebase Auth listener on startup
+  // Initialize Firebase Auth listener and prime offline data on startup
   useEffect(() => {
+    // 100% Offline Support: Pre-cache all initial school data into local storage immediately
+    StorageService.primeAllDataForOffline(teachers);
+
     const unsubscribe = initAuth((user) => {
       if (user && user.email) {
         // Find existing teacher matching Google email
@@ -387,6 +391,7 @@ export default function App() {
       announcements: 'Announcements',
       calendar: 'School Calendar',
       documents: 'Document Centre',
+      timetable: 'Timetable & Bell Schedule',
       profile: 'My Profile',
       admin: 'Administration & Audit',
     };
@@ -524,6 +529,16 @@ export default function App() {
             currentUser={activeUser}
             onAddDocument={handleAddDocument}
             onShowSuccessToast={showToast}
+          />
+        )}
+
+        {currentView === 'timetable' && (
+          <TimetableManager
+            currentUser={activeUser}
+            teachers={teachers}
+            onShowSuccessToast={showToast}
+            onNavigate={navigateTo}
+            isSimulatedOffline={isSimulatedOffline}
           />
         )}
 

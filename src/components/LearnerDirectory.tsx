@@ -171,7 +171,7 @@ export const LearnerDirectory: React.FC<LearnerDirectoryProps> = ({
     );
 
     if (result.success) {
-      notify('PDF downloaded successfully. Check your Downloads folder.');
+      notify('Saved to Documents');
     } else {
       notify(`PDF download failed: ${result.message}`);
     }
