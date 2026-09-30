@@ -118,32 +118,32 @@ export const GmailCenterModal: React.FC<GmailCenterModalProps> = ({
 
   return (
     <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-xs flex items-center justify-center p-4">
-      <div className="bg-white rounded-3xl max-w-xl w-full p-6 shadow-2xl space-y-5 border border-stone-200 relative max-h-[92vh] overflow-y-auto">
+      <div className="bg-white dark:bg-stone-900 rounded-3xl max-w-xl w-full p-6 shadow-2xl space-y-5 border border-stone-200 dark:border-stone-800 relative max-h-[92vh] overflow-y-auto">
         {/* Close Button */}
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 p-2 text-stone-400 hover:text-stone-700 rounded-full hover:bg-stone-100 transition"
+          className="absolute top-4 right-4 p-2 text-stone-400 hover:text-stone-700 dark:hover:text-stone-200 rounded-full hover:bg-stone-100 dark:hover:bg-stone-800 transition"
         >
           <X className="w-5 h-5" />
         </button>
 
         {/* Modal Header */}
-        <div className="flex items-center gap-3 border-b border-stone-100 pb-3">
-          <div className="w-11 h-11 bg-rose-50 text-[#6b1426] rounded-2xl flex items-center justify-center border border-rose-200 shrink-0">
+        <div className="flex items-center gap-3 border-b border-stone-100 dark:border-stone-800 pb-3">
+          <div className="w-11 h-11 bg-rose-50 dark:bg-rose-950/40 text-[#6b1426] dark:text-rose-400 rounded-2xl flex items-center justify-center border border-rose-200 dark:border-rose-900/60 shrink-0">
             <Mail className="w-6 h-6" />
           </div>
           <div>
-            <h3 className="text-lg sm:text-xl font-black text-stone-900">
+            <h3 className="text-lg sm:text-xl font-black text-stone-900 dark:text-stone-100">
               Reberwet School Gmail Communicator
             </h3>
-            <p className="text-xs text-stone-500">
+            <p className="text-xs text-stone-500 dark:text-stone-400">
               Dispatch official circulars, learner reports, and staff notifications directly via Gmail.
             </p>
           </div>
         </div>
 
         {/* Connection Status */}
-        <div className="bg-stone-50 rounded-2xl p-3.5 border border-stone-200 text-xs space-y-2">
+        <div className="bg-stone-50 dark:bg-stone-800/60 rounded-2xl p-3.5 border border-stone-200 dark:border-stone-700 text-xs space-y-2">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
               <span
@@ -151,14 +151,14 @@ export const GmailCenterModal: React.FC<GmailCenterModalProps> = ({
                   token ? 'bg-emerald-500 animate-pulse' : 'bg-amber-400'
                 }`}
               />
-              <span className="font-bold text-stone-800">
+              <span className="font-bold text-stone-800 dark:text-stone-200">
                 {token ? 'Google Workspace Authenticated' : 'Google Account Not Connected'}
               </span>
             </div>
             {!token && (
               <button
                 onClick={onTriggerGoogleSignIn}
-                className="text-xs font-bold text-[#6b1426] hover:underline"
+                className="text-xs font-bold text-[#6b1426] dark:text-rose-400 hover:underline"
               >
                 Sign In with Google →
               </button>
@@ -166,8 +166,8 @@ export const GmailCenterModal: React.FC<GmailCenterModalProps> = ({
           </div>
 
           {token && gmailProfile && (
-            <div className="text-[11px] text-stone-600 flex items-center gap-3">
-              <span>Sending as: <strong>{gmailProfile.emailAddress}</strong></span>
+            <div className="text-[11px] text-stone-600 dark:text-stone-400 flex items-center gap-3">
+              <span>Sending as: <strong className="text-stone-900 dark:text-stone-100">{gmailProfile.emailAddress}</strong></span>
               <span>•</span>
               <span>Total Gmail Messages: {gmailProfile.messagesTotal}</span>
             </div>
@@ -176,28 +176,28 @@ export const GmailCenterModal: React.FC<GmailCenterModalProps> = ({
 
         {/* Quick Message Templates */}
         <div>
-          <label className="block text-xs font-bold text-stone-700 mb-1.5 uppercase tracking-wide">
+          <label className="block text-xs font-bold text-stone-700 dark:text-stone-300 mb-1.5 uppercase tracking-wide">
             Quick Message Templates
           </label>
           <div className="flex flex-wrap gap-2 text-xs">
             <button
               type="button"
               onClick={() => handleApplyTemplate('report')}
-              className="bg-stone-100 hover:bg-stone-200 text-stone-700 font-semibold px-3 py-1.5 rounded-xl border border-stone-200 transition"
+              className="bg-stone-100 dark:bg-stone-800 hover:bg-stone-200 dark:hover:bg-stone-700 text-stone-700 dark:text-stone-300 font-semibold px-3 py-1.5 rounded-xl border border-stone-200 dark:border-stone-700 transition"
             >
               📄 Learner Progress Notice
             </button>
             <button
               type="button"
               onClick={() => handleApplyTemplate('meeting')}
-              className="bg-stone-100 hover:bg-stone-200 text-stone-700 font-semibold px-3 py-1.5 rounded-xl border border-stone-200 transition"
+              className="bg-stone-100 dark:bg-stone-800 hover:bg-stone-200 dark:hover:bg-stone-700 text-stone-700 dark:text-stone-300 font-semibold px-3 py-1.5 rounded-xl border border-stone-200 dark:border-stone-700 transition"
             >
               👥 Staff Briefing Memo
             </button>
             <button
               type="button"
               onClick={() => handleApplyTemplate('urgent')}
-              className="bg-stone-100 hover:bg-stone-200 text-stone-700 font-semibold px-3 py-1.5 rounded-xl border border-stone-200 transition"
+              className="bg-stone-100 dark:bg-stone-800 hover:bg-stone-200 dark:hover:bg-stone-700 text-stone-700 dark:text-stone-300 font-semibold px-3 py-1.5 rounded-xl border border-stone-200 dark:border-stone-700 transition"
             >
               📢 School Circular
             </button>
@@ -207,7 +207,7 @@ export const GmailCenterModal: React.FC<GmailCenterModalProps> = ({
         {/* Compose Form */}
         <form onSubmit={handleInitiateSend} className="space-y-3.5">
           <div>
-            <label className="block text-xs font-bold text-stone-700 mb-1">
+            <label className="block text-xs font-bold text-stone-700 dark:text-stone-300 mb-1">
               Recipient Email (Parent / Staff / Guardian) *
             </label>
             <input
@@ -216,29 +216,29 @@ export const GmailCenterModal: React.FC<GmailCenterModalProps> = ({
               value={recipient}
               onChange={(e) => setRecipient(e.target.value)}
               placeholder="e.g. guardian@gmail.com"
-              className="w-full rounded-xl border border-stone-300 p-2.5 text-xs font-medium focus:border-[#6b1426] focus:outline-none"
+              className="w-full rounded-xl border border-stone-300 dark:border-stone-700 bg-white dark:bg-stone-800 text-stone-900 dark:text-stone-100 p-2.5 text-xs font-medium focus:border-[#6b1426] dark:focus:border-rose-400 focus:outline-none"
             />
           </div>
 
           <div>
-            <label className="block text-xs font-bold text-stone-700 mb-1">Subject Line *</label>
+            <label className="block text-xs font-bold text-stone-700 dark:text-stone-300 mb-1">Subject Line *</label>
             <input
               type="text"
               required
               value={subject}
               onChange={(e) => setSubject(e.target.value)}
-              className="w-full rounded-xl border border-stone-300 p-2.5 text-xs font-medium focus:border-[#6b1426] focus:outline-none"
+              className="w-full rounded-xl border border-stone-300 dark:border-stone-700 bg-white dark:bg-stone-800 text-stone-900 dark:text-stone-100 p-2.5 text-xs font-medium focus:border-[#6b1426] dark:focus:border-rose-400 focus:outline-none"
             />
           </div>
 
           <div>
-            <label className="block text-xs font-bold text-stone-700 mb-1">Message Content *</label>
+            <label className="block text-xs font-bold text-stone-700 dark:text-stone-300 mb-1">Message Content *</label>
             <textarea
               required
               rows={5}
               value={body}
               onChange={(e) => setBody(e.target.value)}
-              className="w-full rounded-xl border border-stone-300 p-3 text-xs font-medium focus:border-[#6b1426] focus:outline-none leading-relaxed"
+              className="w-full rounded-xl border border-stone-300 dark:border-stone-700 bg-white dark:bg-stone-800 text-stone-900 dark:text-stone-100 p-3 text-xs font-medium focus:border-[#6b1426] dark:focus:border-rose-400 focus:outline-none leading-relaxed"
             />
           </div>
 
@@ -246,24 +246,24 @@ export const GmailCenterModal: React.FC<GmailCenterModalProps> = ({
             <div
               className={`p-3 rounded-xl text-xs font-semibold flex items-center gap-2 ${
                 statusMessage.type === 'success'
-                  ? 'bg-emerald-50 text-emerald-800 border border-emerald-200'
-                  : 'bg-rose-50 text-rose-800 border border-rose-200'
+                  ? 'bg-emerald-50 dark:bg-emerald-950/40 text-emerald-800 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800'
+                  : 'bg-rose-50 dark:bg-rose-950/40 text-rose-800 dark:text-rose-300 border border-rose-200 dark:border-rose-800'
               }`}
             >
               {statusMessage.type === 'success' ? (
-                <CheckCircle2 className="w-4 h-4 shrink-0 text-emerald-600" />
+                <CheckCircle2 className="w-4 h-4 shrink-0 text-emerald-600 dark:text-emerald-400" />
               ) : (
-                <AlertCircle className="w-4 h-4 shrink-0 text-rose-600" />
+                <AlertCircle className="w-4 h-4 shrink-0 text-rose-600 dark:text-rose-400" />
               )}
               <span>{statusMessage.text}</span>
             </div>
           )}
 
-          <div className="flex items-center justify-end gap-3 pt-2 border-t border-stone-100">
+          <div className="flex items-center justify-end gap-3 pt-2 border-t border-stone-100 dark:border-stone-800">
             <button
               type="button"
               onClick={onClose}
-              className="px-4 py-2 text-xs font-semibold text-stone-600 hover:bg-stone-100 rounded-xl"
+              className="px-4 py-2 text-xs font-semibold text-stone-600 dark:text-stone-400 hover:bg-stone-100 dark:hover:bg-stone-800 rounded-xl"
             >
               Close
             </button>
@@ -286,31 +286,31 @@ export const GmailCenterModal: React.FC<GmailCenterModalProps> = ({
         {/* Confirmation Dialog (Mandatory per Workspace Integration Skill) */}
         {showConfirmDialog && (
           <div className="fixed inset-0 z-60 bg-black/70 backdrop-blur-xs flex items-center justify-center p-4">
-            <div className="bg-white rounded-2xl max-w-sm w-full p-5 shadow-2xl space-y-4 border border-stone-200">
-              <div className="flex items-center gap-3 text-amber-900">
-                <div className="p-2 bg-amber-100 rounded-xl">
-                  <ShieldAlert className="w-5 h-5 text-amber-700" />
+            <div className="bg-white dark:bg-stone-900 rounded-2xl max-w-sm w-full p-5 shadow-2xl space-y-4 border border-stone-200 dark:border-stone-800">
+              <div className="flex items-center gap-3 text-amber-900 dark:text-amber-300">
+                <div className="p-2 bg-amber-100 dark:bg-amber-950/60 rounded-xl">
+                  <ShieldAlert className="w-5 h-5 text-amber-700 dark:text-amber-400" />
                 </div>
-                <h4 className="font-extrabold text-stone-900 text-sm">
+                <h4 className="font-extrabold text-stone-900 dark:text-stone-100 text-sm">
                   Confirm Gmail Dispatch
                 </h4>
               </div>
 
-              <div className="text-xs text-stone-600 space-y-2">
+              <div className="text-xs text-stone-600 dark:text-stone-300 space-y-2">
                 <p>
                   You are about to send an official email to{' '}
-                  <strong className="text-stone-900">{recipient}</strong> from your connected Gmail address.
+                  <strong className="text-stone-900 dark:text-stone-100">{recipient}</strong> from your connected Gmail address.
                 </p>
-                <div className="bg-stone-50 p-2 rounded-lg border border-stone-200 text-[11px]">
+                <div className="bg-stone-50 dark:bg-stone-800 p-2 rounded-lg border border-stone-200 dark:border-stone-700 text-[11px]">
                   <strong>Subject:</strong> {subject}
                 </div>
               </div>
 
-              <div className="flex items-center justify-end gap-2 pt-2 border-t border-stone-100">
+              <div className="flex items-center justify-end gap-2 pt-2 border-t border-stone-100 dark:border-stone-800">
                 <button
                   type="button"
                   onClick={() => setShowConfirmDialog(false)}
-                  className="px-3.5 py-1.5 rounded-xl text-xs font-semibold text-stone-600 hover:bg-stone-100"
+                  className="px-3.5 py-1.5 rounded-xl text-xs font-semibold text-stone-600 dark:text-stone-400 hover:bg-stone-100 dark:hover:bg-stone-800"
                 >
                   Cancel
                 </button>

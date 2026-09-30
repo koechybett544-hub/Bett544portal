@@ -17,7 +17,7 @@ export const MobileNav: React.FC<MobileNavProps> = ({
   return (
     <nav
       id="mobile-bottom-nav"
-      className="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-white border-t border-stone-200 shadow-lg px-2 py-1.5"
+      className="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-white dark:bg-stone-900 border-t border-stone-200 dark:border-stone-800 shadow-lg px-2 py-1.5 transition-colors"
     >
       <div className="grid grid-cols-5 gap-1 items-center">
         {/* Home */}
@@ -25,8 +25,8 @@ export const MobileNav: React.FC<MobileNavProps> = ({
           onClick={() => onNavigate('dashboard')}
           className={`flex flex-col items-center justify-center py-1 rounded-xl transition ${
             currentView === 'dashboard'
-              ? 'text-[#6b1426] font-bold bg-rose-50'
-              : 'text-stone-500 hover:text-stone-900'
+              ? 'text-[#6b1426] dark:text-rose-400 font-bold bg-rose-50 dark:bg-rose-950/60'
+              : 'text-stone-500 dark:text-stone-400 hover:text-stone-900 dark:hover:text-stone-100'
           }`}
         >
           <Home className="w-5 h-5" />
@@ -38,8 +38,8 @@ export const MobileNav: React.FC<MobileNavProps> = ({
           onClick={() => onNavigate('marks')}
           className={`relative flex flex-col items-center justify-center py-1 rounded-xl transition ${
             currentView === 'marks'
-              ? 'text-[#6b1426] font-bold bg-rose-50'
-              : 'text-stone-500 hover:text-stone-900'
+              ? 'text-[#6b1426] dark:text-rose-400 font-bold bg-rose-50 dark:bg-rose-950/60'
+              : 'text-stone-500 dark:text-stone-400 hover:text-stone-900 dark:hover:text-stone-100'
           }`}
         >
           <BookOpen className="w-5 h-5" />
@@ -54,8 +54,8 @@ export const MobileNav: React.FC<MobileNavProps> = ({
           onClick={() => onNavigate('reports')}
           className={`flex flex-col items-center justify-center py-1 rounded-xl transition ${
             currentView === 'reports'
-              ? 'text-[#6b1426] font-bold bg-rose-50'
-              : 'text-stone-500 hover:text-stone-900'
+              ? 'text-[#6b1426] dark:text-rose-400 font-bold bg-rose-50 dark:bg-rose-950/60'
+              : 'text-stone-500 dark:text-stone-400 hover:text-stone-900 dark:hover:text-stone-100'
           }`}
         >
           <FileText className="w-5 h-5" />
@@ -67,8 +67,8 @@ export const MobileNav: React.FC<MobileNavProps> = ({
           onClick={() => onNavigate('learners')}
           className={`flex flex-col items-center justify-center py-1 rounded-xl transition ${
             currentView === 'learners'
-              ? 'text-[#6b1426] font-bold bg-rose-50'
-              : 'text-stone-500 hover:text-stone-900'
+              ? 'text-[#6b1426] dark:text-rose-400 font-bold bg-rose-50 dark:bg-rose-950/60'
+              : 'text-stone-500 dark:text-stone-400 hover:text-stone-900 dark:hover:text-stone-100'
           }`}
         >
           <Users className="w-5 h-5" />
@@ -80,8 +80,8 @@ export const MobileNav: React.FC<MobileNavProps> = ({
           onClick={onOpenMoreMenu}
           className={`flex flex-col items-center justify-center py-1 rounded-xl transition ${
             ['timetable', 'reports', 'announcements', 'documents', 'classes', 'profile', 'admin'].includes(currentView)
-              ? 'text-[#6b1426] font-bold bg-rose-50'
-              : 'text-stone-500 hover:text-stone-900'
+              ? 'text-[#6b1426] dark:text-rose-400 font-bold bg-rose-50 dark:bg-rose-950/60'
+              : 'text-stone-500 dark:text-stone-400 hover:text-stone-900 dark:hover:text-stone-100'
           }`}
         >
           <MoreHorizontal className="w-5 h-5" />

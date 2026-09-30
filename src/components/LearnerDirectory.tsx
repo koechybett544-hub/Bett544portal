@@ -281,50 +281,50 @@ export const LearnerDirectory: React.FC<LearnerDirectoryProps> = ({
                     className="fixed inset-0 z-40"
                     onClick={() => setShowDownloadMenu(false)}
                   />
-                  <div className="absolute right-0 mt-2 w-64 rounded-2xl bg-white p-2.5 shadow-2xl border border-stone-200 text-stone-900 z-50 animate-in fade-in zoom-in-95">
-                    <p className="text-[10px] font-black text-stone-400 uppercase tracking-wider px-2 py-1">
+                  <div className="absolute right-0 mt-2 w-64 rounded-2xl bg-white dark:bg-stone-900 p-2.5 shadow-2xl border border-stone-200 dark:border-stone-800 text-stone-900 dark:text-stone-100 z-50 animate-in fade-in zoom-in-95">
+                    <p className="text-[10px] font-black text-stone-400 dark:text-stone-500 uppercase tracking-wider px-2 py-1">
                       Download PDF Register (Device Downloads)
                     </p>
                     <div className="space-y-1">
                       <button
                         onClick={() => handleDownloadClassListPdf('Grade 7')}
-                        className="w-full text-left px-3 py-2 rounded-xl hover:bg-rose-50 text-xs font-bold text-[#6b1426] flex items-center justify-between transition"
+                        className="w-full text-left px-3 py-2 rounded-xl hover:bg-rose-50 dark:hover:bg-rose-950/40 text-xs font-bold text-[#6b1426] dark:text-rose-400 flex items-center justify-between transition"
                       >
                         <span>Grade 7 Register</span>
-                        <span className="text-[10px] bg-rose-100 px-1.5 py-0.5 rounded text-[#6b1426]">PDF</span>
+                        <span className="text-[10px] bg-rose-100 dark:bg-rose-950 px-1.5 py-0.5 rounded text-[#6b1426] dark:text-rose-300">PDF</span>
                       </button>
 
                       <button
                         onClick={() => handleDownloadClassListPdf('Grade 8')}
-                        className="w-full text-left px-3 py-2 rounded-xl hover:bg-sky-50 text-xs font-bold text-sky-950 flex items-center justify-between transition"
+                        className="w-full text-left px-3 py-2 rounded-xl hover:bg-sky-50 dark:hover:bg-sky-950/40 text-xs font-bold text-sky-950 dark:text-sky-300 flex items-center justify-between transition"
                       >
                         <span>Grade 8 Register</span>
-                        <span className="text-[10px] bg-sky-100 px-1.5 py-0.5 rounded text-sky-900">PDF</span>
+                        <span className="text-[10px] bg-sky-100 dark:bg-sky-950 px-1.5 py-0.5 rounded text-sky-900 dark:text-sky-300">PDF</span>
                       </button>
 
                       <button
                         onClick={() => handleDownloadClassListPdf('Grade 9')}
-                        className="w-full text-left px-3 py-2 rounded-xl hover:bg-amber-50 text-xs font-bold text-amber-950 flex items-center justify-between transition"
+                        className="w-full text-left px-3 py-2 rounded-xl hover:bg-amber-50 dark:hover:bg-amber-950/40 text-xs font-bold text-amber-950 dark:text-amber-300 flex items-center justify-between transition"
                       >
                         <span>Grade 9 Register</span>
-                        <span className="text-[10px] bg-amber-100 px-1.5 py-0.5 rounded text-amber-900">PDF</span>
+                        <span className="text-[10px] bg-amber-100 dark:bg-amber-950 px-1.5 py-0.5 rounded text-amber-900 dark:text-amber-300">PDF</span>
                       </button>
 
                       <button
                         onClick={() => handleDownloadClassListPdf('all')}
-                        className="w-full text-left px-3 py-2 rounded-xl hover:bg-stone-100 text-xs font-bold text-stone-900 flex items-center justify-between transition border-t border-stone-100 mt-1"
+                        className="w-full text-left px-3 py-2 rounded-xl hover:bg-stone-100 dark:hover:bg-stone-800 text-xs font-bold text-stone-900 dark:text-stone-100 flex items-center justify-between transition border-t border-stone-100 dark:border-stone-800 mt-1"
                       >
                         <span>Complete School List (All)</span>
-                        <span className="text-[10px] bg-stone-200 px-1.5 py-0.5 rounded text-stone-800">PDF</span>
+                        <span className="text-[10px] bg-stone-200 dark:bg-stone-700 px-1.5 py-0.5 rounded text-stone-800 dark:text-stone-200">PDF</span>
                       </button>
                     </div>
 
-                    <div className="pt-2 mt-2 border-t border-stone-100">
+                    <div className="pt-2 mt-2 border-t border-stone-100 dark:border-stone-800">
                       <button
                         onClick={() => handleExportCsv(selectedGrade)}
-                        className="w-full text-left px-3 py-2 rounded-xl hover:bg-emerald-50 text-xs font-bold text-emerald-800 flex items-center gap-2 transition"
+                        className="w-full text-left px-3 py-2 rounded-xl hover:bg-emerald-50 dark:hover:bg-emerald-950/40 text-xs font-bold text-emerald-800 dark:text-emerald-300 flex items-center gap-2 transition"
                       >
-                        <FileSpreadsheet className="w-4 h-4 text-emerald-600" />
+                        <FileSpreadsheet className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
                         <span>Export as CSV Spreadsheet</span>
                       </button>
                     </div>
@@ -389,23 +389,23 @@ export const LearnerDirectory: React.FC<LearnerDirectoryProps> = ({
       </div>
 
       {/* FILTER & SEARCH TOOLBAR */}
-      <div className="bg-white rounded-3xl border border-stone-200 p-4 sm:p-5 shadow-xs space-y-4">
+      <div className="bg-white dark:bg-stone-900 rounded-3xl border border-stone-200 dark:border-stone-800 p-4 sm:p-5 shadow-xs space-y-4">
         <div className="grid grid-cols-1 sm:grid-cols-12 gap-3 items-center">
           {/* Live Search */}
           <div className="sm:col-span-4 relative">
-            <Search className="w-4 h-4 text-stone-400 absolute left-3.5 top-3 pointer-events-none" />
+            <Search className="w-4 h-4 text-stone-400 dark:text-stone-500 absolute left-3.5 top-3 pointer-events-none" />
             <input
               type="text"
               id="learner-search-input"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Search by learner name, ADM, or guardian..."
-              className="w-full rounded-2xl border border-stone-300 bg-stone-50 pl-10 pr-9 py-2 text-xs sm:text-sm font-semibold text-stone-900 focus:bg-white focus:border-[#6b1426] focus:outline-none"
+              className="w-full rounded-2xl border border-stone-300 dark:border-stone-700 bg-stone-50 dark:bg-stone-800 pl-10 pr-9 py-2 text-xs sm:text-sm font-semibold text-stone-900 dark:text-stone-100 focus:bg-white dark:focus:bg-stone-900 focus:border-[#6b1426] focus:outline-none"
             />
             {searchQuery && (
               <button
                 onClick={() => setSearchQuery('')}
-                className="absolute right-3 top-2.5 text-stone-400 hover:text-stone-700"
+                className="absolute right-3 top-2.5 text-stone-400 hover:text-stone-700 dark:hover:text-stone-200"
               >
                 <X className="w-4 h-4" />
               </button>
@@ -417,7 +417,7 @@ export const LearnerDirectory: React.FC<LearnerDirectoryProps> = ({
             <select
               value={selectedYear}
               onChange={(e) => setSelectedYear(e.target.value)}
-              className="w-full rounded-2xl border border-stone-300 bg-white px-3 py-2 text-xs sm:text-sm font-bold text-stone-800 focus:border-[#6b1426] focus:outline-none"
+              className="w-full rounded-2xl border border-stone-300 dark:border-stone-700 bg-white dark:bg-stone-800 px-3 py-2 text-xs sm:text-sm font-bold text-stone-800 dark:text-stone-200 focus:border-[#6b1426] focus:outline-none"
             >
               {ACADEMIC_YEARS.map((yr) => (
                 <option key={yr} value={yr}>
@@ -432,7 +432,7 @@ export const LearnerDirectory: React.FC<LearnerDirectoryProps> = ({
             <select
               value={selectedTerm}
               onChange={(e) => setSelectedTerm(e.target.value as any)}
-              className="w-full rounded-2xl border border-stone-300 bg-white px-3 py-2 text-xs sm:text-sm font-bold text-stone-800 focus:border-[#6b1426] focus:outline-none"
+              className="w-full rounded-2xl border border-stone-300 dark:border-stone-700 bg-white dark:bg-stone-800 px-3 py-2 text-xs sm:text-sm font-bold text-stone-800 dark:text-stone-200 focus:border-[#6b1426] focus:outline-none"
             >
               <option value="Term 3">Term 3 (August – November)</option>
               <option value="Term 2">Term 2 (May – August)</option>
@@ -450,9 +450,9 @@ export const LearnerDirectory: React.FC<LearnerDirectoryProps> = ({
         </div>
 
         {/* Grade & Gender Filter Tabs */}
-        <div className="flex flex-wrap items-center justify-between gap-3 pt-3 border-t border-stone-100">
+        <div className="flex flex-wrap items-center justify-between gap-3 pt-3 border-t border-stone-100 dark:border-stone-800">
           <div className="flex flex-wrap items-center gap-1.5">
-            <span className="text-[11px] font-bold text-stone-500 uppercase tracking-wider mr-1">
+            <span className="text-[11px] font-bold text-stone-500 dark:text-stone-400 uppercase tracking-wider mr-1">
               Class:
             </span>
             <button
@@ -460,7 +460,7 @@ export const LearnerDirectory: React.FC<LearnerDirectoryProps> = ({
               className={`px-3 py-1.5 rounded-xl text-xs font-extrabold transition ${
                 selectedGrade === 'all'
                   ? 'bg-[#6b1426] text-white shadow-2xs'
-                  : 'bg-stone-100 text-stone-700 hover:bg-stone-200'
+                  : 'bg-stone-100 dark:bg-stone-800 text-stone-700 dark:text-stone-300 hover:bg-stone-200 dark:hover:bg-stone-700'
               }`}
             >
               All Classes ({learners.length})
@@ -475,7 +475,7 @@ export const LearnerDirectory: React.FC<LearnerDirectoryProps> = ({
                   className={`px-3 py-1.5 rounded-xl text-xs font-extrabold transition ${
                     selectedGrade === g.id
                       ? 'bg-[#6b1426] text-white shadow-2xs'
-                      : 'bg-stone-100 text-stone-700 hover:bg-stone-200'
+                      : 'bg-stone-100 dark:bg-stone-800 text-stone-700 dark:text-stone-300 hover:bg-stone-200 dark:hover:bg-stone-700'
                   }`}
                 >
                   {g.name} ({count})
@@ -485,15 +485,15 @@ export const LearnerDirectory: React.FC<LearnerDirectoryProps> = ({
           </div>
 
           <div className="flex items-center gap-1.5">
-            <span className="text-[11px] font-bold text-stone-500 uppercase tracking-wider mr-1">
+            <span className="text-[11px] font-bold text-stone-500 dark:text-stone-400 uppercase tracking-wider mr-1">
               Gender:
             </span>
             <button
               onClick={() => setSelectedGender('all')}
               className={`px-2.5 py-1 rounded-lg text-xs font-bold transition ${
                 selectedGender === 'all'
-                  ? 'bg-stone-800 text-white'
-                  : 'bg-stone-100 text-stone-600 hover:bg-stone-200'
+                  ? 'bg-stone-800 dark:bg-stone-100 text-white dark:text-stone-900'
+                  : 'bg-stone-100 dark:bg-stone-800 text-stone-600 dark:text-stone-400 hover:bg-stone-200 dark:hover:bg-stone-700'
               }`}
             >
               All
@@ -503,7 +503,7 @@ export const LearnerDirectory: React.FC<LearnerDirectoryProps> = ({
               className={`px-2.5 py-1 rounded-lg text-xs font-bold transition ${
                 selectedGender === 'M'
                   ? 'bg-sky-700 text-white'
-                  : 'bg-stone-100 text-stone-600 hover:bg-stone-200'
+                  : 'bg-stone-100 dark:bg-stone-800 text-stone-600 dark:text-stone-400 hover:bg-stone-200 dark:hover:bg-stone-700'
               }`}
             >
               Boys
@@ -513,7 +513,7 @@ export const LearnerDirectory: React.FC<LearnerDirectoryProps> = ({
               className={`px-2.5 py-1 rounded-lg text-xs font-bold transition ${
                 selectedGender === 'F'
                   ? 'bg-rose-700 text-white'
-                  : 'bg-stone-100 text-stone-600 hover:bg-stone-200'
+                  : 'bg-stone-100 dark:bg-stone-800 text-stone-600 dark:text-stone-400 hover:bg-stone-200 dark:hover:bg-stone-700'
               }`}
             >
               Girls
@@ -523,10 +523,10 @@ export const LearnerDirectory: React.FC<LearnerDirectoryProps> = ({
       </div>
 
       {/* VIEW: OFFICIAL ROSTER LIST */}
-      <div className="bg-white rounded-3xl border border-stone-200 shadow-xs overflow-hidden">
+      <div className="bg-white dark:bg-stone-900 rounded-3xl border border-stone-200 dark:border-stone-800 shadow-xs overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs border-collapse">
-            <thead className="bg-stone-50 border-b border-stone-200 text-stone-900 font-black">
+            <thead className="bg-stone-50 dark:bg-stone-800/80 border-b border-stone-200 dark:border-stone-700 text-stone-900 dark:text-stone-100 font-black">
               <tr>
                 <th className="p-3.5 text-center w-12">#</th>
                 <th className="p-3.5 w-24 text-center font-mono">ADM NO</th>
@@ -537,57 +537,57 @@ export const LearnerDirectory: React.FC<LearnerDirectoryProps> = ({
                 <th className="p-3.5 text-right min-w-[160px]">ACTIONS</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-stone-100">
+            <tbody className="divide-y divide-stone-100 dark:divide-stone-800">
               {filteredLearners.map((lrn, idx) => (
-                <tr key={lrn.id} className="hover:bg-rose-50/40 transition group">
-                  <td className="p-3.5 text-center text-stone-400 font-bold">{idx + 1}</td>
+                <tr key={lrn.id} className="hover:bg-rose-50/40 dark:hover:bg-stone-800/50 transition group">
+                  <td className="p-3.5 text-center text-stone-400 dark:text-stone-500 font-bold">{idx + 1}</td>
                   <td className="p-3.5 text-center">
-                    <span className="font-mono font-bold text-[#6b1426] bg-rose-50 px-2 py-0.5 rounded-md border border-rose-200">
+                    <span className="font-mono font-bold text-[#6b1426] dark:text-rose-400 bg-rose-50 dark:bg-rose-950 px-2 py-0.5 rounded-md border border-rose-200 dark:border-rose-900">
                       {lrn.admNo}
                     </span>
                   </td>
                   <td className="p-3.5">
                     <div className="flex items-center gap-2.5">
-                      <div className="h-8 w-8 rounded-xl bg-stone-100 text-[#6b1426] font-black text-xs flex items-center justify-center shrink-0 border border-stone-200 group-hover:bg-[#6b1426] group-hover:text-white transition">
+                      <div className="h-8 w-8 rounded-xl bg-stone-100 dark:bg-stone-800 text-[#6b1426] dark:text-rose-400 font-black text-xs flex items-center justify-center shrink-0 border border-stone-200 dark:border-stone-700 group-hover:bg-[#6b1426] group-hover:text-white transition">
                         {lrn.firstName.charAt(0)}{lrn.lastName.charAt(0)}
                       </div>
                       <div>
-                        <span className="font-black text-stone-900 text-sm block group-hover:text-[#6b1426] transition">
+                        <span className="font-black text-stone-900 dark:text-stone-100 text-sm block group-hover:text-[#6b1426] dark:group-hover:text-rose-400 transition">
                           {lrn.fullName}
                         </span>
-                        <span className="text-[10px] text-stone-500 font-mono">
+                        <span className="text-[10px] text-stone-500 dark:text-stone-400 font-mono">
                           {lrn.upiNumber || `UPI: Pending`}
                         </span>
                       </div>
                     </div>
                   </td>
                   <td className="p-3.5 text-center">
-                    <span className="bg-sky-50 text-sky-900 font-black px-2.5 py-1 rounded-xl text-[11px] border border-sky-200">
+                    <span className="bg-sky-50 dark:bg-sky-950/60 text-sky-900 dark:text-sky-300 font-black px-2.5 py-1 rounded-xl text-[11px] border border-sky-200 dark:border-sky-800">
                       {lrn.grade}
                     </span>
                   </td>
                   <td className="p-3.5 text-center">
                     <span className={`text-[11px] font-bold px-2 py-0.5 rounded-md ${
-                      lrn.gender === 'M' ? 'text-sky-800 bg-sky-50' : 'text-rose-800 bg-rose-50'
+                      lrn.gender === 'M' ? 'text-sky-800 dark:text-sky-300 bg-sky-50 dark:bg-sky-950/60' : 'text-rose-800 dark:text-rose-300 bg-rose-50 dark:bg-rose-950/60'
                     }`}>
                       {lrn.gender === 'M' ? 'Boy' : 'Girl'}
                     </span>
                   </td>
                   <td className="p-3.5">
                     <div className="space-y-0.5">
-                      <span className="font-bold text-stone-800 block text-xs">
+                      <span className="font-bold text-stone-800 dark:text-stone-200 block text-xs">
                         {lrn.guardianName || 'Parent / Guardian'}
                       </span>
                       {lrn.guardianPhone ? (
                         <a
                           href={`tel:${lrn.guardianPhone}`}
-                          className="font-mono text-[11px] text-sky-700 hover:underline flex items-center gap-1 font-semibold"
+                          className="font-mono text-[11px] text-sky-700 dark:text-sky-400 hover:underline flex items-center gap-1 font-semibold"
                         >
-                          <Phone className="w-3 h-3 text-sky-600" />
+                          <Phone className="w-3 h-3 text-sky-600 dark:text-sky-400" />
                           <span>{lrn.guardianPhone}</span>
                         </a>
                       ) : (
-                        <span className="text-stone-400 text-[11px]">No contact registered</span>
+                        <span className="text-stone-400 dark:text-stone-500 text-[11px]">No contact registered</span>
                       )}
                     </div>
                   </td>
@@ -595,7 +595,7 @@ export const LearnerDirectory: React.FC<LearnerDirectoryProps> = ({
                     <div className="flex items-center justify-end gap-1.5">
                       <button
                         onClick={() => onSelectLearner(lrn)}
-                        className="px-2.5 py-1.5 rounded-xl bg-stone-100 hover:bg-[#6b1426] hover:text-white transition text-stone-700 font-bold text-xs inline-flex items-center gap-1"
+                        className="px-2.5 py-1.5 rounded-xl bg-stone-100 dark:bg-stone-800 hover:bg-[#6b1426] hover:text-white dark:hover:bg-rose-700 transition text-stone-700 dark:text-stone-300 font-bold text-xs inline-flex items-center gap-1"
                         title="View Learner Profile & History"
                       >
                         <Eye className="w-3.5 h-3.5" />
@@ -603,7 +603,7 @@ export const LearnerDirectory: React.FC<LearnerDirectoryProps> = ({
                       </button>
                       <button
                         onClick={onNavigateToMarks}
-                        className="px-2.5 py-1.5 rounded-xl bg-rose-50 hover:bg-[#6b1426] hover:text-white text-[#6b1426] font-bold text-xs inline-flex items-center gap-1 border border-rose-200 transition"
+                        className="px-2.5 py-1.5 rounded-xl bg-rose-50 dark:bg-rose-950/50 hover:bg-[#6b1426] hover:text-white text-[#6b1426] dark:text-rose-300 font-bold text-xs inline-flex items-center gap-1 border border-rose-200 dark:border-rose-900 transition"
                         title="Enter Marks for this Class"
                       >
                         <BookOpen className="w-3.5 h-3.5" />
@@ -619,10 +619,10 @@ export const LearnerDirectory: React.FC<LearnerDirectoryProps> = ({
       </div>
 
       {filteredLearners.length === 0 && (
-        <div className="bg-white rounded-3xl border border-stone-200 p-12 text-center text-stone-500 space-y-2">
+        <div className="bg-white dark:bg-stone-900 rounded-3xl border border-stone-200 dark:border-stone-800 p-12 text-center text-stone-500 dark:text-stone-400 space-y-2">
           <AlertCircle className="w-8 h-8 text-stone-400 mx-auto" />
-          <h3 className="font-bold text-stone-800 text-sm">No learners found</h3>
-          <p className="text-xs text-stone-500">
+          <h3 className="font-bold text-stone-800 dark:text-stone-200 text-sm">No learners found</h3>
+          <p className="text-xs text-stone-500 dark:text-stone-400">
             No students match your selected grade, gender, or search query.
           </p>
           <button
@@ -631,7 +631,7 @@ export const LearnerDirectory: React.FC<LearnerDirectoryProps> = ({
               setSelectedGender('all');
               setSearchQuery('');
             }}
-            className="text-xs font-bold text-[#6b1426] underline pt-2"
+            className="text-xs font-bold text-[#6b1426] dark:text-rose-400 underline pt-2"
           >
             Reset all filters
           </button>
@@ -641,15 +641,15 @@ export const LearnerDirectory: React.FC<LearnerDirectoryProps> = ({
       {/* ADD LEARNER MODAL */}
       {showAddModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4 backdrop-blur-xs">
-          <div className="w-full max-w-lg rounded-3xl bg-white p-6 shadow-2xl border border-stone-200">
-            <div className="flex items-center justify-between pb-3 border-b border-stone-100 mb-4">
-              <h3 className="font-black text-stone-900 text-base flex items-center gap-2">
-                <Users className="w-5 h-5 text-[#6b1426]" />
+          <div className="w-full max-w-lg rounded-3xl bg-white dark:bg-stone-900 p-6 shadow-2xl border border-stone-200 dark:border-stone-800">
+            <div className="flex items-center justify-between pb-3 border-b border-stone-100 dark:border-stone-800 mb-4">
+              <h3 className="font-black text-stone-900 dark:text-stone-100 text-base flex items-center gap-2">
+                <Users className="w-5 h-5 text-[#6b1426] dark:text-rose-400" />
                 <span>Enroll New Learner</span>
               </h3>
               <button
                 onClick={() => setShowAddModal(false)}
-                className="text-stone-400 hover:text-stone-700"
+                className="text-stone-400 hover:text-stone-700 dark:hover:text-stone-200"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -658,23 +658,23 @@ export const LearnerDirectory: React.FC<LearnerDirectoryProps> = ({
             <form onSubmit={handleCreateLearner} className="space-y-3.5 text-xs">
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="block font-bold text-stone-700 mb-1">Admission Number *</label>
+                  <label className="block font-bold text-stone-700 dark:text-stone-300 mb-1">Admission Number *</label>
                   <input
                     type="text"
                     placeholder="e.g. 1024"
                     value={newAdm}
                     onChange={(e) => setNewAdm(e.target.value)}
-                    className="w-full rounded-xl border border-stone-300 p-2.5 text-stone-900 font-mono font-bold focus:border-[#6b1426] focus:outline-none"
+                    className="w-full rounded-xl border border-stone-300 dark:border-stone-700 dark:bg-stone-800 p-2.5 text-stone-900 dark:text-stone-100 font-mono font-bold focus:border-[#6b1426] focus:outline-none"
                     required
                   />
                 </div>
 
                 <div>
-                  <label className="block font-bold text-stone-700 mb-1">Gender *</label>
+                  <label className="block font-bold text-stone-700 dark:text-stone-300 mb-1">Gender *</label>
                   <select
                     value={newGender}
                     onChange={(e) => setNewGender(e.target.value as any)}
-                    className="w-full rounded-xl border border-stone-300 p-2.5 text-stone-800 font-semibold focus:border-[#6b1426]"
+                    className="w-full rounded-xl border border-stone-300 dark:border-stone-700 dark:bg-stone-800 p-2.5 text-stone-800 dark:text-stone-200 font-semibold focus:border-[#6b1426]"
                   >
                     <option value="M">Male (Boy)</option>
                     <option value="F">Female (Girl)</option>
@@ -684,24 +684,24 @@ export const LearnerDirectory: React.FC<LearnerDirectoryProps> = ({
 
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="block font-bold text-stone-700 mb-1">First Name *</label>
+                  <label className="block font-bold text-stone-700 dark:text-stone-300 mb-1">First Name *</label>
                   <input
                     type="text"
                     placeholder="e.g. Victor"
                     value={newFirstName}
                     onChange={(e) => setNewFirstName(e.target.value)}
-                    className="w-full rounded-xl border border-stone-300 p-2.5 text-stone-900 font-semibold focus:border-[#6b1426] focus:outline-none"
+                    className="w-full rounded-xl border border-stone-300 dark:border-stone-700 dark:bg-stone-800 p-2.5 text-stone-900 dark:text-stone-100 font-semibold focus:border-[#6b1426] focus:outline-none"
                     required
                   />
                 </div>
                 <div>
-                  <label className="block font-bold text-stone-700 mb-1">Last Name *</label>
+                  <label className="block font-bold text-stone-700 dark:text-stone-300 mb-1">Last Name *</label>
                   <input
                     type="text"
                     placeholder="e.g. Rotich"
                     value={newLastName}
                     onChange={(e) => setNewLastName(e.target.value)}
-                    className="w-full rounded-xl border border-stone-300 p-2.5 text-stone-900 font-semibold focus:border-[#6b1426] focus:outline-none"
+                    className="w-full rounded-xl border border-stone-300 dark:border-stone-700 dark:bg-stone-800 p-2.5 text-stone-900 dark:text-stone-100 font-semibold focus:border-[#6b1426] focus:outline-none"
                     required
                   />
                 </div>
@@ -709,11 +709,11 @@ export const LearnerDirectory: React.FC<LearnerDirectoryProps> = ({
 
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="block font-bold text-stone-700 mb-1">Assigned Grade *</label>
+                  <label className="block font-bold text-stone-700 dark:text-stone-300 mb-1">Assigned Grade *</label>
                   <select
                     value={newGrade}
                     onChange={(e) => setNewGrade(e.target.value)}
-                    className="w-full rounded-xl border border-stone-300 p-2.5 text-stone-800 font-semibold focus:border-[#6b1426]"
+                    className="w-full rounded-xl border border-stone-300 dark:border-stone-700 dark:bg-stone-800 p-2.5 text-stone-800 dark:text-stone-200 font-semibold focus:border-[#6b1426]"
                   >
                     <option value="Grade 7">Grade 7</option>
                     <option value="Grade 8">Grade 8</option>
@@ -722,40 +722,40 @@ export const LearnerDirectory: React.FC<LearnerDirectoryProps> = ({
                 </div>
 
                 <div>
-                  <label className="block font-bold text-stone-700 mb-1">Academic Year</label>
-                  <div className="rounded-xl border border-stone-200 bg-stone-50 p-2.5 font-bold text-stone-700">
+                  <label className="block font-bold text-stone-700 dark:text-stone-300 mb-1">Academic Year</label>
+                  <div className="rounded-xl border border-stone-200 dark:border-stone-700 bg-stone-50 dark:bg-stone-800 p-2.5 font-bold text-stone-700 dark:text-stone-300">
                     {selectedYear}
                   </div>
                 </div>
               </div>
 
-              <div className="pt-2 border-t border-stone-100">
-                <label className="block font-bold text-stone-700 mb-1">Parent / Guardian Name</label>
+              <div className="pt-2 border-t border-stone-100 dark:border-stone-800">
+                <label className="block font-bold text-stone-700 dark:text-stone-300 mb-1">Parent / Guardian Name</label>
                 <input
                   type="text"
                   placeholder="e.g. Mrs. Mary Rotich"
                   value={newGuardianName}
                   onChange={(e) => setNewGuardianName(e.target.value)}
-                  className="w-full rounded-xl border border-stone-300 p-2.5 text-stone-900 font-semibold focus:border-[#6b1426]"
+                  className="w-full rounded-xl border border-stone-300 dark:border-stone-700 dark:bg-stone-800 p-2.5 text-stone-900 dark:text-stone-100 font-semibold focus:border-[#6b1426]"
                 />
               </div>
 
               <div>
-                <label className="block font-bold text-stone-700 mb-1">Parent Mobile Phone (SMS / WhatsApp)</label>
+                <label className="block font-bold text-stone-700 dark:text-stone-300 mb-1">Parent Mobile Phone (SMS / WhatsApp)</label>
                 <input
                   type="tel"
                   placeholder="+254 712 345 678"
                   value={newGuardianPhone}
                   onChange={(e) => setNewGuardianPhone(e.target.value)}
-                  className="w-full rounded-xl border border-stone-300 p-2.5 text-stone-900 font-mono font-semibold focus:border-[#6b1426]"
+                  className="w-full rounded-xl border border-stone-300 dark:border-stone-700 dark:bg-stone-800 p-2.5 text-stone-900 dark:text-stone-100 font-mono font-semibold focus:border-[#6b1426]"
                 />
               </div>
 
-              <div className="pt-4 border-t border-stone-100 flex justify-end gap-2">
+              <div className="pt-4 border-t border-stone-100 dark:border-stone-800 flex justify-end gap-2">
                 <button
                   type="button"
                   onClick={() => setShowAddModal(false)}
-                  className="px-4 py-2 rounded-xl text-stone-600 hover:bg-stone-100 font-semibold text-xs"
+                  className="px-4 py-2 rounded-xl text-stone-600 dark:text-stone-300 hover:bg-stone-100 dark:hover:bg-stone-800 font-semibold text-xs"
                 >
                   Cancel
                 </button>
@@ -774,30 +774,30 @@ export const LearnerDirectory: React.FC<LearnerDirectoryProps> = ({
       {/* PROMOTE LEARNERS MODAL */}
       {showPromoteModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4 backdrop-blur-xs">
-          <div className="w-full max-w-lg rounded-3xl bg-white p-6 shadow-2xl border border-stone-200 space-y-4">
-            <div className="flex items-center justify-between pb-3 border-b border-stone-100">
-              <h3 className="font-black text-stone-900 text-base flex items-center gap-2">
-                <TrendingUp className="w-5 h-5 text-amber-600" />
+          <div className="w-full max-w-lg rounded-3xl bg-white dark:bg-stone-900 p-6 shadow-2xl border border-stone-200 dark:border-stone-800 space-y-4">
+            <div className="flex items-center justify-between pb-3 border-b border-stone-100 dark:border-stone-800">
+              <h3 className="font-black text-stone-900 dark:text-stone-100 text-base flex items-center gap-2">
+                <TrendingUp className="w-5 h-5 text-amber-600 dark:text-amber-400" />
                 <span>Academic Year Learner Promotion</span>
               </h3>
               <button
                 onClick={() => setShowPromoteModal(false)}
-                className="text-stone-400 hover:text-stone-700"
+                className="text-stone-400 hover:text-stone-700 dark:hover:text-stone-200"
               >
                 <X className="w-5 h-5" />
               </button>
             </div>
 
-            <p className="text-xs text-stone-600 leading-relaxed">
+            <p className="text-xs text-stone-600 dark:text-stone-400 leading-relaxed">
               Transition learners to the next academic level at the end of the school year. Grade 7 advances to Grade 8, Grade 8 advances to Grade 9, and Grade 9 advances to Graduated Alumni.
             </p>
 
-            <div className="bg-amber-50 border border-amber-200 p-3.5 rounded-2xl text-xs text-amber-950 space-y-2">
-              <div className="font-bold flex items-center gap-1.5 text-amber-900">
-                <Sparkles className="w-4 h-4 text-amber-600" />
+            <div className="bg-amber-50 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-900 p-3.5 rounded-2xl text-xs text-amber-950 dark:text-amber-200 space-y-2">
+              <div className="font-bold flex items-center gap-1.5 text-amber-900 dark:text-amber-300">
+                <Sparkles className="w-4 h-4 text-amber-600 dark:text-amber-400" />
                 <span>Automatic Grade Transition Standard:</span>
               </div>
-              <ul className="list-disc list-inside space-y-1 text-[11px] text-amber-900 font-medium">
+              <ul className="list-disc list-inside space-y-1 text-[11px] text-amber-900 dark:text-amber-300 font-medium">
                 <li>Grade 7 ➔ Grade 8</li>
                 <li>Grade 8 ➔ Grade 9</li>
                 <li>Grade 9 ➔ Graduated / JSS CBC Alumni</li>
@@ -806,7 +806,7 @@ export const LearnerDirectory: React.FC<LearnerDirectoryProps> = ({
 
             <div className="grid grid-cols-2 gap-3 text-xs">
               <div>
-                <label className="block font-bold text-stone-700 mb-1">Current Class (From)</label>
+                <label className="block font-bold text-stone-700 dark:text-stone-300 mb-1">Current Class (From)</label>
                 <select
                   value={promotionSourceGrade}
                   onChange={(e) => {
@@ -816,7 +816,7 @@ export const LearnerDirectory: React.FC<LearnerDirectoryProps> = ({
                     else if (src === 'Grade 8') setPromotionTargetGrade('Grade 9');
                     else if (src === 'Grade 9') setPromotionTargetGrade('Graduated');
                   }}
-                  className="w-full rounded-xl border border-stone-300 p-2.5 text-stone-800 font-bold focus:border-[#6b1426]"
+                  className="w-full rounded-xl border border-stone-300 dark:border-stone-700 dark:bg-stone-800 p-2.5 text-stone-800 dark:text-stone-200 font-bold focus:border-[#6b1426]"
                 >
                   <option value="Grade 7">Grade 7</option>
                   <option value="Grade 8">Grade 8</option>
@@ -825,11 +825,11 @@ export const LearnerDirectory: React.FC<LearnerDirectoryProps> = ({
               </div>
 
               <div>
-                <label className="block font-bold text-stone-700 mb-1">Promote To (Target)</label>
+                <label className="block font-bold text-stone-700 dark:text-stone-300 mb-1">Promote To (Target)</label>
                 <select
                   value={promotionTargetGrade}
                   onChange={(e) => setPromotionTargetGrade(e.target.value)}
-                  className="w-full rounded-xl border border-stone-300 p-2.5 text-stone-800 font-bold focus:border-[#6b1426]"
+                  className="w-full rounded-xl border border-stone-300 dark:border-stone-700 dark:bg-stone-800 p-2.5 text-stone-800 dark:text-stone-200 font-bold focus:border-[#6b1426]"
                 >
                   <option value="Grade 8">Grade 8</option>
                   <option value="Grade 9">Grade 9</option>
@@ -839,11 +839,11 @@ export const LearnerDirectory: React.FC<LearnerDirectoryProps> = ({
             </div>
 
             <div className="text-xs">
-              <label className="block font-bold text-stone-700 mb-1">Target Academic Year</label>
+              <label className="block font-bold text-stone-700 dark:text-stone-300 mb-1">Target Academic Year</label>
               <select
                 value={promotionTargetYear}
                 onChange={(e) => setPromotionTargetYear(e.target.value)}
-                className="w-full rounded-xl border border-stone-300 p-2.5 text-stone-800 font-bold focus:border-[#6b1426]"
+                className="w-full rounded-xl border border-stone-300 dark:border-stone-700 dark:bg-stone-800 p-2.5 text-stone-800 dark:text-stone-200 font-bold focus:border-[#6b1426]"
               >
                 {ACADEMIC_YEARS.map((yr) => (
                   <option key={yr} value={yr}>
@@ -855,7 +855,7 @@ export const LearnerDirectory: React.FC<LearnerDirectoryProps> = ({
 
             {/* Scope */}
             <div className="pt-2 text-xs">
-              <label className="flex items-center gap-2 font-bold text-stone-800 cursor-pointer">
+              <label className="flex items-center gap-2 font-bold text-stone-800 dark:text-stone-200 cursor-pointer">
                 <input
                   type="checkbox"
                   checked={isPromotingAll}
@@ -868,11 +868,11 @@ export const LearnerDirectory: React.FC<LearnerDirectoryProps> = ({
               </label>
             </div>
 
-            <div className="pt-3 border-t border-stone-100 flex items-center justify-end gap-2">
+            <div className="pt-3 border-t border-stone-100 dark:border-stone-800 flex items-center justify-end gap-2">
               <button
                 type="button"
                 onClick={() => setShowPromoteModal(false)}
-                className="px-4 py-2 rounded-xl text-stone-600 hover:bg-stone-100 font-semibold text-xs"
+                className="px-4 py-2 rounded-xl text-stone-600 dark:text-stone-300 hover:bg-stone-100 dark:hover:bg-stone-800 font-semibold text-xs"
               >
                 Cancel
               </button>

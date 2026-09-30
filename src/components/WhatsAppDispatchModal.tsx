@@ -227,7 +227,7 @@ export const WhatsAppDispatchModal: React.FC<WhatsAppDispatchModalProps> = ({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/65 backdrop-blur-xs p-3 sm:p-4 overflow-y-auto">
-      <div className="relative w-full max-w-2xl bg-white rounded-3xl shadow-2xl border border-stone-200 overflow-hidden flex flex-col my-auto animate-in fade-in zoom-in-95">
+      <div className="relative w-full max-w-2xl bg-white dark:bg-stone-900 rounded-3xl shadow-2xl border border-stone-200 dark:border-stone-800 overflow-hidden flex flex-col my-auto animate-in fade-in zoom-in-95">
         {/* WhatsApp Brand Header */}
         <div className="bg-[#075E54] text-white p-4 sm:p-5 flex items-center justify-between">
           <div className="flex items-center gap-3">
@@ -260,26 +260,26 @@ export const WhatsAppDispatchModal: React.FC<WhatsAppDispatchModalProps> = ({
         {/* Content Body */}
         <div className="p-4 sm:p-6 space-y-4 overflow-y-auto max-h-[78vh]">
           {/* Learner Card Summary */}
-          <div className="p-3 bg-stone-50 rounded-2xl border border-stone-200 flex flex-wrap items-center justify-between gap-3 text-xs">
+          <div className="p-3 bg-stone-50 dark:bg-stone-800/60 rounded-2xl border border-stone-200 dark:border-stone-700 flex flex-wrap items-center justify-between gap-3 text-xs">
             <div className="flex items-center gap-2.5">
               <div className="w-9 h-9 rounded-xl bg-[#6b1426] text-white font-black flex items-center justify-center text-sm shadow-2xs">
                 {learner.fullName.charAt(0)}
               </div>
               <div>
-                <strong className="text-stone-900 block font-black text-sm">
+                <strong className="text-stone-900 dark:text-stone-100 block font-black text-sm">
                   {learner.fullName}
                 </strong>
-                <span className="text-stone-500 text-[11px]">
-                  ADM: <strong className="font-mono text-stone-700">{learner.admNo}</strong> • Class: <strong className="text-stone-700">{learner.grade}</strong>
+                <span className="text-stone-500 dark:text-stone-400 text-[11px]">
+                  ADM: <strong className="font-mono text-stone-700 dark:text-stone-300">{learner.admNo}</strong> • Class: <strong className="text-stone-700 dark:text-stone-300">{learner.grade}</strong>
                 </span>
               </div>
             </div>
 
             <div className="flex items-center gap-2 font-bold text-xs">
-              <span className="bg-rose-50 text-[#6b1426] border border-rose-200 px-2.5 py-1 rounded-lg">
+              <span className="bg-rose-50 dark:bg-rose-950/40 text-[#6b1426] dark:text-rose-300 border border-rose-200 dark:border-rose-800 px-2.5 py-1 rounded-lg">
                 Score: {reportDetails?.totalPoints}/72 pts
               </span>
-              <span className="bg-sky-50 text-sky-900 border border-sky-200 px-2.5 py-1 rounded-lg">
+              <span className="bg-sky-50 dark:bg-sky-950/40 text-sky-900 dark:text-sky-300 border border-sky-200 dark:border-sky-800 px-2.5 py-1 rounded-lg">
                 {reportDetails?.overallRubric}
               </span>
             </div>
@@ -287,8 +287,8 @@ export const WhatsAppDispatchModal: React.FC<WhatsAppDispatchModalProps> = ({
 
           {/* Number Selector / Input */}
           <div className="space-y-1.5">
-            <label className="block text-xs font-bold text-stone-700 uppercase tracking-wider">
-              Choose or Enter Parent WhatsApp Phone Number <span className="text-rose-600">*</span>
+            <label className="block text-xs font-bold text-stone-700 dark:text-stone-300 uppercase tracking-wider">
+              Choose or Enter Parent WhatsApp Phone Number <span className="text-rose-600 dark:text-rose-400">*</span>
             </label>
 
             <div className="relative">
@@ -301,10 +301,10 @@ export const WhatsAppDispatchModal: React.FC<WhatsAppDispatchModalProps> = ({
                   setValidationError(null);
                 }}
                 placeholder="e.g. +254 722 123 456 or 0722123456"
-                className="w-full pl-9 pr-24 py-2.5 rounded-xl border border-stone-300 font-mono text-xs sm:text-sm font-bold focus:border-[#25D366] focus:outline-none focus:ring-1 focus:ring-[#25D366]"
+                className="w-full pl-9 pr-24 py-2.5 rounded-xl border border-stone-300 dark:border-stone-700 bg-white dark:bg-stone-800 text-stone-900 dark:text-stone-100 font-mono text-xs sm:text-sm font-bold focus:border-[#25D366] focus:outline-none focus:ring-1 focus:ring-[#25D366]"
               />
               <div className="absolute right-2 top-2">
-                <span className="text-[11px] font-mono font-bold bg-stone-100 text-stone-600 px-2 py-1 rounded-md border border-stone-200">
+                <span className="text-[11px] font-mono font-bold bg-stone-100 dark:bg-stone-700 text-stone-600 dark:text-stone-300 px-2 py-1 rounded-md border border-stone-200 dark:border-stone-600">
                   {formattedCleanPhone ? `+${formattedCleanPhone}` : 'No number'}
                 </span>
               </div>
@@ -312,15 +312,15 @@ export const WhatsAppDispatchModal: React.FC<WhatsAppDispatchModalProps> = ({
 
             {/* Quick Chips for Phone Numbers */}
             <div className="flex flex-wrap items-center gap-1.5 text-[11px] pt-1">
-              <span className="text-stone-500 font-medium">Quick Pick:</span>
+              <span className="text-stone-500 dark:text-stone-400 font-medium">Quick Pick:</span>
               {learner.guardianPhone && (
                 <button
                   type="button"
                   onClick={() => setPhoneNumber(learner.guardianPhone || '')}
                   className={`px-2 py-0.5 rounded-lg border font-mono font-bold transition ${
                     phoneNumber === learner.guardianPhone
-                      ? 'bg-emerald-50 text-emerald-900 border-emerald-300'
-                      : 'bg-white text-stone-700 border-stone-200 hover:bg-stone-50'
+                      ? 'bg-emerald-50 dark:bg-emerald-950/40 text-emerald-900 dark:text-emerald-300 border-emerald-300 dark:border-emerald-700'
+                      : 'bg-white dark:bg-stone-800 text-stone-700 dark:text-stone-300 border-stone-200 dark:border-stone-700 hover:bg-stone-50 dark:hover:bg-stone-700'
                   }`}
                 >
                   Guardian: {learner.guardianPhone}
@@ -329,7 +329,7 @@ export const WhatsAppDispatchModal: React.FC<WhatsAppDispatchModalProps> = ({
               <button
                 type="button"
                 onClick={() => setPhoneNumber('+254 712 000 000')}
-                className="px-2 py-0.5 rounded-lg border border-stone-200 bg-white text-stone-600 hover:bg-stone-50 font-mono"
+                className="px-2 py-0.5 rounded-lg border border-stone-200 dark:border-stone-700 bg-white dark:bg-stone-800 text-stone-600 dark:text-stone-300 hover:bg-stone-50 dark:hover:bg-stone-700 font-mono"
               >
                 Alternative Number
               </button>
@@ -338,7 +338,7 @@ export const WhatsAppDispatchModal: React.FC<WhatsAppDispatchModalProps> = ({
 
           {/* Parent Name input */}
           <div className="space-y-1">
-            <label className="block text-xs font-bold text-stone-700 uppercase tracking-wider">
+            <label className="block text-xs font-bold text-stone-700 dark:text-stone-300 uppercase tracking-wider">
               Parent / Guardian Name
             </label>
             <div className="relative">
@@ -348,7 +348,7 @@ export const WhatsAppDispatchModal: React.FC<WhatsAppDispatchModalProps> = ({
                 value={parentName}
                 onChange={(e) => setParentName(e.target.value)}
                 placeholder="Parent or Guardian Name"
-                className="w-full pl-9 pr-3 py-2 rounded-xl border border-stone-300 text-xs font-medium focus:border-[#25D366] focus:outline-none"
+                className="w-full pl-9 pr-3 py-2 rounded-xl border border-stone-300 dark:border-stone-700 bg-white dark:bg-stone-800 text-stone-900 dark:text-stone-100 text-xs font-medium focus:border-[#25D366] focus:outline-none"
               />
             </div>
           </div>
@@ -356,14 +356,14 @@ export const WhatsAppDispatchModal: React.FC<WhatsAppDispatchModalProps> = ({
           {/* Message Preview & Editor */}
           <div className="space-y-1.5">
             <div className="flex items-center justify-between">
-              <label className="block text-xs font-bold text-stone-700 uppercase tracking-wider">
+              <label className="block text-xs font-bold text-stone-700 dark:text-stone-300 uppercase tracking-wider">
                 WhatsApp Report Card Preview (Editable)
               </label>
               <div className="flex items-center gap-1.5">
                 <button
                   type="button"
                   onClick={handleResetToDefault}
-                  className="text-[11px] font-bold text-stone-600 hover:text-stone-900 flex items-center gap-1 px-2 py-0.5 rounded hover:bg-stone-100 transition"
+                  className="text-[11px] font-bold text-stone-600 dark:text-stone-400 hover:text-stone-900 dark:hover:text-stone-100 flex items-center gap-1 px-2 py-0.5 rounded hover:bg-stone-100 dark:hover:bg-stone-800 transition"
                   title="Reset to system calculated values"
                 >
                   <RotateCcw className="w-3 h-3" />
@@ -372,7 +372,7 @@ export const WhatsAppDispatchModal: React.FC<WhatsAppDispatchModalProps> = ({
                 <button
                   type="button"
                   onClick={handleCopyMessage}
-                  className="text-[11px] font-bold text-emerald-700 hover:text-emerald-800 flex items-center gap-1 px-2 py-0.5 rounded hover:bg-emerald-50 transition"
+                  className="text-[11px] font-bold text-emerald-700 dark:text-emerald-400 hover:text-emerald-800 dark:hover:text-emerald-300 flex items-center gap-1 px-2 py-0.5 rounded hover:bg-emerald-50 dark:hover:bg-emerald-950/40 transition"
                 >
                   {copied ? (
                     <>
@@ -394,27 +394,27 @@ export const WhatsAppDispatchModal: React.FC<WhatsAppDispatchModalProps> = ({
                 rows={10}
                 value={customMessage}
                 onChange={(e) => setCustomMessage(e.target.value)}
-                className="w-full p-3 rounded-2xl border border-stone-300 font-mono text-xs leading-relaxed focus:border-[#25D366] focus:outline-none focus:ring-1 focus:ring-[#25D366] bg-[#fcfdfd] text-stone-900"
+                className="w-full p-3 rounded-2xl border border-stone-300 dark:border-stone-700 font-mono text-xs leading-relaxed focus:border-[#25D366] focus:outline-none focus:ring-1 focus:ring-[#25D366] bg-[#fcfdfd] dark:bg-stone-950 text-stone-900 dark:text-stone-100"
               />
             </div>
-            <p className="text-[10px] text-stone-500 flex items-center gap-1">
-              <span>Tip: Bolding with</span> <code className="bg-stone-100 px-1 py-0.5 rounded text-[#075E54] font-bold">*text*</code> <span>will show up styled in WhatsApp.</span>
+            <p className="text-[10px] text-stone-500 dark:text-stone-400 flex items-center gap-1">
+              <span>Tip: Bolding with</span> <code className="bg-stone-100 dark:bg-stone-800 px-1 py-0.5 rounded text-[#075E54] dark:text-emerald-400 font-bold">*text*</code> <span>will show up styled in WhatsApp.</span>
             </p>
           </div>
 
           {validationError && (
-            <div className="p-3 rounded-xl bg-rose-50 border border-rose-200 text-xs text-rose-800 font-semibold flex items-center gap-2">
-              <AlertCircle className="w-4 h-4 shrink-0 text-rose-600" />
+            <div className="p-3 rounded-xl bg-rose-50 dark:bg-rose-950/40 border border-rose-200 dark:border-rose-800 text-xs text-rose-800 dark:text-rose-300 font-semibold flex items-center gap-2">
+              <AlertCircle className="w-4 h-4 shrink-0 text-rose-600 dark:text-rose-400" />
               <span>{validationError}</span>
             </div>
           )}
         </div>
 
         {/* Action Footer */}
-        <div className="p-4 bg-stone-50 border-t border-stone-200 flex flex-col sm:flex-row items-center justify-between gap-3">
-          <div className="text-xs text-stone-600 text-center sm:text-left">
+        <div className="p-4 bg-stone-50 dark:bg-stone-950 border-t border-stone-200 dark:border-stone-800 flex flex-col sm:flex-row items-center justify-between gap-3">
+          <div className="text-xs text-stone-600 dark:text-stone-400 text-center sm:text-left">
             <span>Recipient: </span>
-            <strong className="font-mono text-stone-900">
+            <strong className="font-mono text-stone-900 dark:text-stone-100">
               {formattedCleanPhone ? `+${formattedCleanPhone}` : 'Select valid number'}
             </strong>
           </div>
@@ -423,7 +423,7 @@ export const WhatsAppDispatchModal: React.FC<WhatsAppDispatchModalProps> = ({
             <button
               type="button"
               onClick={onClose}
-              className="flex-1 sm:flex-none px-4 py-2.5 rounded-xl border border-stone-300 hover:bg-stone-100 text-stone-700 text-xs font-bold transition"
+              className="flex-1 sm:flex-none px-4 py-2.5 rounded-xl border border-stone-300 dark:border-stone-700 hover:bg-stone-100 dark:hover:bg-stone-800 text-stone-700 dark:text-stone-300 text-xs font-bold transition"
             >
               Cancel
             </button>

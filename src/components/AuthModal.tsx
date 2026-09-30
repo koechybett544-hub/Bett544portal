@@ -25,6 +25,7 @@ import {
   Fingerprint,
   KeyRound,
   ShieldCheck,
+  MessageSquare,
 } from 'lucide-react';
 
 interface AuthModalProps {
@@ -206,16 +207,11 @@ export const AuthModal: React.FC<AuthModalProps> = ({
       }).catch((e) => console.log('Gmail dispatch status:', e));
     }
 
-    // 3. Trigger Real-Time Incoming Notification Alert
-    setRealtimeNotification({
-      code: generated,
-      destination,
-      type: type === 'phone' ? 'sms' : 'email',
-      time: 'Just Now',
-    });
+    // 3. Dispatch to device SMS inbox (without popping code inside the app)
+    setRealtimeNotification(null);
 
     setStep('verify');
-    onShowSuccessToast(`6-Digit Verification Code sent in real time to ${destination}`);
+    onShowSuccessToast(`6-Digit Verification Code sent to phone messages inbox at ${destination}`);
   };
 
   // ----------------------------------------------------
@@ -632,12 +628,12 @@ export const AuthModal: React.FC<AuthModalProps> = ({
 
   return (
     <div className="fixed inset-0 z-50 bg-black/65 backdrop-blur-xs flex items-center justify-center p-3 sm:p-4 overflow-y-auto">
-      <div className="bg-white rounded-3xl max-w-lg w-full p-5 sm:p-7 shadow-2xl space-y-4 border border-stone-200 relative overflow-hidden my-auto animate-in fade-in zoom-in-95">
+      <div className="bg-white dark:bg-stone-900 rounded-3xl max-w-lg w-full p-5 sm:p-7 shadow-2xl space-y-4 border border-stone-200 dark:border-stone-800 relative overflow-hidden my-auto animate-in fade-in zoom-in-95">
         {/* Close Button */}
         {canClose && (
           <button
             onClick={onClose}
-            className="absolute top-4 right-4 p-2 text-stone-400 hover:text-stone-700 rounded-full hover:bg-stone-100 transition"
+            className="absolute top-4 right-4 p-2 text-stone-400 dark:text-stone-500 hover:text-stone-700 dark:hover:text-stone-200 rounded-full hover:bg-stone-100 dark:hover:bg-stone-800 transition"
           >
             <X className="w-5 h-5" />
           </button>
@@ -645,11 +641,11 @@ export const AuthModal: React.FC<AuthModalProps> = ({
 
         {/* New Device Access Notice */}
         {!canClose && (
-          <div className="p-3.5 bg-rose-50 border border-rose-200 rounded-2xl flex items-start gap-2.5 text-xs text-[#6b1426]">
-            <ShieldCheck className="w-5 h-5 shrink-0 text-[#6b1426] mt-0.5" />
+          <div className="p-3.5 bg-rose-50 dark:bg-rose-950/40 border border-rose-200 dark:border-rose-900 rounded-2xl flex items-start gap-2.5 text-xs text-[#6b1426] dark:text-rose-300">
+            <ShieldCheck className="w-5 h-5 shrink-0 text-[#6b1426] dark:text-rose-400 mt-0.5" />
             <div>
-              <p className="font-extrabold text-stone-900 text-sm">Teacher Registration Required</p>
-              <p className="text-[11px] text-stone-600 mt-0.5 leading-relaxed">
+              <p className="font-extrabold text-stone-900 dark:text-stone-100 text-sm">Teacher Registration Required</p>
+              <p className="text-[11px] text-stone-600 dark:text-stone-400 mt-0.5 leading-relaxed">
                 Welcome to Reberwet JSS! This application is running on a new phone. Please register your teacher account (or sign in if already registered) to activate your portal session.
               </p>
             </div>
@@ -658,17 +654,17 @@ export const AuthModal: React.FC<AuthModalProps> = ({
 
         {/* Modal Top Header */}
         <div className="text-center space-y-1 pt-1">
-          <div className="w-12 h-12 bg-rose-50 text-[#6b1426] rounded-2xl flex items-center justify-center mx-auto border border-rose-200 shadow-2xs">
+          <div className="w-12 h-12 bg-rose-50 dark:bg-rose-950 text-[#6b1426] dark:text-rose-400 rounded-2xl flex items-center justify-center mx-auto border border-rose-200 dark:border-rose-900 shadow-2xs">
             <Lock className="w-6 h-6" />
           </div>
-          <h3 className="text-xl font-black text-stone-900">
+          <h3 className="text-xl font-black text-stone-900 dark:text-stone-100">
             {step === 'verify'
               ? 'Security Code Verification'
               : step === 'success'
               ? 'Account Verified!'
               : 'Reberwet JSS Staff Portal'}
           </h3>
-          <p className="text-xs text-stone-500 max-w-xs mx-auto">
+          <p className="text-xs text-stone-500 dark:text-stone-400 max-w-xs mx-auto">
             {step === 'verify'
               ? `A 6-digit real-time verification code was dispatched via SMS to ${activeDestination}.`
               : step === 'success'
@@ -683,7 +679,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({
         {step === 'form' && (
           <div className="space-y-4">
             {/* Mode Switcher Tabs: Sign Up vs Sign In */}
-            <div className="flex rounded-xl bg-stone-100 p-1 border border-stone-200">
+            <div className="flex rounded-xl bg-stone-100 dark:bg-stone-800 p-1 border border-stone-200 dark:border-stone-700">
               <button
                 type="button"
                 id="tab-signup-btn"
@@ -693,8 +689,8 @@ export const AuthModal: React.FC<AuthModalProps> = ({
                 }}
                 className={`flex-1 py-2 text-xs font-bold rounded-lg transition flex items-center justify-center gap-1.5 ${
                   authMode === 'signup'
-                    ? 'bg-white text-[#6b1426] shadow-2xs'
-                    : 'text-stone-600 hover:text-stone-900'
+                    ? 'bg-white dark:bg-stone-700 text-[#6b1426] dark:text-rose-300 shadow-2xs'
+                    : 'text-stone-600 dark:text-stone-400 hover:text-stone-900 dark:hover:text-stone-100'
                 }`}
               >
                 <Sparkles className="w-3.5 h-3.5" />
@@ -709,8 +705,8 @@ export const AuthModal: React.FC<AuthModalProps> = ({
                 }}
                 className={`flex-1 py-2 text-xs font-bold rounded-lg transition flex items-center justify-center gap-1.5 ${
                   authMode === 'login'
-                    ? 'bg-white text-[#6b1426] shadow-2xs'
-                    : 'text-stone-600 hover:text-stone-900'
+                    ? 'bg-white dark:bg-stone-700 text-[#6b1426] dark:text-rose-300 shadow-2xs'
+                    : 'text-stone-600 dark:text-stone-400 hover:text-stone-900 dark:hover:text-stone-100'
                 }`}
               >
                 <KeyRound className="w-3.5 h-3.5" />
@@ -720,17 +716,17 @@ export const AuthModal: React.FC<AuthModalProps> = ({
 
             {/* Fast Biometrics Sign In Option (When in Login Mode) */}
             {authMode === 'login' && isBiometricsAvailable && (
-              <div className="p-3 bg-gradient-to-r from-rose-50 to-orange-50 rounded-2xl border border-rose-200/80 space-y-2">
+              <div className="p-3 bg-gradient-to-r from-rose-50 to-orange-50 dark:from-rose-950/40 dark:to-orange-950/40 rounded-2xl border border-rose-200/80 dark:border-rose-900/60 space-y-2">
                 <div className="flex items-center justify-between">
-                  <span className="text-xs font-black text-rose-950 flex items-center gap-1.5">
-                    <Fingerprint className="w-4 h-4 text-[#6b1426]" />
+                  <span className="text-xs font-black text-rose-950 dark:text-rose-300 flex items-center gap-1.5">
+                    <Fingerprint className="w-4 h-4 text-[#6b1426] dark:text-rose-400" />
                     <span>Instant Biometric Sign In</span>
                   </span>
-                  <span className="text-[10px] font-bold text-rose-700 bg-white px-2 py-0.5 rounded-full border border-rose-200">
+                  <span className="text-[10px] font-bold text-rose-700 dark:text-rose-300 bg-white dark:bg-stone-900 px-2 py-0.5 rounded-full border border-rose-200 dark:border-rose-800">
                     Fast Access
                   </span>
                 </div>
-                <p className="text-[11px] text-stone-600">
+                <p className="text-[11px] text-stone-600 dark:text-stone-400">
                   Touch your fingerprint sensor or use Face ID to authenticate immediately without typing.
                 </p>
                 <button
@@ -738,7 +734,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({
                   id="biometric-signin-btn"
                   onClick={handleBiometricLogin}
                   disabled={isAuthenticatingBiometrics}
-                  className="w-full py-2.5 px-3 bg-white hover:bg-rose-50 text-[#6b1426] border-2 border-[#6b1426] rounded-xl font-bold text-xs flex items-center justify-center gap-2 transition active:scale-[0.98] shadow-xs"
+                  className="w-full py-2.5 px-3 bg-white dark:bg-stone-800 hover:bg-rose-50 dark:hover:bg-rose-950/60 text-[#6b1426] dark:text-rose-300 border-2 border-[#6b1426] dark:border-rose-600 rounded-xl font-bold text-xs flex items-center justify-center gap-2 transition active:scale-[0.98] shadow-xs"
                 >
                   {isAuthenticatingBiometrics ? (
                     <RefreshCw className="w-4 h-4 animate-spin" />
@@ -756,10 +752,10 @@ export const AuthModal: React.FC<AuthModalProps> = ({
               onClick={handleGoogleAuth}
               disabled={isProcessing}
               type="button"
-              className="w-full py-2.5 px-4 rounded-xl border border-stone-300 hover:border-stone-400 bg-white hover:bg-stone-50 text-stone-800 font-bold text-xs flex items-center justify-center gap-2.5 transition shadow-2xs active:scale-[0.99]"
+              className="w-full py-2.5 px-4 rounded-xl border border-stone-300 dark:border-stone-700 hover:border-stone-400 dark:hover:border-stone-600 bg-white dark:bg-stone-800 hover:bg-stone-50 dark:hover:bg-stone-700/60 text-stone-800 dark:text-stone-200 font-bold text-xs flex items-center justify-center gap-2.5 transition shadow-2xs active:scale-[0.99]"
             >
               {isProcessing ? (
-                <RefreshCw className="w-4 h-4 animate-spin text-[#6b1426]" />
+                <RefreshCw className="w-4 h-4 animate-spin text-[#6b1426] dark:text-rose-400" />
               ) : (
                 <svg className="w-4 h-4 shrink-0" viewBox="0 0 24 24">
                   <path
@@ -786,10 +782,10 @@ export const AuthModal: React.FC<AuthModalProps> = ({
             </button>
 
             {/* Visual Divider */}
-            <div className="flex items-center gap-3 text-[10px] font-bold text-stone-400">
-              <div className="flex-1 h-px bg-stone-200" />
+            <div className="flex items-center gap-3 text-[10px] font-bold text-stone-400 dark:text-stone-500">
+              <div className="flex-1 h-px bg-stone-200 dark:bg-stone-700" />
               <span>OR ENTER CREDENTIALS</span>
-              <div className="flex-1 h-px bg-stone-200" />
+              <div className="flex-1 h-px bg-stone-200 dark:bg-stone-700" />
             </div>
 
             {/* ---------------------------------------------------- */}
@@ -799,61 +795,61 @@ export const AuthModal: React.FC<AuthModalProps> = ({
               <form onSubmit={handleSignUpSubmit} className="space-y-3">
                 {/* Username */}
                 <div>
-                  <label className="block text-xs font-bold text-stone-700 mb-1">
+                  <label className="block text-xs font-bold text-stone-700 dark:text-stone-300 mb-1">
                     Teacher Username <span className="text-rose-600">*</span>
                   </label>
                   <div className="relative">
-                    <User className="w-4 h-4 text-stone-400 absolute left-3 top-3" />
+                    <User className="w-4 h-4 text-stone-400 dark:text-stone-500 absolute left-3 top-3" />
                     <input
                       type="text"
                       required
                       placeholder="e.g. grace.rotich or teacher.bett"
                       value={username}
                       onChange={(e) => setUsername(e.target.value.toLowerCase().replace(/\s+/g, ''))}
-                      className="w-full pl-9 pr-3 py-2 rounded-xl border border-stone-300 text-xs font-mono font-medium focus:border-[#6b1426] focus:outline-none"
+                      className="w-full pl-9 pr-3 py-2 rounded-xl border border-stone-300 dark:border-stone-700 bg-white dark:bg-stone-800 text-stone-900 dark:text-stone-100 text-xs font-mono font-medium focus:border-[#6b1426] focus:outline-none"
                     />
                   </div>
-                  <span className="text-[10px] text-stone-400 mt-0.5 block">
+                  <span className="text-[10px] text-stone-400 dark:text-stone-500 mt-0.5 block">
                     Used for password and biometric sign-in
                   </span>
                 </div>
 
                 {/* Full Name */}
                 <div>
-                  <label className="block text-xs font-bold text-stone-700 mb-1">
+                  <label className="block text-xs font-bold text-stone-700 dark:text-stone-300 mb-1">
                     Official Full Name <span className="text-rose-600">*</span>
                   </label>
                   <div className="relative">
-                    <User className="w-4 h-4 text-stone-400 absolute left-3 top-3" />
+                    <User className="w-4 h-4 text-stone-400 dark:text-stone-500 absolute left-3 top-3" />
                     <input
                       type="text"
                       required
                       placeholder="e.g. Madam Grace Rotich"
                       value={fullName}
                       onChange={(e) => setFullName(e.target.value)}
-                      className="w-full pl-9 pr-3 py-2 rounded-xl border border-stone-300 text-xs font-medium focus:border-[#6b1426] focus:outline-none"
+                      className="w-full pl-9 pr-3 py-2 rounded-xl border border-stone-300 dark:border-stone-700 bg-white dark:bg-stone-800 text-stone-900 dark:text-stone-100 text-xs font-medium focus:border-[#6b1426] focus:outline-none"
                     />
                   </div>
                 </div>
 
                 {/* Mobile Phone Number (Required for verification code) */}
                 <div>
-                  <label className="block text-xs font-bold text-stone-700 mb-1">
+                  <label className="block text-xs font-bold text-stone-700 dark:text-stone-300 mb-1">
                     Mobile Phone Number (For Real-Time SMS Verification Code){' '}
                     <span className="text-rose-600">*</span>
                   </label>
                   <div className="relative">
-                    <Phone className="w-4 h-4 text-stone-400 absolute left-3 top-3" />
+                    <Phone className="w-4 h-4 text-stone-400 dark:text-stone-500 absolute left-3 top-3" />
                     <input
                       type="tel"
                       required
                       placeholder="e.g. +254 712 345 678 or 0712345678"
                       value={phoneInput}
                       onChange={(e) => setPhoneInput(e.target.value)}
-                      className="w-full pl-9 pr-3 py-2 rounded-xl border border-stone-300 text-xs font-medium font-mono focus:border-[#6b1426] focus:outline-none"
+                      className="w-full pl-9 pr-3 py-2 rounded-xl border border-stone-300 dark:border-stone-700 bg-white dark:bg-stone-800 text-stone-900 dark:text-stone-100 text-xs font-medium font-mono focus:border-[#6b1426] focus:outline-none"
                     />
                   </div>
-                  <span className="text-[10px] text-stone-500 mt-0.5 block">
+                  <span className="text-[10px] text-stone-500 dark:text-stone-400 mt-0.5 block">
                     A 6-digit real-time verification code will be sent to this number.
                   </span>
                 </div>
@@ -861,11 +857,11 @@ export const AuthModal: React.FC<AuthModalProps> = ({
                 {/* Password & Confirm Password */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
                   <div>
-                    <label className="block font-bold text-stone-700 mb-1">
+                    <label className="block font-bold text-stone-700 dark:text-stone-300 mb-1">
                       Password <span className="text-rose-600">*</span>
                     </label>
                     <div className="relative">
-                      <Lock className="w-3.5 h-3.5 text-stone-400 absolute left-2.5 top-2.5" />
+                      <Lock className="w-3.5 h-3.5 text-stone-400 dark:text-stone-500 absolute left-2.5 top-2.5" />
                       <input
                         type={showPassword ? 'text' : 'password'}
                         required
@@ -873,12 +869,12 @@ export const AuthModal: React.FC<AuthModalProps> = ({
                         placeholder="Min 6 characters"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
-                        className="w-full pl-8 pr-8 py-2 rounded-xl border border-stone-300 focus:border-[#6b1426] focus:outline-none text-xs font-medium"
+                        className="w-full pl-8 pr-8 py-2 rounded-xl border border-stone-300 dark:border-stone-700 bg-white dark:bg-stone-800 text-stone-900 dark:text-stone-100 focus:border-[#6b1426] focus:outline-none text-xs font-medium"
                       />
                       <button
                         type="button"
                         onClick={() => setShowPassword(!showPassword)}
-                        className="absolute right-2.5 top-2.5 text-stone-400 hover:text-stone-700"
+                        className="absolute right-2.5 top-2.5 text-stone-400 dark:text-stone-500 hover:text-stone-700 dark:hover:text-stone-200"
                       >
                         {showPassword ? <EyeOff className="w-3.5 h-3.5" /> : <Eye className="w-3.5 h-3.5" />}
                       </button>
@@ -886,11 +882,11 @@ export const AuthModal: React.FC<AuthModalProps> = ({
                   </div>
 
                   <div>
-                    <label className="block font-bold text-stone-700 mb-1">
+                    <label className="block font-bold text-stone-700 dark:text-stone-300 mb-1">
                       Confirm Password <span className="text-rose-600">*</span>
                     </label>
                     <div className="relative">
-                      <Lock className="w-3.5 h-3.5 text-stone-400 absolute left-2.5 top-2.5" />
+                      <Lock className="w-3.5 h-3.5 text-stone-400 dark:text-stone-500 absolute left-2.5 top-2.5" />
                       <input
                         type={showPassword ? 'text' : 'password'}
                         required
@@ -898,14 +894,14 @@ export const AuthModal: React.FC<AuthModalProps> = ({
                         placeholder="Repeat password"
                         value={confirmPassword}
                         onChange={(e) => setConfirmPassword(e.target.value)}
-                        className="w-full pl-8 pr-3 py-2 rounded-xl border border-stone-300 focus:border-[#6b1426] focus:outline-none text-xs font-medium"
+                        className="w-full pl-8 pr-3 py-2 rounded-xl border border-stone-300 dark:border-stone-700 bg-white dark:bg-stone-800 text-stone-900 dark:text-stone-100 focus:border-[#6b1426] focus:outline-none text-xs font-medium"
                       />
                     </div>
                   </div>
                 </div>
 
                 {/* Biometrics Opt-In Checkbox */}
-                <div className="p-3 bg-stone-50 rounded-xl border border-stone-200">
+                <div className="p-3 bg-stone-50 dark:bg-stone-800/60 rounded-xl border border-stone-200 dark:border-stone-700">
                   <label className="flex items-start gap-2.5 cursor-pointer">
                     <input
                       type="checkbox"
@@ -914,11 +910,11 @@ export const AuthModal: React.FC<AuthModalProps> = ({
                       className="mt-0.5 rounded text-[#6b1426] focus:ring-[#6b1426]"
                     />
                     <div className="text-xs">
-                      <strong className="text-stone-900 block flex items-center gap-1">
-                        <Fingerprint className="w-3.5 h-3.5 text-[#6b1426]" />
+                      <strong className="text-stone-900 dark:text-stone-100 block flex items-center gap-1">
+                        <Fingerprint className="w-3.5 h-3.5 text-[#6b1426] dark:text-rose-400" />
                         <span>Enable Biometrics (Fingerprint / Face ID)</span>
                       </strong>
-                      <span className="text-stone-500 text-[11px]">
+                      <span className="text-stone-500 dark:text-stone-400 text-[11px]">
                         Allows instant, one-touch biometric login when opening the portal.
                       </span>
                     </div>
@@ -928,11 +924,11 @@ export const AuthModal: React.FC<AuthModalProps> = ({
                 {/* Primary Teaching Area */}
                 <div className="grid grid-cols-2 gap-2 text-xs">
                   <div>
-                    <label className="block font-bold text-stone-700 mb-1">Teaching Class</label>
+                    <label className="block font-bold text-stone-700 dark:text-stone-300 mb-1">Teaching Class</label>
                     <select
                       value={gradeInput}
                       onChange={(e) => setGradeInput(e.target.value)}
-                      className="w-full p-2 rounded-xl border border-stone-300 focus:border-[#6b1426] focus:outline-none bg-white font-medium"
+                      className="w-full p-2 rounded-xl border border-stone-300 dark:border-stone-700 focus:border-[#6b1426] focus:outline-none bg-white dark:bg-stone-800 text-stone-900 dark:text-stone-100 font-medium"
                     >
                       <option value="Grade 7">Grade 7</option>
                       <option value="Grade 8">Grade 8</option>
@@ -940,11 +936,11 @@ export const AuthModal: React.FC<AuthModalProps> = ({
                     </select>
                   </div>
                   <div>
-                    <label className="block font-bold text-stone-700 mb-1">Primary Subject</label>
+                    <label className="block font-bold text-stone-700 dark:text-stone-300 mb-1">Primary Subject</label>
                     <select
                       value={subjectInput}
                       onChange={(e) => setSubjectInput(e.target.value)}
-                      className="w-full p-2 rounded-xl border border-stone-300 focus:border-[#6b1426] focus:outline-none bg-white font-medium"
+                      className="w-full p-2 rounded-xl border border-stone-300 dark:border-stone-700 focus:border-[#6b1426] focus:outline-none bg-white dark:bg-stone-800 text-stone-900 dark:text-stone-100 font-medium"
                     >
                       {SUBJECTS.map((subj) => (
                         <option key={subj} value={subj}>
@@ -956,7 +952,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({
                 </div>
 
                 {verificationError && (
-                  <div className="text-xs text-rose-700 bg-rose-50 border border-rose-200 p-2.5 rounded-xl font-semibold flex items-center gap-2">
+                  <div className="text-xs text-rose-700 dark:text-rose-300 bg-rose-50 dark:bg-rose-950/50 border border-rose-200 dark:border-rose-900 p-2.5 rounded-xl font-semibold flex items-center gap-2">
                     <AlertCircle className="w-4 h-4 shrink-0" />
                     <span>{verificationError}</span>
                   </div>
@@ -987,18 +983,18 @@ export const AuthModal: React.FC<AuthModalProps> = ({
               <form onSubmit={handlePasswordLoginSubmit} className="space-y-3">
                 {/* Username or Phone */}
                 <div>
-                  <label className="block text-xs font-bold text-stone-700 mb-1">
+                  <label className="block text-xs font-bold text-stone-700 dark:text-stone-300 mb-1">
                     Username or Mobile Phone Number
                   </label>
                   <div className="relative">
-                    <User className="w-4 h-4 text-stone-400 absolute left-3 top-3" />
+                    <User className="w-4 h-4 text-stone-400 dark:text-stone-500 absolute left-3 top-3" />
                     <input
                       type="text"
                       required
                       placeholder="e.g. brian.bett or +254 722 341 890"
                       value={loginIdentifier}
                       onChange={(e) => setLoginIdentifier(e.target.value)}
-                      className="w-full pl-9 pr-3 py-2.5 rounded-xl border border-stone-300 text-xs font-medium focus:border-[#6b1426] focus:outline-none"
+                      className="w-full pl-9 pr-3 py-2.5 rounded-xl border border-stone-300 dark:border-stone-700 bg-white dark:bg-stone-800 text-stone-900 dark:text-stone-100 text-xs font-medium focus:border-[#6b1426] focus:outline-none"
                     />
                   </div>
                 </div>
@@ -1007,29 +1003,29 @@ export const AuthModal: React.FC<AuthModalProps> = ({
                 {loginMethod === 'password' && (
                   <div>
                     <div className="flex items-center justify-between mb-1">
-                      <label className="text-xs font-bold text-stone-700">Account Password</label>
+                      <label className="text-xs font-bold text-stone-700 dark:text-stone-300">Account Password</label>
                       <button
                         type="button"
                         onClick={() => setLoginMethod('otp')}
-                        className="text-[10px] text-[#6b1426] font-bold hover:underline"
+                        className="text-[10px] text-[#6b1426] dark:text-rose-400 font-bold hover:underline"
                       >
                         Use SMS Code Instead
                       </button>
                     </div>
                     <div className="relative">
-                      <Lock className="w-4 h-4 text-stone-400 absolute left-3 top-3" />
+                      <Lock className="w-4 h-4 text-stone-400 dark:text-stone-500 absolute left-3 top-3" />
                       <input
                         type={showLoginPassword ? 'text' : 'password'}
                         required
                         placeholder="Enter your account password"
                         value={loginPassword}
                         onChange={(e) => setLoginPassword(e.target.value)}
-                        className="w-full pl-9 pr-9 py-2.5 rounded-xl border border-stone-300 text-xs font-medium focus:border-[#6b1426] focus:outline-none"
+                        className="w-full pl-9 pr-9 py-2.5 rounded-xl border border-stone-300 dark:border-stone-700 bg-white dark:bg-stone-800 text-stone-900 dark:text-stone-100 text-xs font-medium focus:border-[#6b1426] focus:outline-none"
                       />
                       <button
                         type="button"
                         onClick={() => setShowLoginPassword(!showLoginPassword)}
-                        className="absolute right-3 top-3 text-stone-400 hover:text-stone-700"
+                        className="absolute right-3 top-3 text-stone-400 dark:text-stone-500 hover:text-stone-700 dark:hover:text-stone-200"
                       >
                         {showLoginPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                       </button>
@@ -1039,10 +1035,10 @@ export const AuthModal: React.FC<AuthModalProps> = ({
 
                 {/* Registered Faculty Quick-Picker for quick fill */}
                 <div>
-                  <span className="block text-[11px] font-bold text-stone-500 uppercase mb-1">
+                  <span className="block text-[11px] font-bold text-stone-500 dark:text-stone-400 uppercase mb-1">
                     Registered Faculty Accounts:
                   </span>
-                  <div className="max-h-24 overflow-y-auto divide-y divide-stone-100 border border-stone-200 rounded-xl bg-stone-50">
+                  <div className="max-h-24 overflow-y-auto divide-y divide-stone-100 dark:divide-stone-700/80 border border-stone-200 dark:border-stone-700 rounded-xl bg-stone-50 dark:bg-stone-800/60">
                     {teachers.slice(0, 5).map((t) => (
                       <button
                         key={t.id}
@@ -1051,13 +1047,13 @@ export const AuthModal: React.FC<AuthModalProps> = ({
                           setLoginIdentifier(t.username || t.phone || t.email);
                           setLoginPassword(t.password || 'Teacher@2026');
                         }}
-                        className="w-full text-left p-2 hover:bg-rose-50 text-xs flex items-center justify-between transition"
+                        className="w-full text-left p-2 hover:bg-rose-50 dark:hover:bg-rose-950/40 text-xs flex items-center justify-between transition"
                       >
                         <div>
-                          <strong className="text-stone-900 block">{t.name}</strong>
-                          <span className="text-[10px] text-stone-500 font-medium">{t.primarySubject || 'Faculty'} • {t.phone}</span>
+                          <strong className="text-stone-900 dark:text-stone-100 block">{t.name}</strong>
+                          <span className="text-[10px] text-stone-500 dark:text-stone-400 font-medium">{t.primarySubject || 'Faculty'} • {t.phone}</span>
                         </div>
-                        <span className="text-[10px] font-bold text-stone-500 bg-white border border-stone-200 px-1.5 py-0.5 rounded">
+                        <span className="text-[10px] font-bold text-stone-500 dark:text-stone-300 bg-white dark:bg-stone-700 border border-stone-200 dark:border-stone-600 px-1.5 py-0.5 rounded">
                           {t.role === 'school_admin' ? 'Admin' : 'Teacher'}
                         </span>
                       </button>
@@ -1066,7 +1062,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({
                 </div>
 
                 {verificationError && (
-                  <div className="text-xs text-rose-700 bg-rose-50 border border-rose-200 p-2.5 rounded-xl font-semibold flex items-center gap-2">
+                  <div className="text-xs text-rose-700 dark:text-rose-300 bg-rose-50 dark:bg-rose-950/50 border border-rose-200 dark:border-rose-900 p-2.5 rounded-xl font-semibold flex items-center gap-2">
                     <AlertCircle className="w-4 h-4 shrink-0" />
                     <span>{verificationError}</span>
                   </div>
@@ -1109,69 +1105,46 @@ export const AuthModal: React.FC<AuthModalProps> = ({
         {/* ==================================================== */}
         {step === 'verify' && (
           <div className="space-y-4 pt-1">
-            {/* Real-Time Incoming Notification Simulation Banner */}
-            {realtimeNotification && (
-              <div className="bg-gradient-to-r from-emerald-900 via-emerald-800 to-teal-900 text-white p-3.5 rounded-2xl border-2 border-emerald-400/40 shadow-lg space-y-2 animate-in slide-in-from-top-3">
-                <div className="flex items-center justify-between text-xs">
-                  <div className="flex items-center gap-2 font-bold text-emerald-200">
-                    <Smartphone className="w-4 h-4 text-emerald-300" />
-                    <span>Incoming SMS from REBERWET_JSS</span>
-                  </div>
-                  <span className="text-[10px] bg-emerald-700/80 px-2 py-0.5 rounded-full font-mono">
-                    Real-Time Delivery ✓
-                  </span>
+            {/* Direct SMS to Messages Inbox Notice */}
+            <div className="bg-stone-50 dark:bg-stone-800/70 border border-stone-200 dark:border-stone-700 p-4 rounded-2xl space-y-2.5">
+              <div className="flex items-center justify-between text-xs">
+                <div className="flex items-center gap-2 font-bold text-stone-900 dark:text-stone-100">
+                  <Smartphone className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
+                  <span>Code Sent Directly to Messages Inbox</span>
                 </div>
-
-                <p className="text-xs text-emerald-50 leading-relaxed font-sans">
-                  "REBERWET JSS: Your 6-digit staff verification security code is{' '}
-                  <strong className="font-mono text-sm tracking-widest text-emerald-200 underline">
-                    {realtimeNotification.code}
-                  </strong>
-                  . Use this code to complete registration."
-                </p>
-
-                <div className="flex items-center justify-between pt-1 border-t border-emerald-700/60 text-xs">
-                  <span className="text-[11px] text-emerald-300">
-                    Sent to: <strong className="font-mono">{realtimeNotification.destination}</strong>
-                  </span>
-                  <div className="flex items-center gap-2">
-                    <button
-                      type="button"
-                      onClick={handleCopyCode}
-                      className="px-2 py-1 rounded bg-emerald-950/70 hover:bg-emerald-950 text-[11px] font-bold text-emerald-200 border border-emerald-500/40 flex items-center gap-1 transition"
-                    >
-                      {copiedCodeFeedback ? (
-                        <>
-                          <Check className="w-3 h-3 text-emerald-400" />
-                          <span>Copied</span>
-                        </>
-                      ) : (
-                        <>
-                          <Copy className="w-3 h-3" />
-                          <span>Copy</span>
-                        </>
-                      )}
-                    </button>
-                    <button
-                      type="button"
-                      onClick={handleAutoFillCode}
-                      className="px-2.5 py-1 rounded bg-white text-emerald-950 text-[11px] font-extrabold hover:bg-emerald-50 transition"
-                    >
-                      Auto-Fill Code
-                    </button>
-                  </div>
-                </div>
+                <span className="text-[10px] bg-emerald-100 dark:bg-emerald-950 text-emerald-800 dark:text-emerald-300 font-bold px-2 py-0.5 rounded-full border border-emerald-300 dark:border-emerald-800">
+                  Inbox Delivery ✓
+                </span>
               </div>
-            )}
+
+              <p className="text-xs text-stone-600 dark:text-stone-300 leading-relaxed font-sans">
+                The 6-digit staff security verification code has been dispatched directly to the SMS messages inbox of{' '}
+                <strong className="font-mono font-bold text-stone-900 dark:text-white">{activeDestination}</strong>.
+                Please check your phone's Messages app / inbox, read the code, and enter it below.
+              </p>
+
+              <div className="flex items-center justify-between pt-1 border-t border-stone-200 dark:border-stone-700 text-xs">
+                <span className="text-[11px] text-stone-500 dark:text-stone-400">
+                  Inbox: <strong className="font-mono text-stone-800 dark:text-stone-200">{activeDestination}</strong>
+                </span>
+                <a
+                  href={`sms:${activeDestination.replace(/[^\d+]/g, '')}`}
+                  className="px-2.5 py-1 rounded-lg bg-stone-200 dark:bg-stone-700 hover:bg-stone-300 dark:hover:bg-stone-600 text-stone-800 dark:text-stone-200 font-bold text-[11px] flex items-center gap-1 transition"
+                >
+                  <MessageSquare className="w-3.5 h-3.5 text-stone-600 dark:text-stone-300" />
+                  <span>Open Messages App</span>
+                </a>
+              </div>
+            </div>
 
             {/* Instruction */}
             <div className="text-center space-y-1">
-              <span className="text-xs font-bold text-stone-700 uppercase tracking-wider block">
+              <span className="text-xs font-bold text-stone-700 dark:text-stone-300 uppercase tracking-wider block">
                 Enter the 6-Digit Code Below
               </span>
-              <p className="text-[11px] text-stone-500">
+              <p className="text-[11px] text-stone-500 dark:text-stone-400">
                 Enter the matching code sent to{' '}
-                <strong className="text-stone-800">{activeDestination}</strong>.
+                <strong className="text-stone-800 dark:text-stone-200">{activeDestination}</strong>.
               </p>
             </div>
 
@@ -1192,10 +1165,10 @@ export const AuthModal: React.FC<AuthModalProps> = ({
                   onKeyDown={(e) => handleKeyDown(index, e)}
                   className={`w-11 sm:w-13 h-13 sm:h-14 text-center text-xl sm:text-2xl font-mono font-black border-2 rounded-2xl transition focus:outline-none shadow-2xs ${
                     verificationError
-                      ? 'border-rose-500 bg-rose-50/40 text-rose-950 focus:border-rose-600'
+                      ? 'border-rose-500 bg-rose-50/40 dark:bg-rose-950/40 text-rose-950 dark:text-rose-200 focus:border-rose-600'
                       : digit
-                      ? 'border-[#6b1426] bg-rose-50/20 text-[#6b1426]'
-                      : 'border-stone-300 bg-stone-50 focus:border-[#6b1426] focus:bg-white'
+                      ? 'border-[#6b1426] dark:border-rose-500 bg-rose-50/20 dark:bg-rose-950/30 text-[#6b1426] dark:text-rose-300'
+                      : 'border-stone-300 dark:border-stone-700 bg-stone-50 dark:bg-stone-800 text-stone-900 dark:text-stone-100 focus:border-[#6b1426] focus:bg-white dark:focus:bg-stone-900'
                   }`}
                 />
               ))}
@@ -1203,10 +1176,10 @@ export const AuthModal: React.FC<AuthModalProps> = ({
 
             {/* Verification Error Banner */}
             {verificationError && (
-              <div className="text-xs text-rose-800 bg-rose-50 border-2 border-rose-300 p-3 rounded-2xl font-semibold flex items-start gap-2 animate-in shake">
-                <AlertCircle className="w-5 h-5 text-rose-600 shrink-0 mt-0.5" />
+              <div className="text-xs text-rose-800 dark:text-rose-300 bg-rose-50 dark:bg-rose-950/50 border-2 border-rose-300 dark:border-rose-800 p-3 rounded-2xl font-semibold flex items-start gap-2 animate-in shake">
+                <AlertCircle className="w-5 h-5 text-rose-600 dark:text-rose-400 shrink-0 mt-0.5" />
                 <div className="space-y-1">
-                  <strong className="block text-rose-900 font-extrabold">
+                  <strong className="block text-rose-900 dark:text-rose-200 font-extrabold">
                     Action Failed: Code Mismatch
                   </strong>
                   <span>{verificationError}</span>
@@ -1226,14 +1199,14 @@ export const AuthModal: React.FC<AuthModalProps> = ({
             </button>
 
             {/* Navigation & Resend Link */}
-            <div className="flex items-center justify-between text-xs text-stone-500 pt-2 border-t border-stone-200">
+            <div className="flex items-center justify-between text-xs text-stone-500 dark:text-stone-400 pt-2 border-t border-stone-200 dark:border-stone-800">
               <button
                 type="button"
                 onClick={() => {
                   setStep('form');
                   setVerificationError(null);
                 }}
-                className="text-stone-600 hover:text-stone-900 font-bold"
+                className="text-stone-600 dark:text-stone-300 hover:text-stone-900 dark:hover:text-stone-100 font-bold"
               >
                 ← Back to Details
               </button>
@@ -1246,7 +1219,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({
                     dispatchRealTimeCode(pendingUser, activeDestination, destinationType);
                   }
                 }}
-                className="text-[#6b1426] font-extrabold hover:underline disabled:opacity-40 disabled:no-underline"
+                className="text-[#6b1426] dark:text-rose-400 font-extrabold hover:underline disabled:opacity-40 disabled:no-underline"
               >
                 {resendCountdown > 0 ? `Resend Code (${resendCountdown}s)` : 'Resend Code in Real Time'}
               </button>
@@ -1259,13 +1232,13 @@ export const AuthModal: React.FC<AuthModalProps> = ({
         {/* ==================================================== */}
         {step === 'success' && (
           <div className="py-6 text-center space-y-3 animate-in zoom-in-95">
-            <div className="w-16 h-16 bg-emerald-100 text-emerald-700 rounded-full flex items-center justify-center mx-auto border-2 border-emerald-300">
+            <div className="w-16 h-16 bg-emerald-100 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-300 rounded-full flex items-center justify-center mx-auto border-2 border-emerald-300 dark:border-emerald-800">
               <CheckCircle2 className="w-10 h-10" />
             </div>
-            <h4 className="text-lg font-black text-stone-900">
+            <h4 className="text-lg font-black text-stone-900 dark:text-stone-100">
               {authMode === 'signup' ? 'Account Created Successfully!' : 'Verification Successful!'}
             </h4>
-            <p className="text-xs text-stone-600 max-w-sm mx-auto">
+            <p className="text-xs text-stone-600 dark:text-stone-300 max-w-sm mx-auto">
               Welcome, <strong>{pendingUser?.name}</strong>. Entering Reberwet Junior Secondary School Management Portal...
             </p>
           </div>

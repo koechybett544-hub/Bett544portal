@@ -436,21 +436,21 @@ export const PrintCenter: React.FC<PrintCenterProps> = ({
   return (
     <div className="space-y-6 pb-24">
       {/* Top Title & Print Controls (Hidden on Print) */}
-      <div className="print:hidden flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 border-b border-stone-200 pb-4">
+      <div className="print:hidden flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 border-b border-stone-200 dark:border-stone-800 pb-4">
         <div>
-          <h1 className="text-xl sm:text-2xl font-black text-stone-950 flex items-center gap-2">
-            <Printer className="w-6 h-6 text-[#6b1426]" />
+          <h1 className="text-xl sm:text-2xl font-black text-stone-950 dark:text-stone-100 flex items-center gap-2">
+            <Printer className="w-6 h-6 text-[#6b1426] dark:text-rose-400" />
             <span>Reports &amp; Broadsheet Center</span>
           </h1>
-          <p className="text-xs text-stone-600">
+          <p className="text-xs text-stone-600 dark:text-stone-400">
             CBC Learner Report Cards (Strict 1 Page per Learner in PDF), Grade Broadsheet, and SMS dispatch to parents.
           </p>
         </div>
 
         <div className="flex flex-wrap items-center gap-2">
           {activeTab === 'single_report' && activeLearner && (
-            <label className="flex items-center gap-1.5 rounded-xl border border-sky-300 bg-sky-50 px-3 py-2 text-xs font-bold text-sky-900 hover:bg-sky-100 shadow-2xs transition active:scale-95 cursor-pointer">
-              <Upload className="w-4 h-4 text-sky-700" />
+            <label className="flex items-center gap-1.5 rounded-xl border border-sky-300 dark:border-sky-800 bg-sky-50 dark:bg-sky-950/50 px-3 py-2 text-xs font-bold text-sky-900 dark:text-sky-300 hover:bg-sky-100 dark:hover:bg-sky-900/60 shadow-2xs transition active:scale-95 cursor-pointer">
+              <Upload className="w-4 h-4 text-sky-700 dark:text-sky-400" />
               <span>Learner Photo</span>
               <input
                 ref={photoInputRef}
@@ -466,7 +466,7 @@ export const PrintCenter: React.FC<PrintCenterProps> = ({
           <button
             id="send-parent-whatsapp-btn"
             onClick={() => handleOpenWhatsAppModal(activeLearner)}
-            className="flex items-center gap-1.5 rounded-xl border border-emerald-400 bg-emerald-50 hover:bg-emerald-100 text-[#075E54] px-3.5 py-2 text-xs font-bold shadow-2xs transition active:scale-95"
+            className="flex items-center gap-1.5 rounded-xl border border-emerald-400 dark:border-emerald-800 bg-emerald-50 dark:bg-emerald-950/50 hover:bg-emerald-100 dark:hover:bg-emerald-900/60 text-[#075E54] dark:text-emerald-300 px-3.5 py-2 text-xs font-bold shadow-2xs transition active:scale-95"
             title="Connect to WhatsApp and send report card in real-time"
           >
             <MessageCircle className="w-4 h-4 text-[#25D366] fill-current" />
@@ -477,10 +477,10 @@ export const PrintCenter: React.FC<PrintCenterProps> = ({
           <button
             id="send-parent-sms-btn"
             onClick={() => handleOpenSmsModal(activeLearner)}
-            className="flex items-center gap-1.5 rounded-xl border border-rose-300 bg-rose-50 hover:bg-rose-100 text-[#6b1426] px-3.5 py-2 text-xs font-bold shadow-2xs transition active:scale-95"
+            className="flex items-center gap-1.5 rounded-xl border border-rose-300 dark:border-rose-800 bg-rose-50 dark:bg-rose-950/50 hover:bg-rose-100 dark:hover:bg-rose-900/60 text-[#6b1426] dark:text-rose-300 px-3.5 py-2 text-xs font-bold shadow-2xs transition active:scale-95"
             title="Send report card or message to parents/guardians phone via SMS"
           >
-            <Smartphone className="w-4 h-4 text-[#6b1426]" />
+            <Smartphone className="w-4 h-4 text-[#6b1426] dark:text-rose-400" />
             <span>Send Parent SMS</span>
           </button>
 
@@ -508,19 +508,19 @@ export const PrintCenter: React.FC<PrintCenterProps> = ({
           {activeTab === 'broadsheet' && (
             <button
               onClick={handleDownloadDirectFile}
-              className="flex items-center gap-1.5 rounded-xl border border-stone-300 bg-white px-3.5 py-2 text-xs font-bold text-stone-800 hover:bg-stone-50 shadow-2xs transition active:scale-95"
+              className="flex items-center gap-1.5 rounded-xl border border-stone-300 dark:border-stone-700 bg-white dark:bg-stone-800 px-3.5 py-2 text-xs font-bold text-stone-800 dark:text-stone-200 hover:bg-stone-50 dark:hover:bg-stone-700 shadow-2xs transition active:scale-95"
               title="Download CSV spreadsheet"
             >
-              <FileSpreadsheet className="w-4 h-4 text-emerald-700" />
+              <FileSpreadsheet className="w-4 h-4 text-emerald-700 dark:text-emerald-400" />
               <span>Export CSV</span>
             </button>
           )}
 
           <button
             onClick={handlePrint}
-            className="flex items-center gap-1.5 rounded-xl border border-stone-300 bg-white px-3 py-2 text-xs font-bold text-stone-800 hover:bg-stone-50 shadow-2xs transition active:scale-95"
+            className="flex items-center gap-1.5 rounded-xl border border-stone-300 dark:border-stone-700 bg-white dark:bg-stone-800 px-3 py-2 text-xs font-bold text-stone-800 dark:text-stone-200 hover:bg-stone-50 dark:hover:bg-stone-700 shadow-2xs transition active:scale-95"
           >
-            <Printer className="w-4 h-4 text-stone-600" />
+            <Printer className="w-4 h-4 text-stone-600 dark:text-stone-400" />
             <span>Print</span>
           </button>
         </div>
@@ -528,23 +528,23 @@ export const PrintCenter: React.FC<PrintCenterProps> = ({
 
       {/* Progress banner during batch PDF generation */}
       {isExportingPdf && pdfProgressText && (
-        <div className="bg-rose-50 border border-rose-300 rounded-xl p-3 text-xs text-[#6b1426] font-bold flex items-center gap-2">
+        <div className="bg-rose-50 dark:bg-rose-950/40 border border-rose-300 dark:border-rose-900 rounded-xl p-3 text-xs text-[#6b1426] dark:text-rose-300 font-bold flex items-center gap-2">
           <Loader2 className="w-4 h-4 animate-spin shrink-0" />
           <span>{pdfProgressText}</span>
         </div>
       )}
 
       {/* Filter and Mode Bar (Hidden on Print) */}
-      <div className="print:hidden bg-white rounded-2xl border border-stone-200 p-4 shadow-xs space-y-4">
+      <div className="print:hidden bg-white dark:bg-stone-900 rounded-2xl border border-stone-200 dark:border-stone-800 p-4 shadow-xs space-y-4">
         {/* Mode Tabs */}
-        <div className="flex flex-wrap items-center justify-between gap-3 border-b border-stone-100 pb-3">
-          <div className="flex items-center gap-1.5 bg-stone-100 p-1 rounded-xl text-xs font-bold">
+        <div className="flex flex-wrap items-center justify-between gap-3 border-b border-stone-100 dark:border-stone-800 pb-3">
+          <div className="flex items-center gap-1.5 bg-stone-100 dark:bg-stone-800 p-1 rounded-xl text-xs font-bold">
             <button
               onClick={() => setActiveTab('single_report')}
               className={`px-3 py-1.5 rounded-lg transition ${
                 activeTab === 'single_report'
-                  ? 'bg-white text-[#6b1426] shadow-xs'
-                  : 'text-stone-600 hover:text-stone-900'
+                  ? 'bg-white dark:bg-stone-700 text-[#6b1426] dark:text-rose-300 shadow-xs'
+                  : 'text-stone-600 dark:text-stone-400 hover:text-stone-900 dark:hover:text-stone-200'
               }`}
             >
               Single Report Card
@@ -554,8 +554,8 @@ export const PrintCenter: React.FC<PrintCenterProps> = ({
               onClick={() => setActiveTab('all_reports')}
               className={`px-3 py-1.5 rounded-lg transition ${
                 activeTab === 'all_reports'
-                  ? 'bg-white text-[#6b1426] shadow-xs'
-                  : 'text-stone-600 hover:text-stone-900'
+                  ? 'bg-white dark:bg-stone-700 text-[#6b1426] dark:text-rose-300 shadow-xs'
+                  : 'text-stone-600 dark:text-stone-400 hover:text-stone-900 dark:hover:text-stone-200'
               }`}
             >
               All Report Cards ({classLearners.length})
@@ -565,15 +565,15 @@ export const PrintCenter: React.FC<PrintCenterProps> = ({
               onClick={() => setActiveTab('broadsheet')}
               className={`px-3 py-1.5 rounded-lg transition ${
                 activeTab === 'broadsheet'
-                  ? 'bg-white text-[#6b1426] shadow-xs'
-                  : 'text-stone-600 hover:text-stone-900'
+                  ? 'bg-white dark:bg-stone-700 text-[#6b1426] dark:text-rose-300 shadow-xs'
+                  : 'text-stone-600 dark:text-stone-400 hover:text-stone-900 dark:hover:text-stone-200'
               }`}
             >
               Grade Broadsheet (Mean &amp; Rank)
             </button>
           </div>
 
-          <div className="text-xs text-stone-500 font-medium">
+          <div className="text-xs text-stone-500 dark:text-stone-400 font-medium">
             Strict 1 Page per Learner • Auto-Scales for Clean A4 Output
           </div>
         </div>
@@ -581,13 +581,13 @@ export const PrintCenter: React.FC<PrintCenterProps> = ({
         {/* Grade and Term Selectors */}
         <div className="grid grid-cols-1 sm:grid-cols-12 gap-3 text-xs">
           <div className="sm:col-span-3">
-            <label className="block text-[11px] font-bold text-stone-500 uppercase mb-1">
+            <label className="block text-[11px] font-bold text-stone-500 dark:text-stone-400 uppercase mb-1">
               Junior Secondary Grade
             </label>
             <select
               value={selectedGrade}
               onChange={(e) => setSelectedGrade(e.target.value)}
-              className="w-full font-bold border border-stone-300 rounded-xl p-2.5 bg-white text-stone-800 focus:border-[#6b1426] focus:outline-none"
+              className="w-full font-bold border border-stone-300 dark:border-stone-700 rounded-xl p-2.5 bg-white dark:bg-stone-800 text-stone-800 dark:text-stone-200 focus:border-[#6b1426] focus:outline-none"
             >
               {GRADES.map((g) => (
                 <option key={g.id} value={g.id}>
@@ -598,13 +598,13 @@ export const PrintCenter: React.FC<PrintCenterProps> = ({
           </div>
 
           <div className="sm:col-span-3">
-            <label className="block text-[11px] font-bold text-stone-500 uppercase mb-1">
+            <label className="block text-[11px] font-bold text-stone-500 dark:text-stone-400 uppercase mb-1">
               Academic Year (2026–2030)
             </label>
             <select
               value={selectedYear}
               onChange={(e) => setSelectedYear(e.target.value)}
-              className="w-full font-bold border border-stone-300 rounded-xl p-2.5 bg-white text-stone-800 focus:border-[#6b1426] focus:outline-none"
+              className="w-full font-bold border border-stone-300 dark:border-stone-700 rounded-xl p-2.5 bg-white dark:bg-stone-800 text-stone-800 dark:text-stone-200 focus:border-[#6b1426] focus:outline-none"
             >
               {ACADEMIC_YEARS.map((yr) => (
                 <option key={yr} value={yr}>
@@ -615,13 +615,13 @@ export const PrintCenter: React.FC<PrintCenterProps> = ({
           </div>
 
           <div className="sm:col-span-3">
-            <label className="block text-[11px] font-bold text-stone-500 uppercase mb-1">
+            <label className="block text-[11px] font-bold text-stone-500 dark:text-stone-400 uppercase mb-1">
               Assessment Term
             </label>
             <select
               value={selectedTerm}
               onChange={(e) => setSelectedTerm(e.target.value as any)}
-              className="w-full font-bold border border-stone-300 rounded-xl p-2.5 bg-white text-stone-800 focus:border-[#6b1426] focus:outline-none"
+              className="w-full font-bold border border-stone-300 dark:border-stone-700 rounded-xl p-2.5 bg-white dark:bg-stone-800 text-stone-800 dark:text-stone-200 focus:border-[#6b1426] focus:outline-none"
             >
               <option value="Term 3">Term 3 (August – November)</option>
               <option value="Term 2">Term 2 (May – August)</option>
@@ -631,13 +631,13 @@ export const PrintCenter: React.FC<PrintCenterProps> = ({
 
           {activeTab === 'single_report' && (
             <div className="sm:col-span-3">
-              <label className="block text-[11px] font-bold text-stone-500 uppercase mb-1">
+              <label className="block text-[11px] font-bold text-stone-500 dark:text-stone-400 uppercase mb-1">
                 Select Learner
               </label>
               <select
                 value={selectedLearnerId}
                 onChange={(e) => setSelectedLearnerId(e.target.value)}
-                className="w-full font-bold border border-stone-300 rounded-xl p-2.5 bg-white text-stone-800 focus:border-[#6b1426] focus:outline-none"
+                className="w-full font-bold border border-stone-300 dark:border-stone-700 rounded-xl p-2.5 bg-white dark:bg-stone-800 text-stone-800 dark:text-stone-200 focus:border-[#6b1426] focus:outline-none"
               >
                 {searchedLearners.map((lrn) => (
                   <option key={lrn.id} value={lrn.id}>
@@ -656,13 +656,13 @@ export const PrintCenter: React.FC<PrintCenterProps> = ({
       {activeTab === 'single_report' && currentReportData && (
         <div className="report-card-wrapper space-y-3">
           {/* Action Toolbar strictly ABOVE the document */}
-          <div className="print:hidden bg-stone-50 border border-stone-200 rounded-xl p-3 flex flex-wrap items-center justify-between gap-3 shadow-2xs">
-            <div className="flex items-center gap-2.5 text-xs font-bold text-stone-800">
-              <span className="bg-rose-100 text-[#6b1426] px-2.5 py-1 rounded-md font-mono font-black">
+          <div className="print:hidden bg-stone-50 dark:bg-stone-800/80 border border-stone-200 dark:border-stone-700 rounded-xl p-3 flex flex-wrap items-center justify-between gap-3 shadow-2xs">
+            <div className="flex items-center gap-2.5 text-xs font-bold text-stone-800 dark:text-stone-200">
+              <span className="bg-rose-100 dark:bg-rose-950 text-[#6b1426] dark:text-rose-300 px-2.5 py-1 rounded-md font-mono font-black">
                 ADM {activeLearner.admNo}
               </span>
-              <span className="text-sm font-black text-stone-900">{activeLearner.fullName}</span>
-              <span className="text-stone-500 font-medium">• {activeLearner.grade}</span>
+              <span className="text-sm font-black text-stone-900 dark:text-stone-100">{activeLearner.fullName}</span>
+              <span className="text-stone-500 dark:text-stone-400 font-medium">• {activeLearner.grade}</span>
             </div>
 
             <div className="flex flex-wrap items-center gap-2">
@@ -678,16 +678,16 @@ export const PrintCenter: React.FC<PrintCenterProps> = ({
               <button
                 type="button"
                 onClick={() => handleOpenSmsModal(activeLearner)}
-                className="inline-flex items-center gap-1.5 rounded-lg border border-rose-300 bg-rose-50 hover:bg-rose-100 text-[#6b1426] px-3 py-1.5 text-xs font-bold shadow-xs transition active:scale-95"
+                className="inline-flex items-center gap-1.5 rounded-lg border border-rose-300 dark:border-rose-800 bg-rose-50 dark:bg-rose-950/50 hover:bg-rose-100 dark:hover:bg-rose-900/60 text-[#6b1426] dark:text-rose-300 px-3 py-1.5 text-xs font-bold shadow-xs transition active:scale-95"
               >
-                <Smartphone className="w-3.5 h-3.5 text-[#6b1426]" />
+                <Smartphone className="w-3.5 h-3.5 text-[#6b1426] dark:text-rose-400" />
                 <span>Send SMS to Parent</span>
               </button>
 
               <button
                 type="button"
                 onClick={() => handleOpenWhatsAppModal(activeLearner)}
-                className="inline-flex items-center gap-1.5 rounded-lg border border-emerald-400 bg-emerald-50 hover:bg-emerald-100 text-[#075E54] px-3 py-1.5 text-xs font-bold shadow-xs transition active:scale-95"
+                className="inline-flex items-center gap-1.5 rounded-lg border border-emerald-400 dark:border-emerald-800 bg-emerald-50 dark:bg-emerald-950/50 hover:bg-emerald-100 dark:hover:bg-emerald-900/60 text-[#075E54] dark:text-emerald-300 px-3 py-1.5 text-xs font-bold shadow-xs transition active:scale-95"
               >
                 <MessageCircle className="w-3.5 h-3.5 text-[#25D366] fill-current" />
                 <span>Send WhatsApp</span>
@@ -719,13 +719,13 @@ export const PrintCenter: React.FC<PrintCenterProps> = ({
                 className="report-card-wrapper space-y-2.5 print:space-y-0 print:page-break-after-always print:break-after-page print:break-inside-avoid print:h-screen print:max-h-screen"
               >
                 {/* Action Toolbar strictly ABOVE each document (hidden on print) */}
-                <div className="print:hidden bg-stone-50 border border-stone-200 rounded-xl p-2.5 flex flex-wrap items-center justify-between gap-2 shadow-2xs">
-                  <div className="flex items-center gap-2 text-xs font-bold text-stone-800">
-                    <span className="bg-rose-100 text-[#6b1426] px-2 py-0.5 rounded font-mono font-black text-[11px]">
+                <div className="print:hidden bg-stone-50 dark:bg-stone-800/80 border border-stone-200 dark:border-stone-700 rounded-xl p-2.5 flex flex-wrap items-center justify-between gap-2 shadow-2xs">
+                  <div className="flex items-center gap-2 text-xs font-bold text-stone-800 dark:text-stone-200">
+                    <span className="bg-rose-100 dark:bg-rose-950 text-[#6b1426] dark:text-rose-300 px-2 py-0.5 rounded font-mono font-black text-[11px]">
                       ADM {lrn.admNo}
                     </span>
-                    <span className="font-black text-stone-900">{lrn.fullName}</span>
-                    <span className="text-stone-500 font-medium">• {lrn.grade}</span>
+                    <span className="font-black text-stone-900 dark:text-stone-100">{lrn.fullName}</span>
+                    <span className="text-stone-500 dark:text-stone-400 font-medium">• {lrn.grade}</span>
                   </div>
 
                   <div className="flex items-center gap-1.5">
@@ -741,16 +741,16 @@ export const PrintCenter: React.FC<PrintCenterProps> = ({
                     <button
                       type="button"
                       onClick={() => handleOpenSmsModal(lrn)}
-                      className="inline-flex items-center gap-1 rounded-md border border-rose-300 bg-rose-50 hover:bg-rose-100 text-[#6b1426] px-2.5 py-1 text-[11px] font-bold transition active:scale-95"
+                      className="inline-flex items-center gap-1 rounded-md border border-rose-300 dark:border-rose-800 bg-rose-50 dark:bg-rose-950/50 hover:bg-rose-100 dark:hover:bg-rose-900/60 text-[#6b1426] dark:text-rose-300 px-2.5 py-1 text-[11px] font-bold transition active:scale-95"
                     >
-                      <Smartphone className="w-3 h-3 text-[#6b1426]" />
+                      <Smartphone className="w-3 h-3 text-[#6b1426] dark:text-rose-400" />
                       <span>SMS</span>
                     </button>
 
                     <button
                       type="button"
                       onClick={() => handleOpenWhatsAppModal(lrn)}
-                      className="inline-flex items-center gap-1 rounded-md border border-emerald-300 bg-emerald-50 hover:bg-emerald-100 text-[#075E54] px-2.5 py-1 text-[11px] font-bold transition active:scale-95"
+                      className="inline-flex items-center gap-1 rounded-md border border-emerald-300 dark:border-emerald-800 bg-emerald-50 dark:bg-emerald-950/50 hover:bg-emerald-100 dark:hover:bg-emerald-900/60 text-[#075E54] dark:text-emerald-300 px-2.5 py-1 text-[11px] font-bold transition active:scale-95"
                     >
                       <MessageCircle className="w-3 h-3 text-[#25D366] fill-current" />
                       <span>WhatsApp</span>

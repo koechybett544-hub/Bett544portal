@@ -24,6 +24,7 @@ import {
   Sparkles,
   PhoneCall,
   User,
+  MessageSquare,
 } from 'lucide-react';
 
 interface TeachersDetailsModalProps {
@@ -35,7 +36,7 @@ interface TeachersDetailsModalProps {
   onShowSuccessToast: (msg: string) => void;
 }
 
-const MAX_TEACHERS = 15;
+const MAX_TEACHERS = 50;
 
 export const TeachersDetailsModal: React.FC<TeachersDetailsModalProps> = ({
   isOpen,
@@ -48,6 +49,7 @@ export const TeachersDetailsModal: React.FC<TeachersDetailsModalProps> = ({
   const isAdmin = currentUser.role === 'school_admin' || currentUser.role === 'super_admin';
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedTeacherId, setSelectedTeacherId] = useState<string | null>(null);
+  const [inspectedTeacher, setInspectedTeacher] = useState<UserProfile | null>(null);
 
   // Form state for Add/Edit
   const [editingTeacher, setEditingTeacher] = useState<UserProfile | null>(null);
@@ -67,11 +69,19 @@ export const TeachersDetailsModal: React.FC<TeachersDetailsModalProps> = ({
 
   if (!isOpen) return null;
 
-  const teacherCount = teachers.length;
+  // Filter registered faculty: Admin accounts shouldn't reflect in teacher's phone!
+  const roleFilteredTeachers = teachers.filter((t) => {
+    if (!isAdmin) {
+      return t.role !== 'school_admin' && t.role !== 'super_admin';
+    }
+    return true;
+  });
+
+  const teacherCount = roleFilteredTeachers.length;
   const isAtCapacity = teacherCount >= MAX_TEACHERS;
 
   // Filter teachers by query
-  const filteredTeachers = teachers.filter((t) => {
+  const filteredTeachers = roleFilteredTeachers.filter((t) => {
     const q = searchQuery.toLowerCase().trim();
     if (!q) return true;
     return (
@@ -237,7 +247,7 @@ export const TeachersDetailsModal: React.FC<TeachersDetailsModalProps> = ({
       id="teachers-details-modal"
       className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-xs p-3 sm:p-5 animate-in fade-in"
     >
-      <div className="bg-white rounded-3xl shadow-2xl border border-stone-200 w-full max-w-5xl max-h-[92vh] flex flex-col overflow-hidden">
+      <div className="bg-white dark:bg-stone-900 rounded-3xl shadow-2xl border border-stone-200 dark:border-stone-800 w-full max-w-5xl max-h-[92vh] flex flex-col overflow-hidden">
         {/* Modal Header */}
         <div className="bg-gradient-to-r from-[#6b1426] via-[#540d1e] to-[#3b0a16] text-white px-6 py-4 flex items-center justify-between border-b border-[#8c1632] shrink-0">
           <div className="flex items-center gap-3">
@@ -281,13 +291,13 @@ export const TeachersDetailsModal: React.FC<TeachersDetailsModalProps> = ({
         </div>
 
         {/* Modal Body */}
-        <div className="flex-1 overflow-y-auto p-4 sm:p-6 bg-stone-50/50">
+        <div className="flex-1 overflow-y-auto p-4 sm:p-6 bg-stone-50/50 dark:bg-stone-950/50">
           {/* Form View: Add or Edit */}
           {(isAddingNew || editingTeacher) ? (
-            <form onSubmit={handleSaveTeacher} className="bg-white rounded-3xl border border-stone-200 p-6 shadow-xs space-y-4 max-w-3xl mx-auto">
-              <div className="flex items-center justify-between pb-3 border-b border-stone-100">
-                <h3 className="text-base font-black text-stone-900 flex items-center gap-2">
-                  <Edit2 className="w-4 h-4 text-[#6b1426]" />
+            <form onSubmit={handleSaveTeacher} className="bg-white dark:bg-stone-900 rounded-3xl border border-stone-200 dark:border-stone-800 p-6 shadow-xs space-y-4 max-w-3xl mx-auto">
+              <div className="flex items-center justify-between pb-3 border-b border-stone-100 dark:border-stone-800">
+                <h3 className="text-base font-black text-stone-900 dark:text-stone-100 flex items-center gap-2">
+                  <Edit2 className="w-4 h-4 text-[#6b1426] dark:text-rose-400" />
                   <span>
                     {isAddingNew
                       ? 'Add New Teacher to Faculty'
@@ -302,21 +312,21 @@ export const TeachersDetailsModal: React.FC<TeachersDetailsModalProps> = ({
                     setIsAddingNew(false);
                     setEditingTeacher(null);
                   }}
-                  className="text-xs font-semibold text-stone-500 hover:text-stone-900"
+                  className="text-xs font-semibold text-stone-500 hover:text-stone-900 dark:hover:text-stone-200"
                 >
                   Cancel
                 </button>
               </div>
 
               {/* Public Editable Fields: Name, Primary Subject, Mobile, Department, Class */}
-              <div className="bg-rose-50/50 border border-rose-100 rounded-2xl p-4 space-y-3">
-                <span className="text-[11px] font-black uppercase text-[#6b1426] tracking-wider block">
+              <div className="bg-rose-50/50 dark:bg-rose-950/20 border border-rose-100 dark:border-rose-900/60 rounded-2xl p-4 space-y-3">
+                <span className="text-[11px] font-black uppercase text-[#6b1426] dark:text-rose-400 tracking-wider block">
                   Public Faculty Information (Visible to Everyone &amp; Editable)
                 </span>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
                   <div>
-                    <label className="block font-bold text-stone-700 mb-1">
+                    <label className="block font-bold text-stone-700 dark:text-stone-300 mb-1">
                       Teacher Full Name *
                     </label>
                     <input
@@ -325,12 +335,12 @@ export const TeachersDetailsModal: React.FC<TeachersDetailsModalProps> = ({
                       value={formName}
                       onChange={(e) => setFormName(e.target.value)}
                       placeholder="e.g. Madam Faith Chepkirui"
-                      className="w-full rounded-xl border border-stone-300 p-2.5 text-stone-900 font-bold focus:border-[#6b1426]"
+                      className="w-full rounded-xl border border-stone-300 dark:border-stone-700 dark:bg-stone-800 p-2.5 text-stone-900 dark:text-stone-100 font-bold focus:border-[#6b1426]"
                     />
                   </div>
 
                   <div>
-                    <label className="block font-bold text-stone-700 mb-1">
+                    <label className="block font-bold text-stone-700 dark:text-stone-300 mb-1">
                       Mobile Number (SMS &amp; Calls) *
                     </label>
                     <input
@@ -339,18 +349,18 @@ export const TeachersDetailsModal: React.FC<TeachersDetailsModalProps> = ({
                       value={formPhone}
                       onChange={(e) => setFormPhone(e.target.value)}
                       placeholder="+254 721 556 789"
-                      className="w-full rounded-xl border border-stone-300 p-2.5 text-stone-900 font-mono font-bold focus:border-[#6b1426]"
+                      className="w-full rounded-xl border border-stone-300 dark:border-stone-700 dark:bg-stone-800 p-2.5 text-stone-900 dark:text-stone-100 font-mono font-bold focus:border-[#6b1426]"
                     />
                   </div>
 
                   <div>
-                    <label className="block font-bold text-stone-700 mb-1">
+                    <label className="block font-bold text-stone-700 dark:text-stone-300 mb-1">
                       Primary Subject *
                     </label>
                     <select
                       value={formPrimarySubject}
                       onChange={(e) => setFormPrimarySubject(e.target.value)}
-                      className="w-full rounded-xl border border-stone-300 p-2.5 text-stone-900 font-bold focus:border-[#6b1426]"
+                      className="w-full rounded-xl border border-stone-300 dark:border-stone-700 dark:bg-stone-800 p-2.5 text-stone-900 dark:text-stone-100 font-bold focus:border-[#6b1426]"
                     >
                       {SUBJECTS.map((s) => (
                         <option key={s} value={s}>{s}</option>
@@ -359,13 +369,13 @@ export const TeachersDetailsModal: React.FC<TeachersDetailsModalProps> = ({
                   </div>
 
                   <div>
-                    <label className="block font-bold text-stone-700 mb-1">
+                    <label className="block font-bold text-stone-700 dark:text-stone-300 mb-1">
                       Assigned Class (Grade) *
                     </label>
                     <select
                       value={formAssignedClass}
                       onChange={(e) => setFormAssignedClass(e.target.value)}
-                      className="w-full rounded-xl border border-stone-300 p-2.5 text-stone-900 font-bold focus:border-[#6b1426]"
+                      className="w-full rounded-xl border border-stone-300 dark:border-stone-700 dark:bg-stone-800 p-2.5 text-stone-900 dark:text-stone-100 font-bold focus:border-[#6b1426]"
                     >
                       <option value="Grade 7">Grade 7</option>
                       <option value="Grade 8">Grade 8</option>
@@ -375,13 +385,13 @@ export const TeachersDetailsModal: React.FC<TeachersDetailsModalProps> = ({
                   </div>
 
                   <div className="sm:col-span-2">
-                    <label className="block font-bold text-stone-700 mb-1">
+                    <label className="block font-bold text-stone-700 dark:text-stone-300 mb-1">
                       Assigned Department *
                     </label>
                     <select
                       value={formDepartment}
                       onChange={(e) => setFormDepartment(e.target.value)}
-                      className="w-full rounded-xl border border-stone-300 p-2.5 text-stone-900 font-bold focus:border-[#6b1426]"
+                      className="w-full rounded-xl border border-stone-300 dark:border-stone-700 dark:bg-stone-800 p-2.5 text-stone-900 dark:text-stone-100 font-bold focus:border-[#6b1426]"
                     >
                       <option value="Pure & Applied Sciences">Pure &amp; Applied Sciences</option>
                       <option value="Mathematics & Technical Studies">Mathematics &amp; Technical Studies</option>
@@ -397,13 +407,13 @@ export const TeachersDetailsModal: React.FC<TeachersDetailsModalProps> = ({
               {/* Teaching Subjects Allocation */}
               <div className="pt-2">
                 <div className="flex items-center justify-between mb-2">
-                  <label className="block font-bold text-stone-800 text-xs">
+                  <label className="block font-bold text-stone-800 dark:text-stone-200 text-xs">
                     Assigned Teaching Subjects by Class:
                   </label>
                   <button
                     type="button"
                     onClick={handleAddAssignment}
-                    className="text-xs font-bold text-[#6b1426] hover:underline flex items-center gap-1"
+                    className="text-xs font-bold text-[#6b1426] dark:text-rose-400 hover:underline flex items-center gap-1"
                   >
                     + Add Class Allocation
                   </button>
@@ -411,11 +421,11 @@ export const TeachersDetailsModal: React.FC<TeachersDetailsModalProps> = ({
 
                 <div className="space-y-2">
                   {formAssignments.map((asgn, idx) => (
-                    <div key={idx} className="flex items-center gap-2 bg-stone-50 p-2 rounded-xl border border-stone-200">
+                    <div key={idx} className="flex items-center gap-2 bg-stone-50 dark:bg-stone-800/80 p-2 rounded-xl border border-stone-200 dark:border-stone-700">
                       <select
                         value={asgn.grade}
                         onChange={(e) => handleAssignmentChange(idx, 'grade', e.target.value)}
-                        className="rounded-lg border border-stone-300 p-1.5 text-xs font-bold text-stone-800 bg-white"
+                        className="rounded-lg border border-stone-300 dark:border-stone-700 p-1.5 text-xs font-bold text-stone-800 dark:text-stone-200 bg-white dark:bg-stone-900"
                       >
                         {GRADES.map((g) => (
                           <option key={g.id} value={g.id}>{g.name}</option>
@@ -425,7 +435,7 @@ export const TeachersDetailsModal: React.FC<TeachersDetailsModalProps> = ({
                       <select
                         value={asgn.subject}
                         onChange={(e) => handleAssignmentChange(idx, 'subject', e.target.value)}
-                        className="flex-1 rounded-lg border border-stone-300 p-1.5 text-xs font-semibold text-stone-800 bg-white"
+                        className="flex-1 rounded-lg border border-stone-300 dark:border-stone-700 p-1.5 text-xs font-semibold text-stone-800 dark:text-stone-200 bg-white dark:bg-stone-900"
                       >
                         {SUBJECTS.map((s) => (
                           <option key={s} value={s}>{s}</option>
@@ -435,7 +445,7 @@ export const TeachersDetailsModal: React.FC<TeachersDetailsModalProps> = ({
                       <button
                         type="button"
                         onClick={() => handleRemoveAssignment(idx)}
-                        className="p-1 text-rose-600 hover:bg-rose-50 rounded"
+                        className="p-1 text-rose-600 dark:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-950 rounded"
                         title="Remove allocation"
                       >
                         <X className="w-4 h-4" />
@@ -447,20 +457,20 @@ export const TeachersDetailsModal: React.FC<TeachersDetailsModalProps> = ({
 
               {/* Confidential Staff Fields: Only editable by Admin or by teacher for their own */}
               {(isAdmin || editingTeacher?.id === currentUser.id) && (
-                <div className="bg-stone-50 border border-stone-200 rounded-2xl p-4 space-y-3">
-                  <div className="flex items-center gap-1.5 text-stone-700">
-                    <Lock className="w-3.5 h-3.5 text-amber-700" />
+                <div className="bg-stone-50 dark:bg-stone-800/60 border border-stone-200 dark:border-stone-700 rounded-2xl p-4 space-y-3">
+                  <div className="flex items-center gap-1.5 text-stone-700 dark:text-stone-300">
+                    <Lock className="w-3.5 h-3.5 text-amber-700 dark:text-amber-400" />
                     <span className="text-[11px] font-black uppercase tracking-wider">
                       Confidential Administrative Record
                     </span>
-                    <span className="text-[10px] text-amber-700 bg-amber-100 px-1.5 py-0.2 rounded font-bold ml-auto">
+                    <span className="text-[10px] text-amber-700 dark:text-amber-300 bg-amber-100 dark:bg-amber-950 px-1.5 py-0.2 rounded font-bold ml-auto">
                       {isAdmin ? 'Admin Access' : 'Your Personal Record'}
                     </span>
                   </div>
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
                     <div>
-                      <label className="block font-bold text-stone-700 mb-1">
+                      <label className="block font-bold text-stone-700 dark:text-stone-300 mb-1">
                         TSC Registration Number
                       </label>
                       <input
@@ -468,12 +478,12 @@ export const TeachersDetailsModal: React.FC<TeachersDetailsModalProps> = ({
                         value={formTsc}
                         onChange={(e) => setFormTsc(e.target.value)}
                         placeholder="e.g. TSC/812034"
-                        className="w-full rounded-xl border border-stone-300 p-2.5 text-stone-900 font-mono font-bold focus:border-[#6b1426]"
+                        className="w-full rounded-xl border border-stone-300 dark:border-stone-700 dark:bg-stone-800 p-2.5 text-stone-900 dark:text-stone-100 font-mono font-bold focus:border-[#6b1426]"
                       />
                     </div>
 
                     <div>
-                      <label className="block font-bold text-stone-700 mb-1">
+                      <label className="block font-bold text-stone-700 dark:text-stone-300 mb-1">
                         National ID Number
                       </label>
                       <input
@@ -481,12 +491,12 @@ export const TeachersDetailsModal: React.FC<TeachersDetailsModalProps> = ({
                         value={formNationalId}
                         onChange={(e) => setFormNationalId(e.target.value)}
                         placeholder="e.g. 30129485"
-                        className="w-full rounded-xl border border-stone-300 p-2.5 text-stone-900 font-mono font-bold focus:border-[#6b1426]"
+                        className="w-full rounded-xl border border-stone-300 dark:border-stone-700 dark:bg-stone-800 p-2.5 text-stone-900 dark:text-stone-100 font-mono font-bold focus:border-[#6b1426]"
                       />
                     </div>
 
                     <div className="sm:col-span-2">
-                      <label className="block font-bold text-stone-700 mb-1">
+                      <label className="block font-bold text-stone-700 dark:text-stone-300 mb-1">
                         Official Designation / Title
                       </label>
                       <input
@@ -494,21 +504,21 @@ export const TeachersDetailsModal: React.FC<TeachersDetailsModalProps> = ({
                         value={formDesignation}
                         onChange={(e) => setFormDesignation(e.target.value)}
                         placeholder="e.g. Class Teacher (Grade 8) & Senior Languages Mistress"
-                        className="w-full rounded-xl border border-stone-300 p-2.5 text-stone-900 font-semibold focus:border-[#6b1426]"
+                        className="w-full rounded-xl border border-stone-300 dark:border-stone-700 dark:bg-stone-800 p-2.5 text-stone-900 dark:text-stone-100 font-semibold focus:border-[#6b1426]"
                       />
                     </div>
                   </div>
                 </div>
               )}
 
-              <div className="flex items-center justify-end gap-2 pt-3 border-t border-stone-100">
+              <div className="flex items-center justify-end gap-2 pt-3 border-t border-stone-100 dark:border-stone-800">
                 <button
                   type="button"
                   onClick={() => {
                     setIsAddingNew(false);
                     setEditingTeacher(null);
                   }}
-                  className="px-4 py-2 rounded-xl border border-stone-300 text-xs font-bold text-stone-700 hover:bg-stone-50"
+                  className="px-4 py-2 rounded-xl border border-stone-300 dark:border-stone-700 text-xs font-bold text-stone-700 dark:text-stone-300 hover:bg-stone-50 dark:hover:bg-stone-800"
                 >
                   Cancel
                 </button>
@@ -525,22 +535,22 @@ export const TeachersDetailsModal: React.FC<TeachersDetailsModalProps> = ({
             /* Main Public Faculty Directory View (Visible to Everyone & Editable) */
             <div className="space-y-4">
               {/* Notice Banner */}
-              <div className="bg-sky-50 border border-sky-200 rounded-2xl p-3.5 text-xs text-sky-950 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 shadow-2xs">
+              <div className="bg-sky-50 dark:bg-sky-950/40 border border-sky-200 dark:border-sky-900 rounded-2xl p-3.5 text-xs text-sky-950 dark:text-sky-200 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 shadow-2xs">
                 <div className="flex items-center gap-2">
-                  <Users className="w-5 h-5 text-sky-700 shrink-0" />
+                  <Users className="w-5 h-5 text-sky-700 dark:text-sky-400 shrink-0" />
                   <div>
-                    <span className="font-black text-sky-950 block">Public Staff Directory:</span>
-                    <p className="text-[11px] text-sky-900">
+                    <span className="font-black text-sky-950 dark:text-sky-100 block">Public Staff Directory:</span>
+                    <p className="text-[11px] text-sky-900 dark:text-sky-300">
                       Teachers' names, primary subjects, teaching subjects, mobile contacts, department &amp; assigned classes are visible to all staff and editable. Full administrative details (TSC, National ID) are strictly restricted to administrators or your own profile.
                     </p>
                   </div>
                 </div>
                 {isAdmin ? (
-                  <span className="text-[11px] font-black bg-rose-100 text-[#6b1426] px-2.5 py-1 rounded-xl shrink-0 border border-rose-300">
+                  <span className="text-[11px] font-black bg-rose-100 dark:bg-rose-950 text-[#6b1426] dark:text-rose-300 px-2.5 py-1 rounded-xl shrink-0 border border-rose-300 dark:border-rose-800">
                     Administrator Full Access
                   </span>
                 ) : (
-                  <span className="text-[11px] font-bold bg-white text-stone-700 px-2.5 py-1 rounded-xl shrink-0 border border-stone-300">
+                  <span className="text-[11px] font-bold bg-white dark:bg-stone-900 text-stone-700 dark:text-stone-300 px-2.5 py-1 rounded-xl shrink-0 border border-stone-300 dark:border-stone-700">
                     Viewing as: {currentUser.name}
                   </span>
                 )}
@@ -549,18 +559,18 @@ export const TeachersDetailsModal: React.FC<TeachersDetailsModalProps> = ({
               {/* Search & Action Bar */}
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                 <div className="relative flex-1 max-w-md">
-                  <Search className="w-4 h-4 absolute left-3.5 top-3 text-stone-400" />
+                  <Search className="w-4 h-4 absolute left-3.5 top-3 text-stone-400 dark:text-stone-500" />
                   <input
                     type="text"
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
                     placeholder="Search by teacher name, subject, class, or phone..."
-                    className="w-full pl-10 pr-4 py-2.5 rounded-2xl border border-stone-300 text-xs font-semibold text-stone-900 bg-white focus:border-[#6b1426] focus:outline-none"
+                    className="w-full pl-10 pr-4 py-2.5 rounded-2xl border border-stone-300 dark:border-stone-700 text-xs font-semibold text-stone-900 dark:text-stone-100 bg-white dark:bg-stone-900 focus:border-[#6b1426] focus:outline-none"
                   />
                   {searchQuery && (
                     <button
                       onClick={() => setSearchQuery('')}
-                      className="absolute right-3 top-2.5 text-stone-400 hover:text-stone-700"
+                      className="absolute right-3 top-2.5 text-stone-400 hover:text-stone-700 dark:hover:text-stone-200"
                     >
                       <X className="w-4 h-4" />
                     </button>
@@ -581,201 +591,268 @@ export const TeachersDetailsModal: React.FC<TeachersDetailsModalProps> = ({
                 </div>
               </div>
 
-              {/* Teachers Cards Grid */}
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4">
-                {filteredTeachers.map((teacher) => {
-                  const isCurrent = teacher.id === currentUser.id;
-                  const canEdit = isAdmin || isCurrent;
-                  const canViewConfidential = isAdmin || isCurrent;
-
-                  // Compute subjects
-                  const teachingSubjects = teacher.assignments && teacher.assignments.length > 0
-                    ? Array.from(new Set(teacher.assignments.map((a) => a.subject)))
-                    : (teacher.primarySubject ? [teacher.primarySubject] : ['Mathematics']);
-
-                  const primarySubj = teacher.primarySubject || teachingSubjects[0] || 'General';
-                  const assignedClass = teacher.assignedClass || (teacher.assignments?.[0]?.grade || 'Grade 8');
-                  const department = teacher.department || 'Languages & Humanities';
-
-                  return (
-                    <div
-                      key={teacher.id}
-                      className={`p-5 rounded-3xl bg-white border transition shadow-xs flex flex-col justify-between ${
-                        isCurrent
-                          ? 'border-[#6b1426] ring-2 ring-rose-100'
-                          : 'border-stone-200 hover:border-stone-300'
-                      }`}
+              {/* Teacher Details View (When a teacher is tapped) */}
+              {inspectedTeacher ? (
+                <div className="bg-white dark:bg-stone-900 rounded-3xl border border-stone-200 dark:border-stone-800 p-5 sm:p-6 shadow-sm space-y-5 animate-in fade-in">
+                  <div className="flex items-center justify-between pb-4 border-b border-stone-200 dark:border-stone-800">
+                    <button
+                      type="button"
+                      onClick={() => setInspectedTeacher(null)}
+                      className="inline-flex items-center gap-1.5 text-xs font-black text-[#6b1426] dark:text-rose-400 hover:underline"
                     >
+                      <span>← Back to Faculty List</span>
+                    </button>
+
+                    <div className="flex items-center gap-2">
+                      {(isAdmin || inspectedTeacher.id === currentUser.id) && (
+                        <button
+                          type="button"
+                          onClick={() => {
+                            handleOpenEdit(inspectedTeacher);
+                            setInspectedTeacher(null);
+                          }}
+                          className="px-3 py-1.5 rounded-xl bg-stone-100 dark:bg-stone-800 hover:bg-rose-50 dark:hover:bg-rose-950 hover:text-[#6b1426] dark:hover:text-rose-400 text-stone-800 dark:text-stone-200 text-xs font-bold border border-stone-200 dark:border-stone-700 flex items-center gap-1.5 transition"
+                        >
+                          <Edit2 className="w-3.5 h-3.5" />
+                          <span>Edit Teacher</span>
+                        </button>
+                      )}
+                      {isAdmin && inspectedTeacher.role !== 'super_admin' && (
+                        <button
+                          type="button"
+                          onClick={() => {
+                            handleDeleteTeacher(inspectedTeacher);
+                            setInspectedTeacher(null);
+                          }}
+                          className="px-3 py-1.5 rounded-xl bg-rose-50 dark:bg-rose-950/50 hover:bg-rose-100 dark:hover:bg-rose-900 text-rose-700 dark:text-rose-300 text-xs font-bold border border-rose-200 dark:border-rose-800 flex items-center gap-1.5 transition"
+                        >
+                          <Trash2 className="w-3.5 h-3.5" />
+                          <span>Remove</span>
+                        </button>
+                      )}
+                    </div>
+                  </div>
+
+                  {/* Profile Header */}
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-4 rounded-2xl bg-stone-50 dark:bg-stone-800/60 border border-stone-200 dark:border-stone-700">
+                    <div className="flex items-center gap-3.5">
+                      <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-[#6b1426] text-white font-black text-xl shadow-xs">
+                        {inspectedTeacher.name.charAt(0) || 'T'}
+                      </div>
                       <div>
-                        {/* Header: Name, Role & Edit Action */}
-                        <div className="flex items-start justify-between gap-2 pb-3 border-b border-stone-100">
-                          <div className="flex items-center gap-3">
-                            <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-rose-50 text-[#6b1426] font-black text-sm border border-rose-200">
+                        <div className="flex items-center gap-2 flex-wrap">
+                          <h3 className="text-base font-black text-stone-900 dark:text-stone-100">{inspectedTeacher.name}</h3>
+                          {inspectedTeacher.role === 'super_admin' && (
+                            <span className="text-[10px] font-black bg-[#6b1426] text-white px-2 py-0.5 rounded-md">Head Teacher</span>
+                          )}
+                          {inspectedTeacher.role === 'school_admin' && (
+                            <span className="text-[10px] font-black bg-stone-800 dark:bg-stone-700 text-white px-2 py-0.5 rounded-md">Administrator</span>
+                          )}
+                          {inspectedTeacher.id === currentUser.id && (
+                            <span className="text-[10px] font-black bg-emerald-100 dark:bg-emerald-950 text-emerald-900 dark:text-emerald-200 border border-emerald-300 dark:border-emerald-800 px-2 py-0.5 rounded-md">Your Profile</span>
+                          )}
+                        </div>
+                        <p className="text-xs text-stone-600 dark:text-stone-400 font-medium mt-0.5">
+                          {inspectedTeacher.designation || 'Teacher of Junior Secondary'} • {inspectedTeacher.department || 'Languages & Humanities'}
+                        </p>
+                      </div>
+                    </div>
+
+                    {/* Quick Contacts */}
+                    <div className="flex items-center gap-2 flex-wrap">
+                      <a
+                        href={`tel:${inspectedTeacher.phone}`}
+                        className="px-3 py-2 rounded-xl bg-sky-600 hover:bg-sky-700 text-white font-bold text-xs flex items-center gap-1.5 shadow-xs transition"
+                      >
+                        <Phone className="w-3.5 h-3.5" />
+                        <span>Call</span>
+                      </a>
+                      <a
+                        href={`sms:${inspectedTeacher.phone.replace(/[^\d+]/g, '')}`}
+                        className="px-3 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs flex items-center gap-1.5 shadow-xs transition"
+                      >
+                        <MessageSquare className="w-3.5 h-3.5" />
+                        <span>SMS</span>
+                      </a>
+                      {inspectedTeacher.email && (
+                        <a
+                          href={`mailto:${inspectedTeacher.email}`}
+                          className="px-3 py-2 rounded-xl bg-stone-200 dark:bg-stone-700 hover:bg-stone-300 dark:hover:bg-stone-600 text-stone-800 dark:text-stone-200 font-bold text-xs flex items-center gap-1.5 transition"
+                        >
+                          <Mail className="w-3.5 h-3.5" />
+                          <span>Email</span>
+                        </a>
+                      )}
+                    </div>
+                  </div>
+
+                  {/* Detailed Information Grid */}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 text-xs">
+                    <div className="p-3 bg-rose-50/70 dark:bg-rose-950/30 rounded-2xl border border-rose-100 dark:border-rose-900/60">
+                      <span className="text-[10px] font-black text-[#6b1426] dark:text-rose-400 uppercase tracking-wider block">Primary Subject</span>
+                      <span className="text-xs font-black text-stone-900 dark:text-stone-100 block mt-1">{inspectedTeacher.primarySubject || 'General'}</span>
+                    </div>
+
+                    <div className="p-3 bg-sky-50/70 dark:bg-sky-950/30 rounded-2xl border border-sky-100 dark:border-sky-900/60">
+                      <span className="text-[10px] font-black text-sky-900 dark:text-sky-300 uppercase tracking-wider block">Assigned Class</span>
+                      <span className="text-xs font-black text-stone-900 dark:text-stone-100 block mt-1">{inspectedTeacher.assignedClass || 'Grade 8'}</span>
+                    </div>
+
+                    <div className="p-3 bg-stone-50 dark:bg-stone-800/60 rounded-2xl border border-stone-200 dark:border-stone-700">
+                      <span className="text-[10px] font-black text-stone-500 dark:text-stone-400 uppercase tracking-wider block">Official Mobile</span>
+                      <span className="text-xs font-mono font-bold text-stone-900 dark:text-stone-100 block mt-1">{inspectedTeacher.phone || 'N/A'}</span>
+                    </div>
+
+                    <div className="p-3 bg-stone-50 dark:bg-stone-800/60 rounded-2xl border border-stone-200 dark:border-stone-700">
+                      <span className="text-[10px] font-black text-stone-500 dark:text-stone-400 uppercase tracking-wider block">Staff Email</span>
+                      <span className="text-xs font-mono font-medium text-stone-900 dark:text-stone-100 block mt-1 truncate">{inspectedTeacher.email || 'N/A'}</span>
+                    </div>
+
+                    <div className="p-3 bg-stone-50 dark:bg-stone-800/60 rounded-2xl border border-stone-200 dark:border-stone-700">
+                      <span className="text-[10px] font-black text-stone-500 dark:text-stone-400 uppercase tracking-wider block">Department</span>
+                      <span className="text-xs font-bold text-stone-900 dark:text-stone-100 block mt-1">{inspectedTeacher.department || 'Junior Secondary'}</span>
+                    </div>
+
+                    <div className="p-3 bg-stone-50 dark:bg-stone-800/60 rounded-2xl border border-stone-200 dark:border-stone-700">
+                      <span className="text-[10px] font-black text-stone-500 dark:text-stone-400 uppercase tracking-wider block">Experience &amp; Joining</span>
+                      <span className="text-xs font-medium text-stone-900 dark:text-stone-100 block mt-1">
+                        {inspectedTeacher.teachingExperienceYears || 5} Years exp • Joined {inspectedTeacher.joiningDate || '2022'}
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Teaching Allocations Table */}
+                  <div className="p-4 rounded-2xl bg-stone-50 dark:bg-stone-800/60 border border-stone-200 dark:border-stone-700 space-y-2 text-xs">
+                    <span className="font-black text-stone-900 dark:text-stone-100 text-xs block">Subject &amp; Grade Allocations:</span>
+                    {inspectedTeacher.assignments && inspectedTeacher.assignments.length > 0 ? (
+                      <div className="flex flex-wrap gap-2 pt-1">
+                        {inspectedTeacher.assignments.map((a, i) => (
+                          <div key={i} className="px-3 py-1.5 rounded-xl bg-white dark:bg-stone-900 border border-stone-200 dark:border-stone-700 shadow-2xs font-bold text-stone-800 dark:text-stone-200 flex items-center gap-1.5">
+                            <span className="bg-[#6b1426] text-white text-[10px] px-1.5 py-0.2 rounded font-black">{a.grade}</span>
+                            <span>{a.subject}</span>
+                          </div>
+                        ))}
+                      </div>
+                    ) : (
+                      <p className="text-stone-500 dark:text-stone-400 text-xs">No explicit subject assignments recorded.</p>
+                    )}
+                  </div>
+
+                  {/* Confidential Records */}
+                  {(isAdmin || inspectedTeacher.id === currentUser.id) && (
+                    <div className="p-3.5 bg-amber-50/70 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-800 rounded-2xl space-y-1.5 text-xs">
+                      <div className="flex items-center gap-1.5 font-black text-amber-900 dark:text-amber-300">
+                        <Lock className="w-3.5 h-3.5 text-amber-700 dark:text-amber-400" />
+                        <span>Confidential Administrative Records</span>
+                        <span className="text-[9px] bg-amber-200 dark:bg-amber-900 text-amber-900 dark:text-amber-200 px-1.5 py-0.2 rounded font-mono ml-auto">
+                          {isAdmin ? 'Admin View' : 'Personal Record'}
+                        </span>
+                      </div>
+                      <div className="grid grid-cols-2 gap-3 pt-1 text-stone-800 dark:text-stone-200 font-mono">
+                        <div>TSC Number: <strong>{inspectedTeacher.tscNumber || 'TSC/REG'}</strong></div>
+                        <div>National ID: <strong>{inspectedTeacher.nationalId || 'ID/RECORD'}</strong></div>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              ) : (
+                /* Compact Interactive List View (No Large Boxes) */
+                <div className="bg-white dark:bg-stone-900 rounded-3xl border border-stone-200 dark:border-stone-800 overflow-hidden shadow-xs">
+                  <div className="p-3 sm:p-4 bg-stone-100/70 dark:bg-stone-800/80 border-b border-stone-200 dark:border-stone-700 flex items-center justify-between text-xs font-black text-stone-700 dark:text-stone-300 uppercase tracking-wider">
+                    <span>Faculty Member &amp; Subject</span>
+                    <span className="hidden sm:inline">Class &amp; Contact</span>
+                    <span>Action</span>
+                  </div>
+
+                  <div className="divide-y divide-stone-100 dark:divide-stone-800">
+                    {filteredTeachers.map((teacher) => {
+                      const isCurrent = teacher.id === currentUser.id;
+                      const primarySubj = teacher.primarySubject || (teacher.assignments?.[0]?.subject || 'General');
+                      const assignedClass = teacher.assignedClass || (teacher.assignments?.[0]?.grade || 'Grade 8');
+
+                      return (
+                        <div
+                          key={teacher.id}
+                          onClick={() => setInspectedTeacher(teacher)}
+                          className={`p-3 sm:p-4 flex items-center justify-between gap-3 hover:bg-rose-50/40 dark:hover:bg-rose-950/20 cursor-pointer transition active:bg-rose-50 dark:active:bg-rose-950/40 ${
+                            isCurrent ? 'bg-rose-50/30 dark:bg-rose-950/30' : ''
+                          }`}
+                        >
+                          <div className="flex items-center gap-3 min-w-0">
+                            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-rose-50 dark:bg-rose-950 text-[#6b1426] dark:text-rose-300 font-black text-sm border border-rose-200 dark:border-rose-900">
                               {teacher.name.charAt(0) || 'T'}
                             </div>
-                            <div>
-                              <div className="flex items-center gap-1.5 flex-wrap">
-                                <h4 className="text-sm font-black text-stone-950">
+                            <div className="min-w-0">
+                              <div className="flex items-center gap-2 flex-wrap">
+                                <span className="font-black text-stone-900 dark:text-stone-100 text-xs sm:text-sm truncate">
                                   {teacher.name}
-                                </h4>
+                                </span>
                                 {teacher.role === 'super_admin' && (
-                                  <span className="text-[9px] font-black bg-[#6b1426] text-white px-2 py-0.5 rounded-md">
+                                  <span className="text-[9px] font-black bg-[#6b1426] text-white px-1.5 py-0.2 rounded">
                                     Head Teacher
                                   </span>
                                 )}
                                 {teacher.role === 'school_admin' && (
-                                  <span className="text-[9px] font-black bg-stone-800 text-white px-2 py-0.5 rounded-md">
+                                  <span className="text-[9px] font-black bg-stone-800 dark:bg-stone-700 text-white px-1.5 py-0.2 rounded">
                                     Admin
                                   </span>
                                 )}
                                 {isCurrent && (
-                                  <span className="text-[9px] font-black bg-emerald-100 text-emerald-900 border border-emerald-300 px-2 py-0.5 rounded-md">
-                                    Your Profile
+                                  <span className="text-[9px] font-black bg-emerald-100 dark:bg-emerald-950 text-emerald-900 dark:text-emerald-200 border border-emerald-300 dark:border-emerald-800 px-1.5 py-0.2 rounded">
+                                    You
                                   </span>
                                 )}
                               </div>
-                              <p className="text-[11px] text-stone-500 font-medium mt-0.5">
-                                {teacher.designation || 'Teacher of Junior Secondary'}
-                              </p>
+                              <div className="flex items-center gap-2 text-[11px] text-stone-500 dark:text-stone-400 mt-0.5 flex-wrap">
+                                <span className="font-semibold text-[#6b1426] dark:text-rose-400">{primarySubj}</span>
+                                <span>•</span>
+                                <span className="text-stone-600 dark:text-stone-300 truncate">{teacher.designation || 'Subject Teacher'}</span>
+                              </div>
                             </div>
                           </div>
 
-                          {/* Editable button */}
-                          {canEdit && (
+                          <div className="hidden sm:flex items-center gap-3 text-xs shrink-0">
+                            <span className="px-2 py-0.5 rounded-lg bg-sky-50 dark:bg-sky-950/60 text-sky-900 dark:text-sky-300 border border-sky-200 dark:border-sky-800 font-bold text-[11px]">
+                              {assignedClass}
+                            </span>
+                            <span className="font-mono text-stone-600 dark:text-stone-400 font-medium text-[11px]">
+                              {teacher.phone}
+                            </span>
+                          </div>
+
+                          <div className="flex items-center gap-2 shrink-0">
                             <button
-                              onClick={() => handleOpenEdit(teacher)}
-                              className="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-xl bg-stone-100 hover:bg-rose-50 hover:text-[#6b1426] text-stone-700 text-xs font-bold transition active:scale-95 border border-stone-200"
-                              title="Edit teacher information"
+                              type="button"
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                setInspectedTeacher(teacher);
+                              }}
+                              className="px-2.5 py-1.5 rounded-xl bg-stone-100 dark:bg-stone-800 hover:bg-[#6b1426] dark:hover:bg-rose-700 hover:text-white text-stone-700 dark:text-stone-300 text-xs font-bold flex items-center gap-1 transition shadow-2xs"
                             >
-                              <Edit2 className="w-3.5 h-3.5" />
-                              <span>Edit</span>
+                              <span>View Details</span>
+                              <ChevronRight className="w-3.5 h-3.5" />
                             </button>
-                          )}
-                        </div>
-
-                        {/* Public Visible Fields */}
-                        <div className="mt-3.5 space-y-2.5 text-xs">
-                          {/* Primary Subject & Assigned Class */}
-                          <div className="grid grid-cols-2 gap-2">
-                            <div className="bg-rose-50/70 p-2.5 rounded-xl border border-rose-100">
-                              <span className="text-[10px] font-black text-[#6b1426] uppercase tracking-wider block">
-                                Primary Subject
-                              </span>
-                              <span className="text-xs font-black text-stone-950 block mt-0.5">
-                                {primarySubj}
-                              </span>
-                            </div>
-
-                            <div className="bg-sky-50/70 p-2.5 rounded-xl border border-sky-100">
-                              <span className="text-[10px] font-black text-sky-900 uppercase tracking-wider block">
-                                Assigned Class
-                              </span>
-                              <span className="text-xs font-black text-stone-950 block mt-0.5">
-                                {assignedClass}
-                              </span>
-                            </div>
-                          </div>
-
-                          {/* Department */}
-                          <div className="bg-stone-50 p-2.5 rounded-xl border border-stone-100 flex items-center justify-between">
-                            <span className="text-[10px] font-bold text-stone-400 uppercase tracking-wider">
-                              Department:
-                            </span>
-                            <span className="font-bold text-stone-800 text-[11.5px] truncate max-w-[200px]">
-                              {department}
-                            </span>
-                          </div>
-
-                          {/* Mobile Phone Number */}
-                          <div className="bg-stone-50 p-2.5 rounded-xl border border-stone-100 flex items-center justify-between">
-                            <span className="text-[10px] font-bold text-stone-400 uppercase tracking-wider">
-                              Mobile Number:
-                            </span>
-                            <a
-                              href={`tel:${teacher.phone}`}
-                              className="font-mono font-bold text-sky-800 hover:underline flex items-center gap-1.5"
-                            >
-                              <Phone className="w-3.5 h-3.5 text-sky-700" />
-                              <span>{teacher.phone || '+254 700 000 000'}</span>
-                            </a>
-                          </div>
-
-                          {/* Teaching Subjects */}
-                          <div>
-                            <span className="text-[10px] font-black uppercase tracking-wider text-stone-500 mb-1.5 block">
-                              Teaching Subjects:
-                            </span>
-                            <div className="flex flex-wrap gap-1.5">
-                              {teachingSubjects.map((subj, idx) => (
-                                <span
-                                  key={idx}
-                                  className="text-[10.5px] font-bold bg-stone-100 text-stone-800 border border-stone-200 px-2.5 py-0.5 rounded-lg"
-                                >
-                                  {subj}
-                                </span>
-                              ))}
-                            </div>
                           </div>
                         </div>
-
-                        {/* Confidential Details Tier: Visible ONLY to Admin or Teacher's OWN profile */}
-                        <div className="mt-4 pt-3 border-t border-stone-100">
-                          {canViewConfidential ? (
-                            <div className="bg-amber-50/60 border border-amber-200 rounded-xl p-2.5 space-y-1 text-[11px] text-amber-950">
-                              <div className="flex items-center justify-between font-bold">
-                                <span className="flex items-center gap-1 text-amber-900">
-                                  <Lock className="w-3 h-3 text-amber-700" />
-                                  <span>Confidential Records:</span>
-                                </span>
-                                <span className="text-[9.5px] bg-white px-1.5 py-0.2 rounded border border-amber-300 font-extrabold text-amber-900">
-                                  {isAdmin ? 'Admin View' : 'Your Record'}
-                                </span>
-                              </div>
-                              <div className="grid grid-cols-2 gap-1 font-medium pt-1 text-stone-800">
-                                <div>TSC: <strong className="font-mono">{teacher.tscNumber || 'TSC: Pending'}</strong></div>
-                                <div>National ID: <strong className="font-mono">{teacher.nationalId || 'ID: Verified'}</strong></div>
-                              </div>
-                            </div>
-                          ) : (
-                            <div className="bg-stone-50 rounded-xl p-2 text-[10px] text-stone-400 font-medium flex items-center gap-1.5">
-                              <Lock className="w-3 h-3 text-stone-400 shrink-0" />
-                              <span>Confidential records (TSC, National ID) are strictly restricted to School Administrators.</span>
-                            </div>
-                          )}
-                        </div>
-                      </div>
-
-                      {/* Admin Delete Action */}
-                      {isAdmin && teacher.role !== 'super_admin' && (
-                        <div className="mt-3 pt-2 border-t border-stone-100 flex justify-end">
-                          <button
-                            onClick={() => handleDeleteTeacher(teacher)}
-                            className="text-[11px] font-bold text-rose-600 hover:text-rose-800 flex items-center gap-1 transition"
-                            title="Remove teacher"
-                          >
-                            <Trash2 className="w-3.5 h-3.5" />
-                            <span>Remove from Roster</span>
-                          </button>
-                        </div>
-                      )}
-                    </div>
-                  );
-                })}
-              </div>
+                      );
+                    })}
+                  </div>
+                </div>
+              )}
             </div>
           )}
         </div>
 
         {/* Modal Footer */}
-        <div className="bg-stone-100 px-6 py-3.5 border-t border-stone-200 flex items-center justify-between text-xs shrink-0">
-          <div className="flex items-center gap-2 text-stone-600">
-            <GraduationCap className="w-4 h-4 text-[#6b1426]" />
-            <span className="font-bold text-stone-800">Reberwet Junior Secondary School Official Faculty Register</span>
+        <div className="bg-stone-100 dark:bg-stone-900 px-6 py-3.5 border-t border-stone-200 dark:border-stone-800 flex items-center justify-between text-xs shrink-0">
+          <div className="flex items-center gap-2 text-stone-600 dark:text-stone-400">
+            <GraduationCap className="w-4 h-4 text-[#6b1426] dark:text-rose-400" />
+            <span className="font-bold text-stone-800 dark:text-stone-200">Reberwet Junior Secondary School Official Faculty Register</span>
           </div>
 
           <button
             onClick={onClose}
-            className="px-5 py-2 rounded-xl bg-stone-900 text-white font-extrabold hover:bg-stone-800 transition active:scale-95 text-xs shadow-xs"
+            className="px-5 py-2 rounded-xl bg-stone-900 dark:bg-stone-100 text-white dark:text-stone-900 font-extrabold hover:bg-stone-800 dark:hover:bg-white transition active:scale-95 text-xs shadow-xs"
           >
             Done
           </button>

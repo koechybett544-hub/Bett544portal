@@ -15,7 +15,10 @@ import {
   ShieldCheck,
   Lock,
   Calendar,
+  Sun,
+  Moon,
 } from 'lucide-react';
+import { useTheme } from '../hooks/useTheme';
 
 interface HeaderProps {
   currentUser: UserProfile | null;
@@ -51,6 +54,7 @@ export const Header: React.FC<HeaderProps> = ({
   onOpenGmail,
 }) => {
   const [roleDropdownOpen, setRoleDropdownOpen] = React.useState(false);
+  const { isDark, toggleTheme } = useTheme();
   const isBrianBett = currentUser ? (currentUser.role === 'super_admin' || currentUser.name.toLowerCase().includes('brian')) : false;
 
   const getRoleBadge = (role: UserRole) => {
@@ -158,6 +162,20 @@ export const Header: React.FC<HeaderProps> = ({
               )}
             </button>
 
+            {/* Light / Dark Mode Toggle */}
+            <button
+              onClick={toggleTheme}
+              id="theme-mode-toggle-btn"
+              title={isDark ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
+              className="p-2 rounded-lg bg-[#540d1e] hover:bg-[#3b0a16] text-sky-100 transition border border-[#8c1632] flex items-center justify-center active:scale-95"
+            >
+              {isDark ? (
+                <Sun className="w-4 h-4 text-amber-300" />
+              ) : (
+                <Moon className="w-4 h-4 text-sky-200" />
+              )}
+            </button>
+
             {/* Notification Bell */}
             <button
               id="notifications-bell-btn"
@@ -224,19 +242,19 @@ export const Header: React.FC<HeaderProps> = ({
                       className="fixed inset-0 z-40"
                       onClick={() => setRoleDropdownOpen(false)}
                     />
-                    <div className="absolute right-0 mt-2 w-64 rounded-xl bg-white p-2 shadow-2xl border border-stone-200 text-stone-800 z-50 animate-in fade-in zoom-in-95">
-                      <div className="px-3 py-2 border-b border-stone-100 mb-1">
-                        <p className="text-[11px] font-bold text-stone-400 uppercase tracking-wider">Active Account</p>
-                        <p className="text-xs font-bold text-stone-900 truncate">{currentUser.name}</p>
+                    <div className="absolute right-0 mt-2 w-64 rounded-xl bg-white dark:bg-stone-900 p-2 shadow-2xl border border-stone-200 dark:border-stone-800 text-stone-800 dark:text-stone-200 z-50 animate-in fade-in zoom-in-95">
+                      <div className="px-3 py-2 border-b border-stone-100 dark:border-stone-800 mb-1">
+                        <p className="text-[11px] font-bold text-stone-400 dark:text-stone-500 uppercase tracking-wider">Active Account</p>
+                        <p className="text-xs font-bold text-stone-900 dark:text-stone-100 truncate">{currentUser.name}</p>
                         <div className="mt-1">{getRoleBadge(currentUser.role)}</div>
                       </div>
 
                       {/* ONLY Admin (Brian Bett) is authorized to switch accounts */}
                       {isBrianBett ? (
                         <>
-                          <div className="flex items-center justify-between px-3 py-1.5 text-[11px] font-semibold text-stone-500">
+                          <div className="flex items-center justify-between px-3 py-1.5 text-[11px] font-semibold text-stone-500 dark:text-stone-400">
                             <span>Switch Faculty Seat:</span>
-                            <span className="text-[10px] text-amber-700 bg-amber-50 px-1.5 py-0.5 rounded font-bold border border-amber-200">Admin Only</span>
+                            <span className="text-[10px] text-amber-700 dark:text-amber-300 bg-amber-50 dark:bg-amber-950/50 px-1.5 py-0.5 rounded font-bold border border-amber-200 dark:border-amber-800">Admin Only</span>
                           </div>
                           <div className="space-y-1 max-h-56 overflow-y-auto">
                             {(teachers && teachers.length > 0 ? teachers : DEFAULT_USERS).map((u) => (
@@ -248,13 +266,13 @@ export const Header: React.FC<HeaderProps> = ({
                                 }}
                                 className={`w-full text-left px-3 py-2 rounded-lg text-xs flex items-center justify-between transition ${
                                   u.id === currentUser.id
-                                    ? 'bg-rose-50 font-bold text-rose-950 border border-rose-200'
-                                    : 'hover:bg-stone-50 text-stone-700'
+                                    ? 'bg-rose-50 dark:bg-rose-950/40 font-bold text-rose-950 dark:text-rose-200 border border-rose-200 dark:border-rose-900/60'
+                                    : 'hover:bg-stone-50 dark:hover:bg-stone-800 text-stone-700 dark:text-stone-300'
                                 }`}
                               >
                                 <div>
                                   <div className="font-semibold">{u.name}</div>
-                                  <div className="text-[10px] text-stone-500">{u.designation}</div>
+                                  <div className="text-[10px] text-stone-500 dark:text-stone-400">{u.designation}</div>
                                 </div>
                                 {getRoleBadge(u.role)}
                               </button>
@@ -262,26 +280,26 @@ export const Header: React.FC<HeaderProps> = ({
                           </div>
                         </>
                       ) : (
-                        <div className="px-3 py-2.5 bg-stone-50 rounded-lg border border-stone-200 text-xs text-stone-600 mb-1">
-                          <div className="flex items-center gap-1.5 font-bold text-stone-800 mb-1">
-                            <Lock className="w-3.5 h-3.5 text-rose-700 shrink-0" />
+                        <div className="px-3 py-2.5 bg-stone-50 dark:bg-stone-800/60 rounded-lg border border-stone-200 dark:border-stone-700 text-xs text-stone-600 dark:text-stone-400 mb-1">
+                          <div className="flex items-center gap-1.5 font-bold text-stone-800 dark:text-stone-200 mb-1">
+                            <Lock className="w-3.5 h-3.5 text-rose-700 dark:text-rose-400 shrink-0" />
                             <span>Protected Seat</span>
                           </div>
-                          <p className="text-[11px] text-stone-500 leading-relaxed">
+                          <p className="text-[11px] text-stone-500 dark:text-stone-400 leading-relaxed">
                             Account switching is restricted to School Administrator (Brian Bett).
                           </p>
                         </div>
                       )}
 
-                      <div className="mt-2 pt-2 border-t border-stone-100 space-y-1">
+                      <div className="mt-2 pt-2 border-t border-stone-100 dark:border-stone-800 space-y-1">
                         <button
                           onClick={() => {
                             onNavigate('profile');
                             setRoleDropdownOpen(false);
                           }}
-                          className="w-full text-left px-3 py-1.5 text-xs text-stone-700 hover:bg-stone-50 rounded-md font-medium flex items-center gap-1.5"
+                          className="w-full text-left px-3 py-1.5 text-xs text-stone-700 dark:text-stone-300 hover:bg-stone-50 dark:hover:bg-stone-800 rounded-md font-medium flex items-center gap-1.5"
                         >
-                          <User className="w-3.5 h-3.5 text-[#6b1426]" />
+                          <User className="w-3.5 h-3.5 text-[#6b1426] dark:text-rose-400" />
                           <span>View My Profile</span>
                         </button>
 
@@ -291,7 +309,7 @@ export const Header: React.FC<HeaderProps> = ({
                               onOpenAuthModal();
                               setRoleDropdownOpen(false);
                             }}
-                            className="w-full text-left px-3 py-1.5 text-xs text-[#6b1426] hover:bg-rose-50 rounded-md font-bold flex items-center gap-1.5"
+                            className="w-full text-left px-3 py-1.5 text-xs text-[#6b1426] dark:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-950/40 rounded-md font-bold flex items-center gap-1.5"
                           >
                             <LogIn className="w-3.5 h-3.5" />
                             <span>Create Account / Log In</span>

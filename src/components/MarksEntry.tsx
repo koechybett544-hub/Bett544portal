@@ -345,13 +345,13 @@ export const MarksEntry: React.FC<MarksEntryProps> = ({
   return (
     <div className="space-y-6 pb-20">
       {/* Title & Help Link */}
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 border-b border-stone-200 pb-4">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 border-b border-stone-200 dark:border-stone-800 pb-4">
         <div>
-          <h1 className="text-xl sm:text-2xl font-black text-stone-900 flex items-center gap-2">
-            <BookOpen className="w-6 h-6 text-[#6b1426]" />
+          <h1 className="text-xl sm:text-2xl font-black text-stone-900 dark:text-stone-100 flex items-center gap-2">
+            <BookOpen className="w-6 h-6 text-[#6b1426] dark:text-rose-400" />
             <span>Enter Marks</span>
           </h1>
-          <p className="text-xs text-stone-600 mt-0.5">
+          <p className="text-xs text-stone-600 dark:text-stone-400 mt-0.5">
             Record learner performance. <strong>% Score (x/100)</strong> operates independently with no forced connection to points or rubric levels.
           </p>
         </div>
@@ -359,28 +359,28 @@ export const MarksEntry: React.FC<MarksEntryProps> = ({
         {/* Auto-save status badge */}
         <div className="flex items-center gap-2 self-start sm:self-auto">
           {saveStatus === 'saving' && (
-            <span className="flex items-center gap-1.5 text-xs font-semibold text-sky-800 bg-sky-50 border border-sky-200 px-3 py-1 rounded-full">
+            <span className="flex items-center gap-1.5 text-xs font-semibold text-sky-800 dark:text-sky-300 bg-sky-50 dark:bg-sky-950/60 border border-sky-200 dark:border-sky-800 px-3 py-1 rounded-full">
               <RefreshCw className="w-3.5 h-3.5 animate-spin" />
               <span>Saving changes…</span>
             </span>
           )}
 
           {saveStatus === 'saved' && (
-            <span className="flex items-center gap-1.5 text-xs font-semibold text-emerald-900 bg-emerald-50 border border-emerald-200 px-3 py-1 rounded-full">
-              <CheckCircle2 className="w-3.5 h-3.5 text-emerald-700" />
+            <span className="flex items-center gap-1.5 text-xs font-semibold text-emerald-900 dark:text-emerald-300 bg-emerald-50 dark:bg-emerald-950/60 border border-emerald-200 dark:border-emerald-800 px-3 py-1 rounded-full">
+              <CheckCircle2 className="w-3.5 h-3.5 text-emerald-700 dark:text-emerald-400" />
               <span>Saved to Database</span>
             </span>
           )}
 
           {saveStatus === 'offline' && (
-            <span className="flex items-center gap-1 text-xs font-semibold text-amber-900 bg-amber-50 border border-amber-300 px-3 py-1 rounded-full">
+            <span className="flex items-center gap-1 text-xs font-semibold text-amber-900 dark:text-amber-300 bg-amber-50 dark:bg-amber-950/60 border border-amber-300 dark:border-amber-800 px-3 py-1 rounded-full">
               <span>Offline — cached on device</span>
             </span>
           )}
 
           <button
             onClick={onOpenHelp}
-            className="text-xs font-semibold text-[#6b1426] hover:text-[#540d1e] flex items-center gap-1 ml-1 px-2.5 py-1 rounded-lg border border-rose-200 hover:bg-rose-50"
+            className="text-xs font-semibold text-[#6b1426] dark:text-rose-300 hover:text-[#540d1e] flex items-center gap-1 ml-1 px-2.5 py-1 rounded-lg border border-rose-200 dark:border-rose-900 hover:bg-rose-50 dark:hover:bg-rose-950/50"
           >
             <HelpCircle className="w-3.5 h-3.5" />
             <span>Grading Rules</span>
@@ -389,21 +389,21 @@ export const MarksEntry: React.FC<MarksEntryProps> = ({
       </div>
 
       {/* Independent Assessment Architecture Notice */}
-      <div className="rounded-2xl bg-amber-50/70 border border-amber-200 p-4 text-xs text-amber-950 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 shadow-2xs">
+      <div className="rounded-2xl bg-amber-50/70 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-800/60 p-4 text-xs text-amber-950 dark:text-amber-200 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 shadow-2xs">
         <div className="flex items-center gap-2.5">
-          <div className="p-1.5 bg-amber-200/60 rounded-xl text-amber-900 shrink-0">
+          <div className="p-1.5 bg-amber-200/60 dark:bg-amber-900/60 rounded-xl text-amber-900 dark:text-amber-200 shrink-0">
             <Sliders className="w-4 h-4" />
           </div>
           <div>
-            <strong className="block font-bold text-amber-950 text-xs sm:text-sm">
+            <strong className="block font-bold text-amber-950 dark:text-amber-100 text-xs sm:text-sm">
               Separated Scoring &amp; CBC Rubrics Architecture
             </strong>
-            <p className="text-[11px] text-amber-900 mt-0.5">
+            <p className="text-[11px] text-amber-900 dark:text-amber-300 mt-0.5">
               The <strong>% Score (x/100)</strong> works completely separately from <strong>Points (1–8)</strong> and <strong>Rubric Level</strong>. Entering a % score will never change points or rubrics, and choosing a rubric level will never modify the % score.
             </p>
           </div>
         </div>
-        <div className="flex items-center gap-1.5 shrink-0 text-[11px] font-bold text-amber-900 bg-white px-3 py-1 rounded-xl border border-amber-300">
+        <div className="flex items-center gap-1.5 shrink-0 text-[11px] font-bold text-amber-900 dark:text-amber-200 bg-white dark:bg-stone-900 px-3 py-1 rounded-xl border border-amber-300 dark:border-amber-800">
           <Check className="w-3.5 h-3.5 text-emerald-600" />
           <span>Independent Metric Fields</span>
         </div>
@@ -411,10 +411,10 @@ export const MarksEntry: React.FC<MarksEntryProps> = ({
 
       {/* Guide Banner */}
       {showGuideBanner && (
-        <div className="rounded-2xl bg-rose-50/60 border border-rose-200 p-4 relative shadow-2xs">
+        <div className="rounded-2xl bg-rose-50/60 dark:bg-rose-950/30 border border-rose-200 dark:border-rose-900/60 p-4 relative shadow-2xs">
           <button
             onClick={dismissGuideBanner}
-            className="absolute top-3 right-3 text-stone-400 hover:text-stone-700 p-1 rounded-md"
+            className="absolute top-3 right-3 text-stone-400 hover:text-stone-700 dark:hover:text-stone-200 p-1 rounded-md"
             title="Dismiss instruction"
           >
             <X className="w-4 h-4" />
@@ -423,23 +423,23 @@ export const MarksEntry: React.FC<MarksEntryProps> = ({
             <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-xl bg-[#6b1426] text-white font-bold text-xs">
               i
             </span>
-            <div className="text-xs text-stone-800 space-y-1 pr-6">
-              <strong className="block text-sm font-bold text-stone-900">How to Record Marks &amp; Rubrics:</strong>
+            <div className="text-xs text-stone-800 dark:text-stone-200 space-y-1 pr-6">
+              <strong className="block text-sm font-bold text-stone-900 dark:text-stone-100">How to Record Marks &amp; Rubrics:</strong>
               <div className="grid grid-cols-1 sm:grid-cols-4 gap-2 pt-1 font-medium">
-                <div className="bg-white p-2.5 rounded-xl border border-stone-200">
-                  <strong className="text-[#6b1426] block text-[11px]">1. Class &amp; Subject</strong>
+                <div className="bg-white dark:bg-stone-850 p-2.5 rounded-xl border border-stone-200 dark:border-stone-800">
+                  <strong className="text-[#6b1426] dark:text-rose-400 block text-[11px]">1. Class &amp; Subject</strong>
                   Pick grade &amp; subject
                 </div>
-                <div className="bg-white p-2.5 rounded-xl border border-stone-200">
-                  <strong className="text-[#6b1426] block text-[11px]">2. % Score (0–100)</strong>
+                <div className="bg-white dark:bg-stone-850 p-2.5 rounded-xl border border-stone-200 dark:border-stone-800">
+                  <strong className="text-[#6b1426] dark:text-rose-400 block text-[11px]">2. % Score (0–100)</strong>
                   Enter raw score %
                 </div>
-                <div className="bg-white p-2.5 rounded-xl border border-stone-200">
-                  <strong className="text-[#6b1426] block text-[11px]">3. Points &amp; Rubric</strong>
+                <div className="bg-white dark:bg-stone-850 p-2.5 rounded-xl border border-stone-200 dark:border-stone-800">
+                  <strong className="text-[#6b1426] dark:text-rose-400 block text-[11px]">3. Points &amp; Rubric</strong>
                   Optionally select level (EE1–BE2)
                 </div>
-                <div className="bg-white p-2.5 rounded-xl border border-stone-200">
-                  <strong className="text-[#6b1426] block text-[11px]">4. Save Changes</strong>
+                <div className="bg-white dark:bg-stone-850 p-2.5 rounded-xl border border-stone-200 dark:border-stone-800">
+                  <strong className="text-[#6b1426] dark:text-rose-400 block text-[11px]">4. Save Changes</strong>
                   Click SAVE MARKS button
                 </div>
               </div>
@@ -449,18 +449,18 @@ export const MarksEntry: React.FC<MarksEntryProps> = ({
       )}
 
       {/* FILTERS & SELECTORS */}
-      <div className="bg-white rounded-2xl border border-stone-200 p-4 sm:p-5 shadow-xs">
+      <div className="bg-white dark:bg-stone-900 rounded-2xl border border-stone-200 dark:border-stone-800 p-4 sm:p-5 shadow-xs">
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4">
           {/* Class */}
           <div>
-            <label className="block text-xs font-bold text-stone-700 uppercase tracking-wide mb-1">
+            <label className="block text-xs font-bold text-stone-700 dark:text-stone-300 uppercase tracking-wide mb-1">
               Select Grade
             </label>
             <select
               id="select-marks-grade"
               value={selectedGrade}
               onChange={(e) => setSelectedGrade(e.target.value)}
-              className="w-full rounded-xl border border-stone-300 bg-white p-2.5 text-xs sm:text-sm font-semibold text-stone-800 focus:border-[#6b1426] focus:ring-1 focus:ring-[#6b1426]"
+              className="w-full rounded-xl border border-stone-300 dark:border-stone-700 bg-white dark:bg-stone-800 p-2.5 text-xs sm:text-sm font-semibold text-stone-800 dark:text-stone-100 focus:border-[#6b1426] dark:focus:border-rose-500 focus:ring-1 focus:ring-[#6b1426]"
             >
               {GRADES.map((g) => (
                 <option key={g.id} value={g.id}>
@@ -472,14 +472,14 @@ export const MarksEntry: React.FC<MarksEntryProps> = ({
 
           {/* Subject */}
           <div>
-            <label className="block text-xs font-bold text-stone-700 uppercase tracking-wide mb-1">
+            <label className="block text-xs font-bold text-stone-700 dark:text-stone-300 uppercase tracking-wide mb-1">
               Teaching Subject
             </label>
             <select
               id="select-marks-subject"
               value={selectedSubject}
               onChange={(e) => setSelectedSubject(e.target.value)}
-              className="w-full rounded-xl border border-stone-300 bg-white p-2.5 text-xs sm:text-sm font-semibold text-stone-800 focus:border-[#6b1426] focus:ring-1 focus:ring-[#6b1426]"
+              className="w-full rounded-xl border border-stone-300 dark:border-stone-700 bg-white dark:bg-stone-800 p-2.5 text-xs sm:text-sm font-semibold text-stone-800 dark:text-stone-100 focus:border-[#6b1426] dark:focus:border-rose-500 focus:ring-1 focus:ring-[#6b1426]"
             >
               {SUBJECTS.map((s) => (
                 <option key={s} value={s}>
@@ -491,7 +491,7 @@ export const MarksEntry: React.FC<MarksEntryProps> = ({
 
           {/* Term & Year */}
           <div>
-            <label className="block text-xs font-bold text-stone-700 uppercase tracking-wide mb-1">
+            <label className="block text-xs font-bold text-stone-700 dark:text-stone-300 uppercase tracking-wide mb-1">
               Term &amp; Academic Year
             </label>
             <div className="grid grid-cols-2 gap-2">
@@ -499,7 +499,7 @@ export const MarksEntry: React.FC<MarksEntryProps> = ({
                 id="select-marks-term"
                 value={selectedTerm}
                 onChange={(e) => setSelectedTerm(e.target.value as any)}
-                className="w-full rounded-xl border border-stone-300 bg-white p-2.5 text-xs sm:text-sm font-semibold text-stone-800 focus:border-[#6b1426] focus:ring-1 focus:ring-[#6b1426]"
+                className="w-full rounded-xl border border-stone-300 dark:border-stone-700 bg-white dark:bg-stone-800 p-2.5 text-xs sm:text-sm font-semibold text-stone-800 dark:text-stone-100 focus:border-[#6b1426] dark:focus:border-rose-500 focus:ring-1 focus:ring-[#6b1426]"
               >
                 {TERMS.map((t) => (
                   <option key={t} value={t}>
@@ -512,7 +512,7 @@ export const MarksEntry: React.FC<MarksEntryProps> = ({
                 id="select-marks-year"
                 value={selectedYear}
                 onChange={(e) => setSelectedYear(e.target.value)}
-                className="w-full rounded-xl border border-stone-300 bg-white p-2.5 text-xs sm:text-sm font-semibold text-stone-800 focus:border-[#6b1426] focus:ring-1 focus:ring-[#6b1426]"
+                className="w-full rounded-xl border border-stone-300 dark:border-stone-700 bg-white dark:bg-stone-800 p-2.5 text-xs sm:text-sm font-semibold text-stone-800 dark:text-stone-100 focus:border-[#6b1426] dark:focus:border-rose-500 focus:ring-1 focus:ring-[#6b1426]"
               >
                 {ACADEMIC_YEARS.map((yr) => (
                   <option key={yr} value={yr}>
@@ -525,26 +525,26 @@ export const MarksEntry: React.FC<MarksEntryProps> = ({
         </div>
 
         {/* Remembered selection notification */}
-        <div className="mt-3 pt-3 border-t border-stone-100 flex flex-col sm:flex-row sm:items-center justify-between gap-1 text-[11px] text-stone-500">
+        <div className="mt-3 pt-3 border-t border-stone-100 dark:border-stone-800 flex flex-col sm:flex-row sm:items-center justify-between gap-1 text-[11px] text-stone-500 dark:text-stone-400">
           <span>Active Assessment View:</span>
-          <span className="font-bold text-[#6b1426]">
+          <span className="font-bold text-[#6b1426] dark:text-rose-400">
             {selectedGrade} • {selectedSubject} • {selectedTerm} ({selectedYear})
           </span>
         </div>
       </div>
 
       {/* Completion Indicator & Missing Marks Filter */}
-      <div className="bg-white rounded-2xl border border-stone-200 p-4 sm:p-5 shadow-xs space-y-3">
+      <div className="bg-white dark:bg-stone-900 rounded-2xl border border-stone-200 dark:border-stone-800 p-4 sm:p-5 shadow-xs space-y-3">
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
           <div>
-            <div className="text-sm font-extrabold text-stone-900 flex items-center gap-2">
+            <div className="text-sm font-extrabold text-stone-900 dark:text-stone-100 flex items-center gap-2">
               <span>Marks Progress:</span>
-              <span className="text-[#6b1426] text-base">{completionPercentage}%</span>
-              <span className="text-xs font-semibold text-stone-500">
+              <span className="text-[#6b1426] dark:text-rose-400 text-base">{completionPercentage}%</span>
+              <span className="text-xs font-semibold text-stone-500 dark:text-stone-400">
                 ({completedLearnersCount} / {totalLearnersCount} learners entered)
               </span>
             </div>
-            <p className="text-xs text-stone-500 mt-0.5">
+            <p className="text-xs text-stone-500 dark:text-stone-400 mt-0.5">
               {totalLearnersCount - completedLearnersCount === 0
                 ? 'All learners in this grade have assessment records.'
                 : `${totalLearnersCount - completedLearnersCount} learner(s) awaiting mark or rubric entry.`}
@@ -559,7 +559,7 @@ export const MarksEntry: React.FC<MarksEntryProps> = ({
               className={`px-3.5 py-2 rounded-xl text-xs font-bold flex items-center gap-1.5 transition ${
                 showMissingOnly
                   ? 'bg-rose-900 text-white shadow-xs'
-                  : 'bg-stone-100 text-stone-700 hover:bg-stone-200'
+                  : 'bg-stone-100 dark:bg-stone-800 text-stone-700 dark:text-stone-300 hover:bg-stone-200 dark:hover:bg-stone-700 border border-stone-200 dark:border-stone-700'
               }`}
             >
               <Filter className="w-3.5 h-3.5" />
@@ -578,7 +578,7 @@ export const MarksEntry: React.FC<MarksEntryProps> = ({
         </div>
 
         {/* Progress Bar */}
-        <div className="w-full bg-stone-100 h-2.5 rounded-full overflow-hidden border border-stone-200">
+        <div className="w-full bg-stone-100 dark:bg-stone-800 h-2.5 rounded-full overflow-hidden border border-stone-200 dark:border-stone-700">
           <div
             className={`h-full transition-all duration-500 rounded-full ${
               completionPercentage === 100
@@ -600,13 +600,13 @@ export const MarksEntry: React.FC<MarksEntryProps> = ({
               placeholder="Search learner name or admission no..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-9 pr-3 py-1.5 rounded-xl border border-stone-300 text-xs bg-stone-50 focus:bg-white focus:border-[#6b1426] focus:outline-none"
+              className="w-full pl-9 pr-3 py-1.5 rounded-xl border border-stone-300 dark:border-stone-700 text-xs bg-stone-50 dark:bg-stone-800 text-stone-900 dark:text-stone-100 focus:bg-white dark:focus:bg-stone-800 focus:border-[#6b1426] focus:outline-none"
             />
           </div>
           {searchQuery && (
             <button
               onClick={() => setSearchQuery('')}
-              className="text-xs text-stone-500 hover:text-stone-800"
+              className="text-xs text-stone-500 dark:text-stone-400 hover:text-stone-800 dark:hover:text-stone-200"
             >
               Clear search
             </button>
@@ -615,30 +615,30 @@ export const MarksEntry: React.FC<MarksEntryProps> = ({
       </div>
 
       {/* MARKS TABLE */}
-      <div className="bg-white rounded-2xl border border-stone-200 overflow-hidden shadow-xs">
+      <div className="bg-white dark:bg-stone-900 rounded-2xl border border-stone-200 dark:border-stone-800 overflow-hidden shadow-xs">
         {/* Desktop Table View */}
         <div className="hidden sm:block overflow-x-auto">
           <table className="w-full text-left border-collapse" id="marks-table">
             <thead>
-              <tr className="bg-stone-100/90 text-stone-700 text-xs font-bold border-b border-stone-200">
+              <tr className="bg-stone-100/90 dark:bg-stone-850 text-stone-700 dark:text-stone-300 text-xs font-bold border-b border-stone-200 dark:border-stone-800">
                 <th className="py-3 px-4 w-16 text-center">ADM</th>
                 <th className="py-3 px-4 min-w-[200px]">LEARNER NAME</th>
-                <th className="py-3 px-4 w-36 text-center bg-rose-50/50">
-                  <div className="font-extrabold text-[#6b1426]">% SCORE (/100)</div>
-                  <div className="text-[10px] font-normal text-stone-500">Pure Score (0-100)</div>
+                <th className="py-3 px-4 w-36 text-center bg-rose-50/50 dark:bg-rose-950/40">
+                  <div className="font-extrabold text-[#6b1426] dark:text-rose-300">% SCORE (/100)</div>
+                  <div className="text-[10px] font-normal text-stone-500 dark:text-stone-400">Pure Score (0-100)</div>
                 </th>
-                <th className="py-3 px-4 w-36 text-center bg-sky-50/50">
-                  <div className="font-extrabold text-sky-900">POINTS (/8)</div>
-                  <div className="text-[10px] font-normal text-stone-500">Points 1 to 8</div>
+                <th className="py-3 px-4 w-36 text-center bg-sky-50/50 dark:bg-sky-950/40">
+                  <div className="font-extrabold text-sky-900 dark:text-sky-300">POINTS (/8)</div>
+                  <div className="text-[10px] font-normal text-stone-500 dark:text-stone-400">Points 1 to 8</div>
                 </th>
-                <th className="py-3 px-4 w-44 text-center bg-amber-50/50">
-                  <div className="font-extrabold text-amber-950">RUBRIC LEVEL</div>
-                  <div className="text-[10px] font-normal text-stone-500">CBC Competency Level</div>
+                <th className="py-3 px-4 w-44 text-center bg-amber-50/50 dark:bg-amber-950/40">
+                  <div className="font-extrabold text-amber-950 dark:text-amber-300">RUBRIC LEVEL</div>
+                  <div className="text-[10px] font-normal text-stone-500 dark:text-stone-400">CBC Competency Level</div>
                 </th>
                 <th className="py-3 px-4 w-16 text-center">PROFILE</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-stone-100 text-xs sm:text-sm">
+            <tbody className="divide-y divide-stone-100 dark:divide-stone-800 text-xs sm:text-sm">
               {displayedLearners.length > 0 ? (
                 displayedLearners.map((learner) => {
                   const scoreStr = localScores[learner.id] ?? '';
@@ -650,25 +650,25 @@ export const MarksEntry: React.FC<MarksEntryProps> = ({
                   return (
                     <tr
                       key={learner.id}
-                      className={`hover:bg-stone-50/80 transition ${
-                        error ? 'bg-rose-50/60' : ''
+                      className={`hover:bg-stone-50/80 dark:hover:bg-stone-800/60 transition ${
+                        error ? 'bg-rose-50/60 dark:bg-rose-950/40' : ''
                       }`}
                     >
                       {/* ADM */}
-                      <td className="py-3.5 px-4 font-mono font-bold text-stone-800 text-center">
+                      <td className="py-3.5 px-4 font-mono font-bold text-stone-800 dark:text-stone-200 text-center">
                         {learner.admNo}
                       </td>
 
                       {/* LEARNER */}
                       <td className="py-3.5 px-4">
-                        <div className="font-bold text-stone-900">{learner.fullName}</div>
-                        <div className="text-[11px] text-stone-500">
+                        <div className="font-bold text-stone-900 dark:text-stone-100">{learner.fullName}</div>
+                        <div className="text-[11px] text-stone-500 dark:text-stone-400">
                           {learner.gender === 'M' ? 'Male' : 'Female'}
                         </div>
                       </td>
 
                       {/* INDEPENDENT SCORE (/100) INPUT */}
-                      <td className="py-3.5 px-4 text-center bg-rose-50/30">
+                      <td className="py-3.5 px-4 text-center bg-rose-50/30 dark:bg-rose-950/20">
                         <div className="inline-block text-center">
                           <div className="relative flex items-center justify-center">
                             <input
@@ -682,18 +682,18 @@ export const MarksEntry: React.FC<MarksEntryProps> = ({
                               onChange={(e) => handleScoreChange(learner.id, e.target.value)}
                               className={`w-28 text-center font-mono font-extrabold text-sm py-1.5 px-3 rounded-xl border focus:outline-none transition ${
                                 error
-                                  ? 'border-rose-500 bg-rose-50 text-rose-900 focus:ring-2 focus:ring-rose-400'
+                                  ? 'border-rose-500 bg-rose-50 dark:bg-rose-950/60 text-rose-900 dark:text-rose-200 focus:ring-2 focus:ring-rose-400'
                                   : scoreStr !== ''
-                                  ? 'border-rose-300 bg-white text-stone-900 focus:border-[#6b1426] focus:ring-2 focus:ring-rose-500/20'
-                                  : 'border-stone-300 bg-stone-50 text-stone-900 focus:border-[#6b1426] focus:bg-white'
+                                  ? 'border-rose-300 dark:border-rose-800 bg-white dark:bg-stone-800 text-stone-900 dark:text-stone-100 focus:border-[#6b1426] focus:ring-2 focus:ring-rose-500/20'
+                                  : 'border-stone-300 dark:border-stone-700 bg-stone-50 dark:bg-stone-800/80 text-stone-900 dark:text-stone-100 focus:border-[#6b1426] focus:bg-white dark:focus:bg-stone-800'
                               }`}
                             />
                             {scoreStr !== '' && (
-                              <span className="ml-1 font-bold text-stone-500 text-xs">%</span>
+                              <span className="ml-1 font-bold text-stone-500 dark:text-stone-400 text-xs">%</span>
                             )}
                           </div>
                           {error && (
-                            <div className="text-[10px] text-rose-700 font-semibold mt-1 max-w-[150px]">
+                            <div className="text-[10px] text-rose-700 dark:text-rose-400 font-semibold mt-1 max-w-[150px]">
                               {error}
                             </div>
                           )}
@@ -701,7 +701,7 @@ export const MarksEntry: React.FC<MarksEntryProps> = ({
                       </td>
 
                       {/* INDEPENDENT POINTS (/8) INPUT & SELECT */}
-                      <td className="py-3.5 px-4 text-center bg-sky-50/30">
+                      <td className="py-3.5 px-4 text-center bg-sky-50/30 dark:bg-sky-950/20">
                         <div className="inline-flex items-center gap-1.5 justify-center">
                           <select
                             id={`points-select-${learner.admNo}`}
@@ -710,7 +710,7 @@ export const MarksEntry: React.FC<MarksEntryProps> = ({
                               const val = e.target.value === '' ? null : Number(e.target.value);
                               handlePointsChange(learner.id, val);
                             }}
-                            className="font-mono font-bold text-xs py-1.5 px-2.5 rounded-xl border border-stone-300 bg-white text-stone-900 focus:border-sky-600 focus:outline-none"
+                            className="font-mono font-bold text-xs py-1.5 px-2.5 rounded-xl border border-stone-300 dark:border-stone-700 bg-white dark:bg-stone-800 text-stone-900 dark:text-stone-100 focus:border-sky-600 focus:outline-none"
                           >
                             <option value="">— Unset —</option>
                             <option value="8">8 pts</option>
@@ -726,13 +726,13 @@ export const MarksEntry: React.FC<MarksEntryProps> = ({
                       </td>
 
                       {/* INDEPENDENT RUBRIC LEVEL SELECTOR */}
-                      <td className="py-3.5 px-4 text-center bg-amber-50/30">
+                      <td className="py-3.5 px-4 text-center bg-amber-50/30 dark:bg-amber-950/20">
                         <div className="inline-flex items-center gap-2 justify-center">
                           <select
                             id={`rubric-select-${learner.admNo}`}
                             value={levelVal}
                             onChange={(e) => handleLevelChange(learner.id, e.target.value)}
-                            className="font-bold text-xs py-1.5 px-2 rounded-xl border border-stone-300 bg-white text-stone-900 focus:border-amber-600 focus:outline-none"
+                            className="font-bold text-xs py-1.5 px-2 rounded-xl border border-stone-300 dark:border-stone-700 bg-white dark:bg-stone-800 text-stone-900 dark:text-stone-100 focus:border-amber-600 focus:outline-none"
                           >
                             <option value="—">— None —</option>
                             <option value="EE1">EE1 (Exceeding Expectation 1)</option>
@@ -759,7 +759,7 @@ export const MarksEntry: React.FC<MarksEntryProps> = ({
                       <td className="py-3.5 px-4 text-center">
                         <button
                           onClick={() => onSelectLearner(learner)}
-                          className="p-1.5 rounded-lg text-stone-400 hover:text-sky-800 hover:bg-sky-100 transition"
+                          className="p-1.5 rounded-lg text-stone-400 hover:text-sky-800 dark:hover:text-sky-400 hover:bg-sky-100 dark:hover:bg-sky-950 transition"
                           title="View Learner Profile"
                         >
                           <Eye className="w-4 h-4" />
@@ -770,7 +770,7 @@ export const MarksEntry: React.FC<MarksEntryProps> = ({
                 })
               ) : (
                 <tr>
-                  <td colSpan={6} className="py-8 text-center text-stone-500 text-xs">
+                  <td colSpan={6} className="py-8 text-center text-stone-500 dark:text-stone-400 text-xs">
                     {showMissingOnly
                       ? 'No learners with missing marks found in this class.'
                       : 'No learners found matching your criteria.'}
@@ -782,7 +782,7 @@ export const MarksEntry: React.FC<MarksEntryProps> = ({
         </div>
 
         {/* Mobile Responsive Cards */}
-        <div className="sm:hidden divide-y divide-stone-200">
+        <div className="sm:hidden divide-y divide-stone-200 dark:divide-stone-800">
           {displayedLearners.length > 0 ? (
             displayedLearners.map((learner) => {
               const scoreStr = localScores[learner.id] ?? '';
@@ -794,21 +794,21 @@ export const MarksEntry: React.FC<MarksEntryProps> = ({
               return (
                 <div
                   key={learner.id}
-                  className={`p-4 space-y-3 ${error ? 'bg-rose-50/60' : 'bg-white'}`}
+                  className={`p-4 space-y-3 ${error ? 'bg-rose-50/60 dark:bg-rose-950/40' : 'bg-white dark:bg-stone-900'}`}
                 >
                   <div className="flex items-center justify-between">
                     <div>
-                      <span className="text-[11px] font-mono font-bold bg-stone-100 px-2 py-0.5 rounded text-stone-700">
+                      <span className="text-[11px] font-mono font-bold bg-stone-100 dark:bg-stone-800 px-2 py-0.5 rounded text-stone-700 dark:text-stone-300">
                         ADM {learner.admNo}
                       </span>
-                      <h4 className="font-extrabold text-stone-900 text-sm mt-0.5">
+                      <h4 className="font-extrabold text-stone-900 dark:text-stone-100 text-sm mt-0.5">
                         {learner.fullName}
                       </h4>
                     </div>
 
                     <button
                       onClick={() => onSelectLearner(learner)}
-                      className="text-xs text-[#6b1426] font-semibold underline"
+                      className="text-xs text-[#6b1426] dark:text-rose-400 font-semibold underline"
                     >
                       Profile
                     </button>
@@ -816,8 +816,8 @@ export const MarksEntry: React.FC<MarksEntryProps> = ({
 
                   <div className="grid grid-cols-3 gap-2 pt-1">
                     {/* Independent Score */}
-                    <div className="bg-rose-50/50 p-2 rounded-xl border border-rose-200">
-                      <label className="block text-[10px] font-bold text-rose-950 mb-1">
+                    <div className="bg-rose-50/50 dark:bg-rose-950/30 p-2 rounded-xl border border-rose-200 dark:border-rose-900">
+                      <label className="block text-[10px] font-bold text-rose-950 dark:text-rose-200 mb-1">
                         % Score (/100):
                       </label>
                       <input
@@ -830,15 +830,15 @@ export const MarksEntry: React.FC<MarksEntryProps> = ({
                         onChange={(e) => handleScoreChange(learner.id, e.target.value)}
                         className={`w-full font-mono font-extrabold text-sm py-1 px-1.5 rounded-lg border text-center focus:outline-none ${
                           error
-                            ? 'border-rose-500 bg-rose-50 text-rose-900'
-                            : 'border-stone-300 bg-white text-stone-900 focus:border-[#6b1426]'
+                            ? 'border-rose-500 bg-rose-50 dark:bg-rose-950 text-rose-900 dark:text-rose-100'
+                            : 'border-stone-300 dark:border-stone-700 bg-white dark:bg-stone-800 text-stone-900 dark:text-stone-100 focus:border-[#6b1426]'
                         }`}
                       />
                     </div>
 
                     {/* Independent Points */}
-                    <div className="bg-sky-50/50 p-2 rounded-xl border border-sky-200">
-                      <label className="block text-[10px] font-bold text-sky-950 mb-1">
+                    <div className="bg-sky-50/50 dark:bg-sky-950/30 p-2 rounded-xl border border-sky-200 dark:border-sky-900">
+                      <label className="block text-[10px] font-bold text-sky-950 dark:text-sky-200 mb-1">
                         Points (/8):
                       </label>
                       <select
@@ -847,7 +847,7 @@ export const MarksEntry: React.FC<MarksEntryProps> = ({
                           const val = e.target.value === '' ? null : Number(e.target.value);
                           handlePointsChange(learner.id, val);
                         }}
-                        className="w-full font-mono font-bold text-xs py-1 px-1 rounded-lg border border-stone-300 bg-white text-center"
+                        className="w-full font-mono font-bold text-xs py-1 px-1 rounded-lg border border-stone-300 dark:border-stone-700 bg-white dark:bg-stone-800 text-stone-900 dark:text-stone-100 text-center"
                       >
                         <option value="">—</option>
                         <option value="8">8</option>
@@ -862,14 +862,14 @@ export const MarksEntry: React.FC<MarksEntryProps> = ({
                     </div>
 
                     {/* Independent Rubric */}
-                    <div className="bg-amber-50/50 p-2 rounded-xl border border-amber-200">
-                      <label className="block text-[10px] font-bold text-amber-950 mb-1">
+                    <div className="bg-amber-50/50 dark:bg-amber-950/30 p-2 rounded-xl border border-amber-200 dark:border-amber-900">
+                      <label className="block text-[10px] font-bold text-amber-950 dark:text-amber-200 mb-1">
                         Rubric Level:
                       </label>
                       <select
                         value={levelVal}
                         onChange={(e) => handleLevelChange(learner.id, e.target.value)}
-                        className="w-full font-bold text-[11px] py-1 px-1 rounded-lg border border-stone-300 bg-white text-center"
+                        className="w-full font-bold text-[11px] py-1 px-1 rounded-lg border border-stone-300 dark:border-stone-700 bg-white dark:bg-stone-800 text-stone-900 dark:text-stone-100 text-center"
                       >
                         <option value="—">—</option>
                         <option value="EE1">EE1</option>

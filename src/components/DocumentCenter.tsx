@@ -318,13 +318,13 @@ export const DocumentCenter: React.FC<DocumentCenterProps> = ({
   return (
     <div className="space-y-5 pb-16">
       {/* Title & Action Bar */}
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 border-b border-stone-200 pb-3">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 border-b border-stone-200 dark:border-stone-800 pb-3">
         <div>
-          <h1 className="text-xl sm:text-2xl font-black text-stone-900 flex items-center gap-2">
-            <BookOpen className="w-6 h-6 text-[#6b1426]" />
+          <h1 className="text-xl sm:text-2xl font-black text-stone-900 dark:text-stone-100 flex items-center gap-2">
+            <BookOpen className="w-6 h-6 text-[#6b1426] dark:text-rose-400" />
             <span>Learning Resources &amp; Document Centre</span>
           </h1>
-          <p className="text-xs text-stone-600">
+          <p className="text-xs text-stone-600 dark:text-stone-400">
             Upload CBC learning materials, schemes of work, revision notes, and export them directly as downloadable PDFs.
           </p>
         </div>
@@ -340,7 +340,7 @@ export const DocumentCenter: React.FC<DocumentCenterProps> = ({
       </div>
 
       {/* Filter and Search Bar */}
-      <div className="bg-white rounded-2xl border border-stone-200 p-4 shadow-xs space-y-3">
+      <div className="bg-white dark:bg-stone-900 rounded-2xl border border-stone-200 dark:border-stone-800 p-4 shadow-xs space-y-3">
         <div className="grid grid-cols-1 sm:grid-cols-12 gap-3">
           {/* Search */}
           <div className="sm:col-span-5 relative">
@@ -350,7 +350,7 @@ export const DocumentCenter: React.FC<DocumentCenterProps> = ({
               placeholder="Search by title, subject, or author..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-10 pr-3 py-2 text-xs sm:text-sm border border-stone-300 rounded-xl bg-stone-50 focus:bg-white focus:border-[#6b1426] focus:outline-none"
+              className="w-full pl-10 pr-3 py-2 text-xs sm:text-sm border border-stone-300 dark:border-stone-700 rounded-xl bg-stone-50 dark:bg-stone-800 text-stone-900 dark:text-stone-100 focus:bg-white dark:focus:bg-stone-800 focus:border-[#6b1426] focus:outline-none"
             />
           </div>
 
@@ -359,7 +359,7 @@ export const DocumentCenter: React.FC<DocumentCenterProps> = ({
             <select
               value={selectedGrade}
               onChange={(e) => setSelectedGrade(e.target.value)}
-              className="w-full border border-stone-300 rounded-xl p-2 text-xs sm:text-sm font-semibold text-stone-800 focus:border-[#6b1426]"
+              className="w-full border border-stone-300 dark:border-stone-700 bg-white dark:bg-stone-800 rounded-xl p-2 text-xs sm:text-sm font-semibold text-stone-800 dark:text-stone-100 focus:border-[#6b1426]"
             >
               <option value="all">All Grades</option>
               <option value="Grade 7">Grade 7</option>
@@ -373,7 +373,7 @@ export const DocumentCenter: React.FC<DocumentCenterProps> = ({
             <select
               value={selectedSubject}
               onChange={(e) => setSelectedSubject(e.target.value)}
-              className="w-full border border-stone-300 rounded-xl p-2 text-xs sm:text-sm font-semibold text-stone-800 focus:border-[#6b1426]"
+              className="w-full border border-stone-300 dark:border-stone-700 bg-white dark:bg-stone-800 rounded-xl p-2 text-xs sm:text-sm font-semibold text-stone-800 dark:text-stone-100 focus:border-[#6b1426]"
             >
               <option value="all">All Subjects</option>
               {SUBJECTS.map((s) => (
@@ -389,7 +389,7 @@ export const DocumentCenter: React.FC<DocumentCenterProps> = ({
             <select
               value={selectedCategory}
               onChange={(e) => setSelectedCategory(e.target.value)}
-              className="w-full border border-stone-300 rounded-xl p-2 text-xs sm:text-sm font-semibold text-stone-800 focus:border-[#6b1426]"
+              className="w-full border border-stone-300 dark:border-stone-700 bg-white dark:bg-stone-800 rounded-xl p-2 text-xs sm:text-sm font-semibold text-stone-800 dark:text-stone-100 focus:border-[#6b1426]"
             >
               <option value="all">All Types</option>
               <option value="Revision Notes">Revision Notes</option>
@@ -407,45 +407,45 @@ export const DocumentCenter: React.FC<DocumentCenterProps> = ({
         {filteredResources.map((res) => (
           <div
             key={res.id}
-            className="bg-white rounded-2xl border border-stone-200 p-4 shadow-xs hover:shadow-md hover:border-[#6b1426] transition flex flex-col justify-between space-y-3"
+            className="bg-white dark:bg-stone-900 rounded-2xl border border-stone-200 dark:border-stone-800 p-4 shadow-xs hover:shadow-md hover:border-[#6b1426] dark:hover:border-rose-700 transition flex flex-col justify-between space-y-3"
           >
             <div className="space-y-2.5">
               {/* Badges */}
               <div className="flex items-center justify-between gap-2">
                 <div className="flex items-center gap-1.5 flex-wrap">
-                  <span className="text-[10px] font-black px-2 py-0.5 rounded-md uppercase bg-rose-50 text-[#6b1426] border border-rose-200">
+                  <span className="text-[10px] font-black px-2 py-0.5 rounded-md uppercase bg-rose-50 dark:bg-rose-950/60 text-[#6b1426] dark:text-rose-300 border border-rose-200 dark:border-rose-900">
                     {res.grade}
                   </span>
-                  <span className="text-[10px] font-bold px-2 py-0.5 rounded-md uppercase bg-stone-100 text-stone-700">
+                  <span className="text-[10px] font-bold px-2 py-0.5 rounded-md uppercase bg-stone-100 dark:bg-stone-800 text-stone-700 dark:text-stone-300">
                     {res.category}
                   </span>
                 </div>
-                <span className="text-[10px] font-mono font-bold px-1.5 py-0.5 rounded bg-emerald-50 text-emerald-800 border border-emerald-200">
+                <span className="text-[10px] font-mono font-bold px-1.5 py-0.5 rounded bg-emerald-50 dark:bg-emerald-950/60 text-emerald-800 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800">
                   {res.fileType}
                 </span>
               </div>
 
               {/* Title & Subject */}
               <div>
-                <h3 className="font-extrabold text-sm text-stone-950 leading-snug line-clamp-2">
+                <h3 className="font-extrabold text-sm text-stone-950 dark:text-stone-100 leading-snug line-clamp-2">
                   {res.title}
                 </h3>
-                <p className="text-xs font-semibold text-stone-500 mt-0.5">
+                <p className="text-xs font-semibold text-stone-500 dark:text-stone-400 mt-0.5">
                   {res.subject} • {res.term}
                 </p>
               </div>
 
               {/* Snippet / Outcomes */}
               {res.keyOutcomes && res.keyOutcomes.length > 0 && (
-                <div className="bg-stone-50 p-2.5 rounded-xl border border-stone-200/80 text-[11px] text-stone-600 line-clamp-2">
-                  <strong>Key Outcome:</strong> {res.keyOutcomes[0]}
+                <div className="bg-stone-50 dark:bg-stone-800/70 p-2.5 rounded-xl border border-stone-200/80 dark:border-stone-700 text-[11px] text-stone-600 dark:text-stone-300 line-clamp-2">
+                  <strong className="text-stone-900 dark:text-stone-100">Key Outcome:</strong> {res.keyOutcomes[0]}
                 </div>
               )}
             </div>
 
             {/* Bottom Bar with Export as PDF Button */}
-            <div className="pt-3 border-t border-stone-100 flex items-center justify-between gap-2">
-              <span className="text-[11px] text-stone-500">
+            <div className="pt-3 border-t border-stone-100 dark:border-stone-800 flex items-center justify-between gap-2">
+              <span className="text-[11px] text-stone-500 dark:text-stone-400">
                 {res.fileSize} • {res.author}
               </span>
 
@@ -453,7 +453,7 @@ export const DocumentCenter: React.FC<DocumentCenterProps> = ({
                 <button
                   type="button"
                   onClick={() => setPreviewResource(res)}
-                  className="p-1.5 text-stone-600 hover:text-stone-900 hover:bg-stone-100 rounded-lg transition"
+                  className="p-1.5 text-stone-600 dark:text-stone-400 hover:text-stone-900 dark:hover:text-stone-100 hover:bg-stone-100 dark:hover:bg-stone-800 rounded-lg transition"
                   title="Preview Resource"
                 >
                   <Eye className="w-4 h-4" />
@@ -474,9 +474,9 @@ export const DocumentCenter: React.FC<DocumentCenterProps> = ({
         ))}
 
         {filteredResources.length === 0 && (
-          <div className="col-span-full bg-white rounded-2xl border border-stone-200 p-12 text-center text-stone-500 space-y-2">
-            <BookOpen className="w-8 h-8 text-stone-300 mx-auto" />
-            <p className="font-bold text-sm">No learning resources found matching your search.</p>
+          <div className="col-span-full bg-white dark:bg-stone-900 rounded-2xl border border-stone-200 dark:border-stone-800 p-12 text-center text-stone-500 dark:text-stone-400 space-y-2">
+            <BookOpen className="w-8 h-8 text-stone-300 dark:text-stone-600 mx-auto" />
+            <p className="font-bold text-sm text-stone-800 dark:text-stone-200">No learning resources found matching your search.</p>
             <p className="text-xs">Click "Upload / Create Learning Resource" above to add your first study materials or schemes of work.</p>
           </div>
         )}
@@ -485,15 +485,15 @@ export const DocumentCenter: React.FC<DocumentCenterProps> = ({
       {/* Upload & Create Learning Resource Modal */}
       {showUploadModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-3 sm:p-4 backdrop-blur-xs overflow-y-auto">
-          <div className="w-full max-w-xl rounded-2xl bg-white p-5 sm:p-6 shadow-2xl border border-stone-200 max-h-[92vh] overflow-y-auto">
-            <div className="flex items-center justify-between pb-3 border-b border-stone-200 mb-4">
-              <h3 className="font-black text-stone-900 text-base flex items-center gap-2">
-                <BookOpen className="w-5 h-5 text-[#6b1426]" />
+          <div className="w-full max-w-xl rounded-2xl bg-white dark:bg-stone-900 p-5 sm:p-6 shadow-2xl border border-stone-200 dark:border-stone-800 max-h-[92vh] overflow-y-auto">
+            <div className="flex items-center justify-between pb-3 border-b border-stone-200 dark:border-stone-800 mb-4">
+              <h3 className="font-black text-stone-900 dark:text-stone-100 text-base flex items-center gap-2">
+                <BookOpen className="w-5 h-5 text-[#6b1426] dark:text-rose-400" />
                 <span>Upload / Create Learning Resource (PDF Exportable)</span>
               </h3>
               <button
                 onClick={() => setShowUploadModal(false)}
-                className="text-stone-400 hover:text-stone-700"
+                className="text-stone-400 hover:text-stone-700 dark:hover:text-stone-200"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -502,12 +502,12 @@ export const DocumentCenter: React.FC<DocumentCenterProps> = ({
             <form onSubmit={handleCreateResource} className="space-y-3.5 text-xs">
               {/* File Upload Zone */}
               <div>
-                <label className="block font-bold text-stone-700 mb-1">
+                <label className="block font-bold text-stone-700 dark:text-stone-300 mb-1">
                   Upload PDF File or Lesson Document (Optional)
                 </label>
-                <label className="flex flex-col items-center justify-center p-4 border-2 border-dashed border-stone-300 hover:border-[#6b1426] rounded-xl text-center bg-stone-50 cursor-pointer transition">
+                <label className="flex flex-col items-center justify-center p-4 border-2 border-dashed border-stone-300 dark:border-stone-700 hover:border-[#6b1426] dark:hover:border-rose-500 rounded-xl text-center bg-stone-50 dark:bg-stone-800/50 cursor-pointer transition">
                   <Upload className="w-6 h-6 text-stone-400 mb-1" />
-                  <span className="text-stone-700 font-bold">
+                  <span className="text-stone-700 dark:text-stone-300 font-bold">
                     {uploadedFile ? uploadedFile.name : 'Click to select PDF or drag & drop'}
                   </span>
                   <span className="text-[11px] text-stone-400 mt-0.5">
@@ -524,13 +524,13 @@ export const DocumentCenter: React.FC<DocumentCenterProps> = ({
 
               {/* Title */}
               <div>
-                <label className="block font-bold text-stone-700 mb-1">Resource Title *</label>
+                <label className="block font-bold text-stone-700 dark:text-stone-300 mb-1">Resource Title *</label>
                 <input
                   type="text"
                   placeholder="e.g. Grade 8 Integrated Science - Living Organisms Notes"
                   value={newTitle}
                   onChange={(e) => setNewTitle(e.target.value)}
-                  className="w-full rounded-xl border border-stone-300 p-2.5 text-stone-800 font-semibold focus:border-[#6b1426] focus:outline-none"
+                  className="w-full rounded-xl border border-stone-300 dark:border-stone-700 bg-white dark:bg-stone-800 p-2.5 text-stone-800 dark:text-stone-100 font-semibold focus:border-[#6b1426] focus:outline-none"
                   required
                 />
               </div>
@@ -538,11 +538,11 @@ export const DocumentCenter: React.FC<DocumentCenterProps> = ({
               {/* Grade, Subject, Category, Term */}
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
                 <div>
-                  <label className="block font-bold text-stone-700 mb-1">Grade</label>
+                  <label className="block font-bold text-stone-700 dark:text-stone-300 mb-1">Grade</label>
                   <select
                     value={newGrade}
                     onChange={(e) => setNewGrade(e.target.value as any)}
-                    className="w-full rounded-xl border border-stone-300 p-2 text-stone-800 font-bold"
+                    className="w-full rounded-xl border border-stone-300 dark:border-stone-700 bg-white dark:bg-stone-800 p-2 text-stone-800 dark:text-stone-100 font-bold"
                   >
                     <option value="Grade 7">Grade 7</option>
                     <option value="Grade 8">Grade 8</option>
@@ -551,11 +551,11 @@ export const DocumentCenter: React.FC<DocumentCenterProps> = ({
                 </div>
 
                 <div>
-                  <label className="block font-bold text-stone-700 mb-1">Subject</label>
+                  <label className="block font-bold text-stone-700 dark:text-stone-300 mb-1">Subject</label>
                   <select
                     value={newSubject}
                     onChange={(e) => setNewSubject(e.target.value)}
-                    className="w-full rounded-xl border border-stone-300 p-2 text-stone-800 font-bold"
+                    className="w-full rounded-xl border border-stone-300 dark:border-stone-700 bg-white dark:bg-stone-800 p-2 text-stone-800 dark:text-stone-100 font-bold"
                   >
                     {SUBJECTS.map((s) => (
                       <option key={s} value={s}>
@@ -566,11 +566,11 @@ export const DocumentCenter: React.FC<DocumentCenterProps> = ({
                 </div>
 
                 <div>
-                  <label className="block font-bold text-stone-700 mb-1">Type</label>
+                  <label className="block font-bold text-stone-700 dark:text-stone-300 mb-1">Type</label>
                   <select
                     value={newCategory}
                     onChange={(e) => setNewCategory(e.target.value as any)}
-                    className="w-full rounded-xl border border-stone-300 p-2 text-stone-800 font-bold"
+                    className="w-full rounded-xl border border-stone-300 dark:border-stone-700 bg-white dark:bg-stone-800 p-2 text-stone-800 dark:text-stone-100 font-bold"
                   >
                     <option value="Revision Notes">Revision Notes</option>
                     <option value="Schemes of Work">Schemes of Work</option>
@@ -581,11 +581,11 @@ export const DocumentCenter: React.FC<DocumentCenterProps> = ({
                 </div>
 
                 <div>
-                  <label className="block font-bold text-stone-700 mb-1">Term</label>
+                  <label className="block font-bold text-stone-700 dark:text-stone-300 mb-1">Term</label>
                   <select
                     value={newTerm}
                     onChange={(e) => setNewTerm(e.target.value as any)}
-                    className="w-full rounded-xl border border-stone-300 p-2 text-stone-800 font-bold"
+                    className="w-full rounded-xl border border-stone-300 dark:border-stone-700 bg-white dark:bg-stone-800 p-2 text-stone-800 dark:text-stone-100 font-bold"
                   >
                     <option value="Term 1">Term 1</option>
                     <option value="Term 2">Term 2</option>
@@ -596,7 +596,7 @@ export const DocumentCenter: React.FC<DocumentCenterProps> = ({
 
               {/* Key Learning Outcomes */}
               <div>
-                <label className="block font-bold text-stone-700 mb-1">
+                <label className="block font-bold text-stone-700 dark:text-stone-300 mb-1">
                   Key Learning Outcomes / Strands (1 per line)
                 </label>
                 <textarea
@@ -604,13 +604,13 @@ export const DocumentCenter: React.FC<DocumentCenterProps> = ({
                   value={newKeyOutcomes}
                   onChange={(e) => setNewKeyOutcomes(e.target.value)}
                   placeholder="e.g. Understand the principles of algebraic expressions&#10;Apply equations to solve practical word problems"
-                  className="w-full rounded-xl border border-stone-300 p-2 text-stone-800 focus:border-[#6b1426] focus:outline-none"
+                  className="w-full rounded-xl border border-stone-300 dark:border-stone-700 bg-white dark:bg-stone-800 p-2 text-stone-800 dark:text-stone-100 focus:border-[#6b1426] focus:outline-none"
                 />
               </div>
 
               {/* Content / Notes */}
               <div>
-                <label className="block font-bold text-stone-700 mb-1">
+                <label className="block font-bold text-stone-700 dark:text-stone-300 mb-1">
                   Study Notes / Summary Content (Included in Exported PDF)
                 </label>
                 <textarea
@@ -618,15 +618,15 @@ export const DocumentCenter: React.FC<DocumentCenterProps> = ({
                   value={newContent}
                   onChange={(e) => setNewContent(e.target.value)}
                   placeholder="Enter revision notes, lesson summary, or curriculum guidelines here..."
-                  className="w-full rounded-xl border border-stone-300 p-2 text-stone-800 focus:border-[#6b1426] focus:outline-none font-sans"
+                  className="w-full rounded-xl border border-stone-300 dark:border-stone-700 bg-white dark:bg-stone-800 p-2 text-stone-800 dark:text-stone-100 focus:border-[#6b1426] focus:outline-none font-sans"
                 />
               </div>
 
-              <div className="pt-3 border-t border-stone-200 flex justify-end gap-2">
+              <div className="pt-3 border-t border-stone-200 dark:border-stone-800 flex justify-end gap-2">
                 <button
                   type="button"
                   onClick={() => setShowUploadModal(false)}
-                  className="px-4 py-2 rounded-xl text-stone-600 hover:bg-stone-100 font-bold"
+                  className="px-4 py-2 rounded-xl text-stone-600 dark:text-stone-400 hover:bg-stone-100 dark:hover:bg-stone-800 font-bold"
                 >
                   Cancel
                 </button>
@@ -645,33 +645,33 @@ export const DocumentCenter: React.FC<DocumentCenterProps> = ({
       {/* Preview Resource Modal */}
       {previewResource && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-3 sm:p-4 backdrop-blur-xs">
-          <div className="w-full max-w-2xl rounded-2xl bg-white p-6 shadow-2xl border border-stone-200 max-h-[90vh] overflow-y-auto space-y-4">
-            <div className="flex items-center justify-between pb-3 border-b border-stone-200">
+          <div className="w-full max-w-2xl rounded-2xl bg-white dark:bg-stone-900 p-6 shadow-2xl border border-stone-200 dark:border-stone-800 max-h-[90vh] overflow-y-auto space-y-4">
+            <div className="flex items-center justify-between pb-3 border-b border-stone-200 dark:border-stone-800">
               <div className="flex items-center gap-2">
-                <BookOpen className="w-5 h-5 text-[#6b1426]" />
-                <h3 className="font-bold text-stone-900 text-base">{previewResource.title}</h3>
+                <BookOpen className="w-5 h-5 text-[#6b1426] dark:text-rose-400" />
+                <h3 className="font-bold text-stone-900 dark:text-stone-100 text-base">{previewResource.title}</h3>
               </div>
               <button
                 onClick={() => setPreviewResource(null)}
-                className="text-stone-400 hover:text-stone-700"
+                className="text-stone-400 hover:text-stone-700 dark:hover:text-stone-200"
               >
                 <X className="w-5 h-5" />
               </button>
             </div>
 
             <div className="flex items-center gap-2 text-xs">
-              <span className="font-bold px-2 py-0.5 rounded bg-rose-50 text-[#6b1426]">
+              <span className="font-bold px-2 py-0.5 rounded bg-rose-50 dark:bg-rose-950/60 text-[#6b1426] dark:text-rose-300">
                 {previewResource.grade}
               </span>
-              <span className="font-semibold text-stone-600">
+              <span className="font-semibold text-stone-600 dark:text-stone-400">
                 {previewResource.subject} • {previewResource.category} • {previewResource.term}
               </span>
             </div>
 
             {previewResource.keyOutcomes && previewResource.keyOutcomes.length > 0 && (
-              <div className="bg-stone-50 p-3 rounded-xl border border-stone-200 text-xs space-y-1">
-                <strong className="text-stone-900 block font-bold">Key Learning Outcomes:</strong>
-                <ul className="list-disc pl-4 text-stone-700 space-y-0.5">
+              <div className="bg-stone-50 dark:bg-stone-800/60 p-3 rounded-xl border border-stone-200 dark:border-stone-700 text-xs space-y-1">
+                <strong className="text-stone-900 dark:text-stone-100 block font-bold">Key Learning Outcomes:</strong>
+                <ul className="list-disc pl-4 text-stone-700 dark:text-stone-300 space-y-0.5">
                   {previewResource.keyOutcomes.map((out, i) => (
                     <li key={i}>{out}</li>
                   ))}
@@ -679,17 +679,17 @@ export const DocumentCenter: React.FC<DocumentCenterProps> = ({
               </div>
             )}
 
-            <div className="bg-white p-4 rounded-xl border border-stone-200 text-xs font-mono whitespace-pre-line text-stone-800 max-h-72 overflow-y-auto">
+            <div className="bg-white dark:bg-stone-950 p-4 rounded-xl border border-stone-200 dark:border-stone-800 text-xs font-mono whitespace-pre-line text-stone-800 dark:text-stone-200 max-h-72 overflow-y-auto">
               {previewResource.content}
             </div>
 
-            <div className="pt-3 border-t border-stone-200 flex justify-between items-center text-xs">
-              <span className="text-stone-500">Compiled by {previewResource.author}</span>
+            <div className="pt-3 border-t border-stone-200 dark:border-stone-800 flex justify-between items-center text-xs">
+              <span className="text-stone-500 dark:text-stone-400">Compiled by {previewResource.author}</span>
               <div className="flex items-center gap-2">
                 <button
                   type="button"
                   onClick={() => setPreviewResource(null)}
-                  className="px-3.5 py-1.5 rounded-xl text-stone-600 hover:bg-stone-100 font-bold"
+                  className="px-3.5 py-1.5 rounded-xl text-stone-600 dark:text-stone-400 hover:bg-stone-100 dark:hover:bg-stone-800 font-bold"
                 >
                   Close
                 </button>

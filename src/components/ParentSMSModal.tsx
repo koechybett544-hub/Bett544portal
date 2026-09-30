@@ -395,7 +395,7 @@ Reberwet JSS Office (+254 710 889 123).`;
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-2 sm:p-4 backdrop-blur-xs overflow-y-auto">
-      <div className="relative w-full max-w-5xl rounded-2xl bg-white shadow-2xl border border-stone-200 overflow-hidden flex flex-col max-h-[94vh]">
+      <div className="relative w-full max-w-5xl rounded-2xl bg-white dark:bg-stone-900 shadow-2xl border border-stone-200 dark:border-stone-800 overflow-hidden flex flex-col max-h-[94vh]">
         {/* Top Header */}
         <div className="bg-[#6b1426] text-white p-4 sm:p-5 flex items-center justify-between">
           <div className="flex items-center gap-3">
@@ -424,13 +424,13 @@ Reberwet JSS Office (+254 710 889 123).`;
         </div>
 
         {/* Tab switcher */}
-        <div className="flex border-b border-stone-200 bg-stone-50 px-4 pt-3 gap-2 overflow-x-auto">
+        <div className="flex border-b border-stone-200 dark:border-stone-800 bg-stone-50 dark:bg-stone-950 px-4 pt-3 gap-2 overflow-x-auto">
           <button
             onClick={() => setActiveTab('report_card')}
             className={`pb-2.5 px-3 text-xs sm:text-sm font-bold border-b-2 transition flex items-center gap-2 shrink-0 ${
               activeTab === 'report_card'
-                ? 'border-[#6b1426] text-[#6b1426]'
-                : 'border-transparent text-stone-600 hover:text-stone-900'
+                ? 'border-[#6b1426] dark:border-rose-400 text-[#6b1426] dark:text-rose-400'
+                : 'border-transparent text-stone-600 dark:text-stone-400 hover:text-stone-900 dark:hover:text-stone-100'
             }`}
           >
             <FileText className="w-4 h-4" />
@@ -441,8 +441,8 @@ Reberwet JSS Office (+254 710 889 123).`;
             onClick={() => setActiveTab('general')}
             className={`pb-2.5 px-3 text-xs sm:text-sm font-bold border-b-2 transition flex items-center gap-2 shrink-0 ${
               activeTab === 'general'
-                ? 'border-[#6b1426] text-[#6b1426]'
-                : 'border-transparent text-stone-600 hover:text-stone-900'
+                ? 'border-[#6b1426] dark:border-rose-400 text-[#6b1426] dark:text-rose-400'
+                : 'border-transparent text-stone-600 dark:text-stone-400 hover:text-stone-900 dark:hover:text-stone-100'
             }`}
           >
             <Smartphone className="w-4 h-4" />
@@ -453,8 +453,8 @@ Reberwet JSS Office (+254 710 889 123).`;
             onClick={() => setActiveTab('history')}
             className={`pb-2.5 px-3 text-xs sm:text-sm font-bold border-b-2 transition flex items-center gap-2 shrink-0 sm:ml-auto ${
               activeTab === 'history'
-                ? 'border-[#6b1426] text-[#6b1426]'
-                : 'border-transparent text-stone-600 hover:text-stone-900'
+                ? 'border-[#6b1426] dark:border-rose-400 text-[#6b1426] dark:text-rose-400'
+                : 'border-transparent text-stone-600 dark:text-stone-400 hover:text-stone-900 dark:hover:text-stone-100'
             }`}
           >
             <Clock className="w-4 h-4" />
@@ -464,9 +464,9 @@ Reberwet JSS Office (+254 710 889 123).`;
 
         {/* Real-time Delivery Success Banner */}
         {lastDeliveredRecord && activeTab !== 'history' && (
-          <div className="bg-emerald-50 border-b border-emerald-200 px-4 py-2.5 flex items-center justify-between text-xs text-emerald-950">
+          <div className="bg-emerald-50 dark:bg-emerald-950/40 border-b border-emerald-200 dark:border-emerald-800 px-4 py-2.5 flex items-center justify-between text-xs text-emerald-950 dark:text-emerald-200">
             <div className="flex items-center gap-2">
-              <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
+              <CheckCircle2 className="w-4 h-4 text-emerald-600 dark:text-emerald-400 shrink-0" />
               <span>
                 <strong>Dispatched Successfully in Real Time:</strong> Sent to{' '}
                 <strong>{lastDeliveredRecord.recipientName}</strong> ({lastDeliveredRecord.recipientPhone}) at {lastDeliveredRecord.timestamp}.
@@ -474,7 +474,7 @@ Reberwet JSS Office (+254 710 889 123).`;
             </div>
             <button
               onClick={() => setLastDeliveredRecord(null)}
-              className="text-emerald-700 hover:text-emerald-900 text-xs font-bold"
+              className="text-emerald-700 dark:text-emerald-400 hover:text-emerald-900 dark:hover:text-emerald-200 text-xs font-bold"
             >
               Dismiss
             </button>
@@ -482,16 +482,16 @@ Reberwet JSS Office (+254 710 889 123).`;
         )}
 
         {/* Modal Main Body */}
-        <div className="p-4 sm:p-6 overflow-y-auto flex-1 space-y-5 text-stone-900">
+        <div className="p-4 sm:p-6 overflow-y-auto flex-1 space-y-5 text-stone-900 dark:text-stone-100">
           {activeTab !== 'history' ? (
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-5">
               {/* Left Column: Target Selector & Editable Message Editor */}
               <div className="lg:col-span-7 space-y-4">
                 {/* 1. Targeting Box */}
-                <div className="bg-stone-50 p-3.5 rounded-xl border border-stone-200 space-y-3">
+                <div className="bg-stone-50 dark:bg-stone-800/60 p-3.5 rounded-xl border border-stone-200 dark:border-stone-700 space-y-3">
                   <div className="grid grid-cols-2 gap-3">
                     <div>
-                      <label className="block text-[11px] font-bold text-stone-600 uppercase mb-1">
+                      <label className="block text-[11px] font-bold text-stone-600 dark:text-stone-400 uppercase mb-1">
                         Junior Secondary Class
                       </label>
                       <select
@@ -501,7 +501,7 @@ Reberwet JSS Office (+254 710 889 123).`;
                           const firstInGrade = learners.find((l) => l.grade === e.target.value);
                           if (firstInGrade) setSelectedLearnerId(firstInGrade.id);
                         }}
-                        className="w-full text-xs font-bold border border-stone-300 rounded-lg p-2 bg-white text-stone-800"
+                        className="w-full text-xs font-bold border border-stone-300 dark:border-stone-600 rounded-lg p-2 bg-white dark:bg-stone-800 text-stone-800 dark:text-stone-100"
                       >
                         <option value="Grade 7">Grade 7</option>
                         <option value="Grade 8">Grade 8</option>
@@ -510,13 +510,13 @@ Reberwet JSS Office (+254 710 889 123).`;
                     </div>
 
                     <div>
-                      <label className="block text-[11px] font-bold text-stone-600 uppercase mb-1">
+                      <label className="block text-[11px] font-bold text-stone-600 dark:text-stone-400 uppercase mb-1">
                         Dispatch Target
                       </label>
                       <select
                         value={isBulkGrade ? 'bulk' : 'single'}
                         onChange={(e) => setIsBulkGrade(e.target.value === 'bulk')}
-                        className="w-full text-xs font-bold border border-stone-300 rounded-lg p-2 bg-white text-stone-800"
+                        className="w-full text-xs font-bold border border-stone-300 dark:border-stone-600 rounded-lg p-2 bg-white dark:bg-stone-800 text-stone-800 dark:text-stone-100"
                       >
                         <option value="single">Single Learner</option>
                         <option value="bulk">Bulk All ({currentGradeLearners.length} Learners)</option>
@@ -526,13 +526,13 @@ Reberwet JSS Office (+254 710 889 123).`;
 
                   {!isBulkGrade && (
                     <div>
-                      <label className="block text-[11px] font-bold text-stone-600 uppercase mb-1">
+                      <label className="block text-[11px] font-bold text-stone-600 dark:text-stone-400 uppercase mb-1">
                         Select Learner
                       </label>
                       <select
                         value={selectedLearnerId}
                         onChange={(e) => setSelectedLearnerId(e.target.value)}
-                        className="w-full text-xs font-bold border border-stone-300 rounded-lg p-2 bg-white text-stone-800"
+                        className="w-full text-xs font-bold border border-stone-300 dark:border-stone-600 rounded-lg p-2 bg-white dark:bg-stone-800 text-stone-800 dark:text-stone-100"
                       >
                         {currentGradeLearners.map((lrn) => (
                           <option key={lrn.id} value={lrn.id}>
@@ -545,9 +545,9 @@ Reberwet JSS Office (+254 710 889 123).`;
 
                   {/* Editable Recipient Contact Details */}
                   {!isBulkGrade && (
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-1 border-t border-stone-200">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-1 border-t border-stone-200 dark:border-stone-700">
                       <div>
-                        <label className="block text-[10px] font-bold text-stone-500 uppercase mb-0.5 flex items-center gap-1">
+                        <label className="block text-[10px] font-bold text-stone-500 dark:text-stone-400 uppercase mb-0.5 flex items-center gap-1">
                           <User className="w-3 h-3 text-stone-400" />
                           <span>Parent / Guardian Name</span>
                         </label>
@@ -556,12 +556,12 @@ Reberwet JSS Office (+254 710 889 123).`;
                           value={recipientName}
                           onChange={(e) => setRecipientName(e.target.value)}
                           placeholder="e.g. Mary Cherono"
-                          className="w-full text-xs font-bold border border-stone-300 rounded-lg px-2.5 py-1.5 bg-white text-stone-900"
+                          className="w-full text-xs font-bold border border-stone-300 dark:border-stone-600 rounded-lg px-2.5 py-1.5 bg-white dark:bg-stone-800 text-stone-900 dark:text-stone-100"
                         />
                       </div>
 
                       <div>
-                        <label className="block text-[10px] font-bold text-stone-500 uppercase mb-0.5 flex items-center gap-1">
+                        <label className="block text-[10px] font-bold text-stone-500 dark:text-stone-400 uppercase mb-0.5 flex items-center gap-1">
                           <Phone className="w-3 h-3 text-stone-400" />
                           <span>Parent Phone (Editable)</span>
                         </label>
@@ -570,7 +570,7 @@ Reberwet JSS Office (+254 710 889 123).`;
                           value={recipientPhone}
                           onChange={(e) => setRecipientPhone(e.target.value)}
                           placeholder="e.g. +254 722 000 000"
-                          className="w-full text-xs font-mono font-bold border border-stone-300 rounded-lg px-2.5 py-1.5 bg-white text-[#6b1426]"
+                          className="w-full text-xs font-mono font-bold border border-stone-300 dark:border-stone-600 rounded-lg px-2.5 py-1.5 bg-white dark:bg-stone-800 text-[#6b1426] dark:text-rose-400"
                         />
                       </div>
                     </div>
@@ -578,7 +578,7 @@ Reberwet JSS Office (+254 710 889 123).`;
 
                   {activeTab === 'report_card' && (
                     <div className="pt-1">
-                      <label className="block text-[10px] font-bold text-stone-500 uppercase mb-0.5">
+                      <label className="block text-[10px] font-bold text-stone-500 dark:text-stone-400 uppercase mb-0.5">
                         Next Term Reopening Date
                       </label>
                       <input
@@ -586,14 +586,14 @@ Reberwet JSS Office (+254 710 889 123).`;
                         value={reopeningDate}
                         onChange={(e) => setReopeningDate(e.target.value)}
                         placeholder="e.g. 5th January 2027"
-                        className="w-full text-xs font-semibold border border-stone-300 rounded-lg p-2 bg-white text-stone-800"
+                        className="w-full text-xs font-semibold border border-stone-300 dark:border-stone-600 rounded-lg p-2 bg-white dark:bg-stone-800 text-stone-800 dark:text-stone-100"
                       />
                     </div>
                   )}
 
                   {activeTab === 'general' && (
                     <div className="pt-1">
-                      <label className="block text-[10px] font-bold text-stone-500 uppercase mb-1">
+                      <label className="block text-[10px] font-bold text-stone-500 dark:text-stone-400 uppercase mb-1">
                         Choose Template Baseline
                       </label>
                       <div className="grid grid-cols-2 sm:grid-cols-4 gap-1.5">
@@ -604,8 +604,8 @@ Reberwet JSS Office (+254 710 889 123).`;
                             onClick={() => setSelectedTemplate(tmpl)}
                             className={`p-1.5 rounded-lg border text-center text-[11px] font-bold capitalize transition ${
                               selectedTemplate === tmpl
-                                ? 'bg-rose-50 border-[#6b1426] text-[#6b1426]'
-                                : 'bg-white border-stone-300 text-stone-700'
+                                ? 'bg-rose-50 dark:bg-rose-950/40 border-[#6b1426] dark:border-rose-500 text-[#6b1426] dark:text-rose-300'
+                                : 'bg-white dark:bg-stone-800 border-stone-300 dark:border-stone-700 text-stone-700 dark:text-stone-300'
                             }`}
                           >
                             {tmpl.replace('_', ' ')}
@@ -619,15 +619,15 @@ Reberwet JSS Office (+254 710 889 123).`;
                 {/* 2. Teacher Editable Message Box */}
                 <div className="space-y-2">
                   <div className="flex items-center justify-between">
-                    <label className="text-xs font-extrabold text-stone-900 uppercase tracking-wider flex items-center gap-1.5">
-                      <Edit3 className="w-4 h-4 text-[#6b1426]" />
+                    <label className="text-xs font-extrabold text-stone-900 dark:text-stone-100 uppercase tracking-wider flex items-center gap-1.5">
+                      <Edit3 className="w-4 h-4 text-[#6b1426] dark:text-rose-400" />
                       <span>Editable Message Content (Type &amp; Customize Below)</span>
                     </label>
 
                     <button
                       type="button"
                       onClick={handleResetToDefaultDraft}
-                      className="inline-flex items-center gap-1 text-[11px] font-bold text-sky-800 hover:text-sky-950 underline"
+                      className="inline-flex items-center gap-1 text-[11px] font-bold text-sky-800 dark:text-sky-400 hover:text-sky-950 dark:hover:text-sky-300 underline"
                       title="Reset to system-calculated report card"
                     >
                       <RotateCcw className="w-3 h-3" />
@@ -641,18 +641,18 @@ Reberwet JSS Office (+254 710 889 123).`;
                       value={editableMessage}
                       onChange={(e) => setEditableMessage(e.target.value)}
                       placeholder="Type or edit the message that will be sent to the parent..."
-                      className="w-full text-xs font-mono border-2 border-stone-300 focus:border-[#6b1426] rounded-xl p-3 bg-white text-stone-900 leading-relaxed focus:outline-none shadow-2xs"
+                      className="w-full text-xs font-mono border-2 border-stone-300 dark:border-stone-700 focus:border-[#6b1426] dark:focus:border-rose-500 rounded-xl p-3 bg-white dark:bg-stone-950 text-stone-900 dark:text-stone-100 leading-relaxed focus:outline-none shadow-2xs"
                     />
                   </div>
 
                   {/* Character & SMS Unit Counter */}
-                  <div className="flex flex-wrap items-center justify-between gap-2 text-[11px] text-stone-600 bg-stone-50 p-2 rounded-lg border border-stone-200">
+                  <div className="flex flex-wrap items-center justify-between gap-2 text-[11px] text-stone-600 dark:text-stone-400 bg-stone-50 dark:bg-stone-800/60 p-2 rounded-lg border border-stone-200 dark:border-stone-700">
                     <div className="flex items-center gap-3">
-                      <span>Characters: <strong>{characterCount}</strong></span>
-                      <span>SMS Units: <strong className="text-[#6b1426]">{smsUnits}</strong> (160 chars/SMS)</span>
+                      <span>Characters: <strong className="text-stone-900 dark:text-stone-100">{characterCount}</strong></span>
+                      <span>SMS Units: <strong className="text-[#6b1426] dark:text-rose-400">{smsUnits}</strong> (160 chars/SMS)</span>
                     </div>
 
-                    <span className="text-emerald-700 font-bold flex items-center gap-1">
+                    <span className="text-emerald-700 dark:text-emerald-400 font-bold flex items-center gap-1">
                       <CheckCircle2 className="w-3.5 h-3.5" />
                       <span>Real-time Live Sync</span>
                     </span>
@@ -660,35 +660,35 @@ Reberwet JSS Office (+254 710 889 123).`;
 
                   {/* Quick-Append Helper Chips */}
                   <div className="space-y-1">
-                    <span className="text-[10px] font-bold text-stone-500 uppercase tracking-wider block">
+                    <span className="text-[10px] font-bold text-stone-500 dark:text-stone-400 uppercase tracking-wider block">
                       Quick Teacher Additions (Tap to append to message):
                     </span>
                     <div className="flex flex-wrap gap-1.5">
                       <button
                         type="button"
                         onClick={() => handleAppendNote('Reminder: Please ensure any pending lunch or school development arrears are cleared before opening day.')}
-                        className="text-[10px] font-semibold bg-stone-100 hover:bg-stone-200 text-stone-800 px-2 py-1 rounded-md border border-stone-300 transition"
+                        className="text-[10px] font-semibold bg-stone-100 dark:bg-stone-800 hover:bg-stone-200 dark:hover:bg-stone-700 text-stone-800 dark:text-stone-200 px-2 py-1 rounded-md border border-stone-300 dark:border-stone-700 transition"
                       >
                         + Fee Reminder
                       </button>
                       <button
                         type="button"
                         onClick={() => handleAppendNote('Notice: Academic consultative clinic will be held on the first Friday of term at 9:00 AM.')}
-                        className="text-[10px] font-semibold bg-stone-100 hover:bg-stone-200 text-stone-800 px-2 py-1 rounded-md border border-stone-300 transition"
+                        className="text-[10px] font-semibold bg-stone-100 dark:bg-stone-800 hover:bg-stone-200 dark:hover:bg-stone-700 text-stone-800 dark:text-stone-200 px-2 py-1 rounded-md border border-stone-300 dark:border-stone-700 transition"
                       >
                         + Academic Clinic
                       </button>
                       <button
                         type="button"
                         onClick={() => handleAppendNote('Supplies: Learner should report with 2 squared exercise books and a standard mathematical set.')}
-                        className="text-[10px] font-semibold bg-stone-100 hover:bg-stone-200 text-stone-800 px-2 py-1 rounded-md border border-stone-300 transition"
+                        className="text-[10px] font-semibold bg-stone-100 dark:bg-stone-800 hover:bg-stone-200 dark:hover:bg-stone-700 text-stone-800 dark:text-stone-200 px-2 py-1 rounded-md border border-stone-300 dark:border-stone-700 transition"
                       >
                         + Supplies Note
                       </button>
                       <button
                         type="button"
                         onClick={() => handleAppendNote('Commendation: Exemplary discipline and positive attitude displayed in class. Hongera!')}
-                        className="text-[10px] font-semibold bg-rose-50 hover:bg-rose-100 text-[#6b1426] px-2 py-1 rounded-md border border-rose-200 transition"
+                        className="text-[10px] font-semibold bg-rose-50 dark:bg-rose-950/40 hover:bg-rose-100 dark:hover:bg-rose-900/50 text-[#6b1426] dark:text-rose-300 px-2 py-1 rounded-md border border-rose-200 dark:border-rose-800 transition"
                       >
                         + Commendation
                       </button>
@@ -789,22 +789,22 @@ Reberwet JSS Office (+254 710 889 123).`;
                   <button
                     type="button"
                     onClick={handleCopyMessage}
-                    className="w-full flex items-center justify-center gap-1.5 rounded-xl border border-stone-300 bg-white hover:bg-stone-50 text-stone-800 py-2.5 px-4 text-xs font-bold shadow-2xs transition active:scale-98"
+                    className="w-full flex items-center justify-center gap-1.5 rounded-xl border border-stone-300 dark:border-stone-700 bg-white dark:bg-stone-800 hover:bg-stone-50 dark:hover:bg-stone-700 text-stone-800 dark:text-stone-200 py-2.5 px-4 text-xs font-bold shadow-2xs transition active:scale-98"
                   >
                     {copiedFeedback ? (
                       <>
-                        <Check className="w-4 h-4 text-emerald-600" />
-                        <span className="text-emerald-700">Copied to Clipboard!</span>
+                        <Check className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
+                        <span className="text-emerald-700 dark:text-emerald-400">Copied to Clipboard!</span>
                       </>
                     ) : (
                       <>
-                        <Copy className="w-4 h-4 text-stone-600" />
+                        <Copy className="w-4 h-4 text-stone-600 dark:text-stone-400" />
                         <span>Copy Message Text</span>
                       </>
                     )}
                   </button>
 
-                  <p className="text-[10.5px] text-center text-stone-500 leading-tight">
+                  <p className="text-[10.5px] text-center text-stone-500 dark:text-stone-400 leading-tight">
                     Messages are delivered directly to parent phone numbers via Safaricom/Airtel SMS network. Logged in real time.
                   </p>
                 </div>
@@ -813,12 +813,12 @@ Reberwet JSS Office (+254 710 889 123).`;
           ) : (
             /* Tab: Real-Time History & Delivery Log */
             <div className="space-y-4">
-              <div className="flex items-center justify-between pb-2 border-b border-stone-200">
+              <div className="flex items-center justify-between pb-2 border-b border-stone-200 dark:border-stone-800">
                 <div>
-                  <h3 className="font-bold text-sm text-stone-900">
+                  <h3 className="font-bold text-sm text-stone-900 dark:text-stone-100">
                     Real-Time SMS Transmission Ledger ({history.length} Messages)
                   </h3>
-                  <p className="text-xs text-stone-500">
+                  <p className="text-xs text-stone-500 dark:text-stone-400">
                     Verified records of report cards and announcements dispatched to parents.
                   </p>
                 </div>
@@ -830,7 +830,7 @@ Reberwet JSS Office (+254 710 889 123).`;
                       setHistory([]);
                       onShowSuccessToast('SMS dispatch log cleared.');
                     }}
-                    className="text-xs font-bold text-rose-700 hover:text-rose-900 underline"
+                    className="text-xs font-bold text-rose-700 dark:text-rose-400 hover:text-rose-900 dark:hover:text-rose-300 underline"
                   >
                     Clear Log
                   </button>
@@ -842,48 +842,48 @@ Reberwet JSS Office (+254 710 889 123).`;
                   {history.map((record) => (
                     <div
                       key={record.id}
-                      className="p-3.5 text-xs rounded-xl border border-stone-200 bg-white hover:bg-stone-50 transition shadow-2xs space-y-2"
+                      className="p-3.5 text-xs rounded-xl border border-stone-200 dark:border-stone-800 bg-white dark:bg-stone-800/80 hover:bg-stone-50 dark:hover:bg-stone-800 transition shadow-2xs space-y-2"
                     >
                       <div className="flex flex-wrap items-center justify-between gap-2">
                         <div className="flex items-center gap-2">
-                          <strong className="text-stone-950 font-bold text-sm">
+                          <strong className="text-stone-950 dark:text-stone-100 font-bold text-sm">
                             {record.recipientName}
                           </strong>
-                          <span className="font-mono text-stone-600 font-bold bg-stone-100 px-2 py-0.5 rounded">
+                          <span className="font-mono text-stone-600 dark:text-stone-300 font-bold bg-stone-100 dark:bg-stone-700 px-2 py-0.5 rounded">
                             {record.recipientPhone}
                           </span>
                           {record.channel === 'whatsapp' ? (
-                            <span className="px-2 py-0.5 rounded bg-emerald-50 text-emerald-800 text-[10px] font-bold border border-emerald-300 flex items-center gap-1">
+                            <span className="px-2 py-0.5 rounded bg-emerald-50 dark:bg-emerald-950/50 text-emerald-800 dark:text-emerald-300 text-[10px] font-bold border border-emerald-300 dark:border-emerald-700 flex items-center gap-1">
                               <MessageCircle className="w-3 h-3 text-[#25D366] fill-current" />
                               <span>WhatsApp</span>
                             </span>
                           ) : (
-                            <span className="px-2 py-0.5 rounded bg-rose-50 text-[#6b1426] text-[10px] font-bold border border-rose-200 flex items-center gap-1">
+                            <span className="px-2 py-0.5 rounded bg-rose-50 dark:bg-rose-950/50 text-[#6b1426] dark:text-rose-300 text-[10px] font-bold border border-rose-200 dark:border-rose-800 flex items-center gap-1">
                               <Smartphone className="w-3 h-3" />
                               <span>SMS</span>
                             </span>
                           )}
                           {record.learnerName && (
-                            <span className="px-2 py-0.5 rounded bg-sky-50 text-sky-800 text-[10px] font-bold border border-sky-200">
+                            <span className="px-2 py-0.5 rounded bg-sky-50 dark:bg-sky-950/50 text-sky-800 dark:text-sky-300 text-[10px] font-bold border border-sky-200 dark:border-sky-800">
                               ADM: {record.learnerAdmNo} ({record.learnerName})
                             </span>
                           )}
                         </div>
 
                         <div className="flex items-center gap-2">
-                          <span className="text-[10px] text-stone-500">{record.timestamp}</span>
-                          <span className="inline-flex items-center gap-1 text-emerald-800 bg-emerald-100 px-2.5 py-0.5 rounded-full font-bold text-[10px] border border-emerald-300">
-                            <CheckCircle2 className="w-3 h-3 text-emerald-700" />
+                          <span className="text-[10px] text-stone-500 dark:text-stone-400">{record.timestamp}</span>
+                          <span className="inline-flex items-center gap-1 text-emerald-800 dark:text-emerald-300 bg-emerald-100 dark:bg-emerald-950/60 px-2.5 py-0.5 rounded-full font-bold text-[10px] border border-emerald-300 dark:border-emerald-800">
+                            <CheckCircle2 className="w-3 h-3 text-emerald-700 dark:text-emerald-400" />
                             <span>Delivered ✓</span>
                           </span>
                         </div>
                       </div>
 
-                      <div className="font-mono text-[11px] text-stone-800 bg-stone-50 p-2.5 rounded-lg border border-stone-200 whitespace-pre-wrap leading-relaxed max-h-32 overflow-y-auto">
+                      <div className="font-mono text-[11px] text-stone-800 dark:text-stone-200 bg-stone-50 dark:bg-stone-900 p-2.5 rounded-lg border border-stone-200 dark:border-stone-700 whitespace-pre-wrap leading-relaxed max-h-32 overflow-y-auto">
                         {record.content}
                       </div>
 
-                      <div className="flex items-center justify-between text-[10px] text-stone-500 pt-1">
+                      <div className="flex items-center justify-between text-[10px] text-stone-500 dark:text-stone-400 pt-1">
                         <span>Units: {record.units} SMS segment(s) • Gateway Ref: {record.id}</span>
                         <button
                           type="button"
@@ -894,7 +894,7 @@ Reberwet JSS Office (+254 710 889 123).`;
                             setActiveTab('report_card');
                             onShowSuccessToast('Loaded message into editor for resending.');
                           }}
-                          className="font-bold text-[#6b1426] hover:underline"
+                          className="font-bold text-[#6b1426] dark:text-rose-400 hover:underline"
                         >
                           Reuse / Resend
                         </button>
@@ -903,9 +903,9 @@ Reberwet JSS Office (+254 710 889 123).`;
                   ))}
                 </div>
               ) : (
-                <div className="p-12 text-center text-stone-500 text-xs border border-dashed border-stone-300 rounded-xl space-y-2">
-                  <Smartphone className="w-8 h-8 text-stone-400 mx-auto" />
-                  <p className="font-bold text-stone-700">No dispatched SMS messages recorded yet.</p>
+                <div className="p-12 text-center text-stone-500 dark:text-stone-400 text-xs border border-dashed border-stone-300 dark:border-stone-700 rounded-xl space-y-2">
+                  <Smartphone className="w-8 h-8 text-stone-400 dark:text-stone-600 mx-auto" />
+                  <p className="font-bold text-stone-700 dark:text-stone-300">No dispatched SMS messages recorded yet.</p>
                   <p>Send a learner's report card or parent notice in real time to start building your dispatch log.</p>
                 </div>
               )}

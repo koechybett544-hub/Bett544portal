@@ -125,7 +125,7 @@ export default function App() {
             remoteTeachers.forEach((rt) => {
               const idx = merged.findIndex((t) => t.id === rt.id);
               if (idx >= 0) merged[idx] = rt;
-              else if (merged.length < 12) merged.push(rt);
+              else merged.push(rt);
             });
             StorageService.saveTeachers(merged);
             return merged;
@@ -346,6 +346,10 @@ export default function App() {
   const handleAuthLoginSuccess = (verifiedUser: UserProfile) => {
     setCurrentUser(verifiedUser);
     StorageService.saveCurrentUser(verifiedUser);
+    try {
+      localStorage.setItem('reberwet_active_session', JSON.stringify(verifiedUser));
+      localStorage.setItem('reberwet_has_signed_up', 'true');
+    } catch {}
 
     setTeachers((prev) => {
       const exists = prev.some((t) => t.id === verifiedUser.id || t.email === verifiedUser.email);
@@ -353,11 +357,8 @@ export default function App() {
       if (exists) {
         next = prev.map((t) => (t.id === verifiedUser.id || t.email === verifiedUser.email ? verifiedUser : t));
       } else {
-        if (prev.length < 12) {
-          next = [...prev, verifiedUser];
-        } else {
-          next = prev;
-        }
+        // Any teacher who logs in is added to registered faculty accounts
+        next = [...prev, verifiedUser];
       }
       StorageService.saveTeachers(next);
       return next;
@@ -402,7 +403,7 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-[#faf8f5] text-stone-900 flex flex-col font-sans selection:bg-orange-200">
+    <div className="min-h-screen bg-[#faf8f5] dark:bg-stone-950 text-stone-900 dark:text-stone-100 flex flex-col font-sans selection:bg-rose-200 dark:selection:bg-rose-900 transition-colors duration-200">
       {/* Offline Status & Sync Safety Banner */}
       <OfflineIndicator
         isSimulatedOffline={isSimulatedOffline}
@@ -416,7 +417,7 @@ export default function App() {
         onSwitchUser={handleSwitchUser}
         onOpenHelp={() => setHelpModalOpen(true)}
         onOpenNotifications={() => setNotificationsOpen(true)}
-        unreadNotificationsCount={announcements.filter((a) => a.isNew).length}
+        unreadNotificationsCount={announcements.filter((a) => a.isNew).length + (pendingMarksCount > 0 ? 1 : 0)}
         isSimulatedOffline={isSimulatedOffline}
         onToggleSimulatedOffline={handleToggleSimulatedOffline}
         currentView={currentView}
@@ -624,6 +625,11 @@ export default function App() {
         isOpen={notificationsOpen}
         onClose={() => setNotificationsOpen(false)}
         announcements={announcements}
+        pendingMarksCount={pendingMarksCount}
+        onNavigateToMarks={() => {
+          setNotificationsOpen(false);
+          navigateTo('marks');
+        }}
         onNavigateToAnnouncements={() => {
           setNotificationsOpen(false);
           navigateTo('announcements');
@@ -641,11 +647,9 @@ export default function App() {
 
       {/* 7. Auth Modal (Username/Password, Real-time SMS Code, Biometrics) */}
       <AuthModal
-        isOpen={authModalOpen || !currentUser}
+        isOpen={authModalOpen}
         onClose={() => {
-          if (currentUser) {
-            setAuthModalOpen(false);
-          }
+          setAuthModalOpen(false);
         }}
         currentUser={currentUser}
         teachers={teachers}

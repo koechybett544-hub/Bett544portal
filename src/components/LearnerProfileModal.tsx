@@ -280,7 +280,7 @@ export const LearnerProfileModal: React.FC<LearnerProfileModalProps> = ({
         className="hidden"
       />
 
-      <div className="relative w-full max-w-4xl rounded-2xl bg-white shadow-2xl border border-stone-200 overflow-hidden my-auto max-h-[95vh] flex flex-col">
+      <div className="relative w-full max-w-4xl rounded-2xl bg-white dark:bg-stone-900 shadow-2xl border border-stone-200 dark:border-stone-800 overflow-hidden my-auto max-h-[95vh] flex flex-col">
         {/* Top Header with Maroon (#6b1426) & Light Blue Theme */}
         <div className="flex items-center justify-between border-b border-[#52101e] bg-[#6b1426] px-5 py-4 text-white">
           <div className="flex items-center gap-4">
@@ -369,23 +369,23 @@ export const LearnerProfileModal: React.FC<LearnerProfileModalProps> = ({
         </div>
 
         {/* Scrollable Content Body */}
-        <div className="flex-1 overflow-y-auto p-4 sm:p-6 space-y-6 text-stone-700 bg-stone-50/50">
+        <div className="flex-1 overflow-y-auto p-4 sm:p-6 space-y-6 text-stone-700 dark:text-stone-300 bg-stone-50/50 dark:bg-stone-950/50">
           {activeMode === 'edit' ? (
             /* EDIT LEARNER DETAILS FORM */
             <form onSubmit={handleSaveDetails} className="space-y-6">
-              <div className="bg-white border border-stone-200 rounded-2xl p-5 shadow-xs space-y-5">
-                <div className="flex items-center justify-between border-b border-stone-100 pb-3">
+              <div className="bg-white dark:bg-stone-900 border border-stone-200 dark:border-stone-800 rounded-2xl p-5 shadow-xs space-y-5">
+                <div className="flex items-center justify-between border-b border-stone-100 dark:border-stone-800 pb-3">
                   <div className="flex items-center gap-2">
                     <User className="w-5 h-5 text-[#6b1426]" />
-                    <h3 className="font-extrabold text-stone-900 text-base">
+                    <h3 className="font-extrabold text-stone-900 dark:text-stone-100 text-base">
                       Edit Learner Information &amp; Passport Photo
                     </h3>
                   </div>
-                  <span className="text-xs text-stone-500">Official JSS Admission Record</span>
+                  <span className="text-xs text-stone-500 dark:text-stone-400">Official JSS Admission Record</span>
                 </div>
 
                 {/* Passport Photo Upload Section */}
-                <div className="bg-sky-50/60 border border-sky-200 rounded-2xl p-4 flex flex-col sm:flex-row items-center justify-between gap-4">
+                <div className="bg-sky-50/60 dark:bg-sky-950/40 border border-sky-200 dark:border-sky-800 rounded-2xl p-4 flex flex-col sm:flex-row items-center justify-between gap-4">
                   <div className="flex items-center gap-4">
                     <div className="relative">
                       {photoPreview ? (
@@ -396,17 +396,17 @@ export const LearnerProfileModal: React.FC<LearnerProfileModalProps> = ({
                           className="h-20 w-20 rounded-2xl object-cover border-2 border-sky-400 shadow-xs"
                         />
                       ) : (
-                        <div className="h-20 w-20 rounded-2xl bg-white border-2 border-dashed border-sky-300 flex flex-col items-center justify-center text-sky-600 text-xs font-semibold">
+                        <div className="h-20 w-20 rounded-2xl bg-white dark:bg-stone-800 border-2 border-dashed border-sky-300 dark:border-sky-700 flex flex-col items-center justify-center text-sky-600 dark:text-sky-300 text-xs font-semibold">
                           <User className="w-7 h-7 text-sky-400 mb-1" />
                           <span>No Photo</span>
                         </div>
                       )}
                     </div>
                     <div>
-                      <h4 className="font-bold text-sm text-stone-900">
+                      <h4 className="font-bold text-sm text-stone-900 dark:text-stone-100">
                         Learner Passport Photo
                       </h4>
-                      <p className="text-xs text-stone-600 max-w-sm mt-0.5">
+                      <p className="text-xs text-stone-600 dark:text-stone-400 max-w-sm mt-0.5">
                         Upload standard school passport photo (JPEG, PNG, WEBP). This appears on the learner report cards and official rosters.
                       </p>
                     </div>
@@ -425,7 +425,7 @@ export const LearnerProfileModal: React.FC<LearnerProfileModalProps> = ({
                       <button
                         type="button"
                         onClick={handleRemovePhoto}
-                        className="p-2 rounded-xl bg-rose-50 hover:bg-rose-100 text-rose-700 border border-rose-200 transition"
+                        className="p-2 rounded-xl bg-rose-50 dark:bg-rose-950/50 hover:bg-rose-100 dark:hover:bg-rose-900/60 text-rose-700 dark:text-rose-300 border border-rose-200 dark:border-rose-800 transition"
                         title="Remove photo"
                       >
                         <Trash2 className="w-4 h-4" />
@@ -437,7 +437,7 @@ export const LearnerProfileModal: React.FC<LearnerProfileModalProps> = ({
                 {/* Editable Fields Grid */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-xs font-bold text-stone-700 mb-1">
+                    <label className="block text-xs font-bold text-stone-700 dark:text-stone-300 mb-1">
                       First Name: <span className="text-rose-600">*</span>
                     </label>
                     <input
@@ -445,12 +445,12 @@ export const LearnerProfileModal: React.FC<LearnerProfileModalProps> = ({
                       required
                       value={editFirstName}
                       onChange={(e) => setEditFirstName(e.target.value)}
-                      className="w-full rounded-xl border border-stone-300 p-2.5 text-xs text-stone-900 focus:border-[#6b1426] focus:outline-none"
+                      className="w-full rounded-xl border border-stone-300 dark:border-stone-700 bg-white dark:bg-stone-800 p-2.5 text-xs text-stone-900 dark:text-stone-100 focus:border-[#6b1426] focus:outline-none"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-xs font-bold text-stone-700 mb-1">
+                    <label className="block text-xs font-bold text-stone-700 dark:text-stone-300 mb-1">
                       Last Name: <span className="text-rose-600">*</span>
                     </label>
                     <input
@@ -458,12 +458,12 @@ export const LearnerProfileModal: React.FC<LearnerProfileModalProps> = ({
                       required
                       value={editLastName}
                       onChange={(e) => setEditLastName(e.target.value)}
-                      className="w-full rounded-xl border border-stone-300 p-2.5 text-xs text-stone-900 focus:border-[#6b1426] focus:outline-none"
+                      className="w-full rounded-xl border border-stone-300 dark:border-stone-700 bg-white dark:bg-stone-800 p-2.5 text-xs text-stone-900 dark:text-stone-100 focus:border-[#6b1426] focus:outline-none"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-xs font-bold text-stone-700 mb-1">
+                    <label className="block text-xs font-bold text-stone-700 dark:text-stone-300 mb-1">
                       Admission Number (ADM): <span className="text-rose-600">*</span>
                     </label>
                     <input
@@ -471,18 +471,18 @@ export const LearnerProfileModal: React.FC<LearnerProfileModalProps> = ({
                       required
                       value={editAdmNo}
                       onChange={(e) => setEditAdmNo(e.target.value)}
-                      className="w-full rounded-xl border border-stone-300 p-2.5 text-xs font-mono font-bold text-stone-900 focus:border-[#6b1426] focus:outline-none"
+                      className="w-full rounded-xl border border-stone-300 dark:border-stone-700 bg-white dark:bg-stone-800 p-2.5 text-xs font-mono font-bold text-stone-900 dark:text-stone-100 focus:border-[#6b1426] focus:outline-none"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-xs font-bold text-stone-700 mb-1">
+                    <label className="block text-xs font-bold text-stone-700 dark:text-stone-300 mb-1">
                       Junior Secondary Grade:
                     </label>
                     <select
                       value={editGrade}
                       onChange={(e) => setEditGrade(e.target.value)}
-                      className="w-full rounded-xl border border-stone-300 p-2.5 text-xs font-bold text-stone-900 focus:border-[#6b1426] focus:outline-none bg-white"
+                      className="w-full rounded-xl border border-stone-300 dark:border-stone-700 p-2.5 text-xs font-bold text-stone-900 dark:text-stone-100 focus:border-[#6b1426] focus:outline-none bg-white dark:bg-stone-800"
                     >
                       <option value="Grade 7">Grade 7</option>
                       <option value="Grade 8">Grade 8</option>
@@ -491,13 +491,13 @@ export const LearnerProfileModal: React.FC<LearnerProfileModalProps> = ({
                   </div>
 
                   <div>
-                    <label className="block text-xs font-bold text-stone-700 mb-1">
+                    <label className="block text-xs font-bold text-stone-700 dark:text-stone-300 mb-1">
                       Gender:
                     </label>
                     <select
                       value={editGender}
                       onChange={(e) => setEditGender(e.target.value as 'M' | 'F')}
-                      className="w-full rounded-xl border border-stone-300 p-2.5 text-xs font-bold text-stone-900 focus:border-[#6b1426] focus:outline-none bg-white"
+                      className="w-full rounded-xl border border-stone-300 dark:border-stone-700 p-2.5 text-xs font-bold text-stone-900 dark:text-stone-100 focus:border-[#6b1426] focus:outline-none bg-white dark:bg-stone-800"
                     >
                       <option value="M">Male (M)</option>
                       <option value="F">Female (F)</option>
@@ -505,19 +505,19 @@ export const LearnerProfileModal: React.FC<LearnerProfileModalProps> = ({
                   </div>
 
                   <div>
-                    <label className="block text-xs font-bold text-stone-700 mb-1">
+                    <label className="block text-xs font-bold text-stone-700 dark:text-stone-300 mb-1">
                       Date of Birth:
                     </label>
                     <input
                       type="date"
                       value={editDob}
                       onChange={(e) => setEditDob(e.target.value)}
-                      className="w-full rounded-xl border border-stone-300 p-2.5 text-xs text-stone-900 focus:border-[#6b1426] focus:outline-none bg-white"
+                      className="w-full rounded-xl border border-stone-300 dark:border-stone-700 p-2.5 text-xs text-stone-900 dark:text-stone-100 focus:border-[#6b1426] focus:outline-none bg-white dark:bg-stone-800"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-xs font-bold text-stone-700 mb-1">
+                    <label className="block text-xs font-bold text-stone-700 dark:text-stone-300 mb-1">
                       NEMIS / UPI Number:
                     </label>
                     <input
@@ -525,12 +525,12 @@ export const LearnerProfileModal: React.FC<LearnerProfileModalProps> = ({
                       value={editUpiNumber}
                       onChange={(e) => setEditUpiNumber(e.target.value)}
                       placeholder="e.g. NEMIS-1082K"
-                      className="w-full rounded-xl border border-stone-300 p-2.5 text-xs font-mono text-stone-900 focus:border-[#6b1426] focus:outline-none"
+                      className="w-full rounded-xl border border-stone-300 dark:border-stone-700 bg-white dark:bg-stone-800 p-2.5 text-xs font-mono text-stone-900 dark:text-stone-100 focus:border-[#6b1426] focus:outline-none"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-xs font-bold text-stone-700 mb-1">
+                    <label className="block text-xs font-bold text-stone-700 dark:text-stone-300 mb-1">
                       Parent / Guardian Name:
                     </label>
                     <input
@@ -538,12 +538,12 @@ export const LearnerProfileModal: React.FC<LearnerProfileModalProps> = ({
                       value={editGuardianName}
                       onChange={(e) => setEditGuardianName(e.target.value)}
                       placeholder="e.g. Richard Kiprotich"
-                      className="w-full rounded-xl border border-stone-300 p-2.5 text-xs text-stone-900 focus:border-[#6b1426] focus:outline-none"
+                      className="w-full rounded-xl border border-stone-300 dark:border-stone-700 bg-white dark:bg-stone-800 p-2.5 text-xs text-stone-900 dark:text-stone-100 focus:border-[#6b1426] focus:outline-none"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-xs font-bold text-stone-700 mb-1">
+                    <label className="block text-xs font-bold text-stone-700 dark:text-stone-300 mb-1">
                       Parent / Guardian Phone:
                     </label>
                     <input
@@ -551,12 +551,12 @@ export const LearnerProfileModal: React.FC<LearnerProfileModalProps> = ({
                       value={editGuardianPhone}
                       onChange={(e) => setEditGuardianPhone(e.target.value)}
                       placeholder="e.g. +254 722 000 000"
-                      className="w-full rounded-xl border border-stone-300 p-2.5 text-xs text-stone-900 focus:border-[#6b1426] focus:outline-none"
+                      className="w-full rounded-xl border border-stone-300 dark:border-stone-700 bg-white dark:bg-stone-800 p-2.5 text-xs text-stone-900 dark:text-stone-100 focus:border-[#6b1426] focus:outline-none"
                     />
                   </div>
 
                   <div className="sm:col-span-2">
-                    <label className="block text-xs font-bold text-stone-700 mb-1">
+                    <label className="block text-xs font-bold text-stone-700 dark:text-stone-300 mb-1">
                       Special Learning Support / Medical Notes:
                     </label>
                     <input
@@ -564,16 +564,16 @@ export const LearnerProfileModal: React.FC<LearnerProfileModalProps> = ({
                       value={editSpecialNeeds}
                       onChange={(e) => setEditSpecialNeeds(e.target.value)}
                       placeholder="e.g. Needs front row seating for visual clarity; active asthma plan"
-                      className="w-full rounded-xl border border-stone-300 p-2.5 text-xs text-stone-900 focus:border-[#6b1426] focus:outline-none"
+                      className="w-full rounded-xl border border-stone-300 dark:border-stone-700 bg-white dark:bg-stone-800 p-2.5 text-xs text-stone-900 dark:text-stone-100 focus:border-[#6b1426] focus:outline-none"
                     />
                   </div>
                 </div>
 
-                <div className="flex items-center justify-between pt-4 border-t border-stone-100">
+                <div className="flex items-center justify-between pt-4 border-t border-stone-100 dark:border-stone-800">
                   <button
                     type="button"
                     onClick={() => setActiveMode('view')}
-                    className="px-4 py-2 rounded-xl bg-stone-100 hover:bg-stone-200 text-stone-700 font-bold text-xs transition"
+                    className="px-4 py-2 rounded-xl bg-stone-100 dark:bg-stone-800 hover:bg-stone-200 dark:hover:bg-stone-700 text-stone-700 dark:text-stone-300 font-bold text-xs transition"
                   >
                     Cancel
                   </button>
@@ -602,39 +602,39 @@ export const LearnerProfileModal: React.FC<LearnerProfileModalProps> = ({
             <>
               {/* Key Facts Summary Cards */}
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-                <div className="bg-white border border-stone-200 rounded-2xl p-3.5 shadow-xs">
-                  <span className="text-[10px] font-bold text-stone-400 uppercase tracking-wider">
+                <div className="bg-white dark:bg-stone-900 border border-stone-200 dark:border-stone-800 rounded-2xl p-3.5 shadow-xs">
+                  <span className="text-[10px] font-bold text-stone-400 dark:text-stone-500 uppercase tracking-wider">
                     Grade &amp; Stream
                   </span>
-                  <div className="text-sm font-black text-stone-900 mt-1">
+                  <div className="text-sm font-black text-stone-900 dark:text-stone-100 mt-1">
                     {learner.grade}
                   </div>
                 </div>
 
-                <div className="bg-white border border-stone-200 rounded-2xl p-3.5 shadow-xs">
-                  <span className="text-[10px] font-bold text-stone-400 uppercase tracking-wider">
+                <div className="bg-white dark:bg-stone-900 border border-stone-200 dark:border-stone-800 rounded-2xl p-3.5 shadow-xs">
+                  <span className="text-[10px] font-bold text-stone-400 dark:text-stone-500 uppercase tracking-wider">
                     Academic Year
                   </span>
-                  <div className="text-sm font-black text-stone-900 mt-1">
+                  <div className="text-sm font-black text-stone-900 dark:text-stone-100 mt-1">
                     {learner.academicYear} (Term 2)
                   </div>
                 </div>
 
-                <div className="bg-white border border-stone-200 rounded-2xl p-3.5 shadow-xs">
-                  <span className="text-[10px] font-bold text-stone-400 uppercase tracking-wider">
+                <div className="bg-white dark:bg-stone-900 border border-stone-200 dark:border-stone-800 rounded-2xl p-3.5 shadow-xs">
+                  <span className="text-[10px] font-bold text-stone-400 dark:text-stone-500 uppercase tracking-wider">
                     Assessment Cycle
                   </span>
-                  <div className="text-sm font-black text-emerald-800 mt-1 flex items-center gap-1">
+                  <div className="text-sm font-black text-emerald-800 dark:text-emerald-400 mt-1 flex items-center gap-1">
                     <span>Term 3 Active</span>
                   </div>
                 </div>
 
-                <div className="bg-white border border-stone-200 rounded-2xl p-3.5 shadow-xs">
-                  <span className="text-[10px] font-bold text-stone-400 uppercase tracking-wider">
+                <div className="bg-white dark:bg-stone-900 border border-stone-200 dark:border-stone-800 rounded-2xl p-3.5 shadow-xs">
+                  <span className="text-[10px] font-bold text-stone-400 dark:text-stone-500 uppercase tracking-wider">
                     Status
                   </span>
-                  <div className="text-sm font-bold text-stone-900 mt-1">
-                    <span className="inline-block px-2.5 py-0.5 text-[11px] rounded-full bg-emerald-100 text-emerald-900 font-bold border border-emerald-200">
+                  <div className="text-sm font-bold text-stone-900 dark:text-stone-100 mt-1">
+                    <span className="inline-block px-2.5 py-0.5 text-[11px] rounded-full bg-emerald-100 dark:bg-emerald-950/70 text-emerald-900 dark:text-emerald-300 font-bold border border-emerald-200 dark:border-emerald-800">
                       {learner.status}
                     </span>
                   </div>
@@ -642,32 +642,32 @@ export const LearnerProfileModal: React.FC<LearnerProfileModalProps> = ({
               </div>
 
               {/* ACADEMIC SUBJECT PERFORMANCE - ALL 9 SUBJECTS */}
-              <div className="bg-white border border-stone-200 rounded-2xl p-4 sm:p-5 shadow-xs space-y-4">
-                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 border-b border-stone-100 pb-3">
+              <div className="bg-white dark:bg-stone-900 border border-stone-200 dark:border-stone-800 rounded-2xl p-4 sm:p-5 shadow-xs space-y-4">
+                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 border-b border-stone-100 dark:border-stone-800 pb-3">
                   <div className="flex items-center gap-2">
                     <Award className="w-5 h-5 text-[#6b1426]" />
-                    <h3 className="font-extrabold text-stone-900 text-base">
+                    <h3 className="font-extrabold text-stone-900 dark:text-stone-100 text-base">
                       Academic Subject Performance (All 9 CBC Subjects)
                     </h3>
                   </div>
                   <div className="flex items-center gap-2">
-                    <span className="text-xs font-bold text-stone-600">
-                      Mean: <strong className="text-sky-800 font-black">{avgPercentage}%</strong> ({avgPoints}/8 pts)
+                    <span className="text-xs font-bold text-stone-600 dark:text-stone-400">
+                      Mean: <strong className="text-sky-800 dark:text-sky-400 font-black">{avgPercentage}%</strong> ({avgPoints}/8 pts)
                     </span>
-                    <span className="text-[11px] text-stone-400">
+                    <span className="text-[11px] text-stone-400 dark:text-stone-500">
                       • Total: {totalMarks72} / 648
                     </span>
                   </div>
                 </div>
 
                 {/* Performance Period Tabs */}
-                <div className="flex gap-2 border-b border-stone-200 pb-2">
+                <div className="flex gap-2 border-b border-stone-200 dark:border-stone-800 pb-2">
                   <button
                     onClick={() => setTermTab('current')}
                     className={`px-3 py-1.5 rounded-xl text-xs font-bold transition ${
                       termTab === 'current'
                         ? 'bg-[#6b1426] text-white shadow-xs'
-                        : 'bg-stone-100 text-stone-700 hover:bg-stone-200'
+                        : 'bg-stone-100 dark:bg-stone-800 text-stone-700 dark:text-stone-300 hover:bg-stone-200 dark:hover:bg-stone-700'
                     }`}
                   >
                     CURRENT TERM (Term 2)
@@ -678,7 +678,7 @@ export const LearnerProfileModal: React.FC<LearnerProfileModalProps> = ({
                     className={`px-3 py-1.5 rounded-xl text-xs font-bold transition ${
                       termTab === 'previous_term'
                         ? 'bg-[#6b1426] text-white shadow-xs'
-                        : 'bg-stone-100 text-stone-700 hover:bg-stone-200'
+                        : 'bg-stone-100 dark:bg-stone-800 text-stone-700 dark:text-stone-300 hover:bg-stone-200 dark:hover:bg-stone-700'
                     }`}
                   >
                     PREVIOUS TERM (Term 1)
@@ -689,7 +689,7 @@ export const LearnerProfileModal: React.FC<LearnerProfileModalProps> = ({
                     className={`px-3 py-1.5 rounded-xl text-xs font-bold transition ${
                       termTab === 'previous_year'
                         ? 'bg-[#6b1426] text-white shadow-xs'
-                        : 'bg-stone-100 text-stone-700 hover:bg-stone-200'
+                        : 'bg-stone-100 dark:bg-stone-800 text-stone-700 dark:text-stone-300 hover:bg-stone-200 dark:hover:bg-stone-700'
                     }`}
                   >
                     PREVIOUS YEAR (2025)
@@ -703,29 +703,29 @@ export const LearnerProfileModal: React.FC<LearnerProfileModalProps> = ({
                     return (
                       <div
                         key={idx}
-                        className="p-2.5 rounded-xl bg-stone-50/70 border border-stone-200/80 hover:bg-sky-50/30 transition space-y-1.5"
+                        className="p-2.5 rounded-xl bg-stone-50/70 dark:bg-stone-800/60 border border-stone-200/80 dark:border-stone-700/80 hover:bg-sky-50/30 dark:hover:bg-sky-950/30 transition space-y-1.5"
                       >
                         <div className="flex items-center justify-between text-xs sm:text-sm">
                           <div className="flex items-center gap-2">
-                            <span className="font-mono text-stone-400 font-bold text-[11px] w-5">
+                            <span className="font-mono text-stone-400 dark:text-stone-500 font-bold text-[11px] w-5">
                               {idx + 1}.
                             </span>
-                            <span className="font-extrabold text-stone-900">{item.subject}</span>
+                            <span className="font-extrabold text-stone-900 dark:text-stone-100">{item.subject}</span>
                           </div>
 
                           <div className="flex items-center gap-2 sm:gap-3">
                             {/* Score % */}
-                            <span className="font-mono font-black text-stone-900 text-xs sm:text-sm bg-white px-2 py-0.5 rounded border border-stone-200">
+                            <span className="font-mono font-black text-stone-900 dark:text-stone-100 text-xs sm:text-sm bg-white dark:bg-stone-800 px-2 py-0.5 rounded border border-stone-200 dark:border-stone-700">
                               {item.score100}%
                             </span>
 
                             {/* Mark / 72 */}
-                            <span className="font-mono text-xs text-stone-600 hidden sm:inline">
+                            <span className="font-mono text-xs text-stone-600 dark:text-stone-400 hidden sm:inline">
                               {item.mark} / 72
                             </span>
 
                             {/* Points / 8 */}
-                            <span className="font-mono font-bold text-xs text-sky-900 bg-sky-100 px-2 py-0.5 rounded border border-sky-200">
+                            <span className="font-mono font-bold text-xs text-sky-900 dark:text-sky-300 bg-sky-100 dark:bg-sky-950 px-2 py-0.5 rounded border border-sky-200 dark:border-sky-800">
                               {item.points} pts
                             </span>
 
@@ -739,7 +739,7 @@ export const LearnerProfileModal: React.FC<LearnerProfileModalProps> = ({
                         </div>
 
                         {/* Visual Progress Bar */}
-                        <div className="w-full bg-stone-200/80 h-2 rounded-full overflow-hidden">
+                        <div className="w-full bg-stone-200/80 dark:bg-stone-700 h-2 rounded-full overflow-hidden">
                           <div
                             className={`h-full rounded-full transition-all duration-500 ${
                               percentOutOf100 >= 75
@@ -760,15 +760,15 @@ export const LearnerProfileModal: React.FC<LearnerProfileModalProps> = ({
               </div>
 
               {/* GUARDIAN & CONTACT DETAILS */}
-              <div className="bg-white border border-stone-200 rounded-2xl p-4 sm:p-5 shadow-xs space-y-3">
-                <div className="flex items-center justify-between border-b border-stone-100 pb-3">
-                  <h3 className="font-extrabold text-stone-900 text-sm sm:text-base flex items-center gap-2">
+              <div className="bg-white dark:bg-stone-900 border border-stone-200 dark:border-stone-800 rounded-2xl p-4 sm:p-5 shadow-xs space-y-3">
+                <div className="flex items-center justify-between border-b border-stone-100 dark:border-stone-800 pb-3">
+                  <h3 className="font-extrabold text-stone-900 dark:text-stone-100 text-sm sm:text-base flex items-center gap-2">
                     <Phone className="w-4 h-4 text-[#6b1426]" />
                     <span>Parent / Guardian &amp; Bio Details</span>
                   </h3>
                   <button
                     onClick={() => setActiveMode('edit')}
-                    className="text-xs font-bold text-sky-800 hover:underline flex items-center gap-1"
+                    className="text-xs font-bold text-sky-800 dark:text-sky-400 hover:underline flex items-center gap-1"
                   >
                     <Edit3 className="w-3.5 h-3.5" />
                     <span>Edit Bio</span>
@@ -776,52 +776,52 @@ export const LearnerProfileModal: React.FC<LearnerProfileModalProps> = ({
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
-                  <div className="p-3 rounded-xl bg-stone-50 border border-stone-200">
-                    <span className="text-[10px] font-bold text-stone-400 uppercase">Guardian Name</span>
-                    <div className="font-bold text-stone-900 mt-0.5">
+                  <div className="p-3 rounded-xl bg-stone-50 dark:bg-stone-800/70 border border-stone-200 dark:border-stone-700">
+                    <span className="text-[10px] font-bold text-stone-400 dark:text-stone-500 uppercase">Guardian Name</span>
+                    <div className="font-bold text-stone-900 dark:text-stone-100 mt-0.5">
                       {learner.guardianName || 'Not recorded'}
                     </div>
                   </div>
 
-                  <div className="p-3 rounded-xl bg-stone-50 border border-stone-200">
-                    <span className="text-[10px] font-bold text-stone-400 uppercase">Guardian Contact</span>
-                    <div className="font-bold text-stone-900 mt-0.5 font-mono">
+                  <div className="p-3 rounded-xl bg-stone-50 dark:bg-stone-800/70 border border-stone-200 dark:border-stone-700">
+                    <span className="text-[10px] font-bold text-stone-400 dark:text-stone-500 uppercase">Guardian Contact</span>
+                    <div className="font-bold text-stone-900 dark:text-stone-100 mt-0.5 font-mono">
                       {learner.guardianPhone || 'Not recorded'}
                     </div>
                   </div>
 
-                  <div className="p-3 rounded-xl bg-stone-50 border border-stone-200">
-                    <span className="text-[10px] font-bold text-stone-400 uppercase">Date of Birth / UPI</span>
-                    <div className="font-bold text-stone-900 mt-0.5">
+                  <div className="p-3 rounded-xl bg-stone-50 dark:bg-stone-800/70 border border-stone-200 dark:border-stone-700">
+                    <span className="text-[10px] font-bold text-stone-400 dark:text-stone-500 uppercase">Date of Birth / UPI</span>
+                    <div className="font-bold text-stone-900 dark:text-stone-100 mt-0.5">
                       {learner.dob || '2012-05-14'} • {learner.upiNumber || `NEMIS-${learner.admNo}`}
                     </div>
                   </div>
                 </div>
 
                 {learner.specialNeeds && (
-                  <div className="p-3 rounded-xl bg-amber-50 border border-amber-200 text-amber-900 text-xs">
+                  <div className="p-3 rounded-xl bg-amber-50 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-800 text-amber-900 dark:text-amber-200 text-xs">
                     <strong>Special Needs / Notes:</strong> {learner.specialNeeds}
                   </div>
                 )}
               </div>
 
               {/* TEACHER REMARKS & COMMENTS */}
-              <div className="bg-white border border-stone-200 rounded-2xl p-4 sm:p-5 shadow-xs space-y-4">
-                <div className="flex items-center justify-between border-b border-stone-100 pb-3">
-                  <h3 className="font-extrabold text-stone-900 text-sm sm:text-base flex items-center gap-2">
+              <div className="bg-white dark:bg-stone-900 border border-stone-200 dark:border-stone-800 rounded-2xl p-4 sm:p-5 shadow-xs space-y-4">
+                <div className="flex items-center justify-between border-b border-stone-100 dark:border-stone-800 pb-3">
+                  <h3 className="font-extrabold text-stone-900 dark:text-stone-100 text-sm sm:text-base flex items-center gap-2">
                     <MessageSquare className="w-5 h-5 text-[#6b1426]" />
                     <span>Teacher Remarks &amp; Comments</span>
                   </h3>
-                  <span className="text-xs text-stone-500">Will print on final report card</span>
+                  <span className="text-xs text-stone-500 dark:text-stone-400">Will print on final report card</span>
                 </div>
 
                 {/* Quick Comment Templates */}
                 <div>
-                  <label className="block text-[11px] font-bold text-stone-600 uppercase mb-1.5 flex items-center gap-1">
+                  <label className="block text-[11px] font-bold text-stone-600 dark:text-stone-400 uppercase mb-1.5 flex items-center gap-1">
                     <Sparkles className="w-3.5 h-3.5 text-[#6b1426]" />
                     <span>Quick Comment Templates (Click to insert into remarks):</span>
                   </label>
-                  <div className="flex flex-wrap gap-1.5 max-h-24 overflow-y-auto p-1 bg-stone-50 rounded-xl border border-stone-200">
+                  <div className="flex flex-wrap gap-1.5 max-h-24 overflow-y-auto p-1 bg-stone-50 dark:bg-stone-800/70 rounded-xl border border-stone-200 dark:border-stone-700">
                     {COMMENT_TEMPLATES.map((tmpl, idx) => (
                       <button
                         key={idx}
@@ -830,7 +830,7 @@ export const LearnerProfileModal: React.FC<LearnerProfileModalProps> = ({
                             classTeacherComment ? `${classTeacherComment} ${tmpl}` : tmpl
                           );
                         }}
-                        className="text-[11px] text-stone-700 bg-white hover:bg-sky-50 hover:text-sky-950 border border-stone-200 px-2 py-1 rounded-lg text-left transition"
+                        className="text-[11px] text-stone-700 dark:text-stone-300 bg-white dark:bg-stone-900 hover:bg-sky-50 dark:hover:bg-sky-950 hover:text-sky-950 dark:hover:text-sky-200 border border-stone-200 dark:border-stone-700 px-2 py-1 rounded-lg text-left transition"
                       >
                         + {tmpl}
                       </button>
@@ -840,7 +840,7 @@ export const LearnerProfileModal: React.FC<LearnerProfileModalProps> = ({
 
                 {/* General Learner Comment */}
                 <div>
-                  <label className="block text-xs font-bold text-stone-700 mb-1">
+                  <label className="block text-xs font-bold text-stone-700 dark:text-stone-300 mb-1">
                     General Learner Comment:
                   </label>
                   <textarea
@@ -848,13 +848,13 @@ export const LearnerProfileModal: React.FC<LearnerProfileModalProps> = ({
                     value={generalComment}
                     onChange={(e) => setGeneralComment(e.target.value)}
                     placeholder="e.g. Demonstrates commendable curiosity in practical science and active engagement in group tasks..."
-                    className="w-full rounded-xl border border-stone-300 p-2.5 text-xs text-stone-800 focus:border-[#6b1426] focus:outline-none"
+                    className="w-full rounded-xl border border-stone-300 dark:border-stone-700 bg-white dark:bg-stone-800 p-2.5 text-xs text-stone-800 dark:text-stone-200 focus:border-[#6b1426] focus:outline-none"
                   />
                 </div>
 
                 {/* Class Teacher Comment */}
                 <div>
-                  <label className="block text-xs font-bold text-stone-700 mb-1">
+                  <label className="block text-xs font-bold text-stone-700 dark:text-stone-300 mb-1">
                     Class Teacher Comment:
                   </label>
                   <textarea
@@ -862,13 +862,13 @@ export const LearnerProfileModal: React.FC<LearnerProfileModalProps> = ({
                     value={classTeacherComment}
                     onChange={(e) => setClassTeacherComment(e.target.value)}
                     placeholder="e.g. A disciplined and dependable learner. Recommended to maintain consistent revision..."
-                    className="w-full rounded-xl border border-stone-300 p-2.5 text-xs text-stone-800 focus:border-[#6b1426] focus:outline-none"
+                    className="w-full rounded-xl border border-stone-300 dark:border-stone-700 bg-white dark:bg-stone-800 p-2.5 text-xs text-stone-800 dark:text-stone-200 focus:border-[#6b1426] focus:outline-none"
                   />
                 </div>
 
                 <div className="flex items-center justify-between pt-2">
-                  <span className="text-[11px] text-stone-500">
-                    Teacher: <strong className="text-stone-700">{currentUser.name}</strong>
+                  <span className="text-[11px] text-stone-500 dark:text-stone-400">
+                    Teacher: <strong className="text-stone-700 dark:text-stone-200">{currentUser.name}</strong>
                   </span>
 
                   <button
@@ -895,18 +895,18 @@ export const LearnerProfileModal: React.FC<LearnerProfileModalProps> = ({
         </div>
 
         {/* Modal Footer */}
-        <div className="border-t border-stone-200 bg-stone-50 px-5 py-3 flex justify-between items-center text-xs">
-          <span className="text-stone-500">Reberwet Junior Secondary School Learner Record</span>
+        <div className="border-t border-stone-200 dark:border-stone-800 bg-stone-50 dark:bg-stone-900 px-5 py-3 flex justify-between items-center text-xs">
+          <span className="text-stone-500 dark:text-stone-400">Reberwet Junior Secondary School Learner Record</span>
           <div className="flex items-center gap-2">
             <button
               onClick={() => setActiveMode(activeMode === 'view' ? 'edit' : 'view')}
-              className="px-3.5 py-1.5 bg-sky-100 hover:bg-sky-200 text-sky-900 font-bold rounded-lg transition"
+              className="px-3.5 py-1.5 bg-sky-100 dark:bg-sky-950/60 hover:bg-sky-200 dark:hover:bg-sky-900 text-sky-900 dark:text-sky-200 font-bold rounded-lg transition"
             >
               {activeMode === 'view' ? 'Edit Details' : 'View Status'}
             </button>
             <button
               onClick={onClose}
-              className="px-4 py-1.5 bg-stone-200 hover:bg-stone-300 text-stone-800 font-bold rounded-lg transition"
+              className="px-4 py-1.5 bg-stone-200 dark:bg-stone-800 hover:bg-stone-300 dark:hover:bg-stone-700 text-stone-800 dark:text-stone-200 font-bold rounded-lg transition"
             >
               Close Profile
             </button>

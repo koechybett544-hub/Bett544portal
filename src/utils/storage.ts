@@ -129,6 +129,8 @@ export const StorageService = {
     try {
       const saved = localStorage.getItem(STORAGE_KEYS.CURRENT_USER);
       if (saved) return JSON.parse(saved);
+      const session = localStorage.getItem('reberwet_active_session');
+      if (session) return JSON.parse(session);
     } catch {
       // ignore
     }

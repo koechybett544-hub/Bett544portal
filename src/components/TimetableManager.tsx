@@ -190,24 +190,24 @@ export const TimetableManager: React.FC<TimetableManagerProps> = ({
   return (
     <div className="space-y-6 pb-20">
       {/* Top Banner & Header */}
-      <div className="bg-white rounded-3xl p-5 sm:p-7 border border-stone-200 shadow-xs relative overflow-hidden">
+      <div className="bg-white dark:bg-stone-900 rounded-3xl p-5 sm:p-7 border border-stone-200 dark:border-stone-800 shadow-xs relative overflow-hidden">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div className="space-y-1.5">
             <div className="flex items-center gap-2 flex-wrap">
-              <span className="bg-rose-100 text-[#6b1426] text-xs font-black px-2.5 py-0.5 rounded-full uppercase tracking-wider flex items-center gap-1 border border-rose-200">
+              <span className="bg-rose-100 dark:bg-rose-950 text-[#6b1426] dark:text-rose-300 text-xs font-black px-2.5 py-0.5 rounded-full uppercase tracking-wider flex items-center gap-1 border border-rose-200 dark:border-rose-900">
                 <Clock className="w-3.5 h-3.5" />
                 <span>CBC Bell Schedule &amp; Timetable</span>
               </span>
-              <span className="bg-emerald-50 text-emerald-800 text-[11px] font-bold px-2.5 py-0.5 rounded-full border border-emerald-200 flex items-center gap-1">
-                <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
+              <span className="bg-emerald-50 dark:bg-emerald-950 text-emerald-800 dark:text-emerald-300 text-[11px] font-bold px-2.5 py-0.5 rounded-full border border-emerald-200 dark:border-emerald-800 flex items-center gap-1">
+                <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
                 <span>100% Offline Ready</span>
               </span>
             </div>
-            <h1 className="text-2xl sm:text-3xl font-black text-stone-900 tracking-tight flex items-center gap-2.5">
-              <Calendar className="w-7 h-7 text-[#6b1426]" />
+            <h1 className="text-2xl sm:text-3xl font-black text-stone-900 dark:text-stone-100 tracking-tight flex items-center gap-2.5">
+              <Calendar className="w-7 h-7 text-[#6b1426] dark:text-rose-400" />
               <span>School Timetable Centre</span>
             </h1>
-            <p className="text-xs sm:text-sm text-stone-600 max-w-2xl leading-relaxed">
+            <p className="text-xs sm:text-sm text-stone-600 dark:text-stone-400 max-w-2xl leading-relaxed">
               Official Reberwet JSS weekly academic schedule. Periods 1–6 morning before lunch (Maths, English, Kiswahili daily &amp; 80-min double Science practical).
             </p>
           </div>
@@ -216,7 +216,7 @@ export const TimetableManager: React.FC<TimetableManagerProps> = ({
           <div className="flex items-center gap-2.5 flex-wrap shrink-0">
             {/* Option to Refresh / Switch Timetable Arrangement (Admin Only) */}
             {isAdmin && (
-              <div className="flex items-center gap-1.5 bg-amber-50 border border-amber-200 p-1 rounded-2xl shadow-xs">
+              <div className="flex items-center gap-1.5 bg-amber-50 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-800 p-1 rounded-2xl shadow-xs">
                 <button
                   onClick={() => handleRefreshArrangement()}
                   disabled={isGenerating}
@@ -233,7 +233,7 @@ export const TimetableManager: React.FC<TimetableManagerProps> = ({
                   value={arrangementIndex}
                   onChange={(e) => handleRefreshArrangement(parseInt(e.target.value, 10))}
                   disabled={isGenerating}
-                  className="text-xs font-bold bg-white text-stone-800 border border-amber-300 rounded-lg px-2.5 py-1.5 focus:outline-none focus:ring-1 focus:ring-amber-500 cursor-pointer"
+                  className="text-xs font-bold bg-white dark:bg-stone-800 text-stone-800 dark:text-stone-200 border border-amber-300 dark:border-amber-700 rounded-lg px-2.5 py-1.5 focus:outline-none focus:ring-1 focus:ring-amber-500 cursor-pointer"
                   title="Switch to specific arrangement (Admin only)"
                 >
                   {TIMETABLE_ARRANGEMENTS.map((_, i) => (
@@ -242,7 +242,7 @@ export const TimetableManager: React.FC<TimetableManagerProps> = ({
                     </option>
                   ))}
                 </select>
-                <span className="text-[10px] font-black text-amber-800 bg-amber-200/60 px-2 py-0.5 rounded-full uppercase tracking-wider hidden sm:inline">
+                <span className="text-[10px] font-black text-amber-800 dark:text-amber-300 bg-amber-200/60 dark:bg-amber-900/60 px-2 py-0.5 rounded-full uppercase tracking-wider hidden sm:inline">
                   Admin Only
                 </span>
               </div>
@@ -289,54 +289,54 @@ export const TimetableManager: React.FC<TimetableManagerProps> = ({
         </div>
 
         {/* Bell Schedule Summary Chips */}
-        <div className="mt-5 pt-4 border-t border-stone-100 flex items-center gap-2 overflow-x-auto text-[11px] pb-1">
-          <span className="font-bold text-stone-500 uppercase tracking-wider shrink-0 text-[10px]">Bell Schedule:</span>
-          <span className="px-2 py-0.5 rounded-md bg-stone-100 text-stone-700 font-mono font-medium shrink-0">
+        <div className="mt-5 pt-4 border-t border-stone-100 dark:border-stone-800 flex items-center gap-2 overflow-x-auto text-[11px] pb-1">
+          <span className="font-bold text-stone-500 dark:text-stone-400 uppercase tracking-wider shrink-0 text-[10px]">Bell Schedule:</span>
+          <span className="px-2 py-0.5 rounded-md bg-stone-100 dark:bg-stone-800 text-stone-700 dark:text-stone-300 font-mono font-medium shrink-0">
             P1: 8:00–8:40
           </span>
-          <span className="px-2 py-0.5 rounded-md bg-stone-100 text-stone-700 font-mono font-medium shrink-0">
+          <span className="px-2 py-0.5 rounded-md bg-stone-100 dark:bg-stone-800 text-stone-700 dark:text-stone-300 font-mono font-medium shrink-0">
             P2: 8:40–9:20
           </span>
-          <span className="px-2 py-0.5 rounded-md bg-rose-50 text-rose-800 font-bold shrink-0">
+          <span className="px-2 py-0.5 rounded-md bg-rose-50 dark:bg-rose-950 text-rose-800 dark:text-rose-300 font-bold shrink-0">
             Break: 9:20–9:30
           </span>
-          <span className="px-2 py-0.5 rounded-md bg-stone-100 text-stone-700 font-mono font-medium shrink-0">
+          <span className="px-2 py-0.5 rounded-md bg-stone-100 dark:bg-stone-800 text-stone-700 dark:text-stone-300 font-mono font-medium shrink-0">
             P3: 9:30–10:10
           </span>
-          <span className="px-2 py-0.5 rounded-md bg-stone-100 text-stone-700 font-mono font-medium shrink-0">
+          <span className="px-2 py-0.5 rounded-md bg-stone-100 dark:bg-stone-800 text-stone-700 dark:text-stone-300 font-mono font-medium shrink-0">
             P4: 10:10–10:50
           </span>
-          <span className="px-2 py-0.5 rounded-md bg-amber-50 text-amber-800 font-bold shrink-0">
+          <span className="px-2 py-0.5 rounded-md bg-amber-50 dark:bg-amber-950 text-amber-800 dark:text-amber-300 font-bold shrink-0">
             Tea Break: 10:50–11:20
           </span>
-          <span className="px-2 py-0.5 rounded-md bg-stone-100 text-stone-700 font-mono font-medium shrink-0">
+          <span className="px-2 py-0.5 rounded-md bg-stone-100 dark:bg-stone-800 text-stone-700 dark:text-stone-300 font-mono font-medium shrink-0">
             P5: 11:20–12:00
           </span>
-          <span className="px-2 py-0.5 rounded-md bg-stone-100 text-stone-700 font-mono font-medium shrink-0">
+          <span className="px-2 py-0.5 rounded-md bg-stone-100 dark:bg-stone-800 text-stone-700 dark:text-stone-300 font-mono font-medium shrink-0">
             P6: 12:00–12:40
           </span>
-          <span className="px-2 py-0.5 rounded-md bg-emerald-50 text-emerald-800 font-bold shrink-0">
+          <span className="px-2 py-0.5 rounded-md bg-emerald-50 dark:bg-emerald-950 text-emerald-800 dark:text-emerald-300 font-bold shrink-0">
             Lunch: 12:40–2:00
           </span>
-          <span className="px-2 py-0.5 rounded-md bg-stone-100 text-stone-700 font-mono font-medium shrink-0">
+          <span className="px-2 py-0.5 rounded-md bg-stone-100 dark:bg-stone-800 text-stone-700 dark:text-stone-300 font-mono font-medium shrink-0">
             P7: 2:00–2:40
           </span>
-          <span className="px-2 py-0.5 rounded-md bg-stone-100 text-stone-700 font-mono font-medium shrink-0">
+          <span className="px-2 py-0.5 rounded-md bg-stone-100 dark:bg-stone-800 text-stone-700 dark:text-stone-300 font-mono font-medium shrink-0">
             P8: 2:40–3:20
           </span>
         </div>
       </div>
 
       {/* Tabs Bar */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-stone-200/70 p-1.5 rounded-2xl">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-stone-200/70 dark:bg-stone-800/80 p-1.5 rounded-2xl">
         <div className="flex items-center gap-1 overflow-x-auto">
           {/* My Timetable Tab */}
           <button
             onClick={() => setActiveTab('my_timetable')}
             className={`px-3.5 py-2 rounded-xl text-xs font-black transition flex items-center gap-1.5 shrink-0 ${
               activeTab === 'my_timetable'
-                ? 'bg-white text-[#6b1426] shadow-xs'
-                : 'text-stone-700 hover:text-stone-900 hover:bg-white/50'
+                ? 'bg-white dark:bg-stone-900 text-[#6b1426] dark:text-rose-400 shadow-xs'
+                : 'text-stone-700 dark:text-stone-300 hover:text-stone-900 dark:hover:text-stone-100 hover:bg-white/50 dark:hover:bg-stone-700/50'
             }`}
           >
             <Users className="w-3.5 h-3.5" />
@@ -348,8 +348,8 @@ export const TimetableManager: React.FC<TimetableManagerProps> = ({
             onClick={() => setActiveTab('class_g7')}
             className={`px-3.5 py-2 rounded-xl text-xs font-black transition flex items-center gap-1.5 shrink-0 ${
               activeTab === 'class_g7'
-                ? 'bg-white text-sky-800 shadow-xs'
-                : 'text-stone-700 hover:text-stone-900 hover:bg-white/50'
+                ? 'bg-white dark:bg-stone-900 text-sky-800 dark:text-sky-400 shadow-xs'
+                : 'text-stone-700 dark:text-stone-300 hover:text-stone-900 dark:hover:text-stone-100 hover:bg-white/50 dark:hover:bg-stone-700/50'
             }`}
           >
             <GraduationCap className="w-3.5 h-3.5" />
@@ -361,8 +361,8 @@ export const TimetableManager: React.FC<TimetableManagerProps> = ({
             onClick={() => setActiveTab('class_g8')}
             className={`px-3.5 py-2 rounded-xl text-xs font-black transition flex items-center gap-1.5 shrink-0 ${
               activeTab === 'class_g8'
-                ? 'bg-white text-rose-800 shadow-xs'
-                : 'text-stone-700 hover:text-stone-900 hover:bg-white/50'
+                ? 'bg-white dark:bg-stone-900 text-rose-800 dark:text-rose-400 shadow-xs'
+                : 'text-stone-700 dark:text-stone-300 hover:text-stone-900 dark:hover:text-stone-100 hover:bg-white/50 dark:hover:bg-stone-700/50'
             }`}
           >
             <GraduationCap className="w-3.5 h-3.5" />
@@ -374,8 +374,8 @@ export const TimetableManager: React.FC<TimetableManagerProps> = ({
             onClick={() => setActiveTab('class_g9')}
             className={`px-3.5 py-2 rounded-xl text-xs font-black transition flex items-center gap-1.5 shrink-0 ${
               activeTab === 'class_g9'
-                ? 'bg-white text-purple-800 shadow-xs'
-                : 'text-stone-700 hover:text-stone-900 hover:bg-white/50'
+                ? 'bg-white dark:bg-stone-900 text-purple-800 dark:text-purple-400 shadow-xs'
+                : 'text-stone-700 dark:text-stone-300 hover:text-stone-900 dark:hover:text-stone-100 hover:bg-white/50 dark:hover:bg-stone-700/50'
             }`}
           >
             <GraduationCap className="w-3.5 h-3.5" />
@@ -387,8 +387,8 @@ export const TimetableManager: React.FC<TimetableManagerProps> = ({
             onClick={() => setActiveTab('master')}
             className={`px-3.5 py-2 rounded-xl text-xs font-black transition flex items-center gap-1.5 shrink-0 ${
               activeTab === 'master'
-                ? 'bg-white text-emerald-900 shadow-xs'
-                : 'text-stone-700 hover:text-stone-900 hover:bg-white/50'
+                ? 'bg-white dark:bg-stone-900 text-emerald-900 dark:text-emerald-400 shadow-xs'
+                : 'text-stone-700 dark:text-stone-300 hover:text-stone-900 dark:hover:text-stone-100 hover:bg-white/50 dark:hover:bg-stone-700/50'
             }`}
           >
             <Layers className="w-3.5 h-3.5" />
@@ -399,11 +399,11 @@ export const TimetableManager: React.FC<TimetableManagerProps> = ({
         {/* If Admin or Switch Teacher View */}
         {isAdmin && activeTab === 'my_timetable' && (
           <div className="flex items-center gap-2 px-2 shrink-0">
-            <span className="text-[11px] font-bold text-stone-600">Inspect Teacher:</span>
+            <span className="text-[11px] font-bold text-stone-600 dark:text-stone-300">Inspect Teacher:</span>
             <select
               value={selectedTeacherId}
               onChange={(e) => setSelectedTeacherId(e.target.value)}
-              className="text-xs font-bold bg-white text-stone-800 border border-stone-300 rounded-lg px-2.5 py-1 focus:outline-none focus:border-[#6b1426]"
+              className="text-xs font-bold bg-white dark:bg-stone-800 text-stone-800 dark:text-stone-200 border border-stone-300 dark:border-stone-700 rounded-lg px-2.5 py-1 focus:outline-none focus:border-[#6b1426]"
             >
               {teachers.map((t) => (
                 <option key={t.id} value={t.id}>
@@ -421,29 +421,29 @@ export const TimetableManager: React.FC<TimetableManagerProps> = ({
       {activeTab === 'my_timetable' && (
         <div className="space-y-4">
           {/* Teacher Summary Header Card */}
-          <div className="bg-white rounded-3xl p-5 border border-stone-200 shadow-xs flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div className="bg-white dark:bg-stone-900 rounded-3xl p-5 border border-stone-200 dark:border-stone-800 shadow-xs flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <div className="flex items-center gap-3.5">
-              <div className="w-12 h-12 rounded-2xl bg-rose-50 text-[#6b1426] border border-rose-200 flex items-center justify-center font-black text-lg">
+              <div className="w-12 h-12 rounded-2xl bg-rose-50 dark:bg-rose-950 text-[#6b1426] dark:text-rose-300 border border-rose-200 dark:border-rose-900 flex items-center justify-center font-black text-lg">
                 {inspectedTeacher?.name?.charAt(0) || 'T'}
               </div>
               <div>
-                <h3 className="text-base font-black text-stone-900 flex items-center gap-2">
+                <h3 className="text-base font-black text-stone-900 dark:text-stone-100 flex items-center gap-2">
                   <span>{inspectedTeacher?.name}</span>
-                  <span className="text-[10px] font-bold bg-rose-100 text-[#6b1426] px-2 py-0.5 rounded-full">
+                  <span className="text-[10px] font-bold bg-rose-100 dark:bg-rose-950 text-[#6b1426] dark:text-rose-300 px-2 py-0.5 rounded-full">
                     {inspectedTeacher?.designation || 'Subject Teacher'}
                   </span>
                 </h3>
-                <p className="text-xs text-stone-500 mt-0.5">
-                  Teaching Subjects: <strong className="text-stone-800">{teacherSubjectsList.join(', ')}</strong> | Classes: <strong className="text-stone-800">{teacherClassesList.join(', ')}</strong>
+                <p className="text-xs text-stone-500 dark:text-stone-400 mt-0.5">
+                  Teaching Subjects: <strong className="text-stone-800 dark:text-stone-200">{teacherSubjectsList.join(', ')}</strong> | Classes: <strong className="text-stone-800 dark:text-stone-200">{teacherClassesList.join(', ')}</strong>
                 </p>
               </div>
             </div>
 
             <div className="flex items-center gap-3">
-              <div className="bg-stone-50 border border-stone-200 px-3.5 py-2 rounded-2xl text-center">
-                <span className="text-[10px] text-stone-500 uppercase font-bold block">Weekly Load</span>
-                <span className="text-lg font-black text-[#6b1426]">{teacherLessons.length}</span>
-                <span className="text-[10px] text-stone-500 ml-1">Periods</span>
+              <div className="bg-stone-50 dark:bg-stone-800 border border-stone-200 dark:border-stone-700 px-3.5 py-2 rounded-2xl text-center">
+                <span className="text-[10px] text-stone-500 dark:text-stone-400 uppercase font-bold block">Weekly Load</span>
+                <span className="text-lg font-black text-[#6b1426] dark:text-rose-400">{teacherLessons.length}</span>
+                <span className="text-[10px] text-stone-500 dark:text-stone-400 ml-1">Periods</span>
               </div>
               <button
                 onClick={handleDownloadTeacherPdf}
@@ -457,69 +457,69 @@ export const TimetableManager: React.FC<TimetableManagerProps> = ({
           </div>
 
           {/* Interactive Responsive Grid Table matching uploaded user layout */}
-          <div className="bg-white rounded-3xl border border-stone-300 shadow-sm overflow-hidden">
+          <div className="bg-white dark:bg-stone-900 rounded-3xl border border-stone-300 dark:border-stone-700 shadow-sm overflow-hidden">
             <div className="overflow-x-auto">
               <table className="w-full text-center text-xs border-collapse">
                 <thead>
-                  <tr className="bg-stone-100 border-b-2 border-stone-900 text-stone-900 font-black">
-                    <th className="p-3 w-20 border-r-2 border-stone-900 uppercase tracking-wider text-xs">
+                  <tr className="bg-stone-100 dark:bg-stone-800 border-b-2 border-stone-900 dark:border-stone-700 text-stone-900 dark:text-stone-100 font-black">
+                    <th className="p-3 w-20 border-r-2 border-stone-900 dark:border-stone-700 uppercase tracking-wider text-xs">
                       DAY
                     </th>
                     {/* P1 */}
-                    <th className="p-2 border-r border-stone-300 min-w-[95px]">
+                    <th className="p-2 border-r border-stone-300 dark:border-stone-700 min-w-[95px]">
                       <div className="text-[11px] font-black">8:00-8:40</div>
-                      <div className="text-[10px] text-stone-500 font-medium">Period 1</div>
+                      <div className="text-[10px] text-stone-500 dark:text-stone-400 font-medium">Period 1</div>
                     </th>
                     {/* P2 */}
-                    <th className="p-2 border-r-2 border-stone-900 min-w-[95px]">
+                    <th className="p-2 border-r-2 border-stone-900 dark:border-stone-700 min-w-[95px]">
                       <div className="text-[11px] font-black">8:40-9:20</div>
-                      <div className="text-[10px] text-stone-500 font-medium">Period 2</div>
+                      <div className="text-[10px] text-stone-500 dark:text-stone-400 font-medium">Period 2</div>
                     </th>
                     {/* SHORT BREAK */}
-                    <th className="p-1 border-r-2 border-stone-900 bg-rose-50/70 w-16 text-[10px] font-black text-rose-950">
+                    <th className="p-1 border-r-2 border-stone-900 dark:border-stone-700 bg-rose-50/70 dark:bg-rose-950/40 w-16 text-[10px] font-black text-rose-950 dark:text-rose-300">
                       <div>9:20-9:30</div>
                     </th>
                     {/* P3 */}
-                    <th className="p-2 border-r border-stone-300 min-w-[95px]">
+                    <th className="p-2 border-r border-stone-300 dark:border-stone-700 min-w-[95px]">
                       <div className="text-[11px] font-black">9:30-10:10</div>
-                      <div className="text-[10px] text-stone-500 font-medium">Period 3</div>
+                      <div className="text-[10px] text-stone-500 dark:text-stone-400 font-medium">Period 3</div>
                     </th>
                     {/* P4 */}
-                    <th className="p-2 border-r-2 border-stone-900 min-w-[95px]">
+                    <th className="p-2 border-r-2 border-stone-900 dark:border-stone-700 min-w-[95px]">
                       <div className="text-[11px] font-black">10:10-10:50</div>
-                      <div className="text-[10px] text-stone-500 font-medium">Period 4</div>
+                      <div className="text-[10px] text-stone-500 dark:text-stone-400 font-medium">Period 4</div>
                     </th>
                     {/* LONG BREAK */}
-                    <th className="p-1 border-r-2 border-stone-900 bg-amber-50/70 w-16 text-[10px] font-black text-amber-950">
+                    <th className="p-1 border-r-2 border-stone-900 dark:border-stone-700 bg-amber-50/70 dark:bg-amber-950/40 w-16 text-[10px] font-black text-amber-950 dark:text-amber-300">
                       <div>10:50-11:20</div>
                     </th>
                     {/* P5 */}
-                    <th className="p-2 border-r border-stone-300 min-w-[95px]">
+                    <th className="p-2 border-r border-stone-300 dark:border-stone-700 min-w-[95px]">
                       <div className="text-[11px] font-black">11:20-12:00</div>
-                      <div className="text-[10px] text-stone-500 font-medium">Period 5</div>
+                      <div className="text-[10px] text-stone-500 dark:text-stone-400 font-medium">Period 5</div>
                     </th>
                     {/* P6 */}
-                    <th className="p-2 border-r-2 border-stone-900 min-w-[95px]">
+                    <th className="p-2 border-r-2 border-stone-900 dark:border-stone-700 min-w-[95px]">
                       <div className="text-[11px] font-black">12:00-12:40</div>
-                      <div className="text-[10px] text-stone-500 font-medium">Period 6</div>
+                      <div className="text-[10px] text-stone-500 dark:text-stone-400 font-medium">Period 6</div>
                     </th>
                     {/* LUNCH BREAK */}
-                    <th className="p-1 border-r-2 border-stone-900 bg-emerald-50/70 w-16 text-[10px] font-black text-emerald-950">
+                    <th className="p-1 border-r-2 border-stone-900 dark:border-stone-700 bg-emerald-50/70 dark:bg-emerald-950/40 w-16 text-[10px] font-black text-emerald-950 dark:text-emerald-300">
                       <div>12:40-2:00</div>
                     </th>
                     {/* P7 */}
-                    <th className="p-2 border-r border-stone-300 min-w-[95px]">
+                    <th className="p-2 border-r border-stone-300 dark:border-stone-700 min-w-[95px]">
                       <div className="text-[11px] font-black">2:00-2:40</div>
-                      <div className="text-[10px] text-stone-500 font-medium">Period 7</div>
+                      <div className="text-[10px] text-stone-500 dark:text-stone-400 font-medium">Period 7</div>
                     </th>
                     {/* P8 */}
                     <th className="p-2 min-w-[95px]">
                       <div className="text-[11px] font-black">2:40-3:20</div>
-                      <div className="text-[10px] text-stone-500 font-medium">Period 8</div>
+                      <div className="text-[10px] text-stone-500 dark:text-stone-400 font-medium">Period 8</div>
                     </th>
                   </tr>
                 </thead>
-                <tbody className="divide-y-2 divide-stone-300">
+                <tbody className="divide-y-2 divide-stone-300 dark:divide-stone-700">
                   {TIMETABLE_DAYS.map((day, dayIndex) => {
                     const dayShort =
                       day === 'Monday'
@@ -537,18 +537,18 @@ export const TimetableManager: React.FC<TimetableManagerProps> = ({
                         (l) => l.day === day && l.periodNumber === periodNumber
                       );
                       if (!lesson) {
-                        return <span className="text-stone-300 font-mono text-sm">—</span>;
+                        return <span className="text-stone-300 dark:text-stone-600 font-mono text-sm">—</span>;
                       }
                       return (
                         <div className="space-y-0.5">
-                          <div className="font-black text-stone-900 text-xs">
+                          <div className="font-black text-stone-900 dark:text-stone-100 text-xs">
                             {getSubjectAbbreviation(lesson.subject)}
                           </div>
-                          <div className="text-[10px] font-bold text-[#6b1426] bg-rose-50 rounded px-1.5 py-0.5 inline-block">
+                          <div className="text-[10px] font-bold text-[#6b1426] dark:text-rose-400 bg-rose-50 dark:bg-rose-950/60 rounded px-1.5 py-0.5 inline-block">
                             {lesson.grade.replace('Grade ', 'G')}
                           </div>
                           {lesson.isDouble && (
-                            <div className="text-[9px] font-extrabold text-blue-600 block">
+                            <div className="text-[9px] font-extrabold text-blue-600 dark:text-blue-400 block">
                               (Dbl)
                             </div>
                           )}
@@ -557,24 +557,24 @@ export const TimetableManager: React.FC<TimetableManagerProps> = ({
                     };
 
                     return (
-                      <tr key={day} className="hover:bg-stone-50/50 transition h-20">
+                      <tr key={day} className="hover:bg-stone-50/50 dark:hover:bg-stone-800/50 transition h-20">
                         {/* Day label vertically on left */}
-                        <td className="p-3 font-black text-stone-900 border-r-2 border-stone-900 bg-stone-100/70 text-sm tracking-wide">
+                        <td className="p-3 font-black text-stone-900 dark:text-stone-100 border-r-2 border-stone-900 dark:border-stone-700 bg-stone-100/70 dark:bg-stone-800/70 text-sm tracking-wide">
                           {dayShort}
                         </td>
                         {/* Period 1 */}
-                        <td className="p-2 border-r border-stone-300 bg-white">
+                        <td className="p-2 border-r border-stone-300 dark:border-stone-700 bg-white dark:bg-stone-900">
                           {renderCell(1)}
                         </td>
                         {/* Period 2 */}
-                        <td className="p-2 border-r-2 border-stone-900 bg-white">
+                        <td className="p-2 border-r-2 border-stone-900 dark:border-stone-700 bg-white dark:bg-stone-900">
                           {renderCell(2)}
                         </td>
                         {/* Short Break Column */}
                         {dayIndex === 0 && (
                           <td
                             rowSpan={5}
-                            className="bg-rose-50 border-r-2 border-stone-900 p-1 font-black text-rose-950 uppercase tracking-widest text-center select-none align-middle"
+                            className="bg-rose-50 dark:bg-rose-950/40 border-r-2 border-stone-900 dark:border-stone-700 p-1 font-black text-rose-950 dark:text-rose-300 uppercase tracking-widest text-center select-none align-middle"
                           >
                             <div className="flex flex-col items-center justify-center font-black tracking-widest text-[11px] sm:text-xs py-2">
                               {'SHORT BREAK'.split('').map((c, i) =>
@@ -584,18 +584,18 @@ export const TimetableManager: React.FC<TimetableManagerProps> = ({
                           </td>
                         )}
                         {/* Period 3 */}
-                        <td className="p-2 border-r border-stone-300 bg-white">
+                        <td className="p-2 border-r border-stone-300 dark:border-stone-700 bg-white dark:bg-stone-900">
                           {renderCell(3)}
                         </td>
                         {/* Period 4 */}
-                        <td className="p-2 border-r-2 border-stone-900 bg-white">
+                        <td className="p-2 border-r-2 border-stone-900 dark:border-stone-700 bg-white dark:bg-stone-900">
                           {renderCell(4)}
                         </td>
                         {/* Long Break Column */}
                         {dayIndex === 0 && (
                           <td
                             rowSpan={5}
-                            className="bg-amber-50 border-r-2 border-stone-900 p-1 font-black text-amber-950 uppercase tracking-widest text-center select-none align-middle"
+                            className="bg-amber-50 dark:bg-amber-950/40 border-r-2 border-stone-900 dark:border-stone-700 p-1 font-black text-amber-950 dark:text-amber-300 uppercase tracking-widest text-center select-none align-middle"
                           >
                             <div className="flex flex-col items-center justify-center font-black tracking-widest text-[11px] sm:text-xs py-2">
                               {'LONG BREAK'.split('').map((c, i) =>
@@ -605,18 +605,18 @@ export const TimetableManager: React.FC<TimetableManagerProps> = ({
                           </td>
                         )}
                         {/* Period 5 */}
-                        <td className="p-2 border-r border-stone-300 bg-white">
+                        <td className="p-2 border-r border-stone-300 dark:border-stone-700 bg-white dark:bg-stone-900">
                           {renderCell(5)}
                         </td>
                         {/* Period 6 */}
-                        <td className="p-2 border-r-2 border-stone-900 bg-white">
+                        <td className="p-2 border-r-2 border-stone-900 dark:border-stone-700 bg-white dark:bg-stone-900">
                           {renderCell(6)}
                         </td>
                         {/* Lunch Break Column */}
                         {dayIndex === 0 && (
                           <td
                             rowSpan={5}
-                            className="bg-emerald-50 border-r-2 border-stone-900 p-1 font-black text-emerald-950 uppercase tracking-widest text-center select-none align-middle"
+                            className="bg-emerald-50 dark:bg-emerald-950/40 border-r-2 border-stone-900 dark:border-stone-700 p-1 font-black text-emerald-950 dark:text-emerald-300 uppercase tracking-widest text-center select-none align-middle"
                           >
                             <div className="flex flex-col items-center justify-center font-black tracking-widest text-[11px] sm:text-xs py-2">
                               {'LUNCH BREAK'.split('').map((c, i) =>
@@ -626,11 +626,11 @@ export const TimetableManager: React.FC<TimetableManagerProps> = ({
                           </td>
                         )}
                         {/* Period 7 */}
-                        <td className="p-2 border-r border-stone-300 bg-white">
+                        <td className="p-2 border-r border-stone-300 dark:border-stone-700 bg-white dark:bg-stone-900">
                           {renderCell(7)}
                         </td>
                         {/* Period 8 */}
-                        <td className="p-2 bg-white">
+                        <td className="p-2 bg-white dark:bg-stone-900">
                           {renderCell(8)}
                         </td>
                       </tr>
@@ -641,7 +641,7 @@ export const TimetableManager: React.FC<TimetableManagerProps> = ({
             </div>
 
             {/* Reference Signatures bar */}
-            <div className="bg-stone-50 border-t-2 border-stone-900 p-3.5 flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs font-bold text-stone-700">
+            <div className="bg-stone-50 dark:bg-stone-800 border-t-2 border-stone-900 dark:border-stone-700 p-3.5 flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs font-bold text-stone-700 dark:text-stone-300">
               <div>PREPARED BY: ..............................................................</div>
               <div>SCHOOL STAMP: ..............................................................</div>
             </div>
@@ -666,17 +666,17 @@ export const TimetableManager: React.FC<TimetableManagerProps> = ({
             return (
               <>
                 {/* Header Card */}
-                <div className="bg-white rounded-3xl p-5 border border-stone-200 shadow-xs flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                <div className="bg-white dark:bg-stone-900 rounded-3xl p-5 border border-stone-200 dark:border-stone-800 shadow-xs flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                   <div className="flex items-center gap-3.5">
-                    <div className="w-12 h-12 rounded-2xl bg-sky-50 text-sky-900 border border-sky-200 flex items-center justify-center font-black text-lg">
+                    <div className="w-12 h-12 rounded-2xl bg-sky-50 dark:bg-sky-950 text-sky-900 dark:text-sky-300 border border-sky-200 dark:border-sky-800 flex items-center justify-center font-black text-lg">
                       {currentGrade.replace('Grade ', 'G')}
                     </div>
                     <div>
-                      <h3 className="text-base font-black text-stone-900 flex items-center gap-2">
+                      <h3 className="text-base font-black text-stone-900 dark:text-stone-100 flex items-center gap-2">
                         <span>{currentGrade} Official Class Timetable</span>
                       </h3>
-                      <p className="text-xs text-stone-500 mt-0.5">
-                        Class Teacher: <strong className="text-stone-800">{getTeacherFirstName(CLASS_TEACHERS[currentGrade]) || 'Faculty'}</strong> | Total: <strong className="text-stone-800">40 Periods/Week</strong>
+                      <p className="text-xs text-stone-500 dark:text-stone-400 mt-0.5">
+                        Class Teacher: <strong className="text-stone-800 dark:text-stone-200">{getTeacherFirstName(CLASS_TEACHERS[currentGrade]) || 'Faculty'}</strong> | Total: <strong className="text-stone-800 dark:text-stone-200">40 Periods/Week</strong>
                       </p>
                     </div>
                   </div>
@@ -692,69 +692,69 @@ export const TimetableManager: React.FC<TimetableManagerProps> = ({
                 </div>
 
                 {/* Table matching user photo format */}
-                <div className="bg-white rounded-3xl border border-stone-300 shadow-sm overflow-hidden">
+                <div className="bg-white dark:bg-stone-900 rounded-3xl border border-stone-300 dark:border-stone-700 shadow-sm overflow-hidden">
                   <div className="overflow-x-auto">
                     <table className="w-full text-center text-xs border-collapse">
                       <thead>
-                        <tr className="bg-stone-100 border-b-2 border-stone-900 text-stone-900 font-black">
-                          <th className="p-3 w-20 border-r-2 border-stone-900 uppercase tracking-wider text-xs">
+                        <tr className="bg-stone-100 dark:bg-stone-800 border-b-2 border-stone-900 dark:border-stone-700 text-stone-900 dark:text-stone-100 font-black">
+                          <th className="p-3 w-20 border-r-2 border-stone-900 dark:border-stone-700 uppercase tracking-wider text-xs">
                             DAY
                           </th>
                           {/* P1 */}
-                          <th className="p-2 border-r border-stone-300 min-w-[95px]">
+                          <th className="p-2 border-r border-stone-300 dark:border-stone-700 min-w-[95px]">
                             <div className="text-[11px] font-black">8:00-8:40</div>
-                            <div className="text-[10px] text-stone-500 font-medium">Period 1</div>
+                            <div className="text-[10px] text-stone-500 dark:text-stone-400 font-medium">Period 1</div>
                           </th>
                           {/* P2 */}
-                          <th className="p-2 border-r-2 border-stone-900 min-w-[95px]">
+                          <th className="p-2 border-r-2 border-stone-900 dark:border-stone-700 min-w-[95px]">
                             <div className="text-[11px] font-black">8:40-9:20</div>
-                            <div className="text-[10px] text-stone-500 font-medium">Period 2</div>
+                            <div className="text-[10px] text-stone-500 dark:text-stone-400 font-medium">Period 2</div>
                           </th>
                           {/* SHORT BREAK */}
-                          <th className="p-1 border-r-2 border-stone-900 bg-rose-50/70 w-16 text-[10px] font-black text-rose-950">
+                          <th className="p-1 border-r-2 border-stone-900 dark:border-stone-700 bg-rose-50/70 dark:bg-rose-950/40 w-16 text-[10px] font-black text-rose-950 dark:text-rose-300">
                             <div>9:20-9:30</div>
                           </th>
                           {/* P3 */}
-                          <th className="p-2 border-r border-stone-300 min-w-[95px]">
+                          <th className="p-2 border-r border-stone-300 dark:border-stone-700 min-w-[95px]">
                             <div className="text-[11px] font-black">9:30-10:10</div>
-                            <div className="text-[10px] text-stone-500 font-medium">Period 3</div>
+                            <div className="text-[10px] text-stone-500 dark:text-stone-400 font-medium">Period 3</div>
                           </th>
                           {/* P4 */}
-                          <th className="p-2 border-r-2 border-stone-900 min-w-[95px]">
+                          <th className="p-2 border-r-2 border-stone-900 dark:border-stone-700 min-w-[95px]">
                             <div className="text-[11px] font-black">10:10-10:50</div>
-                            <div className="text-[10px] text-stone-500 font-medium">Period 4</div>
+                            <div className="text-[10px] text-stone-500 dark:text-stone-400 font-medium">Period 4</div>
                           </th>
                           {/* LONG BREAK */}
-                          <th className="p-1 border-r-2 border-stone-900 bg-amber-50/70 w-16 text-[10px] font-black text-amber-950">
+                          <th className="p-1 border-r-2 border-stone-900 dark:border-stone-700 bg-amber-50/70 dark:bg-amber-950/40 w-16 text-[10px] font-black text-amber-950 dark:text-amber-300">
                             <div>10:50-11:20</div>
                           </th>
                           {/* P5 */}
-                          <th className="p-2 border-r border-stone-300 min-w-[95px]">
+                          <th className="p-2 border-r border-stone-300 dark:border-stone-700 min-w-[95px]">
                             <div className="text-[11px] font-black">11:20-12:00</div>
-                            <div className="text-[10px] text-stone-500 font-medium">Period 5</div>
+                            <div className="text-[10px] text-stone-500 dark:text-stone-400 font-medium">Period 5</div>
                           </th>
                           {/* P6 */}
-                          <th className="p-2 border-r-2 border-stone-900 min-w-[95px]">
+                          <th className="p-2 border-r-2 border-stone-900 dark:border-stone-700 min-w-[95px]">
                             <div className="text-[11px] font-black">12:00-12:40</div>
-                            <div className="text-[10px] text-stone-500 font-medium">Period 6</div>
+                            <div className="text-[10px] text-stone-500 dark:text-stone-400 font-medium">Period 6</div>
                           </th>
                           {/* LUNCH BREAK */}
-                          <th className="p-1 border-r-2 border-stone-900 bg-emerald-50/70 w-16 text-[10px] font-black text-emerald-950">
+                          <th className="p-1 border-r-2 border-stone-900 dark:border-stone-700 bg-emerald-50/70 dark:bg-emerald-950/40 w-16 text-[10px] font-black text-emerald-950 dark:text-emerald-300">
                             <div>12:40-2:00</div>
                           </th>
                           {/* P7 */}
-                          <th className="p-2 border-r border-stone-300 min-w-[95px]">
+                          <th className="p-2 border-r border-stone-300 dark:border-stone-700 min-w-[95px]">
                             <div className="text-[11px] font-black">2:00-2:40</div>
-                            <div className="text-[10px] text-stone-500 font-medium">Period 7</div>
+                            <div className="text-[10px] text-stone-500 dark:text-stone-400 font-medium">Period 7</div>
                           </th>
                           {/* P8 */}
                           <th className="p-2 min-w-[95px]">
                             <div className="text-[11px] font-black">2:40-3:20</div>
-                            <div className="text-[10px] text-stone-500 font-medium">Period 8</div>
+                            <div className="text-[10px] text-stone-500 dark:text-stone-400 font-medium">Period 8</div>
                           </th>
                         </tr>
                       </thead>
-                      <tbody className="divide-y-2 divide-stone-300">
+                      <tbody className="divide-y-2 divide-stone-300 dark:divide-stone-700">
                         {TIMETABLE_DAYS.map((day, dayIndex) => {
                           const dayShort =
                             day === 'Monday'
@@ -772,18 +772,18 @@ export const TimetableManager: React.FC<TimetableManagerProps> = ({
                               (l) => l.day === day && l.periodNumber === periodNumber
                             );
                             if (!lesson) {
-                              return <span className="text-stone-300 font-mono text-sm">—</span>;
+                              return <span className="text-stone-300 dark:text-stone-600 font-mono text-sm">—</span>;
                             }
                             return (
                               <div className="space-y-0.5">
-                                <div className="font-black text-stone-900 text-xs">
+                                <div className="font-black text-stone-900 dark:text-stone-100 text-xs">
                                   {getSubjectAbbreviation(lesson.subject)}
                                 </div>
-                                <div className="text-[10px] font-semibold text-[#6b1426] truncate max-w-[85px] mx-auto">
+                                <div className="text-[10px] font-semibold text-[#6b1426] dark:text-rose-400 truncate max-w-[85px] mx-auto">
                                   {lesson.teacherName ? getTeacherFirstName(lesson.teacherName) : 'Tr'}
                                 </div>
                                 {lesson.isDouble && (
-                                  <div className="text-[9px] font-extrabold text-blue-600 block">
+                                  <div className="text-[9px] font-extrabold text-blue-600 dark:text-blue-400 block">
                                     (Dbl)
                                   </div>
                                 )}
@@ -792,20 +792,20 @@ export const TimetableManager: React.FC<TimetableManagerProps> = ({
                           };
 
                           return (
-                            <tr key={day} className="hover:bg-stone-50/50 transition h-20">
-                              <td className="p-3 font-black text-stone-900 border-r-2 border-stone-900 bg-stone-100/70 text-sm tracking-wide">
+                            <tr key={day} className="hover:bg-stone-50/50 dark:hover:bg-stone-800/50 transition h-20">
+                              <td className="p-3 font-black text-stone-900 dark:text-stone-100 border-r-2 border-stone-900 dark:border-stone-700 bg-stone-100/70 dark:bg-stone-800/70 text-sm tracking-wide">
                                 {dayShort}
                               </td>
-                              <td className="p-2 border-r border-stone-300 bg-white">
+                              <td className="p-2 border-r border-stone-300 dark:border-stone-700 bg-white dark:bg-stone-900">
                                 {renderCell(1)}
                               </td>
-                              <td className="p-2 border-r-2 border-stone-900 bg-white">
+                              <td className="p-2 border-r-2 border-stone-900 dark:border-stone-700 bg-white dark:bg-stone-900">
                                 {renderCell(2)}
                               </td>
                               {dayIndex === 0 && (
                                 <td
                                   rowSpan={5}
-                                  className="bg-rose-50 border-r-2 border-stone-900 p-1 font-black text-rose-950 uppercase tracking-widest text-center select-none align-middle"
+                                  className="bg-rose-50 dark:bg-rose-950/40 border-r-2 border-stone-900 dark:border-stone-700 p-1 font-black text-rose-950 dark:text-rose-300 uppercase tracking-widest text-center select-none align-middle"
                                 >
                                   <div className="flex flex-col items-center justify-center font-black tracking-widest text-[11px] sm:text-xs py-2">
                                     {'SHORT BREAK'.split('').map((c, i) =>
@@ -814,16 +814,16 @@ export const TimetableManager: React.FC<TimetableManagerProps> = ({
                                   </div>
                                 </td>
                               )}
-                              <td className="p-2 border-r border-stone-300 bg-white">
+                              <td className="p-2 border-r border-stone-300 dark:border-stone-700 bg-white dark:bg-stone-900">
                                 {renderCell(3)}
                               </td>
-                              <td className="p-2 border-r-2 border-stone-900 bg-white">
+                              <td className="p-2 border-r-2 border-stone-900 dark:border-stone-700 bg-white dark:bg-stone-900">
                                 {renderCell(4)}
                               </td>
                               {dayIndex === 0 && (
                                 <td
                                   rowSpan={5}
-                                  className="bg-amber-50 border-r-2 border-stone-900 p-1 font-black text-amber-950 uppercase tracking-widest text-center select-none align-middle"
+                                  className="bg-amber-50 dark:bg-amber-950/40 border-r-2 border-stone-900 dark:border-stone-700 p-1 font-black text-amber-950 dark:text-amber-300 uppercase tracking-widest text-center select-none align-middle"
                                 >
                                   <div className="flex flex-col items-center justify-center font-black tracking-widest text-[11px] sm:text-xs py-2">
                                     {'LONG BREAK'.split('').map((c, i) =>
@@ -832,16 +832,16 @@ export const TimetableManager: React.FC<TimetableManagerProps> = ({
                                   </div>
                                 </td>
                               )}
-                              <td className="p-2 border-r border-stone-300 bg-white">
+                              <td className="p-2 border-r border-stone-300 dark:border-stone-700 bg-white dark:bg-stone-900">
                                 {renderCell(5)}
                               </td>
-                              <td className="p-2 border-r-2 border-stone-900 bg-white">
+                              <td className="p-2 border-r-2 border-stone-900 dark:border-stone-700 bg-white dark:bg-stone-900">
                                 {renderCell(6)}
                               </td>
                               {dayIndex === 0 && (
                                 <td
                                   rowSpan={5}
-                                  className="bg-emerald-50 border-r-2 border-stone-900 p-1 font-black text-emerald-950 uppercase tracking-widest text-center select-none align-middle"
+                                  className="bg-emerald-50 dark:bg-emerald-950/40 border-r-2 border-stone-900 dark:border-stone-700 p-1 font-black text-emerald-950 dark:text-emerald-300 uppercase tracking-widest text-center select-none align-middle"
                                 >
                                   <div className="flex flex-col items-center justify-center font-black tracking-widest text-[11px] sm:text-xs py-2">
                                     {'LUNCH BREAK'.split('').map((c, i) =>
@@ -850,10 +850,10 @@ export const TimetableManager: React.FC<TimetableManagerProps> = ({
                                   </div>
                                 </td>
                               )}
-                              <td className="p-2 border-r border-stone-300 bg-white">
+                              <td className="p-2 border-r border-stone-300 dark:border-stone-700 bg-white dark:bg-stone-900">
                                 {renderCell(7)}
                               </td>
-                              <td className="p-2 bg-white">
+                              <td className="p-2 bg-white dark:bg-stone-900">
                                 {renderCell(8)}
                               </td>
                             </tr>
@@ -863,7 +863,7 @@ export const TimetableManager: React.FC<TimetableManagerProps> = ({
                     </table>
                   </div>
 
-                  <div className="bg-stone-50 border-t-2 border-stone-900 p-3.5 flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs font-bold text-stone-700">
+                  <div className="bg-stone-50 dark:bg-stone-800 border-t-2 border-stone-900 dark:border-stone-700 p-3.5 flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs font-bold text-stone-700 dark:text-stone-300">
                     <div>PREPARED BY: ..............................................................</div>
                     <div>SCHOOL STAMP: ..............................................................</div>
                   </div>
@@ -879,19 +879,19 @@ export const TimetableManager: React.FC<TimetableManagerProps> = ({
       {/* ======================================================== */}
       {activeTab === 'master' && (
         <div className="space-y-4">
-          <div className="bg-white rounded-3xl p-5 border border-stone-200 shadow-xs flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div className="bg-white dark:bg-stone-900 rounded-3xl p-5 border border-stone-200 dark:border-stone-800 shadow-xs flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <div className="flex items-center gap-3.5">
-              <div className="w-12 h-12 rounded-2xl bg-emerald-50 text-emerald-900 border border-emerald-200 flex items-center justify-center font-black text-lg">
-                <Layers className="w-6 h-6 text-emerald-800" />
+              <div className="w-12 h-12 rounded-2xl bg-emerald-50 dark:bg-emerald-950 text-emerald-900 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800 flex items-center justify-center font-black text-lg">
+                <Layers className="w-6 h-6 text-emerald-800 dark:text-emerald-400" />
               </div>
               <div>
-                <h3 className="text-base font-black text-stone-900 flex items-center gap-2">
+                <h3 className="text-base font-black text-stone-900 dark:text-stone-100 flex items-center gap-2">
                   <span>Full School Master Timetable</span>
-                  <span className="text-[10px] font-bold bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded-full">
+                  <span className="text-[10px] font-bold bg-emerald-100 dark:bg-emerald-950 text-emerald-800 dark:text-emerald-300 px-2 py-0.5 rounded-full">
                     Grade 7, 8 &amp; 9 Consolidated
                   </span>
                 </h3>
-                <p className="text-xs text-stone-500 mt-0.5">
+                <p className="text-xs text-stone-500 dark:text-stone-400 mt-0.5">
                   Conflict-free matrix across all classes. Verified against CBC rules and room allocations.
                 </p>
               </div>
@@ -907,72 +907,72 @@ export const TimetableManager: React.FC<TimetableManagerProps> = ({
             </button>
           </div>
 
-          <div className="bg-white rounded-3xl border border-stone-300 shadow-sm overflow-hidden">
+          <div className="bg-white dark:bg-stone-900 rounded-3xl border border-stone-300 dark:border-stone-700 shadow-sm overflow-hidden">
             <div className="overflow-x-auto">
               <table className="w-full text-center text-xs border-collapse">
                 <thead>
-                  <tr className="bg-stone-100 border-b-2 border-stone-900 text-stone-900 font-black">
-                    <th className="p-3 w-20 border-r-2 border-stone-900 uppercase tracking-wider text-xs">
+                  <tr className="bg-stone-100 dark:bg-stone-800 border-b-2 border-stone-900 dark:border-stone-700 text-stone-900 dark:text-stone-100 font-black">
+                    <th className="p-3 w-20 border-r-2 border-stone-900 dark:border-stone-700 uppercase tracking-wider text-xs">
                       DAY
                     </th>
                     {/* P1 */}
-                    <th className="p-2 border-r border-stone-300 min-w-[125px]">
+                    <th className="p-2 border-r border-stone-300 dark:border-stone-700 min-w-[125px]">
                       <div className="text-[11px] font-black">8:00-8:40</div>
-                      <div className="text-[10px] text-stone-500 font-medium">Period 1</div>
+                      <div className="text-[10px] text-stone-500 dark:text-stone-400 font-medium">Period 1</div>
                     </th>
                     {/* P2 */}
-                    <th className="p-2 border-r-2 border-stone-900 min-w-[125px]">
+                    <th className="p-2 border-r-2 border-stone-900 dark:border-stone-700 min-w-[125px]">
                       <div className="text-[11px] font-black">8:40-9:20</div>
-                      <div className="text-[10px] text-stone-500 font-medium">Period 2</div>
+                      <div className="text-[10px] text-stone-500 dark:text-stone-400 font-medium">Period 2</div>
                     </th>
                     {/* SHORT BREAK */}
-                    <th className="p-1 border-r-2 border-stone-900 bg-rose-50/70 w-16 text-[10px] font-black text-rose-950">
+                    <th className="p-1 border-r-2 border-stone-900 dark:border-stone-700 bg-rose-50/70 dark:bg-rose-950/40 w-16 text-[10px] font-black text-rose-950 dark:text-rose-300">
                       <div>9:20-9:30</div>
-                      <div className="text-[9px] text-rose-800 font-bold">Break</div>
+                      <div className="text-[9px] text-rose-800 dark:text-rose-400 font-bold">Break</div>
                     </th>
                     {/* P3 */}
-                    <th className="p-2 border-r border-stone-300 min-w-[125px]">
+                    <th className="p-2 border-r border-stone-300 dark:border-stone-700 min-w-[125px]">
                       <div className="text-[11px] font-black">9:30-10:10</div>
-                      <div className="text-[10px] text-stone-500 font-medium">Period 3</div>
+                      <div className="text-[10px] text-stone-500 dark:text-stone-400 font-medium">Period 3</div>
                     </th>
                     {/* P4 */}
-                    <th className="p-2 border-r-2 border-stone-900 min-w-[125px]">
+                    <th className="p-2 border-r-2 border-stone-900 dark:border-stone-700 min-w-[125px]">
                       <div className="text-[11px] font-black">10:10-10:50</div>
-                      <div className="text-[10px] text-stone-500 font-medium">Period 4</div>
+                      <div className="text-[10px] text-stone-500 dark:text-stone-400 font-medium">Period 4</div>
                     </th>
                     {/* LONG BREAK */}
-                    <th className="p-1 border-r-2 border-stone-900 bg-amber-50/70 w-16 text-[10px] font-black text-amber-950">
+                    <th className="p-1 border-r-2 border-stone-900 dark:border-stone-700 bg-amber-50/70 dark:bg-amber-950/40 w-16 text-[10px] font-black text-amber-950 dark:text-amber-300">
                       <div>10:50-11:20</div>
-                      <div className="text-[9px] text-amber-800 font-bold">Tea Break</div>
+                      <div className="text-[9px] text-amber-800 dark:text-amber-400 font-bold">Tea Break</div>
                     </th>
                     {/* P5 */}
-                    <th className="p-2 border-r border-stone-300 min-w-[125px]">
+                    <th className="p-2 border-r border-stone-300 dark:border-stone-700 min-w-[125px]">
                       <div className="text-[11px] font-black">11:20-12:00</div>
-                      <div className="text-[10px] text-stone-500 font-medium">Period 5</div>
+                      <div className="text-[10px] text-stone-500 dark:text-stone-400 font-medium">Period 5</div>
                     </th>
                     {/* P6 */}
-                    <th className="p-2 border-r-2 border-stone-900 min-w-[125px]">
+                    <th className="p-2 border-r-2 border-stone-900 dark:border-stone-700 min-w-[125px]">
                       <div className="text-[11px] font-black">12:00-12:40</div>
-                      <div className="text-[10px] text-stone-500 font-medium">Period 6</div>
+                      <div className="text-[10px] text-stone-500 dark:text-stone-400 font-medium">Period 6</div>
                     </th>
                     {/* LUNCH BREAK */}
-                    <th className="p-1 border-r-2 border-stone-900 bg-emerald-50/70 w-16 text-[10px] font-black text-emerald-950">
+                    <th className="p-1 border-r-2 border-stone-900 dark:border-stone-700 bg-emerald-50/70 dark:bg-emerald-950/40 w-16 text-[10px] font-black text-emerald-950 dark:text-emerald-300">
                       <div>12:40-2:00</div>
-                      <div className="text-[9px] text-emerald-800 font-bold">Lunch Break</div>
+                      <div className="text-[9px] text-emerald-800 dark:text-emerald-400 font-bold">Lunch Break</div>
                     </th>
                     {/* P7 */}
-                    <th className="p-2 border-r border-stone-300 min-w-[125px]">
+                    <th className="p-2 border-r border-stone-300 dark:border-stone-700 min-w-[125px]">
                       <div className="text-[11px] font-black">2:00-2:40</div>
-                      <div className="text-[10px] text-stone-500 font-medium">Period 7</div>
+                      <div className="text-[10px] text-stone-500 dark:text-stone-400 font-medium">Period 7</div>
                     </th>
                     {/* P8 */}
                     <th className="p-2 min-w-[125px]">
                       <div className="text-[11px] font-black">2:40-3:20</div>
-                      <div className="text-[10px] text-stone-500 font-medium">Period 8</div>
+                      <div className="text-[10px] text-stone-500 dark:text-stone-400 font-medium">Period 8</div>
                     </th>
                   </tr>
                 </thead>
-                <tbody className="divide-y-2 divide-stone-300">
+                <tbody className="divide-y-2 divide-stone-300 dark:divide-stone-700">
                   {TIMETABLE_DAYS.map((day, dayIndex) => {
                     const dayShort =
                       day === 'Monday'
@@ -999,55 +999,55 @@ export const TimetableManager: React.FC<TimetableManagerProps> = ({
                       return (
                         <div className="space-y-1 py-1">
                           {/* Grade 7 */}
-                          <div className="bg-sky-50 border border-sky-200 px-1.5 py-1 rounded-lg text-left">
+                          <div className="bg-sky-50 dark:bg-sky-950/60 border border-sky-200 dark:border-sky-800 px-1.5 py-1 rounded-lg text-left">
                             <div className="flex items-center justify-between gap-1">
-                              <span className="font-extrabold text-sky-950 text-[11px] truncate">
-                                <span className="text-sky-700 font-bold mr-1">G7:</span>
+                              <span className="font-extrabold text-sky-950 dark:text-sky-200 text-[11px] truncate">
+                                <span className="text-sky-700 dark:text-sky-400 font-bold mr-1">G7:</span>
                                 {g7 ? getSubjectAbbreviation(g7.subject) : '—'}
                               </span>
                               {g7?.isDouble && (
-                                <span className="text-[9px] font-black text-blue-600 bg-blue-100/70 px-1 rounded">
+                                <span className="text-[9px] font-black text-blue-600 dark:text-blue-400 bg-blue-100/70 dark:bg-blue-900/50 px-1 rounded">
                                   Dbl
                                 </span>
                               )}
                             </div>
-                            <div className="text-[10px] text-sky-800 font-medium truncate">
+                            <div className="text-[10px] text-sky-800 dark:text-sky-300 font-medium truncate">
                               {g7?.teacherName ? getTeacherFirstName(g7.teacherName) : '—'}
                             </div>
                           </div>
 
                           {/* Grade 8 */}
-                          <div className="bg-rose-50 border border-rose-200 px-1.5 py-1 rounded-lg text-left">
+                          <div className="bg-rose-50 dark:bg-rose-950/60 border border-rose-200 dark:border-rose-800 px-1.5 py-1 rounded-lg text-left">
                             <div className="flex items-center justify-between gap-1">
-                              <span className="font-extrabold text-rose-950 text-[11px] truncate">
-                                <span className="text-rose-700 font-bold mr-1">G8:</span>
+                              <span className="font-extrabold text-rose-950 dark:text-rose-200 text-[11px] truncate">
+                                <span className="text-rose-700 dark:text-rose-400 font-bold mr-1">G8:</span>
                                 {g8 ? getSubjectAbbreviation(g8.subject) : '—'}
                               </span>
                               {g8?.isDouble && (
-                                <span className="text-[9px] font-black text-rose-600 bg-rose-100/70 px-1 rounded">
+                                <span className="text-[9px] font-black text-rose-600 dark:text-rose-400 bg-rose-100/70 dark:bg-rose-900/50 px-1 rounded">
                                   Dbl
                                 </span>
                               )}
                             </div>
-                            <div className="text-[10px] text-rose-800 font-medium truncate">
+                            <div className="text-[10px] text-rose-800 dark:text-rose-300 font-medium truncate">
                               {g8?.teacherName ? getTeacherFirstName(g8.teacherName) : '—'}
                             </div>
                           </div>
 
                           {/* Grade 9 */}
-                          <div className="bg-purple-50 border border-purple-200 px-1.5 py-1 rounded-lg text-left">
+                          <div className="bg-purple-50 dark:bg-purple-950/60 border border-purple-200 dark:border-purple-800 px-1.5 py-1 rounded-lg text-left">
                             <div className="flex items-center justify-between gap-1">
-                              <span className="font-extrabold text-purple-950 text-[11px] truncate">
-                                <span className="text-purple-700 font-bold mr-1">G9:</span>
+                              <span className="font-extrabold text-purple-950 dark:text-purple-200 text-[11px] truncate">
+                                <span className="text-purple-700 dark:text-purple-400 font-bold mr-1">G9:</span>
                                 {g9 ? getSubjectAbbreviation(g9.subject) : '—'}
                               </span>
                               {g9?.isDouble && (
-                                <span className="text-[9px] font-black text-purple-600 bg-purple-100/70 px-1 rounded">
+                                <span className="text-[9px] font-black text-purple-600 dark:text-purple-400 bg-purple-100/70 dark:bg-purple-900/50 px-1 rounded">
                                   Dbl
                                 </span>
                               )}
                             </div>
-                            <div className="text-[10px] text-purple-800 font-medium truncate">
+                            <div className="text-[10px] text-purple-800 dark:text-purple-300 font-medium truncate">
                               {g9?.teacherName ? getTeacherFirstName(g9.teacherName) : '—'}
                             </div>
                           </div>
@@ -1056,20 +1056,20 @@ export const TimetableManager: React.FC<TimetableManagerProps> = ({
                     };
 
                     return (
-                      <tr key={day} className="hover:bg-stone-50/50 transition">
-                        <td className="p-3 font-black text-stone-900 border-r-2 border-stone-900 bg-stone-100/70 text-sm tracking-wide">
+                      <tr key={day} className="hover:bg-stone-50/50 dark:hover:bg-stone-800/50 transition">
+                        <td className="p-3 font-black text-stone-900 dark:text-stone-100 border-r-2 border-stone-900 dark:border-stone-700 bg-stone-100/70 dark:bg-stone-800/70 text-sm tracking-wide">
                           {dayShort}
                         </td>
-                        <td className="p-2 border-r border-stone-300 bg-white">
+                        <td className="p-2 border-r border-stone-300 dark:border-stone-700 bg-white dark:bg-stone-900">
                           {renderMasterPeriodCell(1)}
                         </td>
-                        <td className="p-2 border-r-2 border-stone-900 bg-white">
+                        <td className="p-2 border-r-2 border-stone-900 dark:border-stone-700 bg-white dark:bg-stone-900">
                           {renderMasterPeriodCell(2)}
                         </td>
                         {dayIndex === 0 && (
                           <td
                             rowSpan={5}
-                            className="bg-rose-50 border-r-2 border-stone-900 p-1 font-black text-rose-950 uppercase tracking-widest text-center select-none align-middle"
+                            className="bg-rose-50 dark:bg-rose-950/40 border-r-2 border-stone-900 dark:border-stone-700 p-1 font-black text-rose-950 dark:text-rose-300 uppercase tracking-widest text-center select-none align-middle"
                           >
                             <div className="flex flex-col items-center justify-center font-black tracking-widest text-[11px] sm:text-xs py-3 select-none">
                               {'SHORT BREAK'.split('').map((char, i) =>
@@ -1084,16 +1084,16 @@ export const TimetableManager: React.FC<TimetableManagerProps> = ({
                             </div>
                           </td>
                         )}
-                        <td className="p-2 border-r border-stone-300 bg-white">
+                        <td className="p-2 border-r border-stone-300 dark:border-stone-700 bg-white dark:bg-stone-900">
                           {renderMasterPeriodCell(3)}
                         </td>
-                        <td className="p-2 border-r-2 border-stone-900 bg-white">
+                        <td className="p-2 border-r-2 border-stone-900 dark:border-stone-700 bg-white dark:bg-stone-900">
                           {renderMasterPeriodCell(4)}
                         </td>
                         {dayIndex === 0 && (
                           <td
                             rowSpan={5}
-                            className="bg-amber-50 border-r-2 border-stone-900 p-1 font-black text-amber-950 uppercase tracking-widest text-center select-none align-middle"
+                            className="bg-amber-50 dark:bg-amber-950/40 border-r-2 border-stone-900 dark:border-stone-700 p-1 font-black text-amber-950 dark:text-amber-300 uppercase tracking-widest text-center select-none align-middle"
                           >
                             <div className="flex flex-col items-center justify-center font-black tracking-widest text-[11px] sm:text-xs py-3 select-none">
                               {'LONG BREAK'.split('').map((char, i) =>
@@ -1108,16 +1108,16 @@ export const TimetableManager: React.FC<TimetableManagerProps> = ({
                             </div>
                           </td>
                         )}
-                        <td className="p-2 border-r border-stone-300 bg-white">
+                        <td className="p-2 border-r border-stone-300 dark:border-stone-700 bg-white dark:bg-stone-900">
                           {renderMasterPeriodCell(5)}
                         </td>
-                        <td className="p-2 border-r-2 border-stone-900 bg-white">
+                        <td className="p-2 border-r-2 border-stone-900 dark:border-stone-700 bg-white dark:bg-stone-900">
                           {renderMasterPeriodCell(6)}
                         </td>
                         {dayIndex === 0 && (
                           <td
                             rowSpan={5}
-                            className="bg-emerald-50 border-r-2 border-stone-900 p-1 font-black text-emerald-950 uppercase tracking-widest text-center select-none align-middle"
+                            className="bg-emerald-50 dark:bg-emerald-950/40 border-r-2 border-stone-900 dark:border-stone-700 p-1 font-black text-emerald-950 dark:text-emerald-300 uppercase tracking-widest text-center select-none align-middle"
                           >
                             <div className="flex flex-col items-center justify-center font-black tracking-widest text-[11px] sm:text-xs py-3 select-none">
                               {'LUNCH BREAK'.split('').map((char, i) =>
@@ -1132,10 +1132,10 @@ export const TimetableManager: React.FC<TimetableManagerProps> = ({
                             </div>
                           </td>
                         )}
-                        <td className="p-2 border-r border-stone-300 bg-white">
+                        <td className="p-2 border-r border-stone-300 dark:border-stone-700 bg-white dark:bg-stone-900">
                           {renderMasterPeriodCell(7)}
                         </td>
-                        <td className="p-2 bg-white">
+                        <td className="p-2 bg-white dark:bg-stone-900">
                           {renderMasterPeriodCell(8)}
                         </td>
                       </tr>
@@ -1146,7 +1146,7 @@ export const TimetableManager: React.FC<TimetableManagerProps> = ({
             </div>
 
             {/* Reference Signatures bar */}
-            <div className="bg-stone-50 border-t-2 border-stone-900 p-3.5 flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs font-bold text-stone-700">
+            <div className="bg-stone-50 dark:bg-stone-800 border-t-2 border-stone-900 dark:border-stone-700 p-3.5 flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs font-bold text-stone-700 dark:text-stone-300">
               <div>PREPARED BY: ..............................................................</div>
               <div>SCHOOL STAMP: ..............................................................</div>
             </div>

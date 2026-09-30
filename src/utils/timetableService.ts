@@ -111,7 +111,7 @@ export const BREAK_INTERVALS = [
   },
 ];
 
-const STORAGE_KEY_TIMETABLE = 'reberwet_timetable_v5';
+const STORAGE_KEY_TIMETABLE = 'reberwet_timetable_v6';
 
 /**
  * Normalizes subject names for matching across user profile assignments and standard CBC subjects.

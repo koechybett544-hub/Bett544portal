@@ -319,13 +319,13 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
   return (
     <div className="space-y-5 pb-16">
       {/* Top Header & Role Badge */}
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 border-b border-stone-200 pb-3">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 border-b border-stone-200 dark:border-stone-800 pb-3">
         <div>
-          <h1 className="text-xl sm:text-2xl font-black text-stone-900 flex items-center gap-2">
-            <ShieldCheck className="w-6 h-6 text-[#6b1426]" />
+          <h1 className="text-xl sm:text-2xl font-black text-stone-900 dark:text-stone-100 flex items-center gap-2">
+            <ShieldCheck className="w-6 h-6 text-[#6b1426] dark:text-rose-400" />
             <span>School Administration &amp; Staff Management</span>
           </h1>
-          <p className="text-xs text-stone-600">
+          <p className="text-xs text-stone-600 dark:text-stone-400">
             Two-level administrative controls, staff subject allocations, teacher profiles, and tamper-evident audit logging.
           </p>
         </div>
@@ -334,10 +334,10 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
           <span
             className={`px-3 py-1.5 rounded-xl text-xs font-bold border ${
               isSuperAdmin
-                ? 'bg-sky-100 text-sky-900 border-sky-300'
+                ? 'bg-sky-100 dark:bg-sky-950/60 text-sky-900 dark:text-sky-300 border-sky-300 dark:border-sky-800'
                 : isSchoolAdmin
-                ? 'bg-rose-50 text-[#6b1426] border-rose-200'
-                : 'bg-stone-100 text-stone-800 border-stone-200'
+                ? 'bg-rose-50 dark:bg-rose-950/60 text-[#6b1426] dark:text-rose-300 border-rose-200 dark:border-rose-900'
+                : 'bg-stone-100 dark:bg-stone-800 text-stone-800 dark:text-stone-200 border-stone-200 dark:border-stone-700'
             }`}
           >
             {isSuperAdmin
@@ -351,10 +351,10 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
 
       {/* Role Warning for Standard Teachers */}
       {!isSchoolAdmin && (
-        <div className="bg-sky-50 border border-sky-200 rounded-2xl p-4 text-xs text-sky-950 flex items-start gap-3">
-          <AlertCircle className="w-5 h-5 text-sky-700 shrink-0 mt-0.5" />
+        <div className="bg-sky-50 dark:bg-sky-950/40 border border-sky-200 dark:border-sky-800 rounded-2xl p-4 text-xs text-sky-950 dark:text-sky-200 flex items-start gap-3">
+          <AlertCircle className="w-5 h-5 text-sky-700 dark:text-sky-400 shrink-0 mt-0.5" />
           <div className="space-y-1">
-            <strong className="block text-sm font-bold text-sky-900">Faculty Account Detected</strong>
+            <strong className="block text-sm font-bold text-sky-900 dark:text-sky-100">Faculty Account Detected</strong>
             <p>
               You are currently logged in as <strong>{currentUser.name}</strong>. While you can inspect the school audit trail and staff allocations, administrative alterations (bulk import, marks locks, role administration) require <strong>School Admin</strong> or <strong>Super Admin</strong> credentials.
             </p>
@@ -385,13 +385,13 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
       )}
 
       {/* Admin Tabs */}
-      <div className="flex border-b border-stone-200 gap-2 overflow-x-auto pb-0.5">
+      <div className="flex border-b border-stone-200 dark:border-stone-800 gap-2 overflow-x-auto pb-0.5">
         <button
           onClick={() => setActiveTab('audit')}
           className={`flex items-center gap-1.5 px-4 py-2 text-xs font-bold border-b-2 transition ${
             activeTab === 'audit'
-              ? 'border-[#6b1426] text-[#6b1426]'
-              : 'border-transparent text-stone-500 hover:text-stone-800'
+              ? 'border-[#6b1426] dark:border-rose-400 text-[#6b1426] dark:text-rose-400'
+              : 'border-transparent text-stone-500 dark:text-stone-400 hover:text-stone-800 dark:hover:text-stone-200'
           }`}
         >
           <History className="w-4 h-4" />
@@ -402,8 +402,8 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
           onClick={() => setActiveTab('users')}
           className={`flex items-center gap-1.5 px-4 py-2 text-xs font-bold border-b-2 transition ${
             activeTab === 'users'
-              ? 'border-[#6b1426] text-[#6b1426]'
-              : 'border-transparent text-stone-500 hover:text-stone-800'
+              ? 'border-[#6b1426] dark:border-rose-400 text-[#6b1426] dark:text-rose-400'
+              : 'border-transparent text-stone-500 dark:text-stone-400 hover:text-stone-800 dark:hover:text-stone-200'
           }`}
         >
           <Users className="w-4 h-4" />
@@ -414,8 +414,8 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
           onClick={() => setActiveTab('import')}
           className={`flex items-center gap-1.5 px-4 py-2 text-xs font-bold border-b-2 transition ${
             activeTab === 'import'
-              ? 'border-[#6b1426] text-[#6b1426]'
-              : 'border-transparent text-stone-500 hover:text-stone-800'
+              ? 'border-[#6b1426] dark:border-rose-400 text-[#6b1426] dark:text-rose-400'
+              : 'border-transparent text-stone-500 dark:text-stone-400 hover:text-stone-800 dark:hover:text-stone-200'
           }`}
         >
           <Upload className="w-4 h-4" />
@@ -426,8 +426,8 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
           onClick={() => setActiveTab('system')}
           className={`flex items-center gap-1.5 px-4 py-2 text-xs font-bold border-b-2 transition ${
             activeTab === 'system'
-              ? 'border-[#6b1426] text-[#6b1426]'
-              : 'border-transparent text-stone-500 hover:text-stone-800'
+              ? 'border-[#6b1426] dark:border-rose-400 text-[#6b1426] dark:text-rose-400'
+              : 'border-transparent text-stone-500 dark:text-stone-400 hover:text-stone-800 dark:hover:text-stone-200'
           }`}
         >
           <Settings className="w-4 h-4" />
@@ -438,7 +438,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
       {/* TAB 1: AUDIT TRAIL */}
       {activeTab === 'audit' && (
         <div className="space-y-4">
-          <div className="bg-white rounded-2xl border border-stone-200 p-4 shadow-xs flex flex-col sm:flex-row items-center justify-between gap-3">
+          <div className="bg-white dark:bg-stone-900 rounded-2xl border border-stone-200 dark:border-stone-800 p-4 shadow-xs flex flex-col sm:flex-row items-center justify-between gap-3">
             <div className="flex flex-wrap items-center gap-2 w-full sm:w-auto">
               <div className="relative flex-1 sm:w-64">
                 <Search className="w-4 h-4 absolute left-3 top-2.5 text-stone-400" />
@@ -447,14 +447,14 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
                   placeholder="Search user, learner, or ADM..."
                   value={auditSearch}
                   onChange={(e) => setAuditSearch(e.target.value)}
-                  className="w-full pl-9 pr-3 py-1.5 rounded-xl border border-stone-300 text-xs focus:border-[#6b1426] focus:outline-none"
+                  className="w-full pl-9 pr-3 py-1.5 rounded-xl border border-stone-300 dark:border-stone-700 bg-white dark:bg-stone-800 text-stone-900 dark:text-stone-100 text-xs focus:border-[#6b1426] focus:outline-none"
                 />
               </div>
 
               <select
                 value={auditGradeFilter}
                 onChange={(e) => setAuditGradeFilter(e.target.value)}
-                className="px-2.5 py-1.5 rounded-xl border border-stone-300 text-xs bg-white focus:border-[#6b1426] focus:outline-none font-medium"
+                className="px-2.5 py-1.5 rounded-xl border border-stone-300 dark:border-stone-700 text-xs bg-white dark:bg-stone-800 text-stone-800 dark:text-stone-200 focus:border-[#6b1426] focus:outline-none font-medium"
               >
                 <option value="all">All Grades</option>
                 <option value="Grade 7">Grade 7</option>
@@ -465,7 +465,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
               <select
                 value={auditActionFilter}
                 onChange={(e) => setAuditActionFilter(e.target.value)}
-                className="px-2.5 py-1.5 rounded-xl border border-stone-300 text-xs bg-white focus:border-[#6b1426] focus:outline-none font-medium"
+                className="px-2.5 py-1.5 rounded-xl border border-stone-300 dark:border-stone-700 text-xs bg-white dark:bg-stone-800 text-stone-800 dark:text-stone-200 focus:border-[#6b1426] focus:outline-none font-medium"
               >
                 <option value="all">All Actions</option>
                 <option value="marks">Marks Entry</option>
@@ -476,18 +476,18 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
 
             <button
               onClick={handleExportAuditCSV}
-              className="px-3.5 py-1.5 rounded-xl bg-stone-100 hover:bg-stone-200 text-stone-800 text-xs font-bold flex items-center gap-1.5 transition self-end sm:self-auto border border-stone-200"
+              className="px-3.5 py-1.5 rounded-xl bg-stone-100 dark:bg-stone-800 hover:bg-stone-200 dark:hover:bg-stone-700 text-stone-800 dark:text-stone-200 text-xs font-bold flex items-center gap-1.5 transition self-end sm:self-auto border border-stone-200 dark:border-stone-700"
             >
               <Download className="w-4 h-4" />
               <span>Export Audit CSV</span>
             </button>
           </div>
 
-          <div className="bg-white rounded-2xl border border-stone-200 overflow-hidden shadow-xs">
+          <div className="bg-white dark:bg-stone-900 rounded-2xl border border-stone-200 dark:border-stone-800 overflow-hidden shadow-xs">
             <div className="overflow-x-auto">
               <table className="w-full text-left border-collapse">
                 <thead>
-                  <tr className="bg-stone-100/90 text-stone-700 text-xs font-bold border-b border-stone-200">
+                  <tr className="bg-stone-100/90 dark:bg-stone-800 text-stone-700 dark:text-stone-300 text-xs font-bold border-b border-stone-200 dark:border-stone-800">
                     <th className="py-3 px-4">TIMESTAMP</th>
                     <th className="py-3 px-4">STAFF MEMBER</th>
                     <th className="py-3 px-4">ACTION</th>
@@ -496,41 +496,41 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
                     <th className="py-3 px-4">DETAILS</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-stone-100 text-xs">
+                <tbody className="divide-y divide-stone-100 dark:divide-stone-800 text-xs">
                   {filteredLogs.length > 0 ? (
                     filteredLogs.map((log) => (
-                      <tr key={log.id} className="hover:bg-stone-50/80 transition">
-                        <td className="py-3 px-4 font-mono text-stone-500 whitespace-nowrap">
+                      <tr key={log.id} className="hover:bg-stone-50/80 dark:hover:bg-stone-800/60 transition">
+                        <td className="py-3 px-4 font-mono text-stone-500 dark:text-stone-400 whitespace-nowrap">
                           {log.timestamp}
                         </td>
                         <td className="py-3 px-4">
-                          <div className="font-bold text-stone-900">{log.userName}</div>
+                          <div className="font-bold text-stone-900 dark:text-stone-100">{log.userName}</div>
                           <span className="text-[10px] text-stone-400 uppercase font-mono">{log.userRole}</span>
                         </td>
                         <td className="py-3 px-4">
-                          <span className="font-semibold text-stone-800">{log.action}</span>
+                          <span className="font-semibold text-stone-800 dark:text-stone-200">{log.action}</span>
                         </td>
                         <td className="py-3 px-4">
-                          <div className="font-bold text-stone-900">{log.learnerName || log.grade}</div>
-                          {log.admNo && <span className="font-mono text-stone-500 text-[11px]">ADM {log.admNo}</span>}
+                          <div className="font-bold text-stone-900 dark:text-stone-100">{log.learnerName || log.grade}</div>
+                          {log.admNo && <span className="font-mono text-stone-500 dark:text-stone-400 text-[11px]">ADM {log.admNo}</span>}
                         </td>
                         <td className="py-3 px-4 text-center font-mono">
                           {log.previousMark !== null && log.newMark !== null ? (
-                            <span className="text-sky-900 font-bold">
+                            <span className="text-sky-900 dark:text-sky-300 font-bold">
                               {log.previousMark}/72 → {log.newMark}/72
                             </span>
                           ) : log.newMark !== null ? (
-                            <span className="text-emerald-800 font-bold">{log.newMark}/72</span>
+                            <span className="text-emerald-800 dark:text-emerald-400 font-bold">{log.newMark}/72</span>
                           ) : (
                             '—'
                           )}
                         </td>
-                        <td className="py-3 px-4 text-stone-600 max-w-xs truncate">{log.details}</td>
+                        <td className="py-3 px-4 text-stone-600 dark:text-stone-400 max-w-xs truncate">{log.details}</td>
                       </tr>
                     ))
                   ) : (
                     <tr>
-                      <td colSpan={6} className="py-8 text-center text-stone-400">
+                      <td colSpan={6} className="py-8 text-center text-stone-400 dark:text-stone-500">
                         No audit records match the current filter.
                       </td>
                     </tr>
@@ -545,26 +545,26 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
       {/* TAB 2: BULK IMPORT */}
       {activeTab === 'import' && (
         <div className="space-y-4">
-          <div className="bg-white rounded-2xl border border-stone-200 p-6 shadow-xs space-y-4">
-            <div className="border-b border-stone-100 pb-3">
-              <h3 className="font-extrabold text-base text-stone-900 flex items-center gap-2">
-                <FileSpreadsheet className="w-5 h-5 text-[#6b1426]" />
+          <div className="bg-white dark:bg-stone-900 rounded-2xl border border-stone-200 dark:border-stone-800 p-6 shadow-xs space-y-4">
+            <div className="border-b border-stone-100 dark:border-stone-800 pb-3">
+              <h3 className="font-extrabold text-base text-stone-900 dark:text-stone-100 flex items-center gap-2">
+                <FileSpreadsheet className="w-5 h-5 text-[#6b1426] dark:text-rose-400" />
                 <span>Bulk Learner Admission (CSV Ingestion)</span>
               </h3>
-              <p className="text-xs text-stone-500 mt-1">
+              <p className="text-xs text-stone-500 dark:text-stone-400 mt-1">
                 Admit multiple learners simultaneously. Use standard 3-class structure: Grade 7, Grade 8, Grade 9.
               </p>
             </div>
 
             <div className="space-y-2">
-              <label className="block text-xs font-bold text-stone-700">
+              <label className="block text-xs font-bold text-stone-700 dark:text-stone-300">
                 Paste CSV Data (Format: ADM, FIRST_NAME, LAST_NAME, GRADE, GENDER):
               </label>
               <textarea
                 rows={6}
                 value={csvText}
                 onChange={(e) => setCsvText(e.target.value)}
-                className="w-full rounded-xl border border-stone-300 p-3 font-mono text-xs text-stone-800 focus:border-[#6b1426] focus:outline-none"
+                className="w-full rounded-xl border border-stone-300 dark:border-stone-700 bg-white dark:bg-stone-800 p-3 font-mono text-xs text-stone-800 dark:text-stone-100 focus:border-[#6b1426] focus:outline-none"
               />
             </div>
 
@@ -575,7 +575,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
                     `ADM,FIRST_NAME,LAST_NAME,GRADE,GENDER\n1025,Dennis,Kipkoech,Grade 7,M\n1026,Cynthia,Chebet,Grade 7,F\n1027,Kevin,Kiplangat,Grade 8,M\n1028,Mercy,Cherotich,Grade 9,F`
                   )
                 }
-                className="text-xs text-stone-500 hover:text-stone-800 underline"
+                className="text-xs text-stone-500 dark:text-stone-400 hover:text-stone-800 dark:hover:text-stone-200 underline"
               >
                 Load Sample Batch
               </button>
@@ -591,7 +591,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
             </div>
 
             {importStatus && (
-              <div className="p-3 bg-emerald-50 border border-emerald-200 rounded-xl text-emerald-900 text-xs font-bold flex items-center gap-2">
+              <div className="p-3 bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-800 rounded-xl text-emerald-900 dark:text-emerald-300 text-xs font-bold flex items-center gap-2">
                 <CheckCircle2 className="w-4 h-4 text-emerald-600" />
                 <span>{importStatus}</span>
               </div>
@@ -604,7 +604,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
       {activeTab === 'users' && (
         <div className="space-y-4">
           {/* Controls Bar */}
-          <div className="bg-white rounded-2xl border border-stone-200 p-4 shadow-xs flex flex-col sm:flex-row items-center justify-between gap-3">
+          <div className="bg-white dark:bg-stone-900 rounded-2xl border border-stone-200 dark:border-stone-800 p-4 shadow-xs flex flex-col sm:flex-row items-center justify-between gap-3">
             <div className="flex flex-wrap items-center gap-2 w-full sm:w-auto">
               <div className="relative flex-1 sm:w-64">
                 <Search className="w-4 h-4 absolute left-3 top-2.5 text-stone-400" />
@@ -613,14 +613,14 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
                   placeholder="Search teacher, TSC, subject, or specialization..."
                   value={staffSearch}
                   onChange={(e) => setStaffSearch(e.target.value)}
-                  className="w-full pl-9 pr-3 py-1.5 rounded-xl border border-stone-300 text-xs focus:border-[#6b1426] focus:outline-none"
+                  className="w-full pl-9 pr-3 py-1.5 rounded-xl border border-stone-300 dark:border-stone-700 bg-white dark:bg-stone-800 text-stone-900 dark:text-stone-100 text-xs focus:border-[#6b1426] focus:outline-none"
                 />
               </div>
 
               <select
                 value={staffRoleFilter}
                 onChange={(e) => setStaffRoleFilter(e.target.value)}
-                className="px-2.5 py-1.5 rounded-xl border border-stone-300 text-xs bg-white font-medium"
+                className="px-2.5 py-1.5 rounded-xl border border-stone-300 dark:border-stone-700 text-xs bg-white dark:bg-stone-800 text-stone-800 dark:text-stone-200 font-medium"
               >
                 <option value="all">All Roles</option>
                 <option value="teacher">Teachers</option>
@@ -631,7 +631,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
               <select
                 value={staffGradeFilter}
                 onChange={(e) => setStaffGradeFilter(e.target.value)}
-                className="px-2.5 py-1.5 rounded-xl border border-stone-300 text-xs bg-white font-medium"
+                className="px-2.5 py-1.5 rounded-xl border border-stone-300 dark:border-stone-700 text-xs bg-white dark:bg-stone-800 text-stone-800 dark:text-stone-200 font-medium"
               >
                 <option value="all">All Grades</option>
                 <option value="Grade 7">Teaching Grade 7</option>
@@ -655,27 +655,27 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
             {filteredStaffUsers.map((usr) => (
               <div
                 key={usr.id}
-                className="bg-white rounded-2xl border border-stone-200 p-5 shadow-xs flex flex-col justify-between space-y-4 hover:border-sky-300 transition"
+                className="bg-white dark:bg-stone-900 rounded-2xl border border-stone-200 dark:border-stone-800 p-5 shadow-xs flex flex-col justify-between space-y-4 hover:border-sky-300 dark:hover:border-rose-700 transition"
               >
                 <div>
                   {/* Card Header: Avatar, Name, Designation, Role */}
                   <div className="flex items-start justify-between gap-3">
                     <div className="flex items-center gap-3">
-                      <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#6b1426] text-white font-black text-base border-2 border-sky-200 shadow-xs">
+                      <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#6b1426] text-white font-black text-base border-2 border-rose-200 dark:border-rose-900/60 shadow-xs">
                         {usr.name.split(' ').map((n) => n[0]).join('').slice(0, 2)}
                       </div>
                       <div>
-                        <div className="font-extrabold text-sm sm:text-base text-stone-900 flex items-center gap-2">
+                        <div className="font-extrabold text-sm sm:text-base text-stone-900 dark:text-stone-100 flex items-center gap-2">
                           <span>{usr.name}</span>
                           {usr.id === currentUser.id && (
-                            <span className="text-[10px] bg-sky-100 text-sky-800 font-bold px-2 py-0.5 rounded-md border border-sky-200">
+                            <span className="text-[10px] bg-sky-100 dark:bg-sky-950/60 text-sky-800 dark:text-sky-300 font-bold px-2 py-0.5 rounded-md border border-sky-200 dark:border-sky-800">
                               You
                             </span>
                           )}
                         </div>
-                        <div className="text-xs text-stone-500 font-medium">{usr.designation}</div>
-                        <div className="text-[11px] font-mono text-stone-600 mt-0.5">
-                          TSC: <strong className="text-stone-800">{usr.tscNumber || 'TSC/649201'}</strong>
+                        <div className="text-xs text-stone-500 dark:text-stone-400 font-medium">{usr.designation}</div>
+                        <div className="text-[11px] font-mono text-stone-600 dark:text-stone-400 mt-0.5">
+                          TSC: <strong className="text-stone-800 dark:text-stone-200">{usr.tscNumber || 'TSC/649201'}</strong>
                         </div>
                       </div>
                     </div>
@@ -683,10 +683,10 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
                     <span
                       className={`px-2.5 py-0.5 rounded-full text-[11px] font-black border ${
                         usr.role === 'super_admin'
-                          ? 'bg-sky-100 text-sky-900 border-sky-300'
+                          ? 'bg-sky-100 dark:bg-sky-950/60 text-sky-900 dark:text-sky-300 border-sky-300 dark:border-sky-800'
                           : usr.role === 'school_admin'
-                          ? 'bg-rose-50 text-[#6b1426] border-rose-200'
-                          : 'bg-stone-100 text-stone-800 border-stone-200'
+                          ? 'bg-rose-50 dark:bg-rose-950/60 text-[#6b1426] dark:text-rose-300 border-rose-200 dark:border-rose-900'
+                          : 'bg-stone-100 dark:bg-stone-800 text-stone-800 dark:text-stone-200 border-stone-200 dark:border-stone-700'
                       }`}
                     >
                       {usr.role === 'super_admin'
@@ -698,21 +698,21 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
                   </div>
 
                   {/* Academic & Background Info */}
-                  <div className="mt-3 pt-3 border-t border-stone-100 space-y-1.5 text-xs text-stone-600">
+                  <div className="mt-3 pt-3 border-t border-stone-100 dark:border-stone-800 space-y-1.5 text-xs text-stone-600 dark:text-stone-400">
                     <div className="flex items-center gap-1.5">
-                      <GraduationCap className="w-3.5 h-3.5 text-[#6b1426] shrink-0" />
+                      <GraduationCap className="w-3.5 h-3.5 text-[#6b1426] dark:text-rose-400 shrink-0" />
                       <span className="truncate">
-                        <strong>Qualifications:</strong> {usr.qualifications || 'B.Ed Science (CBC certified)'}
+                        <strong className="text-stone-700 dark:text-stone-300">Qualifications:</strong> {usr.qualifications || 'B.Ed Science (CBC certified)'}
                       </span>
                     </div>
                     <div className="flex items-center gap-1.5">
-                      <Briefcase className="w-3.5 h-3.5 text-sky-800 shrink-0" />
+                      <Briefcase className="w-3.5 h-3.5 text-sky-800 dark:text-sky-400 shrink-0" />
                       <span className="truncate">
-                        <strong>Specialization:</strong> {usr.specialization || 'Sciences & Technical Studies'}
+                        <strong className="text-stone-700 dark:text-stone-300">Specialization:</strong> {usr.specialization || 'Sciences & Technical Studies'}
                       </span>
                     </div>
                     {usr.backgroundBio && (
-                      <p className="text-[11px] text-stone-500 italic bg-stone-50 p-2 rounded-xl border border-stone-200/80 mt-1 line-clamp-2">
+                      <p className="text-[11px] text-stone-500 dark:text-stone-400 italic bg-stone-50 dark:bg-stone-800/60 p-2 rounded-xl border border-stone-200/80 dark:border-stone-700 mt-1 line-clamp-2">
                         &quot;{usr.backgroundBio}&quot;
                       </p>
                     )}
@@ -720,7 +720,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
 
                   {/* Assigned Subjects in Various Grades */}
                   <div className="mt-3 pt-2">
-                    <span className="text-[10px] font-bold text-stone-400 uppercase tracking-wider block mb-1.5">
+                    <span className="text-[10px] font-bold text-stone-400 dark:text-stone-500 uppercase tracking-wider block mb-1.5">
                       Assigned Subjects &amp; Classes ({usr.assignments.length})
                     </span>
                     <div className="flex flex-wrap gap-1.5">
@@ -728,15 +728,15 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
                         usr.assignments.map((asgn, i) => (
                           <span
                             key={i}
-                            className="inline-flex items-center gap-1 text-[11px] font-bold bg-sky-50 text-sky-950 border border-sky-200 px-2 py-0.5 rounded-lg"
+                            className="inline-flex items-center gap-1 text-[11px] font-bold bg-sky-50 dark:bg-sky-950/60 text-sky-950 dark:text-sky-300 border border-sky-200 dark:border-sky-800 px-2 py-0.5 rounded-lg"
                           >
-                            <BookOpen className="w-3 h-3 text-sky-700" />
+                            <BookOpen className="w-3 h-3 text-sky-700 dark:text-sky-400" />
                             <span>{asgn.subject}</span>
-                            <span className="text-stone-500 font-mono text-[10px]">({asgn.grade})</span>
+                            <span className="text-stone-500 dark:text-stone-400 font-mono text-[10px]">({asgn.grade})</span>
                           </span>
                         ))
                       ) : (
-                        <span className="text-[11px] text-stone-400 italic">
+                        <span className="text-[11px] text-stone-400 dark:text-stone-500 italic">
                           Administrative oversight across all grades.
                         </span>
                       )}
@@ -745,13 +745,13 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
                 </div>
 
                 {/* Actions: Edit Profile & Role Change */}
-                <div className="pt-3 border-t border-stone-100 flex items-center justify-between gap-2 text-xs">
+                <div className="pt-3 border-t border-stone-100 dark:border-stone-800 flex items-center justify-between gap-2 text-xs">
                   <div className="flex items-center gap-2">
                     <button
                       onClick={() => setEditingTeacher(usr)}
-                      className="px-3 py-1.5 rounded-xl bg-stone-100 hover:bg-stone-200 text-stone-800 font-bold flex items-center gap-1.5 transition"
+                      className="px-3 py-1.5 rounded-xl bg-stone-100 dark:bg-stone-800 hover:bg-stone-200 dark:hover:bg-stone-700 text-stone-800 dark:text-stone-200 font-bold flex items-center gap-1.5 transition"
                     >
-                      <Edit3 className="w-3.5 h-3.5 text-[#6b1426]" />
+                      <Edit3 className="w-3.5 h-3.5 text-[#6b1426] dark:text-rose-400" />
                       <span>Edit Profile &amp; Subjects</span>
                     </button>
                   </div>
@@ -761,7 +761,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
                     <select
                       value={usr.role}
                       onChange={(e) => handleUpdateRole(usr.id, e.target.value as UserRole)}
-                      className="text-xs border border-stone-300 rounded-lg p-1 bg-white font-medium text-stone-700 focus:outline-none"
+                      className="text-xs border border-stone-300 dark:border-stone-700 rounded-lg p-1 bg-white dark:bg-stone-800 font-medium text-stone-700 dark:text-stone-300 focus:outline-none"
                     >
                       <option value="teacher">Teacher</option>
                       <option value="school_admin">School Admin</option>
@@ -779,48 +779,48 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
       {activeTab === 'system' && (
         <div className="space-y-4">
           {/* Official Rubber Stamp Verification Box */}
-          <div className="bg-white rounded-2xl border border-stone-200 p-5 shadow-xs space-y-4">
-            <div className="flex items-start justify-between gap-3 border-b border-stone-100 pb-3">
+          <div className="bg-white dark:bg-stone-900 rounded-2xl border border-stone-200 dark:border-stone-800 p-5 shadow-xs space-y-4">
+            <div className="flex items-start justify-between gap-3 border-b border-stone-100 dark:border-stone-800 pb-3">
               <div className="flex items-center gap-3">
-                <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-rose-50 text-[#6b1426] border border-rose-200">
+                <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-rose-50 dark:bg-rose-950/60 text-[#6b1426] dark:text-rose-400 border border-rose-200 dark:border-rose-900">
                   <Stamp className="w-6 h-6" />
                 </div>
                 <div>
-                  <h3 className="font-extrabold text-sm text-stone-900">
+                  <h3 className="font-extrabold text-sm text-stone-900 dark:text-stone-100">
                     Official School Rubber Stamp Security
                   </h3>
-                  <p className="text-xs text-stone-500">
+                  <p className="text-xs text-stone-500 dark:text-stone-400">
                     Mandatory warning configured on all printed report cards and transcripts.
                   </p>
                 </div>
               </div>
 
-              <span className="px-3 py-1 rounded-full text-xs font-bold bg-emerald-100 text-emerald-800 border border-emerald-200">
+              <span className="px-3 py-1 rounded-full text-xs font-bold bg-emerald-100 dark:bg-emerald-950/60 text-emerald-800 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800">
                 ACTIVE &amp; ENFORCED
               </span>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
-              <div className="p-3 bg-stone-50 rounded-xl border border-stone-200">
-                <span className="text-stone-400 uppercase font-bold block text-[10px] mb-1">
+              <div className="p-3 bg-stone-50 dark:bg-stone-800/60 rounded-xl border border-stone-200 dark:border-stone-700">
+                <span className="text-stone-400 dark:text-stone-500 uppercase font-bold block text-[10px] mb-1">
                   Enforced Stamp Inscription
                 </span>
-                <p className="font-mono text-stone-800 font-bold">
+                <p className="font-mono text-stone-800 dark:text-stone-200 font-bold">
                   {SCHOOL_INFO.postalAddress}
                 </p>
-                <p className="text-stone-500 mt-1">
+                <p className="text-stone-500 dark:text-stone-400 mt-1">
                   Motto: &quot;{SCHOOL_INFO.motto}&quot;
                 </p>
               </div>
 
-              <div className="p-3 bg-stone-50 rounded-xl border border-stone-200">
-                <span className="text-stone-400 uppercase font-bold block text-[10px] mb-1">
+              <div className="p-3 bg-stone-50 dark:bg-stone-800/60 rounded-xl border border-stone-200 dark:border-stone-700">
+                <span className="text-stone-400 dark:text-stone-500 uppercase font-bold block text-[10px] mb-1">
                   Mandatory Report Card Warning
                 </span>
-                <p className="font-semibold text-stone-800 italic">
+                <p className="font-semibold text-stone-800 dark:text-stone-200 italic">
                   &quot;This document is invalid without the official school rubber stamp.&quot;
                 </p>
-                <p className="text-emerald-700 font-bold mt-1 text-[11px]">
+                <p className="text-emerald-700 dark:text-emerald-400 font-bold mt-1 text-[11px]">
                   Verified on Print Center report cards.
                 </p>
               </div>
@@ -828,13 +828,13 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
           </div>
 
           {/* Grade Marks Entry Lock Status */}
-          <div className="bg-white rounded-2xl border border-stone-200 p-5 shadow-xs space-y-4">
-            <div className="flex items-center justify-between border-b border-stone-100 pb-3">
+          <div className="bg-white dark:bg-stone-900 rounded-2xl border border-stone-200 dark:border-stone-800 p-5 shadow-xs space-y-4">
+            <div className="flex items-center justify-between border-b border-stone-100 dark:border-stone-800 pb-3">
               <div>
-                <h3 className="font-extrabold text-sm text-stone-900">
+                <h3 className="font-extrabold text-sm text-stone-900 dark:text-stone-100">
                   Class Marks Entry Lock / Unlock (Term 3, 2026)
                 </h3>
-                <p className="text-xs text-stone-500">
+                <p className="text-xs text-stone-500 dark:text-stone-400">
                   Admins can lock marks entry once grading deadlines pass to prevent accidental revisions.
                 </p>
               </div>
@@ -846,15 +846,15 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
                 return (
                   <div
                     key={grade}
-                    className="p-4 rounded-xl border border-stone-200 bg-stone-50 flex items-center justify-between"
+                    className="p-4 rounded-xl border border-stone-200 dark:border-stone-800 bg-stone-50 dark:bg-stone-800/60 flex items-center justify-between"
                   >
                     <div>
-                      <div className="font-bold text-sm text-stone-900">{grade}</div>
+                      <div className="font-bold text-sm text-stone-900 dark:text-stone-100">{grade}</div>
                       <span
                         className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${
                           isLocked
-                            ? 'bg-rose-100 text-rose-900'
-                            : 'bg-emerald-100 text-emerald-800'
+                            ? 'bg-rose-100 dark:bg-rose-950 text-rose-900 dark:text-rose-200'
+                            : 'bg-emerald-100 dark:bg-emerald-950 text-emerald-800 dark:text-emerald-200'
                         }`}
                       >
                         {isLocked ? 'LOCKED' : 'OPEN FOR MARKS'}
@@ -867,7 +867,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
                       className={`p-2 rounded-xl text-xs font-bold transition flex items-center gap-1 ${
                         isLocked
                           ? 'bg-emerald-800 text-white hover:bg-emerald-900'
-                          : 'bg-stone-200 text-stone-800 hover:bg-stone-300'
+                          : 'bg-stone-200 dark:bg-stone-700 text-stone-800 dark:text-stone-200 hover:bg-stone-300 dark:hover:bg-stone-600'
                       }`}
                       title={isLocked ? 'Unlock Marks Entry' : 'Lock Marks Entry'}
                     >
@@ -880,26 +880,26 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
           </div>
 
           {/* Institutional Academic Config */}
-          <div className="bg-white rounded-2xl border border-stone-200 p-5 shadow-xs">
-            <h3 className="font-extrabold text-sm text-stone-900 mb-3">
+          <div className="bg-white dark:bg-stone-900 rounded-2xl border border-stone-200 dark:border-stone-800 p-5 shadow-xs">
+            <h3 className="font-extrabold text-sm text-stone-900 dark:text-stone-100 mb-3">
               Active Institutional Configuration
             </h3>
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs">
-              <div className="p-3 bg-stone-50 rounded-xl">
-                <span className="text-stone-400 block text-[10px] uppercase font-bold">Academic Year</span>
-                <span className="font-bold text-stone-900">{SCHOOL_INFO.currentYear}</span>
+              <div className="p-3 bg-stone-50 dark:bg-stone-800/60 rounded-xl">
+                <span className="text-stone-400 dark:text-stone-500 block text-[10px] uppercase font-bold">Academic Year</span>
+                <span className="font-bold text-stone-900 dark:text-stone-100">{SCHOOL_INFO.currentYear}</span>
               </div>
-              <div className="p-3 bg-stone-50 rounded-xl">
-                <span className="text-stone-400 block text-[10px] uppercase font-bold">Current Term</span>
-                <span className="font-bold text-[#6b1426]">{SCHOOL_INFO.currentTerm}</span>
+              <div className="p-3 bg-stone-50 dark:bg-stone-800/60 rounded-xl">
+                <span className="text-stone-400 dark:text-stone-500 block text-[10px] uppercase font-bold">Current Term</span>
+                <span className="font-bold text-[#6b1426] dark:text-rose-400">{SCHOOL_INFO.currentTerm}</span>
               </div>
-              <div className="p-3 bg-stone-50 rounded-xl">
-                <span className="text-stone-400 block text-[10px] uppercase font-bold">School Classes</span>
-                <span className="font-bold text-stone-900">3 Classes (Grade 7, 8, 9)</span>
+              <div className="p-3 bg-stone-50 dark:bg-stone-800/60 rounded-xl">
+                <span className="text-stone-400 dark:text-stone-500 block text-[10px] uppercase font-bold">School Classes</span>
+                <span className="font-bold text-stone-900 dark:text-stone-100">3 Classes (Grade 7, 8, 9)</span>
               </div>
-              <div className="p-3 bg-stone-50 rounded-xl">
-                <span className="text-stone-400 block text-[10px] uppercase font-bold">Assessment Rubric</span>
-                <span className="font-bold text-stone-900">Out of 72 (Points 1–8)</span>
+              <div className="p-3 bg-stone-50 dark:bg-stone-800/60 rounded-xl">
+                <span className="text-stone-400 dark:text-stone-500 block text-[10px] uppercase font-bold">Assessment Rubric</span>
+                <span className="font-bold text-stone-900 dark:text-stone-100">Out of 72 (Points 1–8)</span>
               </div>
             </div>
           </div>
@@ -909,7 +909,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
       {/* MODAL 1: ADD NEW TEACHER & ASSIGN SUBJECTS */}
       {showAddTeacherModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-3 sm:p-4 backdrop-blur-xs animate-in fade-in overflow-y-auto">
-          <div className="relative w-full max-w-2xl rounded-2xl bg-white shadow-2xl border border-stone-200 overflow-hidden my-auto max-h-[92vh] flex flex-col">
+          <div className="relative w-full max-w-2xl rounded-2xl bg-white dark:bg-stone-900 shadow-2xl border border-stone-200 dark:border-stone-800 overflow-hidden my-auto max-h-[92vh] flex flex-col">
             <div className="flex items-center justify-between border-b border-[#52101e] bg-[#6b1426] px-5 py-4 text-white">
               <div className="flex items-center gap-3">
                 <UserPlus className="w-5 h-5 text-sky-200" />
@@ -926,7 +926,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
             <form onSubmit={handleSaveNewTeacher} className="p-5 overflow-y-auto space-y-4 text-xs">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div>
-                  <label className="block font-bold text-stone-700 mb-1">
+                  <label className="block font-bold text-stone-700 dark:text-stone-300 mb-1">
                     Teacher Full Name: <span className="text-rose-600">*</span>
                   </label>
                   <input
@@ -935,12 +935,12 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
                     placeholder="e.g. Mr Peter Cheruiyot"
                     value={newTeacherName}
                     onChange={(e) => setNewTeacherName(e.target.value)}
-                    className="w-full rounded-xl border border-stone-300 p-2 text-stone-900 focus:border-[#6b1426] focus:outline-none"
+                    className="w-full rounded-xl border border-stone-300 dark:border-stone-700 bg-white dark:bg-stone-800 p-2 text-stone-900 dark:text-stone-100 focus:border-[#6b1426] focus:outline-none"
                   />
                 </div>
 
                 <div>
-                  <label className="block font-bold text-stone-700 mb-1">
+                  <label className="block font-bold text-stone-700 dark:text-stone-300 mb-1">
                     Official Email: <span className="text-rose-600">*</span>
                   </label>
                   <input
@@ -949,49 +949,49 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
                     placeholder="e.g. p.cheruiyot@reberwet.ac.ke"
                     value={newTeacherEmail}
                     onChange={(e) => setNewTeacherEmail(e.target.value)}
-                    className="w-full rounded-xl border border-stone-300 p-2 text-stone-900 focus:border-[#6b1426] focus:outline-none"
+                    className="w-full rounded-xl border border-stone-300 dark:border-stone-700 bg-white dark:bg-stone-800 p-2 text-stone-900 dark:text-stone-100 focus:border-[#6b1426] focus:outline-none"
                   />
                 </div>
 
                 <div>
-                  <label className="block font-bold text-stone-700 mb-1">Phone Number:</label>
+                  <label className="block font-bold text-stone-700 dark:text-stone-300 mb-1">Phone Number:</label>
                   <input
                     type="text"
                     placeholder="e.g. +254 722 123 456"
                     value={newTeacherPhone}
                     onChange={(e) => setNewTeacherPhone(e.target.value)}
-                    className="w-full rounded-xl border border-stone-300 p-2 text-stone-900 focus:border-[#6b1426] focus:outline-none"
+                    className="w-full rounded-xl border border-stone-300 dark:border-stone-700 bg-white dark:bg-stone-800 p-2 text-stone-900 dark:text-stone-100 focus:border-[#6b1426] focus:outline-none"
                   />
                 </div>
 
                 <div>
-                  <label className="block font-bold text-stone-700 mb-1">TSC Registration Number:</label>
+                  <label className="block font-bold text-stone-700 dark:text-stone-300 mb-1">TSC Registration Number:</label>
                   <input
                     type="text"
                     placeholder="e.g. TSC/582910"
                     value={newTeacherTsc}
                     onChange={(e) => setNewTeacherTsc(e.target.value)}
-                    className="w-full rounded-xl border border-stone-300 p-2 font-mono font-bold text-stone-900 focus:border-[#6b1426] focus:outline-none"
+                    className="w-full rounded-xl border border-stone-300 dark:border-stone-700 bg-white dark:bg-stone-800 p-2 font-mono font-bold text-stone-900 dark:text-stone-100 focus:border-[#6b1426] focus:outline-none"
                   />
                 </div>
 
                 <div>
-                  <label className="block font-bold text-stone-700 mb-1">Official Designation:</label>
+                  <label className="block font-bold text-stone-700 dark:text-stone-300 mb-1">Official Designation:</label>
                   <input
                     type="text"
                     value={newTeacherDesignation}
                     onChange={(e) => setNewTeacherDesignation(e.target.value)}
                     placeholder="e.g. Junior Secondary Teacher, HOD Sciences"
-                    className="w-full rounded-xl border border-stone-300 p-2 text-stone-900 focus:border-[#6b1426] focus:outline-none"
+                    className="w-full rounded-xl border border-stone-300 dark:border-stone-700 bg-white dark:bg-stone-800 p-2 text-stone-900 dark:text-stone-100 focus:border-[#6b1426] focus:outline-none"
                   />
                 </div>
 
                 <div>
-                  <label className="block font-bold text-stone-700 mb-1">Administrative Role:</label>
+                  <label className="block font-bold text-stone-700 dark:text-stone-300 mb-1">Administrative Role:</label>
                   <select
                     value={newTeacherRole}
                     onChange={(e) => setNewTeacherRole(e.target.value as UserRole)}
-                    className="w-full rounded-xl border border-stone-300 p-2 text-stone-900 bg-white focus:border-[#6b1426] focus:outline-none font-bold"
+                    className="w-full rounded-xl border border-stone-300 dark:border-stone-700 p-2 text-stone-900 dark:text-stone-100 bg-white dark:bg-stone-800 focus:border-[#6b1426] focus:outline-none font-bold"
                   >
                     <option value="teacher">Class Teacher</option>
                     <option value="school_admin">School Admin (Deputy Head)</option>
@@ -1000,7 +1000,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
                 </div>
 
                 <div className="sm:col-span-2">
-                  <label className="block font-bold text-stone-700 mb-1">
+                  <label className="block font-bold text-stone-700 dark:text-stone-300 mb-1">
                     Academic Qualifications:
                   </label>
                   <input
@@ -1008,12 +1008,12 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
                     placeholder="e.g. B.Ed Science (Mathematics/Chemistry), Egerton University"
                     value={newTeacherQualifications}
                     onChange={(e) => setNewTeacherQualifications(e.target.value)}
-                    className="w-full rounded-xl border border-stone-300 p-2 text-stone-900 focus:border-[#6b1426] focus:outline-none"
+                    className="w-full rounded-xl border border-stone-300 dark:border-stone-700 bg-white dark:bg-stone-800 p-2 text-stone-900 dark:text-stone-100 focus:border-[#6b1426] focus:outline-none"
                   />
                 </div>
 
                 <div className="sm:col-span-2">
-                  <label className="block font-bold text-stone-700 mb-1">
+                  <label className="block font-bold text-stone-700 dark:text-stone-300 mb-1">
                     Teaching Specialization:
                   </label>
                   <input
@@ -1021,12 +1021,12 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
                     placeholder="e.g. Mathematics, Integrated Science, Pre-Technical Studies"
                     value={newTeacherSpecialization}
                     onChange={(e) => setNewTeacherSpecialization(e.target.value)}
-                    className="w-full rounded-xl border border-stone-300 p-2 text-stone-900 focus:border-[#6b1426] focus:outline-none"
+                    className="w-full rounded-xl border border-stone-300 dark:border-stone-700 bg-white dark:bg-stone-800 p-2 text-stone-900 dark:text-stone-100 focus:border-[#6b1426] focus:outline-none"
                   />
                 </div>
 
                 <div className="sm:col-span-2">
-                  <label className="block font-bold text-stone-700 mb-1">
+                  <label className="block font-bold text-stone-700 dark:text-stone-300 mb-1">
                     Background Information &amp; Bio:
                   </label>
                   <textarea
@@ -1034,23 +1034,23 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
                     placeholder="e.g. 6 years JSS teaching experience, lead science practicals facilitator, games master..."
                     value={newTeacherBio}
                     onChange={(e) => setNewTeacherBio(e.target.value)}
-                    className="w-full rounded-xl border border-stone-300 p-2 text-stone-900 focus:border-[#6b1426] focus:outline-none"
+                    className="w-full rounded-xl border border-stone-300 dark:border-stone-700 bg-white dark:bg-stone-800 p-2 text-stone-900 dark:text-stone-100 focus:border-[#6b1426] focus:outline-none"
                   />
                 </div>
               </div>
 
               {/* Assigned Subjects in Various Grades */}
-              <div className="pt-3 border-t border-stone-200">
+              <div className="pt-3 border-t border-stone-200 dark:border-stone-800">
                 <div className="flex items-center justify-between mb-2">
-                  <label className="font-extrabold text-stone-900 flex items-center gap-1.5">
-                    <BookOpen className="w-4 h-4 text-[#6b1426]" />
+                  <label className="font-extrabold text-stone-900 dark:text-stone-100 flex items-center gap-1.5">
+                    <BookOpen className="w-4 h-4 text-[#6b1426] dark:text-rose-400" />
                     <span>Assigned Subjects Across Grades</span>
                   </label>
 
                   <button
                     type="button"
                     onClick={handleAddNewAssignmentRow}
-                    className="px-2.5 py-1 rounded-lg bg-sky-100 hover:bg-sky-200 text-sky-900 font-bold flex items-center gap-1 transition"
+                    className="px-2.5 py-1 rounded-lg bg-sky-100 dark:bg-sky-950/60 hover:bg-sky-200 dark:hover:bg-sky-900 text-sky-900 dark:text-sky-300 font-bold flex items-center gap-1 transition"
                   >
                     <Plus className="w-3.5 h-3.5" />
                     <span>Add Another Subject</span>
@@ -1061,7 +1061,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
                   {newTeacherAssignments.map((asgn, index) => (
                     <div
                       key={index}
-                      className="p-2.5 bg-stone-50 border border-stone-200 rounded-xl flex items-center gap-2"
+                      className="p-2.5 bg-stone-50 dark:bg-stone-800/60 border border-stone-200 dark:border-stone-700 rounded-xl flex items-center gap-2"
                     >
                       <div className="flex-1">
                         <select
@@ -1072,7 +1072,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
                               prev.map((a, i) => (i === index ? { ...a, subject: val } : a))
                             );
                           }}
-                          className="w-full rounded-lg border border-stone-300 p-1.5 text-xs bg-white text-stone-900 font-semibold"
+                          className="w-full rounded-lg border border-stone-300 dark:border-stone-700 p-1.5 text-xs bg-white dark:bg-stone-800 text-stone-900 dark:text-stone-100 font-semibold"
                         >
                           {SUBJECTS.map((subj) => (
                             <option key={subj} value={subj}>
@@ -1091,7 +1091,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
                               prev.map((a, i) => (i === index ? { ...a, grade: val } : a))
                             );
                           }}
-                          className="w-full rounded-lg border border-stone-300 p-1.5 text-xs bg-white text-stone-900 font-bold"
+                          className="w-full rounded-lg border border-stone-300 dark:border-stone-700 p-1.5 text-xs bg-white dark:bg-stone-800 text-stone-900 dark:text-stone-100 font-bold"
                         >
                           <option value="Grade 7">Grade 7</option>
                           <option value="Grade 8">Grade 8</option>
@@ -1103,7 +1103,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
                         <button
                           type="button"
                           onClick={() => handleRemoveNewAssignmentRow(index)}
-                          className="p-1.5 text-rose-600 hover:bg-rose-50 rounded-lg transition"
+                          className="p-1.5 text-rose-600 hover:bg-rose-50 dark:hover:bg-rose-950/40 rounded-lg transition"
                           title="Remove assignment"
                         >
                           <Trash2 className="w-4 h-4" />
@@ -1114,11 +1114,11 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
                 </div>
               </div>
 
-              <div className="flex items-center justify-between pt-3 border-t border-stone-100">
+              <div className="flex items-center justify-between pt-3 border-t border-stone-100 dark:border-stone-800">
                 <button
                   type="button"
                   onClick={() => setShowAddTeacherModal(false)}
-                  className="px-4 py-2 rounded-xl bg-stone-100 hover:bg-stone-200 text-stone-700 font-bold"
+                  className="px-4 py-2 rounded-xl bg-stone-100 dark:bg-stone-800 hover:bg-stone-200 dark:hover:bg-stone-700 text-stone-700 dark:text-stone-300 font-bold"
                 >
                   Cancel
                 </button>
@@ -1139,7 +1139,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
       {/* MODAL 2: EDIT TEACHER PROFILE, BACKGROUND & ASSIGNED SUBJECTS */}
       {editingTeacher && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-3 sm:p-4 backdrop-blur-xs animate-in fade-in overflow-y-auto">
-          <div className="relative w-full max-w-2xl rounded-2xl bg-white shadow-2xl border border-stone-200 overflow-hidden my-auto max-h-[92vh] flex flex-col">
+          <div className="relative w-full max-w-2xl rounded-2xl bg-white dark:bg-stone-900 shadow-2xl border border-stone-200 dark:border-stone-800 overflow-hidden my-auto max-h-[92vh] flex flex-col">
             <div className="flex items-center justify-between border-b border-[#52101e] bg-[#6b1426] px-5 py-4 text-white">
               <div className="flex items-center gap-3">
                 <Edit3 className="w-5 h-5 text-sky-200" />
@@ -1158,7 +1158,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
             <form onSubmit={handleSaveEditedTeacher} className="p-5 overflow-y-auto space-y-4 text-xs">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div>
-                  <label className="block font-bold text-stone-700 mb-1">Teacher Full Name:</label>
+                  <label className="block font-bold text-stone-700 dark:text-stone-300 mb-1">Teacher Full Name:</label>
                   <input
                     type="text"
                     required
@@ -1166,12 +1166,12 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
                     onChange={(e) =>
                       setEditingTeacher({ ...editingTeacher, name: e.target.value })
                     }
-                    className="w-full rounded-xl border border-stone-300 p-2 text-stone-900 focus:border-[#6b1426] focus:outline-none"
+                    className="w-full rounded-xl border border-stone-300 dark:border-stone-700 bg-white dark:bg-stone-800 p-2 text-stone-900 dark:text-stone-100 focus:border-[#6b1426] focus:outline-none"
                   />
                 </div>
 
                 <div>
-                  <label className="block font-bold text-stone-700 mb-1">Official Email:</label>
+                  <label className="block font-bold text-stone-700 dark:text-stone-300 mb-1">Official Email:</label>
                   <input
                     type="email"
                     required
@@ -1179,88 +1179,88 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
                     onChange={(e) =>
                       setEditingTeacher({ ...editingTeacher, email: e.target.value })
                     }
-                    className="w-full rounded-xl border border-stone-300 p-2 text-stone-900 focus:border-[#6b1426] focus:outline-none"
+                    className="w-full rounded-xl border border-stone-300 dark:border-stone-700 bg-white dark:bg-stone-800 p-2 text-stone-900 dark:text-stone-100 focus:border-[#6b1426] focus:outline-none"
                   />
                 </div>
 
                 <div>
-                  <label className="block font-bold text-stone-700 mb-1">Phone Number:</label>
+                  <label className="block font-bold text-stone-700 dark:text-stone-300 mb-1">Phone Number:</label>
                   <input
                     type="text"
                     value={editingTeacher.phone || ''}
                     onChange={(e) =>
                       setEditingTeacher({ ...editingTeacher, phone: e.target.value })
                     }
-                    className="w-full rounded-xl border border-stone-300 p-2 text-stone-900 focus:border-[#6b1426] focus:outline-none"
+                    className="w-full rounded-xl border border-stone-300 dark:border-stone-700 bg-white dark:bg-stone-800 p-2 text-stone-900 dark:text-stone-100 focus:border-[#6b1426] focus:outline-none"
                   />
                 </div>
 
                 <div>
-                  <label className="block font-bold text-stone-700 mb-1">TSC Registration Number:</label>
+                  <label className="block font-bold text-stone-700 dark:text-stone-300 mb-1">TSC Registration Number:</label>
                   <input
                     type="text"
                     value={editingTeacher.tscNumber || ''}
                     onChange={(e) =>
                       setEditingTeacher({ ...editingTeacher, tscNumber: e.target.value })
                     }
-                    className="w-full rounded-xl border border-stone-300 p-2 font-mono font-bold text-stone-900 focus:border-[#6b1426] focus:outline-none"
+                    className="w-full rounded-xl border border-stone-300 dark:border-stone-700 bg-white dark:bg-stone-800 p-2 font-mono font-bold text-stone-900 dark:text-stone-100 focus:border-[#6b1426] focus:outline-none"
                   />
                 </div>
 
                 <div>
-                  <label className="block font-bold text-stone-700 mb-1">Designation:</label>
+                  <label className="block font-bold text-stone-700 dark:text-stone-300 mb-1">Designation:</label>
                   <input
                     type="text"
                     value={editingTeacher.designation}
                     onChange={(e) =>
                       setEditingTeacher({ ...editingTeacher, designation: e.target.value })
                     }
-                    className="w-full rounded-xl border border-stone-300 p-2 text-stone-900 focus:border-[#6b1426] focus:outline-none"
+                    className="w-full rounded-xl border border-stone-300 dark:border-stone-700 bg-white dark:bg-stone-800 p-2 text-stone-900 dark:text-stone-100 focus:border-[#6b1426] focus:outline-none"
                   />
                 </div>
 
                 <div>
-                  <label className="block font-bold text-stone-700 mb-1">Teaching Specialization:</label>
+                  <label className="block font-bold text-stone-700 dark:text-stone-300 mb-1">Teaching Specialization:</label>
                   <input
                     type="text"
                     value={editingTeacher.specialization || ''}
                     onChange={(e) =>
                       setEditingTeacher({ ...editingTeacher, specialization: e.target.value })
                     }
-                    className="w-full rounded-xl border border-stone-300 p-2 text-stone-900 focus:border-[#6b1426] focus:outline-none"
+                    className="w-full rounded-xl border border-stone-300 dark:border-stone-700 bg-white dark:bg-stone-800 p-2 text-stone-900 dark:text-stone-100 focus:border-[#6b1426] focus:outline-none"
                   />
                 </div>
 
                 <div className="sm:col-span-2">
-                  <label className="block font-bold text-stone-700 mb-1">Qualifications:</label>
+                  <label className="block font-bold text-stone-700 dark:text-stone-300 mb-1">Qualifications:</label>
                   <input
                     type="text"
                     value={editingTeacher.qualifications || ''}
                     onChange={(e) =>
                       setEditingTeacher({ ...editingTeacher, qualifications: e.target.value })
                     }
-                    className="w-full rounded-xl border border-stone-300 p-2 text-stone-900 focus:border-[#6b1426] focus:outline-none"
+                    className="w-full rounded-xl border border-stone-300 dark:border-stone-700 bg-white dark:bg-stone-800 p-2 text-stone-900 dark:text-stone-100 focus:border-[#6b1426] focus:outline-none"
                   />
                 </div>
 
                 <div className="sm:col-span-2">
-                  <label className="block font-bold text-stone-700 mb-1">Background Bio:</label>
+                  <label className="block font-bold text-stone-700 dark:text-stone-300 mb-1">Background Bio:</label>
                   <textarea
                     rows={2}
                     value={editingTeacher.backgroundBio || ''}
                     onChange={(e) =>
                       setEditingTeacher({ ...editingTeacher, backgroundBio: e.target.value })
                     }
-                    className="w-full rounded-xl border border-stone-300 p-2 text-stone-900 focus:border-[#6b1426] focus:outline-none"
+                    className="w-full rounded-xl border border-stone-300 dark:border-stone-700 bg-white dark:bg-stone-800 p-2 text-stone-900 dark:text-stone-100 focus:border-[#6b1426] focus:outline-none"
                   />
                 </div>
               </div>
 
               {/* Dynamic Assigned Subjects in Various Grades */}
-              <div className="pt-3 border-t border-stone-200">
+              <div className="pt-3 border-t border-stone-200 dark:border-stone-800">
                 <div className="flex items-center justify-between mb-2">
-                  <label className="font-extrabold text-stone-900 flex items-center gap-1.5">
-                    <BookOpen className="w-4 h-4 text-[#6b1426]" />
+                  <label className="font-extrabold text-stone-900 dark:text-stone-100 flex items-center gap-1.5">
+                    <BookOpen className="w-4 h-4 text-[#6b1426] dark:text-rose-400" />
                     <span>Assigned Subjects &amp; Grades</span>
                   </label>
 
@@ -1275,7 +1275,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
                         ],
                       });
                     }}
-                    className="px-2.5 py-1 rounded-lg bg-sky-100 hover:bg-sky-200 text-sky-900 font-bold flex items-center gap-1 transition"
+                    className="px-2.5 py-1 rounded-lg bg-sky-100 dark:bg-sky-950/60 hover:bg-sky-200 dark:hover:bg-sky-900 text-sky-900 dark:text-sky-300 font-bold flex items-center gap-1 transition"
                   >
                     <Plus className="w-3.5 h-3.5" />
                     <span>Add Allocation</span>
@@ -1286,7 +1286,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
                   {editingTeacher.assignments.map((asgn, idx) => (
                     <div
                       key={idx}
-                      className="p-2.5 bg-stone-50 border border-stone-200 rounded-xl flex items-center gap-2"
+                      className="p-2.5 bg-stone-50 dark:bg-stone-800/60 border border-stone-200 dark:border-stone-700 rounded-xl flex items-center gap-2"
                     >
                       <div className="flex-1">
                         <select
@@ -1300,7 +1300,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
                               ),
                             });
                           }}
-                          className="w-full rounded-lg border border-stone-300 p-1.5 text-xs bg-white text-stone-900 font-semibold"
+                          className="w-full rounded-lg border border-stone-300 dark:border-stone-700 p-1.5 text-xs bg-white dark:bg-stone-800 text-stone-900 dark:text-stone-100 font-semibold"
                         >
                           {SUBJECTS.map((subj) => (
                             <option key={subj} value={subj}>
@@ -1322,7 +1322,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
                               ),
                             });
                           }}
-                          className="w-full rounded-lg border border-stone-300 p-1.5 text-xs bg-white text-stone-900 font-bold"
+                          className="w-full rounded-lg border border-stone-300 dark:border-stone-700 p-1.5 text-xs bg-white dark:bg-stone-800 text-stone-900 dark:text-stone-100 font-bold"
                         >
                           <option value="Grade 7">Grade 7</option>
                           <option value="Grade 8">Grade 8</option>
@@ -1338,7 +1338,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
                             assignments: editingTeacher.assignments.filter((_, i) => i !== idx),
                           });
                         }}
-                        className="p-1.5 text-rose-600 hover:bg-rose-50 rounded-lg transition"
+                        className="p-1.5 text-rose-600 hover:bg-rose-50 dark:hover:bg-rose-950/40 rounded-lg transition"
                         title="Remove allocation"
                       >
                         <Trash2 className="w-4 h-4" />
@@ -1348,11 +1348,11 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
                 </div>
               </div>
 
-              <div className="flex items-center justify-between pt-3 border-t border-stone-100">
+              <div className="flex items-center justify-between pt-3 border-t border-stone-100 dark:border-stone-800">
                 <button
                   type="button"
                   onClick={() => setEditingTeacher(null)}
-                  className="px-4 py-2 rounded-xl bg-stone-100 hover:bg-stone-200 text-stone-700 font-bold"
+                  className="px-4 py-2 rounded-xl bg-stone-100 dark:bg-stone-800 hover:bg-stone-200 dark:hover:bg-stone-700 text-stone-700 dark:text-stone-300 font-bold"
                 >
                   Cancel
                 </button>

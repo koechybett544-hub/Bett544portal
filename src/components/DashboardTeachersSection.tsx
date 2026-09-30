@@ -179,37 +179,37 @@ export const DashboardTeachersSection: React.FC<DashboardTeachersSectionProps> =
   };
 
   return (
-    <div className="bg-white rounded-2xl border border-stone-200 p-5 sm:p-6 shadow-xs space-y-5" id="teachers-allocations-section">
+    <div className="bg-white dark:bg-stone-900 rounded-2xl border border-stone-200 dark:border-stone-800 p-5 sm:p-6 shadow-xs space-y-5" id="teachers-allocations-section">
       {/* Header and Capacity Indicator */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-stone-100 pb-4">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-stone-100 dark:border-stone-800 pb-4">
         <div>
           <div className="flex items-center gap-2">
-            <Users className="w-5 h-5 text-[#6b1426]" />
-            <h2 className="text-lg sm:text-xl font-black text-stone-900">
+            <Users className="w-5 h-5 text-[#6b1426] dark:text-rose-400" />
+            <h2 className="text-lg sm:text-xl font-black text-stone-900 dark:text-stone-100">
               Teachers &amp; Subject Allocations (Grade 7 – 9)
             </h2>
           </div>
-          <p className="text-xs text-stone-600 mt-1">
+          <p className="text-xs text-stone-600 dark:text-stone-400 mt-1">
             Complete in-page roster of teaching staff with assigned subjects for various junior secondary grades.
           </p>
         </div>
 
         {/* Capacity Quota Badge */}
         <div className="flex flex-wrap items-center gap-3">
-          <div className="bg-stone-50 border border-stone-200 px-3.5 py-2 rounded-xl text-right">
+          <div className="bg-stone-50 dark:bg-stone-800 border border-stone-200 dark:border-stone-700 px-3.5 py-2 rounded-xl text-right">
             <div className="flex items-center gap-2 justify-end">
-              <span className="text-xs font-bold text-stone-600">Login Seats:</span>
+              <span className="text-xs font-bold text-stone-600 dark:text-stone-300">Login Seats:</span>
               <span
                 className={`text-sm font-black px-2 py-0.5 rounded-md ${
                   isAtCapacity
-                    ? 'bg-rose-100 text-rose-900 border border-rose-300'
-                    : 'bg-emerald-100 text-emerald-900 border border-emerald-300'
+                    ? 'bg-rose-100 dark:bg-rose-950 text-rose-900 dark:text-rose-200 border border-rose-300 dark:border-rose-800'
+                    : 'bg-emerald-100 dark:bg-emerald-950 text-emerald-900 dark:text-emerald-200 border border-emerald-300 dark:border-emerald-800'
                 }`}
               >
                 {teacherCount} / {MAX_TEACHERS} Active
               </span>
             </div>
-            <div className="w-32 bg-stone-200 h-1.5 rounded-full overflow-hidden mt-1.5">
+            <div className="w-32 bg-stone-200 dark:bg-stone-700 h-1.5 rounded-full overflow-hidden mt-1.5">
               <div
                 className={`h-full transition-all duration-300 ${
                   isAtCapacity ? 'bg-rose-600' : 'bg-[#6b1426]'
@@ -226,7 +226,7 @@ export const DashboardTeachersSection: React.FC<DashboardTeachersSectionProps> =
               disabled={isAtCapacity}
               className={`px-4 py-2 rounded-xl text-xs font-extrabold flex items-center gap-2 transition ${
                 isAtCapacity
-                  ? 'bg-stone-200 text-stone-400 cursor-not-allowed'
+                  ? 'bg-stone-200 dark:bg-stone-800 text-stone-400 cursor-not-allowed'
                   : 'bg-[#6b1426] hover:bg-[#540d1e] text-white shadow-xs'
               }`}
               title={isAtCapacity ? 'Maximum 12 teachers reached' : 'Add new teacher'}
@@ -237,9 +237,9 @@ export const DashboardTeachersSection: React.FC<DashboardTeachersSectionProps> =
           ) : (
             <button
               onClick={() => setAdminMode(true)}
-              className="px-3.5 py-2 rounded-xl text-xs font-bold bg-stone-100 text-stone-700 hover:bg-stone-200 border border-stone-300 flex items-center gap-1.5 transition"
+              className="px-3.5 py-2 rounded-xl text-xs font-bold bg-stone-100 dark:bg-stone-800 text-stone-700 dark:text-stone-300 hover:bg-stone-200 dark:hover:bg-stone-700 border border-stone-300 dark:border-stone-700 flex items-center gap-1.5 transition"
             >
-              <ShieldCheck className="w-3.5 h-3.5 text-[#6b1426]" />
+              <ShieldCheck className="w-3.5 h-3.5 text-[#6b1426] dark:text-rose-400" />
               <span>Admin Edit Mode</span>
             </button>
           )}
@@ -248,14 +248,14 @@ export const DashboardTeachersSection: React.FC<DashboardTeachersSectionProps> =
 
       {/* Capacity Warning Banner */}
       {isAtCapacity && (
-        <div className="bg-rose-50 border border-rose-200 rounded-xl p-3 text-xs text-rose-900 flex items-center justify-between gap-3">
+        <div className="bg-rose-50 dark:bg-rose-950/40 border border-rose-200 dark:border-rose-900 rounded-xl p-3 text-xs text-rose-900 dark:text-rose-200 flex items-center justify-between gap-3">
           <div className="flex items-center gap-2">
-            <AlertTriangle className="w-4 h-4 text-rose-700 shrink-0" />
+            <AlertTriangle className="w-4 h-4 text-rose-700 dark:text-rose-400 shrink-0" />
             <span>
               <strong>Portal Limit Reached:</strong> The school capacity of 12 registered teachers has been reached. New teachers cannot register or log in unless an existing teacher seat is freed.
             </span>
           </div>
-          <span className="text-[11px] font-bold bg-white px-2.5 py-1 rounded-lg border border-rose-200 text-rose-800 shrink-0">
+          <span className="text-[11px] font-bold bg-white dark:bg-stone-900 px-2.5 py-1 rounded-lg border border-rose-200 dark:border-rose-800 text-rose-800 dark:text-rose-300 shrink-0">
             12 / 12 Max Logins
           </span>
         </div>
@@ -290,8 +290,10 @@ export const DashboardTeachersSection: React.FC<DashboardTeachersSectionProps> =
           return (
             <div
               key={teacher.id}
-              className={`bg-stone-50/70 border rounded-xl p-4 flex flex-col justify-between hover:shadow-xs transition relative group ${
-                isCurrent ? 'border-[#6b1426] ring-1 ring-rose-200 bg-white' : 'border-stone-200'
+              className={`bg-stone-50/70 dark:bg-stone-800/50 border rounded-xl p-4 flex flex-col justify-between hover:shadow-xs transition relative group ${
+                isCurrent
+                  ? 'border-[#6b1426] dark:border-rose-500 ring-1 ring-rose-200 dark:ring-rose-900 bg-white dark:bg-stone-850'
+                  : 'border-stone-200 dark:border-stone-700/80'
               }`}
             >
               <div>
@@ -299,7 +301,7 @@ export const DashboardTeachersSection: React.FC<DashboardTeachersSectionProps> =
                 <div className="flex items-start justify-between gap-2">
                   <div>
                     <div className="flex items-center gap-2 flex-wrap">
-                      <span className="font-extrabold text-stone-900 text-sm">
+                      <span className="font-extrabold text-stone-900 dark:text-stone-100 text-sm">
                         {teacher.name}
                       </span>
                       {teacher.role !== 'teacher' && (
@@ -308,12 +310,12 @@ export const DashboardTeachersSection: React.FC<DashboardTeachersSectionProps> =
                         </span>
                       )}
                       {isCurrent && (
-                        <span className="text-[9px] font-bold px-1.5 py-0.2 rounded bg-emerald-100 text-emerald-800 border border-emerald-200">
+                        <span className="text-[9px] font-bold px-1.5 py-0.2 rounded bg-emerald-100 dark:bg-emerald-950 text-emerald-800 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800">
                           You
                         </span>
                       )}
                     </div>
-                    <p className="text-xs text-stone-500 font-medium mt-0.5">
+                    <p className="text-xs text-stone-500 dark:text-stone-400 font-medium mt-0.5">
                       {teacher.designation || 'Teacher of Junior Secondary'}
                     </p>
                   </div>
@@ -323,7 +325,7 @@ export const DashboardTeachersSection: React.FC<DashboardTeachersSectionProps> =
                     <div className="flex items-center gap-1 shrink-0">
                       <button
                         onClick={() => handleOpenEdit(teacher)}
-                        className="p-1.5 rounded-lg text-stone-600 hover:text-[#6b1426] hover:bg-rose-50 transition border border-stone-200"
+                        className="p-1.5 rounded-lg text-stone-600 dark:text-stone-300 hover:text-[#6b1426] dark:hover:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-950 transition border border-stone-200 dark:border-stone-700"
                         title="Edit teacher information"
                       >
                         <Edit2 className="w-3.5 h-3.5" />
@@ -331,7 +333,7 @@ export const DashboardTeachersSection: React.FC<DashboardTeachersSectionProps> =
                       {isAdmin && teacher.role !== 'super_admin' && (
                         <button
                           onClick={() => handleDeleteTeacher(teacher.id, teacher.name)}
-                          className="p-1.5 rounded-lg text-stone-400 hover:text-rose-700 hover:bg-rose-100 transition"
+                          className="p-1.5 rounded-lg text-stone-400 hover:text-rose-700 hover:bg-rose-100 dark:hover:bg-rose-950 transition"
                           title="Remove teacher from roster"
                         >
                           <Trash2 className="w-3.5 h-3.5" />
@@ -343,36 +345,36 @@ export const DashboardTeachersSection: React.FC<DashboardTeachersSectionProps> =
 
                 {/* Primary Subject & Assigned Class */}
                 <div className="mt-3 grid grid-cols-2 gap-2 text-xs">
-                  <div className="bg-rose-50/70 p-2 rounded-lg border border-rose-100">
-                    <span className="text-[10px] font-black text-[#6b1426] uppercase block">
+                  <div className="bg-rose-50/70 dark:bg-rose-950/40 p-2 rounded-lg border border-rose-100 dark:border-rose-900/60">
+                    <span className="text-[10px] font-black text-[#6b1426] dark:text-rose-400 uppercase block">
                       Primary Subject:
                     </span>
-                    <span className="font-bold text-stone-900 text-xs truncate block mt-0.5">
+                    <span className="font-bold text-stone-900 dark:text-stone-100 text-xs truncate block mt-0.5">
                       {primarySubj}
                     </span>
                   </div>
 
-                  <div className="bg-sky-50/70 p-2 rounded-lg border border-sky-100">
-                    <span className="text-[10px] font-black text-sky-900 uppercase block">
+                  <div className="bg-sky-50/70 dark:bg-sky-950/40 p-2 rounded-lg border border-sky-100 dark:border-sky-900/60">
+                    <span className="text-[10px] font-black text-sky-900 dark:text-sky-300 uppercase block">
                       Assigned Class:
                     </span>
-                    <span className="font-bold text-stone-900 text-xs truncate block mt-0.5">
+                    <span className="font-bold text-stone-900 dark:text-stone-100 text-xs truncate block mt-0.5">
                       {assignedClass}
                     </span>
                   </div>
                 </div>
 
                 {/* Department & Mobile Number */}
-                <div className="mt-2.5 pt-2 border-t border-stone-200 text-xs text-stone-600 space-y-1.5">
+                <div className="mt-2.5 pt-2 border-t border-stone-200 dark:border-stone-700/80 text-xs text-stone-600 dark:text-stone-400 space-y-1.5">
                   <div className="flex items-center justify-between">
-                    <span className="text-[10px] font-bold text-stone-400 uppercase">Department:</span>
-                    <span className="font-semibold text-stone-800 text-[11px] truncate max-w-[170px]">{department}</span>
+                    <span className="text-[10px] font-bold text-stone-400 dark:text-stone-500 uppercase">Department:</span>
+                    <span className="font-semibold text-stone-800 dark:text-stone-200 text-[11px] truncate max-w-[170px]">{department}</span>
                   </div>
 
                   <div className="flex items-center justify-between">
-                    <span className="text-[10px] font-bold text-stone-400 uppercase">Mobile Number:</span>
-                    <a href={`tel:${teacher.phone}`} className="font-mono font-bold text-sky-800 hover:underline flex items-center gap-1 text-[11px]">
-                      <Phone className="w-3 h-3 text-sky-700" />
+                    <span className="text-[10px] font-bold text-stone-400 dark:text-stone-500 uppercase">Mobile Number:</span>
+                    <a href={`tel:${teacher.phone}`} className="font-mono font-bold text-sky-800 dark:text-sky-400 hover:underline flex items-center gap-1 text-[11px]">
+                      <Phone className="w-3 h-3 text-sky-700 dark:text-sky-400" />
                       <span>{teacher.phone || '+254 700 000 000'}</span>
                     </a>
                   </div>
@@ -380,12 +382,12 @@ export const DashboardTeachersSection: React.FC<DashboardTeachersSectionProps> =
                   {/* Confidential Staff Records: ONLY visible to Admin or Self */}
                   {canViewConfidential ? (
                     teacher.tscNumber && (
-                      <div className="flex items-center justify-between text-[11px] bg-amber-50 p-1.5 rounded border border-amber-200">
-                        <span className="text-amber-900 font-bold flex items-center gap-1 text-[10px]">
+                      <div className="flex items-center justify-between text-[11px] bg-amber-50 dark:bg-amber-950/40 p-1.5 rounded border border-amber-200 dark:border-amber-800">
+                        <span className="text-amber-900 dark:text-amber-300 font-bold flex items-center gap-1 text-[10px]">
                           <Lock className="w-2.5 h-2.5" />
                           <span>Confidential TSC:</span>
                         </span>
-                        <span className="font-mono font-bold text-amber-950 text-[10.5px]">
+                        <span className="font-mono font-bold text-amber-950 dark:text-amber-200 text-[10.5px]">
                           {teacher.tscNumber}
                         </span>
                       </div>
@@ -394,74 +396,74 @@ export const DashboardTeachersSection: React.FC<DashboardTeachersSectionProps> =
                 </div>
 
                 {/* Assigned Teaching Subjects For Various Grades */}
-                <div className="mt-3 pt-2.5 border-t border-stone-200 space-y-2">
-                  <div className="text-[11px] font-bold text-stone-700 uppercase tracking-wider flex items-center gap-1">
-                    <BookOpen className="w-3 h-3 text-[#6b1426]" />
+                <div className="mt-3 pt-2.5 border-t border-stone-200 dark:border-stone-700/80 space-y-2">
+                  <div className="text-[11px] font-bold text-stone-700 dark:text-stone-300 uppercase tracking-wider flex items-center gap-1">
+                    <BookOpen className="w-3 h-3 text-[#6b1426] dark:text-rose-400" />
                     <span>Assigned Subjects</span>
                   </div>
 
                   {/* Grade 7 */}
-                  <div className="bg-white p-2 rounded-lg border border-stone-200 text-xs">
-                    <span className="font-bold text-[#6b1426] text-[11px] block mb-1">Grade 7:</span>
+                  <div className="bg-white dark:bg-stone-900 p-2 rounded-lg border border-stone-200 dark:border-stone-700 text-xs">
+                    <span className="font-bold text-[#6b1426] dark:text-rose-400 text-[11px] block mb-1">Grade 7:</span>
                     {g7Subjects.length > 0 ? (
                       <div className="flex flex-wrap gap-1">
                         {g7Subjects.map((s, idx) => (
                           <span
                             key={idx}
-                            className="bg-rose-50 text-[#6b1426] border border-rose-200 px-2 py-0.5 rounded text-[11px] font-medium"
+                            className="bg-rose-50 dark:bg-rose-950 text-[#6b1426] dark:text-rose-300 border border-rose-200 dark:border-rose-900 px-2 py-0.5 rounded text-[11px] font-medium"
                           >
                             {s}
                           </span>
                         ))}
                       </div>
                     ) : (
-                      <span className="text-stone-400 italic text-[11px]">No Grade 7 subjects</span>
+                      <span className="text-stone-400 dark:text-stone-500 italic text-[11px]">No Grade 7 subjects</span>
                     )}
                   </div>
 
                   {/* Grade 8 */}
-                  <div className="bg-white p-2 rounded-lg border border-stone-200 text-xs">
-                    <span className="font-bold text-sky-800 text-[11px] block mb-1">Grade 8:</span>
+                  <div className="bg-white dark:bg-stone-900 p-2 rounded-lg border border-stone-200 dark:border-stone-700 text-xs">
+                    <span className="font-bold text-sky-800 dark:text-sky-400 text-[11px] block mb-1">Grade 8:</span>
                     {g8Subjects.length > 0 ? (
                       <div className="flex flex-wrap gap-1">
                         {g8Subjects.map((s, idx) => (
                           <span
                             key={idx}
-                            className="bg-sky-50 text-sky-900 border border-sky-200 px-2 py-0.5 rounded text-[11px] font-medium"
+                            className="bg-sky-50 dark:bg-sky-950 text-sky-900 dark:text-sky-300 border border-sky-200 dark:border-sky-900 px-2 py-0.5 rounded text-[11px] font-medium"
                           >
                             {s}
                           </span>
                         ))}
                       </div>
                     ) : (
-                      <span className="text-stone-400 italic text-[11px]">No Grade 8 subjects</span>
+                      <span className="text-stone-400 dark:text-stone-500 italic text-[11px]">No Grade 8 subjects</span>
                     )}
                   </div>
 
                   {/* Grade 9 */}
-                  <div className="bg-white p-2 rounded-lg border border-stone-200 text-xs">
-                    <span className="font-bold text-amber-900 text-[11px] block mb-1">Grade 9:</span>
+                  <div className="bg-white dark:bg-stone-900 p-2 rounded-lg border border-stone-200 dark:border-stone-700 text-xs">
+                    <span className="font-bold text-amber-900 dark:text-amber-400 text-[11px] block mb-1">Grade 9:</span>
                     {g9Subjects.length > 0 ? (
                       <div className="flex flex-wrap gap-1">
                         {g9Subjects.map((s, idx) => (
                           <span
                             key={idx}
-                            className="bg-amber-50 text-amber-950 border border-amber-200 px-2 py-0.5 rounded text-[11px] font-medium"
+                            className="bg-amber-50 dark:bg-amber-950 text-amber-950 dark:text-amber-300 border border-amber-200 dark:border-amber-900 px-2 py-0.5 rounded text-[11px] font-medium"
                           >
                             {s}
                           </span>
                         ))}
                       </div>
                     ) : (
-                      <span className="text-stone-400 italic text-[11px]">No Grade 9 subjects</span>
+                      <span className="text-stone-400 dark:text-stone-500 italic text-[11px]">No Grade 9 subjects</span>
                     )}
                   </div>
                 </div>
               </div>
 
               {/* Status footer */}
-              <div className="mt-3 pt-2 border-t border-stone-200 flex items-center justify-between text-[11px] text-stone-500">
-                <span className="flex items-center gap-1 text-emerald-700 font-semibold">
+              <div className="mt-3 pt-2 border-t border-stone-200 dark:border-stone-700/80 flex items-center justify-between text-[11px] text-stone-500 dark:text-stone-400">
+                <span className="flex items-center gap-1 text-emerald-700 dark:text-emerald-400 font-semibold">
                   <CheckCircle className="w-3 h-3" />
                   <span>Authorized Seat</span>
                 </span>
@@ -474,14 +476,14 @@ export const DashboardTeachersSection: React.FC<DashboardTeachersSectionProps> =
 
       {/* Add / Edit Teacher Modal Dialog (School Admin) */}
       {(isAddingNew || editingTeacher) && (
-        <div className="fixed inset-0 z-50 bg-black/50 backdrop-blur-xs flex items-center justify-center p-4">
-          <div className="bg-white rounded-2xl max-w-xl w-full max-h-[90vh] overflow-y-auto p-5 sm:p-6 shadow-2xl space-y-4">
-            <div className="flex items-center justify-between border-b border-stone-200 pb-3">
+        <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-xs flex items-center justify-center p-4">
+          <div className="bg-white dark:bg-stone-900 rounded-2xl max-w-xl w-full max-h-[90vh] overflow-y-auto p-5 sm:p-6 shadow-2xl space-y-4 border border-stone-200 dark:border-stone-800">
+            <div className="flex items-center justify-between border-b border-stone-200 dark:border-stone-800 pb-3">
               <div>
-                <h3 className="text-lg font-black text-stone-900">
+                <h3 className="text-lg font-black text-stone-900 dark:text-stone-100">
                   {isAddingNew ? 'Add New Teacher' : `Edit Teacher: ${editingTeacher?.name}`}
                 </h3>
-                <p className="text-xs text-stone-600">
+                <p className="text-xs text-stone-600 dark:text-stone-400">
                   Update staff details and assign teaching subjects across Grade 7, 8, and 9.
                 </p>
               </div>
@@ -490,7 +492,7 @@ export const DashboardTeachersSection: React.FC<DashboardTeachersSectionProps> =
                   setIsAddingNew(false);
                   setEditingTeacher(null);
                 }}
-                className="p-1 rounded-lg text-stone-400 hover:text-stone-700"
+                className="p-1 rounded-lg text-stone-400 hover:text-stone-700 dark:hover:text-stone-200"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -499,46 +501,46 @@ export const DashboardTeachersSection: React.FC<DashboardTeachersSectionProps> =
             <form onSubmit={handleSaveTeacher} className="space-y-4">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
                 <div>
-                  <label className="block font-bold text-stone-700 mb-1">Teacher Full Name *</label>
+                  <label className="block font-bold text-stone-700 dark:text-stone-300 mb-1">Teacher Full Name *</label>
                   <input
                     type="text"
                     required
                     value={formName}
                     onChange={(e) => setFormName(e.target.value)}
                     placeholder="e.g. Mr. David Kipkoech"
-                    className="w-full rounded-xl border border-stone-300 p-2.5 focus:border-[#6b1426] focus:outline-none"
+                    className="w-full rounded-xl border border-stone-300 dark:border-stone-700 dark:bg-stone-800 dark:text-stone-100 p-2.5 focus:border-[#6b1426] focus:outline-none"
                   />
                 </div>
 
                 <div>
-                  <label className="block font-bold text-stone-700 mb-1">Email Address *</label>
+                  <label className="block font-bold text-stone-700 dark:text-stone-300 mb-1">Email Address *</label>
                   <input
                     type="email"
                     required
                     value={formEmail}
                     onChange={(e) => setFormEmail(e.target.value)}
                     placeholder="e.g. d.kipkoech@reberwet.ac.ke"
-                    className="w-full rounded-xl border border-stone-300 p-2.5 focus:border-[#6b1426] focus:outline-none"
+                    className="w-full rounded-xl border border-stone-300 dark:border-stone-700 dark:bg-stone-800 dark:text-stone-100 p-2.5 focus:border-[#6b1426] focus:outline-none"
                   />
                 </div>
 
                 <div>
-                  <label className="block font-bold text-stone-700 mb-1">Phone Number</label>
+                  <label className="block font-bold text-stone-700 dark:text-stone-300 mb-1">Phone Number</label>
                   <input
                     type="tel"
                     value={formPhone}
                     onChange={(e) => setFormPhone(e.target.value)}
                     placeholder="+254 712 345 678"
-                    className="w-full rounded-xl border border-stone-300 p-2.5 focus:border-[#6b1426] focus:outline-none"
+                    className="w-full rounded-xl border border-stone-300 dark:border-stone-700 dark:bg-stone-800 dark:text-stone-100 p-2.5 focus:border-[#6b1426] focus:outline-none"
                   />
                 </div>
 
                 <div>
-                  <label className="block font-bold text-stone-700 mb-1">Primary Subject *</label>
+                  <label className="block font-bold text-stone-700 dark:text-stone-300 mb-1">Primary Subject *</label>
                   <select
                     value={formPrimarySubject}
                     onChange={(e) => setFormPrimarySubject(e.target.value)}
-                    className="w-full rounded-xl border border-stone-300 p-2.5 font-bold text-stone-900 focus:border-[#6b1426] focus:outline-none"
+                    className="w-full rounded-xl border border-stone-300 dark:border-stone-700 dark:bg-stone-800 dark:text-stone-100 p-2.5 font-bold text-stone-900 focus:border-[#6b1426] focus:outline-none"
                   >
                     {SUBJECTS.map((s) => (
                       <option key={s} value={s}>{s}</option>
@@ -547,11 +549,11 @@ export const DashboardTeachersSection: React.FC<DashboardTeachersSectionProps> =
                 </div>
 
                 <div>
-                  <label className="block font-bold text-stone-700 mb-1">Assigned Class *</label>
+                  <label className="block font-bold text-stone-700 dark:text-stone-300 mb-1">Assigned Class *</label>
                   <select
                     value={formAssignedClass}
                     onChange={(e) => setFormAssignedClass(e.target.value)}
-                    className="w-full rounded-xl border border-stone-300 p-2.5 font-bold text-stone-900 focus:border-[#6b1426] focus:outline-none"
+                    className="w-full rounded-xl border border-stone-300 dark:border-stone-700 dark:bg-stone-800 dark:text-stone-100 p-2.5 font-bold text-stone-900 focus:border-[#6b1426] focus:outline-none"
                   >
                     <option value="Grade 7">Grade 7</option>
                     <option value="Grade 8">Grade 8</option>
@@ -561,11 +563,11 @@ export const DashboardTeachersSection: React.FC<DashboardTeachersSectionProps> =
                 </div>
 
                 <div className="sm:col-span-2">
-                  <label className="block font-bold text-stone-700 mb-1">Assigned Department</label>
+                  <label className="block font-bold text-stone-700 dark:text-stone-300 mb-1">Assigned Department</label>
                   <select
                     value={formDepartment}
                     onChange={(e) => setFormDepartment(e.target.value)}
-                    className="w-full rounded-xl border border-stone-300 p-2.5 font-bold text-stone-900 focus:border-[#6b1426] focus:outline-none"
+                    className="w-full rounded-xl border border-stone-300 dark:border-stone-700 dark:bg-stone-800 dark:text-stone-100 p-2.5 font-bold text-stone-900 focus:border-[#6b1426] focus:outline-none"
                   >
                     <option value="Pure & Applied Sciences">Pure &amp; Applied Sciences</option>
                     <option value="Mathematics & Technical Studies">Mathematics &amp; Technical Studies</option>
@@ -578,41 +580,41 @@ export const DashboardTeachersSection: React.FC<DashboardTeachersSectionProps> =
 
                 {isAdmin && (
                   <div>
-                    <label className="block font-bold text-stone-700 mb-1">TSC Number (Admin/Confidential)</label>
+                    <label className="block font-bold text-stone-700 dark:text-stone-300 mb-1">TSC Number (Admin/Confidential)</label>
                     <input
                       type="text"
                       value={formTsc}
                       onChange={(e) => setFormTsc(e.target.value)}
                       placeholder="TSC/849201"
-                      className="w-full rounded-xl border border-stone-300 p-2.5 focus:border-[#6b1426] focus:outline-none font-mono"
+                      className="w-full rounded-xl border border-stone-300 dark:border-stone-700 dark:bg-stone-800 dark:text-stone-100 p-2.5 focus:border-[#6b1426] focus:outline-none font-mono"
                     />
                   </div>
                 )}
 
                 <div className={isAdmin ? '' : 'sm:col-span-2'}>
-                  <label className="block font-bold text-stone-700 mb-1">Designation &amp; Role</label>
+                  <label className="block font-bold text-stone-700 dark:text-stone-300 mb-1">Designation &amp; Role</label>
                   <input
                     type="text"
                     value={formDesignation}
                     onChange={(e) => setFormDesignation(e.target.value)}
                     placeholder="e.g. Class Teacher Grade 8 & Science Lead"
-                    className="w-full rounded-xl border border-stone-300 p-2.5 focus:border-[#6b1426] focus:outline-none"
+                    className="w-full rounded-xl border border-stone-300 dark:border-stone-700 dark:bg-stone-800 dark:text-stone-100 p-2.5 focus:border-[#6b1426] focus:outline-none"
                   />
                 </div>
               </div>
 
               {/* Assign Teaching Subjects For Each Grade */}
-              <div className="space-y-3 pt-2 border-t border-stone-200">
-                <label className="block text-xs font-bold text-stone-900 uppercase tracking-wide">
+              <div className="space-y-3 pt-2 border-t border-stone-200 dark:border-stone-800">
+                <label className="block text-xs font-bold text-stone-900 dark:text-stone-100 uppercase tracking-wide">
                   Assign Teaching Subjects by Grade
                 </label>
-                <p className="text-[11px] text-stone-500">
+                <p className="text-[11px] text-stone-500 dark:text-stone-400">
                   Tap to toggle which subjects this teacher handles in Grade 7, Grade 8, and Grade 9:
                 </p>
 
                 {GRADES.map((g) => (
-                  <div key={g.id} className="bg-stone-50 rounded-xl p-3 border border-stone-200">
-                    <span className="text-xs font-black text-stone-900 block mb-2">
+                  <div key={g.id} className="bg-stone-50 dark:bg-stone-800/80 rounded-xl p-3 border border-stone-200 dark:border-stone-700">
+                    <span className="text-xs font-black text-stone-900 dark:text-stone-100 block mb-2">
                       {g.name} Teaching Subjects:
                     </span>
                     <div className="flex flex-wrap gap-1.5">
@@ -628,7 +630,7 @@ export const DashboardTeachersSection: React.FC<DashboardTeachersSectionProps> =
                             className={`px-2.5 py-1 rounded-lg text-xs font-semibold transition ${
                               isSelected
                                 ? 'bg-[#6b1426] text-white shadow-2xs'
-                                : 'bg-white text-stone-700 border border-stone-300 hover:bg-stone-100'
+                                : 'bg-white dark:bg-stone-700 text-stone-700 dark:text-stone-200 border border-stone-300 dark:border-stone-600 hover:bg-stone-100 dark:hover:bg-stone-600'
                             }`}
                           >
                             {isSelected ? '✓ ' : '+ '}
@@ -642,14 +644,14 @@ export const DashboardTeachersSection: React.FC<DashboardTeachersSectionProps> =
               </div>
 
               {/* Submit Buttons */}
-              <div className="flex items-center justify-end gap-3 pt-3 border-t border-stone-200">
+              <div className="flex items-center justify-end gap-3 pt-3 border-t border-stone-200 dark:border-stone-800">
                 <button
                   type="button"
                   onClick={() => {
                     setIsAddingNew(false);
                     setEditingTeacher(null);
                   }}
-                  className="px-4 py-2 rounded-xl text-xs font-semibold text-stone-600 hover:bg-stone-100"
+                  className="px-4 py-2 rounded-xl text-xs font-semibold text-stone-600 dark:text-stone-300 hover:bg-stone-100 dark:hover:bg-stone-800"
                 >
                   Cancel
                 </button>

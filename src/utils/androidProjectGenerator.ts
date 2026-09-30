@@ -385,6 +385,40 @@ class MainActivity : AppCompatActivity() {
 
         webView.setDownloadListener { url, userAgent, contentDisposition, mimetype, _ ->
             try {
+                if (url.startsWith("data:application/pdf;base64,")) {
+                    val base64Data = url.substringAfter("base64,")
+                    val fileName = URLUtil.guessFileName(url, contentDisposition, "application/pdf")
+                    val finalName = if (fileName.endsWith(".pdf")) fileName else "$fileName.pdf"
+                    val bytes = android.util.Base64.decode(base64Data, android.util.Base64.DEFAULT)
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                        val resolver = contentResolver
+                        val contentValues = android.content.ContentValues().apply {
+                            put(android.provider.MediaStore.MediaColumns.DISPLAY_NAME, finalName)
+                            put(android.provider.MediaStore.MediaColumns.MIME_TYPE, "application/pdf")
+                            put(android.provider.MediaStore.MediaColumns.RELATIVE_PATH, android.os.Environment.DIRECTORY_DOWNLOADS)
+                        }
+                        val uri = resolver.insert(android.provider.MediaStore.Downloads.EXTERNAL_CONTENT_URI, contentValues)
+                        if (uri != null) {
+                            resolver.openOutputStream(uri)?.use { os ->
+                                os.write(bytes)
+                                os.flush()
+                            }
+                            Toast.makeText(this, "Saved $finalName to Downloads folder", Toast.LENGTH_LONG).show()
+                        }
+                    } else {
+                        val downloadsDir = android.os.Environment.getExternalStoragePublicDirectory(android.os.Environment.DIRECTORY_DOWNLOADS)
+                        if (!downloadsDir.exists()) downloadsDir.mkdirs()
+                        val file = java.io.File(downloadsDir, finalName)
+                        java.io.FileOutputStream(file).use { fos ->
+                            fos.write(bytes)
+                            fos.flush()
+                        }
+                        android.media.MediaScannerConnection.scanFile(this, arrayOf(file.absolutePath), arrayOf("application/pdf"), null)
+                        Toast.makeText(this, "Saved $finalName to Downloads folder", Toast.LENGTH_LONG).show()
+                    }
+                    return@setDownloadListener
+                }
+
                 val request = DownloadManager.Request(Uri.parse(url)).apply {
                     setMimeType(mimetype)
                     addRequestHeader("User-Agent", userAgent)
@@ -400,8 +434,12 @@ class MainActivity : AppCompatActivity() {
                 dm.enqueue(request)
                 Toast.makeText(this, "Downloading file to Downloads folder...", Toast.LENGTH_SHORT).show()
             } catch (_: Exception) {
-                val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
-                startActivity(intent)
+                try {
+                    val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+                    startActivity(intent)
+                } catch (__: Exception) {
+                    Toast.makeText(this, "Download failed", Toast.LENGTH_SHORT).show()
+                }
             }
         }
     }
@@ -476,6 +514,55 @@ class WebAppInterface(private val context: Context, private val webView: WebView
         webView.post {
             Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
         }
+    }
+
+    @JavascriptInterface
+    fun savePdfToDownloads(base64Data: String, fileName: String): Boolean {
+        return try {
+            val bytes = android.util.Base64.decode(base64Data, android.util.Base64.DEFAULT)
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                val resolver = context.contentResolver
+                val contentValues = android.content.ContentValues().apply {
+                    put(android.provider.MediaStore.MediaColumns.DISPLAY_NAME, fileName)
+                    put(android.provider.MediaStore.MediaColumns.MIME_TYPE, "application/pdf")
+                    put(android.provider.MediaStore.MediaColumns.RELATIVE_PATH, android.os.Environment.DIRECTORY_DOWNLOADS)
+                }
+                val uri = resolver.insert(android.provider.MediaStore.Downloads.EXTERNAL_CONTENT_URI, contentValues)
+                if (uri != null) {
+                    resolver.openOutputStream(uri)?.use { outputStream ->
+                        outputStream.write(bytes)
+                        outputStream.flush()
+                    }
+                    webView.post {
+                        Toast.makeText(context, "Saved $fileName to Downloads", Toast.LENGTH_LONG).show()
+                    }
+                    true
+                } else false
+            } else {
+                val downloadsDir = android.os.Environment.getExternalStoragePublicDirectory(android.os.Environment.DIRECTORY_DOWNLOADS)
+                if (!downloadsDir.exists()) downloadsDir.mkdirs()
+                val file = java.io.File(downloadsDir, fileName)
+                java.io.FileOutputStream(file).use { fos ->
+                    fos.write(bytes)
+                    fos.flush()
+                }
+                android.media.MediaScannerConnection.scanFile(context, arrayOf(file.absolutePath), arrayOf("application/pdf"), null)
+                webView.post {
+                    Toast.makeText(context, "Saved $fileName to Downloads", Toast.LENGTH_LONG).show()
+                }
+                true
+            }
+        } catch (e: Exception) {
+            webView.post {
+                Toast.makeText(context, "Error saving PDF: \${e.message}", Toast.LENGTH_SHORT).show()
+            }
+            false
+        }
+    }
+
+    @JavascriptInterface
+    fun savePdfToDocuments(base64Data: String, fileName: String): Boolean {
+        return savePdfToDownloads(base64Data, fileName)
     }
 
     @JavascriptInterface
