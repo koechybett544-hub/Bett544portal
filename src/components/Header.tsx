@@ -1,6 +1,6 @@
 import React from 'react';
 import { UserProfile, UserRole } from '../types';
-import { DEFAULT_USERS } from '../data/initialData';
+import { DEFAULT_USERS, SCHOOL_INFO } from '../data/initialData';
 import {
   HelpCircle,
   Bell,
@@ -15,6 +15,7 @@ import {
   ShieldCheck,
   Lock,
   Calendar,
+  Sparkles,
   Sun,
   Moon,
 } from 'lucide-react';
@@ -98,7 +99,7 @@ export const Header: React.FC<HeaderProps> = ({
                 <div className="text-sm sm:text-base font-extrabold tracking-tight text-white leading-tight flex items-center gap-1.5">
                   <span>REBERWET JSS</span>
                   <span className="hidden md:inline-block text-[10px] font-medium bg-[#3b0a16] px-1.5 py-0.5 rounded text-sky-200 border border-[#8c1632]">
-                    2026 Term 3
+                    {SCHOOL_INFO.currentYear} • {SCHOOL_INFO.currentTerm}
                   </span>
                 </div>
                 <div className="text-[11px] text-sky-100/90 hidden sm:block">
@@ -123,6 +124,21 @@ export const Header: React.FC<HeaderProps> = ({
             >
               <Calendar className="w-3.5 h-3.5" />
               <span className="hidden md:inline">Timetable</span>
+            </button>
+
+            {/* Inspiration / Notice Board Button */}
+            <button
+              onClick={() => onNavigate('announcements')}
+              id="header-inspiration-btn"
+              title="Official Notice Board & Weekly Inspiration"
+              className={`flex items-center gap-1 px-2.5 py-1.5 rounded-lg text-xs font-semibold transition active:scale-95 border ${
+                currentView === 'announcements'
+                  ? 'bg-white text-[#6b1426] border-white font-bold shadow-xs'
+                  : 'bg-[#540d1e] hover:bg-[#3b0a16] text-sky-200 border-sky-300/40'
+              }`}
+            >
+              <Sparkles className="w-3.5 h-3.5 text-amber-300" />
+              <span className="hidden sm:inline">Inspiration</span>
             </button>
 
             {/* Gmail Quick Desk */}
@@ -302,6 +318,19 @@ export const Header: React.FC<HeaderProps> = ({
                           <User className="w-3.5 h-3.5 text-[#6b1426] dark:text-rose-400" />
                           <span>View My Profile</span>
                         </button>
+
+                        {(currentUser.role === 'school_admin' || currentUser.role === 'super_admin') && (
+                          <button
+                            onClick={() => {
+                              onNavigate('admin');
+                              setRoleDropdownOpen(false);
+                            }}
+                            className="w-full text-left px-3 py-1.5 text-xs text-[#6b1426] dark:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-950/40 rounded-md font-bold flex items-center gap-1.5"
+                          >
+                            <ShieldCheck className="w-3.5 h-3.5" />
+                            <span>Academic Year &amp; Admin Panel</span>
+                          </button>
+                        )}
 
                         {onOpenAuthModal && (
                           <button

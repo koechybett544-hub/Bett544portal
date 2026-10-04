@@ -114,7 +114,6 @@ export const TimetableManager: React.FC<TimetableManagerProps> = ({
   // - Zero teacher collisions
   // ----------------------------------------------------
   const handleRefreshArrangement = (specificIndex?: number) => {
-    if (!isAdmin) return;
     setIsGenerating(true);
     setTimeout(() => {
       const nextIdx = specificIndex !== undefined ? specificIndex : cycleNextArrangementIndex();
@@ -124,9 +123,9 @@ export const TimetableManager: React.FC<TimetableManagerProps> = ({
       setTimetable(generated);
       setIsGenerating(false);
       onShowSuccessToast(
-        `Timetable Arrangement ${nextIdx + 1} of ${TIMETABLE_ARRANGEMENTS.length} applied! All rules (CA/s after break, no back-to-back same teacher) observed.`
+        `Timetable Arrangement Option ${nextIdx + 1} of ${TIMETABLE_ARRANGEMENTS.length} applied! All rules and 0 collisions observed.`
       );
-    }, 350);
+    }, 200);
   };
 
   // ----------------------------------------------------
@@ -214,39 +213,39 @@ export const TimetableManager: React.FC<TimetableManagerProps> = ({
 
           {/* Top Corner Action Buttons */}
           <div className="flex items-center gap-2.5 flex-wrap shrink-0">
-            {/* Option to Refresh / Switch Timetable Arrangement (Admin Only) */}
-            {isAdmin && (
-              <div className="flex items-center gap-1.5 bg-amber-50 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-800 p-1 rounded-2xl shadow-xs">
-                <button
-                  onClick={() => handleRefreshArrangement()}
-                  disabled={isGenerating}
-                  className="px-3.5 py-2 rounded-xl bg-amber-500 hover:bg-amber-600 text-white font-black text-xs shadow-xs transition flex items-center gap-1.5 active:scale-95 disabled:opacity-50"
-                  title="Refresh timetable to an alternative arrangement observing all CBC rules (Admin only)"
-                >
-                  <RefreshCw className={`w-3.5 h-3.5 ${isGenerating ? 'animate-spin' : ''}`} />
-                  <span>{isGenerating ? 'Refreshing...' : 'Refresh Arrangement'}</span>
-                  <span className="bg-amber-600/60 text-white px-1.5 py-0.5 rounded text-[10px] font-mono">
-                    Opt {arrangementIndex + 1}/{TIMETABLE_ARRANGEMENTS.length}
-                  </span>
-                </button>
-                <select
-                  value={arrangementIndex}
-                  onChange={(e) => handleRefreshArrangement(parseInt(e.target.value, 10))}
-                  disabled={isGenerating}
-                  className="text-xs font-bold bg-white dark:bg-stone-800 text-stone-800 dark:text-stone-200 border border-amber-300 dark:border-amber-700 rounded-lg px-2.5 py-1.5 focus:outline-none focus:ring-1 focus:ring-amber-500 cursor-pointer"
-                  title="Switch to specific arrangement (Admin only)"
-                >
-                  {TIMETABLE_ARRANGEMENTS.map((_, i) => (
-                    <option key={i} value={i}>
-                      Arrangement {i + 1}
-                    </option>
-                  ))}
-                </select>
-                <span className="text-[10px] font-black text-amber-800 dark:text-amber-300 bg-amber-200/60 dark:bg-amber-900/60 px-2 py-0.5 rounded-full uppercase tracking-wider hidden sm:inline">
-                  Admin Only
-                </span>
+            {/* 5 Timetable Arrangement Options */}
+            <div className="flex items-center gap-1.5 bg-amber-50/90 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-800 p-1.5 rounded-2xl shadow-xs flex-wrap">
+              <div className="flex items-center gap-1 px-1.5 text-[11px] font-black text-amber-900 dark:text-amber-200">
+                <Calendar className="w-3.5 h-3.5 text-amber-600 dark:text-amber-400" />
+                <span>Arrangement:</span>
               </div>
-            )}
+              <div className="flex items-center gap-1">
+                {TIMETABLE_ARRANGEMENTS.map((_, i) => (
+                  <button
+                    key={i}
+                    onClick={() => handleRefreshArrangement(i)}
+                    disabled={isGenerating}
+                    className={`px-2.5 py-1.5 rounded-xl text-xs font-black transition active:scale-95 ${
+                      arrangementIndex === i
+                        ? 'bg-amber-500 text-white shadow-xs'
+                        : 'bg-white dark:bg-stone-800 text-stone-700 dark:text-stone-300 hover:bg-amber-100 dark:hover:bg-amber-900/40 border border-amber-200 dark:border-amber-800'
+                    }`}
+                    title={`Switch to Timetable Arrangement Option ${i + 1} (observes all CBC rules, 0 collisions)`}
+                  >
+                    Option {i + 1}
+                  </button>
+                ))}
+              </div>
+              <button
+                onClick={() => handleRefreshArrangement()}
+                disabled={isGenerating}
+                className="px-2.5 py-1.5 rounded-xl bg-amber-600 hover:bg-amber-700 text-white font-black text-xs shadow-xs transition flex items-center gap-1 active:scale-95 disabled:opacity-50 ml-0.5"
+                title="Cycle to next arrangement option"
+              >
+                <RefreshCw className={`w-3.5 h-3.5 ${isGenerating ? 'animate-spin' : ''}`} />
+                <span className="hidden sm:inline">Next</span>
+              </button>
+            </div>
 
             {activeTab === 'my_timetable' && (
               <button
@@ -642,8 +641,8 @@ export const TimetableManager: React.FC<TimetableManagerProps> = ({
 
             {/* Reference Signatures bar */}
             <div className="bg-stone-50 dark:bg-stone-800 border-t-2 border-stone-900 dark:border-stone-700 p-3.5 flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs font-bold text-stone-700 dark:text-stone-300">
-              <div>PREPARED BY: ..............................................................</div>
-              <div>SCHOOL STAMP: ..............................................................</div>
+              <div>PREPARED BY: .............................................................. Date: {new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}</div>
+              <div>APPROVED / STAMP: .............................................................. Date: {new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}</div>
             </div>
           </div>
         </div>
@@ -1147,8 +1146,8 @@ export const TimetableManager: React.FC<TimetableManagerProps> = ({
 
             {/* Reference Signatures bar */}
             <div className="bg-stone-50 dark:bg-stone-800 border-t-2 border-stone-900 dark:border-stone-700 p-3.5 flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs font-bold text-stone-700 dark:text-stone-300">
-              <div>PREPARED BY: ..............................................................</div>
-              <div>SCHOOL STAMP: ..............................................................</div>
+              <div>PREPARED BY: .............................................................. Date: {new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}</div>
+              <div>APPROVED / STAMP: .............................................................. Date: {new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}</div>
             </div>
           </div>
         </div>

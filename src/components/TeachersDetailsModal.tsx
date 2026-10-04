@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { UserProfile, TeacherAssignment } from '../types';
 import { GRADES, SUBJECTS } from '../data/initialData';
+import { TeacherWorkloadAllocationRegister } from './TeacherWorkloadAllocationRegister';
 import {
   Users,
   UserPlus,
@@ -839,6 +840,14 @@ export const TeachersDetailsModal: React.FC<TeachersDetailsModalProps> = ({
                   </div>
                 </div>
               )}
+
+              {/* TEACHER SUBJECT ALLOCATION & WEEKLY LESSON WORKLOAD REGISTER AT BOTTOM OF TEACHERS DETAILS */}
+              <TeacherWorkloadAllocationRegister
+                teachers={teachers}
+                currentUser={currentUser}
+                onUpdateTeachers={onUpdateTeachers}
+                onShowSuccessToast={onShowSuccessToast}
+              />
             </div>
           )}
         </div>

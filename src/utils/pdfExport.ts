@@ -1,5 +1,6 @@
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas-pro';
+import { downloadFileUniversally } from './fileDownloader';
 
 /**
  * Result of a PDF download attempt
@@ -31,79 +32,15 @@ export async function savePdfToDevice(
     const dataUri = pdfDoc.output('datauristring');
     const base64Data = dataUri.split(',')[1] || dataUri;
 
-    // 1. Android Native Bridge: If running in standalone Android App / WebView with custom bridge
-    if (typeof window !== 'undefined' && (window as any).AndroidBridge) {
-      try {
-        const bridge = (window as any).AndroidBridge;
-        if (typeof bridge.savePdfToDocuments === 'function') {
-          bridge.savePdfToDocuments(base64Data, cleanName);
-          const successMsg = 'Saved to Documents';
-          onFeedback?.(successMsg, false);
-          return { success: true, message: successMsg };
-        } else if (typeof bridge.savePdfToDownloads === 'function') {
-          bridge.savePdfToDownloads(base64Data, cleanName);
-          const successMsg = 'Saved to Downloads';
-          onFeedback?.(successMsg, false);
-          return { success: true, message: successMsg };
-        }
-      } catch (nativeErr: any) {
-        console.warn('Native bridge save failed, falling back:', nativeErr);
-      }
-    }
-
-    // 2. Web Share API with File (Native file saving on Android APK / PWA / iOS)
-    // On Android WebView / APK, navigator.share with a PDF File triggers the native system
-    // save dialog ("Save to Files", "Downloads", "Drive", or viewer) which works even when WebView download listeners are missing.
-    const isMobileOrApk =
-      typeof navigator !== 'undefined' &&
-      (/android|iphone|ipad|ipod/i.test(navigator.userAgent) ||
-        window.matchMedia('(display-mode: standalone)').matches ||
-        (window.navigator as any).standalone);
-
-    if (isMobileOrApk && typeof navigator !== 'undefined' && navigator.canShare) {
-      try {
-        const file = new File([pdfBlob], cleanName, { type: 'application/pdf' });
-        if (navigator.canShare({ files: [file] })) {
-          await navigator.share({
-            files: [file],
-            title: cleanName,
-            text: `Reberwet JSS Official Document: ${cleanName}`,
-          });
-          const successMsg = 'File shared/saved successfully';
-          onFeedback?.(successMsg, false);
-          return { success: true, message: successMsg };
-        }
-      } catch (shareErr: any) {
-        // If user cancelled the share dialog (AbortError), they might prefer direct download, continue
-        if (shareErr?.name !== 'AbortError') {
-          console.warn('Web Share failed, attempting direct download link:', shareErr);
-        }
-      }
-    }
-
-    // 3. Browser / PWA / Android Chrome direct download via Blob URL
-    const blobUrl = URL.createObjectURL(pdfBlob);
-
-    const link = document.createElement('a');
-    link.style.display = 'none';
-    link.href = blobUrl;
-    link.download = cleanName;
-    link.setAttribute('download', cleanName);
-    document.body.appendChild(link);
-    link.click();
-
-    // 4. Secondary fallback for restricted WebViews that block blob: URLs:
-    // If running in WebView and blob download might be blocked, also provide data URI fallback
-    setTimeout(() => {
-      if (document.body.contains(link)) {
-        document.body.removeChild(link);
-      }
-      URL.revokeObjectURL(blobUrl);
-    }, 4000);
-
-    const successMsg = 'Saved to Downloads';
-    onFeedback?.(successMsg, false);
-    return { success: true, message: successMsg };
+    return await downloadFileUniversally({
+      filename: cleanName,
+      blob: pdfBlob,
+      base64Data,
+      dataUrl: dataUri,
+      mimeType: 'application/pdf',
+      title: cleanName,
+      onFeedback,
+    });
   } catch (error: any) {
     const errorMsg = `PDF download failed: ${error?.message || 'Unable to save PDF file'}`;
     console.error('Failed to save PDF to device:', error);
@@ -314,7 +251,8 @@ export async function generateLearningResourcePdf(
     const metaLine = `Grade: ${resource.grade}  |  Subject: ${resource.subject}  |  Category: ${resource.category}  |  Term: ${resource.term || 'Term 3'}`;
     doc.text(metaLine, 18, 46);
 
-    const authorLine = `Compiled by: ${resource.author || 'Reberwet JSS Faculty'}  |  Date: ${resource.date || 'September 2026'}`;
+    const realTimeDateStr = new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
+    const authorLine = `Compiled by: ${resource.author || 'Reberwet JSS Faculty'}  |  Date: ${resource.date || realTimeDateStr}`;
     doc.text(authorLine, 18, 51);
 
     let currentY = 62;
@@ -361,7 +299,7 @@ export async function generateLearningResourcePdf(
     // Footer on last page
     doc.setFontSize(8);
     doc.setTextColor(148, 163, 184);
-    doc.text('Reberwet Junior Secondary School Portal - Official Academic Resource', 15, 290);
+    doc.text(`Reberwet Junior Secondary School Portal - Official Academic Resource • Date: ${realTimeDateStr}`, 15, 290);
     doc.text('CBC Junior Secondary Framework', 155, 290);
 
     const cleanName = resource.title.replace(/[^a-zA-Z0-9_-]/g, '_');
@@ -503,11 +441,17 @@ export async function generateClassLearnersPdf(
       startY += rowHeight;
     });
 
-    // Footer
+    // Signatures & Stamp
     doc.setFontSize(8);
+    doc.setTextColor(50, 50, 50);
+    doc.text(`Class Teacher Signature: ....................................... Date: ${dateStr}`, 15, 283);
+    doc.text(`Head of Institution Stamp: ....................................... Date: ${dateStr}`, 120, 283);
+
+    // Footer
+    doc.setFontSize(7.5);
     doc.setTextColor(148, 163, 184);
     doc.text('Reberwet Junior Secondary School • Ministry of Education CBC Registered', 15, 290);
-    doc.text(`Official Records • ${academicYear}`, 155, 290);
+    doc.text(`Official Records • Date: ${dateStr}`, 155, 290);
 
     const safeGradeName = grade.replace(/[^a-zA-Z0-9]/g, '_');
     const filename = `Reberwet_JSS_${safeGradeName}_Learners_List.pdf`;

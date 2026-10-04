@@ -1,6 +1,7 @@
 import React, { useState, useMemo } from 'react';
 import { Learner, UserProfile } from '../types';
 import { GRADES, SCHOOL_INFO, CLASS_TEACHERS } from '../data/initialData';
+import { DateService } from '../utils/dateService';
 import { generateClassLearnersPdf } from '../utils/pdfExport';
 import { downloadCsvToFile } from '../utils/fileDownloader';
 import {
@@ -51,8 +52,8 @@ export const LearnerDirectory: React.FC<LearnerDirectoryProps> = ({
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedGrade, setSelectedGrade] = useState<string>('all');
   const [selectedGender, setSelectedGender] = useState<'all' | 'M' | 'F'>('all');
-  const [selectedYear, setSelectedYear] = useState<string>('2026');
-  const [selectedTerm, setSelectedTerm] = useState<'Term 1' | 'Term 2' | 'Term 3'>('Term 3');
+  const [selectedYear, setSelectedYear] = useState<string>(() => DateService.getCurrentYear());
+  const [selectedTerm, setSelectedTerm] = useState<'Term 1' | 'Term 2' | 'Term 3'>(() => DateService.getCurrentTerm());
 
   // Modals
   const [showAddModal, setShowAddModal] = useState(false);
@@ -71,11 +72,14 @@ export const LearnerDirectory: React.FC<LearnerDirectoryProps> = ({
   // Promotion Form State
   const [promotionSourceGrade, setPromotionSourceGrade] = useState<string>('Grade 7');
   const [promotionTargetGrade, setPromotionTargetGrade] = useState<string>('Grade 8');
-  const [promotionTargetYear, setPromotionTargetYear] = useState<string>('2027');
+  const [promotionTargetYear, setPromotionTargetYear] = useState<string>(() => String(Number(DateService.getCurrentYear()) + 1));
   const [isPromotingAll, setIsPromotingAll] = useState(true);
   const [selectedPromotionLearnerIds, setSelectedPromotionLearnerIds] = useState<string[]>([]);
 
-  const ACADEMIC_YEARS = ['2026', '2027', '2028', '2029', '2030'];
+  const ACADEMIC_YEARS = useMemo(() => {
+    const existing = learners.map((l) => l.academicYear).filter(Boolean);
+    return DateService.getAvailableAcademicYears(existing);
+  }, [learners]);
 
   const notify = (msg: string) => {
     if (onShowSuccessToast) onShowSuccessToast(msg);

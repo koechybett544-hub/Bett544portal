@@ -39,6 +39,15 @@ export interface LearnerComment {
   updatedBy?: string;
 }
 
+export interface LearnerPromotionHistory {
+  fromYear: string;
+  fromGrade: string;
+  toYear: string;
+  toGrade: string;
+  promotedAt: string;
+  promotedBy: string;
+}
+
 export interface Learner {
   id: string;
   admNo: string;
@@ -58,6 +67,7 @@ export interface Learner {
   upiNumber?: string;
   specialNeeds?: string;
   comments?: LearnerComment;
+  promotionHistory?: LearnerPromotionHistory[];
 }
 
 export interface MarkEntry {
@@ -188,4 +198,28 @@ export interface TimetableData {
   lessons: TimetableLesson[];
   updatedAt: string;
   generatedBy?: string;
+}
+
+export interface AnnualPromotionRecord {
+  id: string;
+  sourceYear: string;
+  targetYear: string;
+  sourceGrade: string; // 'Grade 7', 'Grade 8', 'Grade 9'
+  targetGrade: string; // 'Grade 8', 'Grade 9', 'Graduated'
+  promotedLearnerIds: string[];
+  promotedCount: number;
+  approvedBy: string;
+  approvedByRole: string;
+  approvedAt: string;
+  notes?: string;
+}
+
+export interface AcademicYearRecord {
+  year: string;
+  status: 'Active' | 'Archived';
+  startedAt: string;
+  completedAt?: string;
+  totalLearners: number;
+  totalMarksLogged: number;
+  promotionsApproved?: number;
 }

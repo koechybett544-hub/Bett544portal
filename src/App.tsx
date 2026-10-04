@@ -511,6 +511,7 @@ export default function App() {
             currentUser={activeUser}
             onAddAnnouncement={handleAddAnnouncement}
             onShowSuccessToast={showToast}
+            initialTab="announcements"
           />
         )}
 
@@ -521,6 +522,7 @@ export default function App() {
             currentUser={activeUser}
             onAddAnnouncement={handleAddAnnouncement}
             onShowSuccessToast={showToast}
+            initialTab="calendar"
           />
         )}
 

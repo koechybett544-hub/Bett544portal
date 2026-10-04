@@ -23,6 +23,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ReberwetPortal"
         android:networkSecurityConfig="@xml/network_security_config"
+        android:requestLegacyExternalStorage="true"
         android:usesCleartextTraffic="false"
         tools:targetApi="35">
 
@@ -46,14 +47,14 @@
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
                 <data android:scheme="https"
-                    android:host="ais-dev-azyu2vozxqh6ytvyj4vnty-874645802870.europe-west2.run.app" />
+                    android:host="ais-pre-brto7rvnc34xdj7v3kvy3y-516798102925.europe-west2.run.app" />
             </intent-filter>
             <intent-filter android:autoVerify="true">
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
                 <data android:scheme="https"
-                    android:host="ais-pre-azyu2vozxqh6ytvyj4vnty-874645802870.europe-west2.run.app" />
+                    android:host="ais-dev-brto7rvnc34xdj7v3kvy3y-516798102925.europe-west2.run.app" />
             </intent-filter>
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />

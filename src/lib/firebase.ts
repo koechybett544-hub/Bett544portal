@@ -215,3 +215,53 @@ export const saveMarksToFirestore = async (marks: any[]): Promise<void> => {
   }
 };
 
+export const saveLearnersToFirestore = async (learners: any[]): Promise<void> => {
+  if (typeof navigator !== 'undefined' && !navigator.onLine) {
+    return;
+  }
+  if (!auth.currentUser) {
+    return;
+  }
+  try {
+    const learnersDoc = doc(db, 'assessments', 'enrolled_learners');
+    await setDoc(learnersDoc, { learners, updatedAt: new Date().toISOString() }, { merge: true });
+  } catch (error) {
+    console.warn('Could not persist learners to Firestore:', error);
+  }
+};
+
+export const fetchLearnersFromFirestore = async (): Promise<any[]> => {
+  if (typeof navigator !== 'undefined' && !navigator.onLine) {
+    return [];
+  }
+  if (!auth.currentUser) {
+    return [];
+  }
+  try {
+    const learnersDoc = doc(db, 'assessments', 'enrolled_learners');
+    const snap = await getDocFromServer(learnersDoc);
+    if (snap.exists()) {
+      return snap.data()?.learners || [];
+    }
+  } catch (error) {
+    console.warn('Could not fetch learners from Firestore:', error);
+  }
+  return [];
+};
+
+export const saveAcademicYearConfigToFirestore = async (year: string, data: any): Promise<void> => {
+  if (typeof navigator !== 'undefined' && !navigator.onLine) {
+    return;
+  }
+  if (!auth.currentUser) {
+    return;
+  }
+  try {
+    const yearDoc = doc(db, 'academic_years', year);
+    await setDoc(yearDoc, { ...data, updatedAt: new Date().toISOString() }, { merge: true });
+  } catch (error) {
+    console.warn('Could not persist academic year config to Firestore:', error);
+  }
+};
+
+

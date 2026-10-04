@@ -1,13 +1,20 @@
 import React, { useState, useMemo } from 'react';
 import { AuditLogEntry, UserProfile, Learner, UserRole } from '../types';
 import { DEFAULT_USERS, SCHOOL_INFO, GRADES, SUBJECTS } from '../data/initialData';
+import { DateService } from '../utils/dateService';
 import { StorageService } from '../utils/storage';
+import { downloadCsvToFile } from '../utils/fileDownloader';
+import { TeacherWorkloadAllocationRegister } from './TeacherWorkloadAllocationRegister';
+import { AdminWeeklyInspirationManager } from './AdminWeeklyInspirationManager';
+import { AcademicYearManagement } from './AcademicYearManagement';
+import { MarkEntry, TimetableData } from '../types';
 import {
   ShieldCheck,
   Upload,
   History,
   Users,
   Settings,
+  Sparkles,
   CheckCircle2,
   AlertCircle,
   Download,
@@ -42,6 +49,11 @@ interface AdminPanelProps {
   onSwitchUser?: (user: UserProfile) => void;
   teachers?: UserProfile[];
   onUpdateTeachers?: (teachers: UserProfile[]) => void;
+  learners?: Learner[];
+  marks?: MarkEntry[];
+  onUpdateLearners?: (learners: Learner[]) => void;
+  timetable?: TimetableData;
+  onNavigateTo?: (view: string) => void;
 }
 
 export const AdminPanel: React.FC<AdminPanelProps> = ({
@@ -52,8 +64,14 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
   onSwitchUser,
   teachers,
   onUpdateTeachers,
+  learners,
+  marks,
+  onUpdateLearners,
+  timetable,
+  onNavigateTo,
 }) => {
-  const [activeTab, setActiveTab] = useState<'audit' | 'import' | 'users' | 'system'>('audit');
+  const [activeTab, setActiveTab] = useState<'academic_year' | 'audit' | 'import' | 'users' | 'system'>('academic_year');
+  const [inspirationModalOpen, setInspirationModalOpen] = useState(false);
   const isBrianBett = currentUser.role === 'super_admin' || currentUser.name.toLowerCase().includes('brian');
 
   // Audit Trail Filters
@@ -178,15 +196,9 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
     ]);
 
     const csvContent = [headers.join(','), ...rows.map((r) => r.join(','))].join('\n');
-    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement('a');
-    link.setAttribute('href', url);
-    link.setAttribute('download', `Reberwet_JSS_Audit_Trail_2026_Term3.csv`);
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-    onShowSuccessToast('Exported Audit Trail to CSV.');
+    downloadCsvToFile(csvContent, `Reberwet_JSS_Audit_Trail_2026_Term3.csv`, (msg) => {
+      onShowSuccessToast(msg);
+    });
   };
 
   // Process Bulk CSV Import
@@ -211,7 +223,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
             fullName: `${firstName} ${lastName}`,
             grade,
             gender,
-            academicYear: '2026',
+            academicYear: DateService.getCurrentYear(),
             status: 'Active',
           });
         }
@@ -387,6 +399,18 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
       {/* Admin Tabs */}
       <div className="flex border-b border-stone-200 dark:border-stone-800 gap-2 overflow-x-auto pb-0.5">
         <button
+          onClick={() => setActiveTab('academic_year')}
+          className={`flex items-center gap-1.5 px-4 py-2 text-xs font-bold border-b-2 transition ${
+            activeTab === 'academic_year'
+              ? 'border-[#6b1426] dark:border-rose-400 text-[#6b1426] dark:text-rose-400'
+              : 'border-transparent text-stone-500 dark:text-stone-400 hover:text-stone-800 dark:hover:text-stone-200'
+          }`}
+        >
+          <Calendar className="w-4 h-4 text-[#6b1426]" />
+          <span>Academic Year &amp; Promotion</span>
+        </button>
+
+        <button
           onClick={() => setActiveTab('audit')}
           className={`flex items-center gap-1.5 px-4 py-2 text-xs font-bold border-b-2 transition ${
             activeTab === 'audit'
@@ -433,7 +457,33 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
           <Settings className="w-4 h-4" />
           <span>System &amp; Term Controls</span>
         </button>
+
+        <button
+          onClick={() => setInspirationModalOpen(true)}
+          className="flex items-center gap-1.5 px-4 py-2 text-xs font-bold border-b-2 border-transparent text-amber-800 dark:text-amber-300 hover:text-[#6b1426] dark:hover:text-rose-300 transition"
+          title="View & Edit all weekly inspirations for the term"
+        >
+          <Sparkles className="w-4 h-4 text-amber-500" />
+          <span>Weekly Inspiration Schedule &amp; Editor</span>
+        </button>
       </div>
+
+      {/* TAB: ACADEMIC YEAR MANAGEMENT & PROMOTION */}
+      {activeTab === 'academic_year' && (
+        <AcademicYearManagement
+          currentUser={currentUser}
+          learners={learners || StorageService.getLearners()}
+          marks={marks || StorageService.getMarks()}
+          teachers={teachers || StorageService.getTeachers()}
+          timetable={timetable}
+          onUpdateLearners={(updated) => {
+            if (onUpdateLearners) onUpdateLearners(updated);
+            else StorageService.saveLearners(updated);
+          }}
+          onShowSuccessToast={onShowSuccessToast}
+          onNavigateTo={onNavigateTo}
+        />
+      )}
 
       {/* TAB 1: AUDIT TRAIL */}
       {activeTab === 'audit' && (
@@ -772,6 +822,17 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
               </div>
             ))}
           </div>
+
+          {/* Teacher Subject Allocation & Weekly Lesson Workload Register */}
+          <TeacherWorkloadAllocationRegister
+            teachers={staffUsers}
+            currentUser={currentUser}
+            onUpdateTeachers={(updated) => {
+              setStaffUsers(updated);
+              onUpdateTeachers?.(updated);
+            }}
+            onShowSuccessToast={onShowSuccessToast}
+          />
         </div>
       )}
 
@@ -1369,6 +1430,14 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
           </div>
         </div>
       )}
+
+      {/* Admin Weekly Inspiration Term Schedule & Editor Modal */}
+      <AdminWeeklyInspirationManager
+        isOpen={inspirationModalOpen}
+        onClose={() => setInspirationModalOpen(false)}
+        currentUser={currentUser}
+        onShowSuccessToast={onShowSuccessToast}
+      />
     </div>
   );
 };

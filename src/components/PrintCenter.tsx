@@ -1,6 +1,7 @@
 import React, { useState, useMemo, useRef } from 'react';
 import { Learner, MarkEntry, UserProfile } from '../types';
 import { GRADES, SCHOOL_INFO, SUBJECTS, SUBJECT_FACULTY, CLASS_TEACHERS } from '../data/initialData';
+import { DateService } from '../utils/dateService';
 import { calculateAssessment, calculateOverallRubric } from '../utils/grading';
 import { downloadReportCardToFile, downloadCsvToFile } from '../utils/fileDownloader';
 import { exportElementToSinglePagePdf, exportMultipleElementsToPdf } from '../utils/pdfExport';
@@ -48,12 +49,15 @@ export const PrintCenter: React.FC<PrintCenterProps> = ({
   // Mode: single report card, bulk class report cards, or full grade broadsheet
   const [activeTab, setActiveTab] = useState<'single_report' | 'all_reports' | 'broadsheet'>('single_report');
   const [selectedGrade, setSelectedGrade] = useState(initialGrade);
-  const [selectedTerm, setSelectedTerm] = useState<'Term 1' | 'Term 2' | 'Term 3'>('Term 3');
-  const [selectedYear, setSelectedYear] = useState<string>('2026');
+  const [selectedTerm, setSelectedTerm] = useState<'Term 1' | 'Term 2' | 'Term 3'>(() => DateService.getCurrentTerm());
+  const [selectedYear, setSelectedYear] = useState<string>(() => DateService.getCurrentYear());
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedLearnerId, setSelectedLearnerId] = useState<string>('l-088');
 
-  const ACADEMIC_YEARS = ['2026', '2027', '2028', '2029', '2030'];
+  const ACADEMIC_YEARS = useMemo(() => {
+    const existing = learners.map((l) => l.academicYear).filter(Boolean);
+    return DateService.getAvailableAcademicYears(existing);
+  }, [learners]);
 
   // Custom uploaded photos state (mapped by learnerId)
   const [uploadedPhotos, setUploadedPhotos] = useState<Record<string, string>>({});
@@ -1147,11 +1151,11 @@ export const PrintCenter: React.FC<PrintCenterProps> = ({
           <div className="pt-6 mt-6 border-t-2 border-stone-900 flex flex-col sm:flex-row justify-between text-xs text-stone-800 gap-4">
             <div>
               Verified by Class Teacher: <strong>{CLASS_TEACHERS[selectedGrade] || 'Class Teacher'}</strong>
-              <div className="mt-1">Signature: __________________________ Date: 21/09/2026</div>
+              <div className="mt-1">Signature: __________________________ Date: {new Date().toLocaleDateString('en-GB', { day: '2-digit', month: '2-digit', year: 'numeric' })}</div>
             </div>
             <div>
               Approved by Head of Institution: <strong>Mr John Koech</strong>
-              <div className="mt-1">Signature &amp; Stamp: __________________________</div>
+              <div className="mt-1">Signature &amp; Stamp: __________________________ Date: {new Date().toLocaleDateString('en-GB', { day: '2-digit', month: '2-digit', year: 'numeric' })}</div>
             </div>
           </div>
         </div>
@@ -1454,7 +1458,7 @@ const ReportCardDocument: React.FC<ReportCardDocumentProps> = ({
           </div>
           <div className="pt-1.5 mt-1 border-t border-stone-100 flex justify-between items-center text-[9px] text-stone-700">
             <span>Class Teacher: <strong>{classTeacherName}</strong></span>
-            <span>Signature: __________________</span>
+            <span>Signature &amp; Date: __________________ {new Date().toLocaleDateString('en-GB', { day: '2-digit', month: '2-digit', year: 'numeric' })}</span>
           </div>
         </div>
       </div>
@@ -1472,7 +1476,7 @@ const ReportCardDocument: React.FC<ReportCardDocumentProps> = ({
             </p>
             <div className="pt-1 text-[10px] text-stone-800 space-y-0.5">
               <div>Head Teacher: <strong className="text-stone-950 font-black">Mr John Koech</strong></div>
-              <div>Official Signature &amp; Date: _________________________________</div>
+              <div>Official Signature &amp; Date: __________________ {new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })}</div>
             </div>
           </div>
 

@@ -431,7 +431,7 @@ export const TIMETABLE_ARRANGEMENTS: SlotTemplate[][] = [
     {
       "day": "Monday",
       "period": 1,
-      "g7": "Mathematics",
+      "g7": "Agriculture",
       "g8": "English",
       "g9": "Kiswahili",
       "g7Double": false,
@@ -442,7 +442,7 @@ export const TIMETABLE_ARRANGEMENTS: SlotTemplate[][] = [
       "day": "Monday",
       "period": 2,
       "g7": "English",
-      "g8": "Kiswahili",
+      "g8": "CRE",
       "g9": "Mathematics",
       "g7Double": false,
       "g8Double": false,
@@ -461,8 +461,8 @@ export const TIMETABLE_ARRANGEMENTS: SlotTemplate[][] = [
     {
       "day": "Monday",
       "period": 4,
-      "g7": "Pre-Technical",
-      "g8": "Social Studies",
+      "g7": "Mathematics",
+      "g8": "Kiswahili",
       "g9": "Agriculture",
       "g7Double": false,
       "g8Double": false,
@@ -492,7 +492,7 @@ export const TIMETABLE_ARRANGEMENTS: SlotTemplate[][] = [
       "day": "Monday",
       "period": 7,
       "g7": "CRE",
-      "g8": "Agriculture",
+      "g8": "Integrated Science",
       "g9": "Pre-Technical",
       "g7Double": false,
       "g8Double": false,
@@ -501,9 +501,9 @@ export const TIMETABLE_ARRANGEMENTS: SlotTemplate[][] = [
     {
       "day": "Monday",
       "period": 8,
-      "g7": "Agriculture",
-      "g8": "Pre-Technical",
-      "g9": "CRE",
+      "g7": "Pre-Technical",
+      "g8": "Social Studies",
+      "g9": "Agriculture",
       "g7Double": false,
       "g8Double": false,
       "g9Double": false
@@ -512,7 +512,7 @@ export const TIMETABLE_ARRANGEMENTS: SlotTemplate[][] = [
       "day": "Tuesday",
       "period": 1,
       "g7": "English",
-      "g8": "Kiswahili",
+      "g8": "CRE",
       "g9": "Mathematics",
       "g7Double": false,
       "g8Double": false,
@@ -533,7 +533,7 @@ export const TIMETABLE_ARRANGEMENTS: SlotTemplate[][] = [
       "period": 3,
       "g7": "Kiswahili",
       "g8": "Mathematics",
-      "g9": "English",
+      "g9": "Agriculture",
       "g7Double": false,
       "g8Double": false,
       "g9Double": false
@@ -542,8 +542,8 @@ export const TIMETABLE_ARRANGEMENTS: SlotTemplate[][] = [
       "day": "Tuesday",
       "period": 4,
       "g7": "Pre-Technical",
-      "g8": "Social Studies",
-      "g9": "Integrated Science",
+      "g8": "Kiswahili",
+      "g9": "English",
       "g7Double": false,
       "g8Double": false,
       "g9Double": false
@@ -551,7 +551,7 @@ export const TIMETABLE_ARRANGEMENTS: SlotTemplate[][] = [
     {
       "day": "Tuesday",
       "period": 5,
-      "g7": "Creative Arts and Sports",
+      "g7": "Pre-Technical",
       "g8": "Integrated Science",
       "g9": "Social Studies",
       "g7Double": false,
@@ -561,7 +561,7 @@ export const TIMETABLE_ARRANGEMENTS: SlotTemplate[][] = [
     {
       "day": "Tuesday",
       "period": 6,
-      "g7": "Social Studies",
+      "g7": "CRE",
       "g8": "Integrated Science",
       "g9": "Creative Arts and Sports",
       "g7Double": false,
@@ -572,8 +572,8 @@ export const TIMETABLE_ARRANGEMENTS: SlotTemplate[][] = [
       "day": "Tuesday",
       "period": 7,
       "g7": "Agriculture",
-      "g8": "Pre-Technical",
-      "g9": "CRE",
+      "g8": "Creative Arts and Sports",
+      "g9": "Social Studies",
       "g7Double": false,
       "g8Double": false,
       "g9Double": false
@@ -582,8 +582,8 @@ export const TIMETABLE_ARRANGEMENTS: SlotTemplate[][] = [
       "day": "Tuesday",
       "period": 8,
       "g7": "CRE",
-      "g8": "Agriculture",
-      "g9": "Pre-Technical",
+      "g8": "Integrated Science",
+      "g9": "Creative Arts and Sports",
       "g7Double": false,
       "g8Double": false,
       "g9Double": false
@@ -601,8 +601,8 @@ export const TIMETABLE_ARRANGEMENTS: SlotTemplate[][] = [
     {
       "day": "Wednesday",
       "period": 2,
-      "g7": "English",
-      "g8": "Kiswahili",
+      "g7": "Integrated Science",
+      "g8": "CRE",
       "g9": "Mathematics",
       "g7Double": false,
       "g8Double": false,
@@ -621,9 +621,9 @@ export const TIMETABLE_ARRANGEMENTS: SlotTemplate[][] = [
     {
       "day": "Wednesday",
       "period": 4,
-      "g7": "Integrated Science",
-      "g8": "Social Studies",
-      "g9": "Pre-Technical",
+      "g7": "English",
+      "g8": "Kiswahili",
+      "g9": "Integrated Science",
       "g7Double": false,
       "g8Double": false,
       "g9Double": false
@@ -642,7 +642,7 @@ export const TIMETABLE_ARRANGEMENTS: SlotTemplate[][] = [
       "day": "Wednesday",
       "period": 6,
       "g7": "Creative Arts and Sports",
-      "g8": "CRE",
+      "g8": "Social Studies",
       "g9": "Integrated Science",
       "g7Double": false,
       "g8Double": false,
@@ -651,9 +651,9 @@ export const TIMETABLE_ARRANGEMENTS: SlotTemplate[][] = [
     {
       "day": "Wednesday",
       "period": 7,
-      "g7": "Pre-Technical",
-      "g8": "Integrated Science",
-      "g9": "Social Studies",
+      "g7": "Social Studies",
+      "g8": "Agriculture",
+      "g9": "Pre-Technical",
       "g7Double": false,
       "g8Double": false,
       "g9Double": false
@@ -661,9 +661,9 @@ export const TIMETABLE_ARRANGEMENTS: SlotTemplate[][] = [
     {
       "day": "Wednesday",
       "period": 8,
-      "g7": "CRE",
-      "g8": "Pre-Technical",
-      "g9": "Agriculture",
+      "g7": "Integrated Science",
+      "g8": "Social Studies",
+      "g9": "Pre-Technical",
       "g7Double": false,
       "g8Double": false,
       "g9Double": false
@@ -671,8 +671,8 @@ export const TIMETABLE_ARRANGEMENTS: SlotTemplate[][] = [
     {
       "day": "Thursday",
       "period": 1,
-      "g7": "Integrated Science",
-      "g8": "Social Studies",
+      "g7": "Mathematics",
+      "g8": "Kiswahili",
       "g9": "English",
       "g7Double": false,
       "g8Double": false,
@@ -682,7 +682,7 @@ export const TIMETABLE_ARRANGEMENTS: SlotTemplate[][] = [
       "day": "Thursday",
       "period": 2,
       "g7": "Kiswahili",
-      "g8": "Mathematics",
+      "g8": "English",
       "g9": "Integrated Science",
       "g7Double": false,
       "g8Double": false,
@@ -691,8 +691,8 @@ export const TIMETABLE_ARRANGEMENTS: SlotTemplate[][] = [
     {
       "day": "Thursday",
       "period": 3,
-      "g7": "Mathematics",
-      "g8": "English",
+      "g7": "Agriculture",
+      "g8": "Mathematics",
       "g9": "Kiswahili",
       "g7Double": false,
       "g8Double": false,
@@ -702,7 +702,7 @@ export const TIMETABLE_ARRANGEMENTS: SlotTemplate[][] = [
       "day": "Thursday",
       "period": 4,
       "g7": "English",
-      "g8": "Kiswahili",
+      "g8": "Social Studies",
       "g9": "Mathematics",
       "g7Double": false,
       "g8Double": false,
@@ -711,9 +711,9 @@ export const TIMETABLE_ARRANGEMENTS: SlotTemplate[][] = [
     {
       "day": "Thursday",
       "period": 5,
-      "g7": "Creative Arts and Sports",
-      "g8": "Integrated Science",
-      "g9": "Social Studies",
+      "g7": "Integrated Science",
+      "g8": "Pre-Technical",
+      "g9": "CRE",
       "g7Double": false,
       "g8Double": false,
       "g9Double": false
@@ -721,9 +721,9 @@ export const TIMETABLE_ARRANGEMENTS: SlotTemplate[][] = [
     {
       "day": "Thursday",
       "period": 6,
-      "g7": "Social Studies",
-      "g8": "Creative Arts and Sports",
-      "g9": "Agriculture",
+      "g7": "Creative Arts and Sports",
+      "g8": "Integrated Science",
+      "g9": "CRE",
       "g7Double": false,
       "g8Double": false,
       "g9Double": false
@@ -731,9 +731,9 @@ export const TIMETABLE_ARRANGEMENTS: SlotTemplate[][] = [
     {
       "day": "Thursday",
       "period": 7,
-      "g7": "Agriculture",
-      "g8": "CRE",
-      "g9": "Creative Arts and Sports",
+      "g7": "Social Studies",
+      "g8": "Pre-Technical",
+      "g9": "Integrated Science",
       "g7Double": false,
       "g8Double": false,
       "g9Double": false
@@ -741,6 +741,56 @@ export const TIMETABLE_ARRANGEMENTS: SlotTemplate[][] = [
     {
       "day": "Thursday",
       "period": 8,
+      "g7": "Creative Arts and Sports",
+      "g8": "Pre-Technical",
+      "g9": "CRE",
+      "g7Double": false,
+      "g8Double": false,
+      "g9Double": false
+    },
+    {
+      "day": "Friday",
+      "period": 1,
+      "g7": "Social Studies",
+      "g8": "Mathematics",
+      "g9": "English",
+      "g7Double": false,
+      "g8Double": false,
+      "g9Double": false
+    },
+    {
+      "day": "Friday",
+      "period": 2,
+      "g7": "Mathematics",
+      "g8": "Agriculture",
+      "g9": "Kiswahili",
+      "g7Double": false,
+      "g8Double": false,
+      "g9Double": false
+    },
+    {
+      "day": "Friday",
+      "period": 3,
+      "g7": "Kiswahili",
+      "g8": "English",
+      "g9": "Agriculture",
+      "g7Double": false,
+      "g8Double": false,
+      "g9Double": false
+    },
+    {
+      "day": "Friday",
+      "period": 4,
+      "g7": "English",
+      "g8": "Kiswahili",
+      "g9": "Mathematics",
+      "g7Double": false,
+      "g8Double": false,
+      "g9Double": false
+    },
+    {
+      "day": "Friday",
+      "period": 5,
       "g7": "Pre-Technical",
       "g8": "Agriculture",
       "g9": "CRE",
@@ -750,60 +800,10 @@ export const TIMETABLE_ARRANGEMENTS: SlotTemplate[][] = [
     },
     {
       "day": "Friday",
-      "period": 1,
-      "g7": "Integrated Science",
-      "g8": "Kiswahili",
-      "g9": "English",
-      "g7Double": false,
-      "g8Double": false,
-      "g9Double": false
-    },
-    {
-      "day": "Friday",
-      "period": 2,
-      "g7": "Kiswahili",
-      "g8": "Integrated Science",
-      "g9": "Mathematics",
-      "g7Double": false,
-      "g8Double": false,
-      "g9Double": false
-    },
-    {
-      "day": "Friday",
-      "period": 3,
-      "g7": "Mathematics",
-      "g8": "English",
-      "g9": "Kiswahili",
-      "g7Double": false,
-      "g8Double": false,
-      "g9Double": false
-    },
-    {
-      "day": "Friday",
-      "period": 4,
-      "g7": "English",
-      "g8": "Mathematics",
-      "g9": "Integrated Science",
-      "g7Double": false,
-      "g8Double": false,
-      "g9Double": false
-    },
-    {
-      "day": "Friday",
-      "period": 5,
-      "g7": "Creative Arts and Sports",
-      "g8": "Agriculture",
-      "g9": "CRE",
-      "g7Double": false,
-      "g8Double": false,
-      "g9Double": false
-    },
-    {
-      "day": "Friday",
       "period": 6,
-      "g7": "Social Studies",
-      "g8": "Creative Arts and Sports",
-      "g9": "Agriculture",
+      "g7": "CRE",
+      "g8": "Pre-Technical",
+      "g9": "Creative Arts and Sports",
       "g7Double": false,
       "g8Double": false,
       "g9Double": false
@@ -812,7 +812,7 @@ export const TIMETABLE_ARRANGEMENTS: SlotTemplate[][] = [
       "day": "Friday",
       "period": 7,
       "g7": "Agriculture",
-      "g8": "CRE",
+      "g8": "Creative Arts and Sports",
       "g9": "Pre-Technical",
       "g7Double": false,
       "g8Double": false,
@@ -821,9 +821,9 @@ export const TIMETABLE_ARRANGEMENTS: SlotTemplate[][] = [
     {
       "day": "Friday",
       "period": 8,
-      "g7": "CRE",
-      "g8": "Pre-Technical",
-      "g9": "Creative Arts and Sports",
+      "g7": "Creative Arts and Sports",
+      "g8": "Agriculture",
+      "g9": "Social Studies",
       "g7Double": false,
       "g8Double": false,
       "g9Double": false
@@ -833,7 +833,7 @@ export const TIMETABLE_ARRANGEMENTS: SlotTemplate[][] = [
     {
       "day": "Monday",
       "period": 1,
-      "g7": "Mathematics",
+      "g7": "Agriculture",
       "g8": "English",
       "g9": "Kiswahili",
       "g7Double": false,
@@ -855,7 +855,7 @@ export const TIMETABLE_ARRANGEMENTS: SlotTemplate[][] = [
       "period": 3,
       "g7": "Kiswahili",
       "g8": "Mathematics",
-      "g9": "English",
+      "g9": "Agriculture",
       "g7Double": false,
       "g8Double": false,
       "g9Double": false
@@ -863,9 +863,9 @@ export const TIMETABLE_ARRANGEMENTS: SlotTemplate[][] = [
     {
       "day": "Monday",
       "period": 4,
-      "g7": "Pre-Technical",
+      "g7": "Mathematics",
       "g8": "Social Studies",
-      "g9": "Agriculture",
+      "g9": "English",
       "g7Double": false,
       "g8Double": false,
       "g9Double": false
@@ -874,7 +874,7 @@ export const TIMETABLE_ARRANGEMENTS: SlotTemplate[][] = [
       "day": "Monday",
       "period": 5,
       "g7": "Integrated Science",
-      "g8": "Creative Arts and Sports",
+      "g8": "Pre-Technical",
       "g9": "Social Studies",
       "g7Double": true,
       "g8Double": false,
@@ -884,7 +884,7 @@ export const TIMETABLE_ARRANGEMENTS: SlotTemplate[][] = [
       "day": "Monday",
       "period": 6,
       "g7": "Integrated Science",
-      "g8": "CRE",
+      "g8": "Social Studies",
       "g9": "Creative Arts and Sports",
       "g7Double": true,
       "g8Double": false,
@@ -894,8 +894,8 @@ export const TIMETABLE_ARRANGEMENTS: SlotTemplate[][] = [
       "day": "Monday",
       "period": 7,
       "g7": "CRE",
-      "g8": "Agriculture",
-      "g9": "Pre-Technical",
+      "g8": "Creative Arts and Sports",
+      "g9": "Integrated Science",
       "g7Double": false,
       "g8Double": false,
       "g9Double": false
@@ -903,9 +903,9 @@ export const TIMETABLE_ARRANGEMENTS: SlotTemplate[][] = [
     {
       "day": "Monday",
       "period": 8,
-      "g7": "Agriculture",
-      "g8": "Pre-Technical",
-      "g9": "CRE",
+      "g7": "Creative Arts and Sports",
+      "g8": "Integrated Science",
+      "g9": "Social Studies",
       "g7Double": false,
       "g8Double": false,
       "g9Double": false
@@ -913,7 +913,7 @@ export const TIMETABLE_ARRANGEMENTS: SlotTemplate[][] = [
     {
       "day": "Tuesday",
       "period": 1,
-      "g7": "English",
+      "g7": "Integrated Science",
       "g8": "Kiswahili",
       "g9": "Mathematics",
       "g7Double": false,
@@ -923,8 +923,8 @@ export const TIMETABLE_ARRANGEMENTS: SlotTemplate[][] = [
     {
       "day": "Tuesday",
       "period": 2,
-      "g7": "Mathematics",
-      "g8": "English",
+      "g7": "English",
+      "g8": "Mathematics",
       "g9": "Kiswahili",
       "g7Double": false,
       "g8Double": false,
@@ -934,8 +934,8 @@ export const TIMETABLE_ARRANGEMENTS: SlotTemplate[][] = [
       "day": "Tuesday",
       "period": 3,
       "g7": "Kiswahili",
-      "g8": "Mathematics",
-      "g9": "English",
+      "g8": "English",
+      "g9": "Integrated Science",
       "g7Double": false,
       "g8Double": false,
       "g9Double": false
@@ -943,9 +943,9 @@ export const TIMETABLE_ARRANGEMENTS: SlotTemplate[][] = [
     {
       "day": "Tuesday",
       "period": 4,
-      "g7": "Pre-Technical",
+      "g7": "Mathematics",
       "g8": "Social Studies",
-      "g9": "Integrated Science",
+      "g9": "English",
       "g7Double": false,
       "g8Double": false,
       "g9Double": false
@@ -955,7 +955,7 @@ export const TIMETABLE_ARRANGEMENTS: SlotTemplate[][] = [
       "period": 5,
       "g7": "Creative Arts and Sports",
       "g8": "Integrated Science",
-      "g9": "Social Studies",
+      "g9": "CRE",
       "g7Double": false,
       "g8Double": true,
       "g9Double": false
@@ -973,9 +973,9 @@ export const TIMETABLE_ARRANGEMENTS: SlotTemplate[][] = [
     {
       "day": "Tuesday",
       "period": 7,
-      "g7": "Agriculture",
+      "g7": "Creative Arts and Sports",
       "g8": "Pre-Technical",
-      "g9": "CRE",
+      "g9": "Social Studies",
       "g7Double": false,
       "g8Double": false,
       "g9Double": false
@@ -983,9 +983,9 @@ export const TIMETABLE_ARRANGEMENTS: SlotTemplate[][] = [
     {
       "day": "Tuesday",
       "period": 8,
-      "g7": "CRE",
-      "g8": "Agriculture",
-      "g9": "Pre-Technical",
+      "g7": "Social Studies",
+      "g8": "Pre-Technical",
+      "g9": "Agriculture",
       "g7Double": false,
       "g8Double": false,
       "g9Double": false
@@ -1003,9 +1003,9 @@ export const TIMETABLE_ARRANGEMENTS: SlotTemplate[][] = [
     {
       "day": "Wednesday",
       "period": 2,
-      "g7": "English",
+      "g7": "Integrated Science",
       "g8": "Kiswahili",
-      "g9": "Mathematics",
+      "g9": "Pre-Technical",
       "g7Double": false,
       "g8Double": false,
       "g9Double": false
@@ -1023,9 +1023,9 @@ export const TIMETABLE_ARRANGEMENTS: SlotTemplate[][] = [
     {
       "day": "Wednesday",
       "period": 4,
-      "g7": "Integrated Science",
-      "g8": "Social Studies",
-      "g9": "Pre-Technical",
+      "g7": "English",
+      "g8": "CRE",
+      "g9": "Mathematics",
       "g7Double": false,
       "g8Double": false,
       "g9Double": false
@@ -1043,8 +1043,8 @@ export const TIMETABLE_ARRANGEMENTS: SlotTemplate[][] = [
     {
       "day": "Wednesday",
       "period": 6,
-      "g7": "Creative Arts and Sports",
-      "g8": "CRE",
+      "g7": "Pre-Technical",
+      "g8": "Creative Arts and Sports",
       "g9": "Integrated Science",
       "g7Double": false,
       "g8Double": false,
@@ -1052,166 +1052,6 @@ export const TIMETABLE_ARRANGEMENTS: SlotTemplate[][] = [
     },
     {
       "day": "Wednesday",
-      "period": 7,
-      "g7": "Pre-Technical",
-      "g8": "Integrated Science",
-      "g9": "Social Studies",
-      "g7Double": false,
-      "g8Double": false,
-      "g9Double": false
-    },
-    {
-      "day": "Wednesday",
-      "period": 8,
-      "g7": "CRE",
-      "g8": "Pre-Technical",
-      "g9": "Agriculture",
-      "g7Double": false,
-      "g8Double": false,
-      "g9Double": false
-    },
-    {
-      "day": "Thursday",
-      "period": 1,
-      "g7": "Integrated Science",
-      "g8": "Social Studies",
-      "g9": "English",
-      "g7Double": false,
-      "g8Double": false,
-      "g9Double": false
-    },
-    {
-      "day": "Thursday",
-      "period": 2,
-      "g7": "Kiswahili",
-      "g8": "Mathematics",
-      "g9": "Integrated Science",
-      "g7Double": false,
-      "g8Double": false,
-      "g9Double": false
-    },
-    {
-      "day": "Thursday",
-      "period": 3,
-      "g7": "Mathematics",
-      "g8": "English",
-      "g9": "Kiswahili",
-      "g7Double": false,
-      "g8Double": false,
-      "g9Double": false
-    },
-    {
-      "day": "Thursday",
-      "period": 4,
-      "g7": "English",
-      "g8": "Kiswahili",
-      "g9": "Mathematics",
-      "g7Double": false,
-      "g8Double": false,
-      "g9Double": false
-    },
-    {
-      "day": "Thursday",
-      "period": 5,
-      "g7": "Creative Arts and Sports",
-      "g8": "Integrated Science",
-      "g9": "Social Studies",
-      "g7Double": false,
-      "g8Double": false,
-      "g9Double": false
-    },
-    {
-      "day": "Thursday",
-      "period": 6,
-      "g7": "Social Studies",
-      "g8": "Creative Arts and Sports",
-      "g9": "Agriculture",
-      "g7Double": false,
-      "g8Double": false,
-      "g9Double": false
-    },
-    {
-      "day": "Thursday",
-      "period": 7,
-      "g7": "Agriculture",
-      "g8": "CRE",
-      "g9": "Creative Arts and Sports",
-      "g7Double": false,
-      "g8Double": false,
-      "g9Double": false
-    },
-    {
-      "day": "Thursday",
-      "period": 8,
-      "g7": "Pre-Technical",
-      "g8": "Agriculture",
-      "g9": "CRE",
-      "g7Double": false,
-      "g8Double": false,
-      "g9Double": false
-    },
-    {
-      "day": "Friday",
-      "period": 1,
-      "g7": "Mathematics",
-      "g8": "English",
-      "g9": "Kiswahili",
-      "g7Double": false,
-      "g8Double": false,
-      "g9Double": false
-    },
-    {
-      "day": "Friday",
-      "period": 2,
-      "g7": "Integrated Science",
-      "g8": "Kiswahili",
-      "g9": "English",
-      "g7Double": false,
-      "g8Double": false,
-      "g9Double": false
-    },
-    {
-      "day": "Friday",
-      "period": 3,
-      "g7": "Kiswahili",
-      "g8": "Integrated Science",
-      "g9": "Mathematics",
-      "g7Double": false,
-      "g8Double": false,
-      "g9Double": false
-    },
-    {
-      "day": "Friday",
-      "period": 4,
-      "g7": "English",
-      "g8": "Mathematics",
-      "g9": "Integrated Science",
-      "g7Double": false,
-      "g8Double": false,
-      "g9Double": false
-    },
-    {
-      "day": "Friday",
-      "period": 5,
-      "g7": "Creative Arts and Sports",
-      "g8": "Agriculture",
-      "g9": "CRE",
-      "g7Double": false,
-      "g8Double": false,
-      "g9Double": false
-    },
-    {
-      "day": "Friday",
-      "period": 6,
-      "g7": "Social Studies",
-      "g8": "Creative Arts and Sports",
-      "g9": "Agriculture",
-      "g7Double": false,
-      "g8Double": false,
-      "g9Double": false
-    },
-    {
-      "day": "Friday",
       "period": 7,
       "g7": "Agriculture",
       "g8": "CRE",
@@ -1221,11 +1061,171 @@ export const TIMETABLE_ARRANGEMENTS: SlotTemplate[][] = [
       "g9Double": false
     },
     {
+      "day": "Wednesday",
+      "period": 8,
+      "g7": "CRE",
+      "g8": "Integrated Science",
+      "g9": "Creative Arts and Sports",
+      "g7Double": false,
+      "g8Double": false,
+      "g9Double": false
+    },
+    {
+      "day": "Thursday",
+      "period": 1,
+      "g7": "Mathematics",
+      "g8": "Kiswahili",
+      "g9": "Integrated Science",
+      "g7Double": false,
+      "g8Double": false,
+      "g9Double": false
+    },
+    {
+      "day": "Thursday",
+      "period": 2,
+      "g7": "Kiswahili",
+      "g8": "Mathematics",
+      "g9": "English",
+      "g7Double": false,
+      "g8Double": false,
+      "g9Double": false
+    },
+    {
+      "day": "Thursday",
+      "period": 3,
+      "g7": "Integrated Science",
+      "g8": "English",
+      "g9": "Kiswahili",
+      "g7Double": false,
+      "g8Double": false,
+      "g9Double": false
+    },
+    {
+      "day": "Thursday",
+      "period": 4,
+      "g7": "English",
+      "g8": "CRE",
+      "g9": "Mathematics",
+      "g7Double": false,
+      "g8Double": false,
+      "g9Double": false
+    },
+    {
+      "day": "Thursday",
+      "period": 5,
+      "g7": "Pre-Technical",
+      "g8": "Agriculture",
+      "g9": "Social Studies",
+      "g7Double": false,
+      "g8Double": false,
+      "g9Double": false
+    },
+    {
+      "day": "Thursday",
+      "period": 6,
+      "g7": "Social Studies",
+      "g8": "Creative Arts and Sports",
+      "g9": "Agriculture",
+      "g7Double": false,
+      "g8Double": false,
+      "g9Double": false
+    },
+    {
+      "day": "Thursday",
+      "period": 7,
+      "g7": "Pre-Technical",
+      "g8": "Agriculture",
+      "g9": "CRE",
+      "g7Double": false,
+      "g8Double": false,
+      "g9Double": false
+    },
+    {
+      "day": "Thursday",
+      "period": 8,
+      "g7": "Agriculture",
+      "g8": "Pre-Technical",
+      "g9": "CRE",
+      "g7Double": false,
+      "g8Double": false,
+      "g9Double": false
+    },
+    {
+      "day": "Friday",
+      "period": 1,
+      "g7": "Agriculture",
+      "g8": "Mathematics",
+      "g9": "Kiswahili",
+      "g7Double": false,
+      "g8Double": false,
+      "g9Double": false
+    },
+    {
+      "day": "Friday",
+      "period": 2,
+      "g7": "Mathematics",
+      "g8": "CRE",
+      "g9": "English",
+      "g7Double": false,
+      "g8Double": false,
+      "g9Double": false
+    },
+    {
+      "day": "Friday",
+      "period": 3,
+      "g7": "Kiswahili",
+      "g8": "English",
+      "g9": "Mathematics",
+      "g7Double": false,
+      "g8Double": false,
+      "g9Double": false
+    },
+    {
+      "day": "Friday",
+      "period": 4,
+      "g7": "English",
+      "g8": "Kiswahili",
+      "g9": "Agriculture",
+      "g7Double": false,
+      "g8Double": false,
+      "g9Double": false
+    },
+    {
+      "day": "Friday",
+      "period": 5,
+      "g7": "Pre-Technical",
+      "g8": "Agriculture",
+      "g9": "CRE",
+      "g7Double": false,
+      "g8Double": false,
+      "g9Double": false
+    },
+    {
+      "day": "Friday",
+      "period": 6,
+      "g7": "CRE",
+      "g8": "Agriculture",
+      "g9": "Creative Arts and Sports",
+      "g7Double": false,
+      "g8Double": false,
+      "g9Double": false
+    },
+    {
+      "day": "Friday",
+      "period": 7,
+      "g7": "Creative Arts and Sports",
+      "g8": "Social Studies",
+      "g9": "Pre-Technical",
+      "g7Double": false,
+      "g8Double": false,
+      "g9Double": false
+    },
+    {
       "day": "Friday",
       "period": 8,
       "g7": "CRE",
-      "g8": "Pre-Technical",
-      "g9": "Creative Arts and Sports",
+      "g8": "Integrated Science",
+      "g9": "Pre-Technical",
       "g7Double": false,
       "g8Double": false,
       "g9Double": false
@@ -1235,8 +1235,8 @@ export const TIMETABLE_ARRANGEMENTS: SlotTemplate[][] = [
     {
       "day": "Monday",
       "period": 1,
-      "g7": "Mathematics",
-      "g8": "English",
+      "g7": "Integrated Science",
+      "g8": "Mathematics",
       "g9": "Kiswahili",
       "g7Double": false,
       "g8Double": false,
@@ -1246,7 +1246,7 @@ export const TIMETABLE_ARRANGEMENTS: SlotTemplate[][] = [
       "day": "Monday",
       "period": 2,
       "g7": "English",
-      "g8": "Kiswahili",
+      "g8": "Social Studies",
       "g9": "Mathematics",
       "g7Double": false,
       "g8Double": false,
@@ -1256,8 +1256,8 @@ export const TIMETABLE_ARRANGEMENTS: SlotTemplate[][] = [
       "day": "Monday",
       "period": 3,
       "g7": "Kiswahili",
-      "g8": "Mathematics",
-      "g9": "English",
+      "g8": "English",
+      "g9": "Agriculture",
       "g7Double": false,
       "g8Double": false,
       "g9Double": false
@@ -1265,9 +1265,9 @@ export const TIMETABLE_ARRANGEMENTS: SlotTemplate[][] = [
     {
       "day": "Monday",
       "period": 4,
-      "g7": "Pre-Technical",
-      "g8": "Social Studies",
-      "g9": "Agriculture",
+      "g7": "Mathematics",
+      "g8": "Kiswahili",
+      "g9": "English",
       "g7Double": false,
       "g8Double": false,
       "g9Double": false
@@ -1277,7 +1277,7 @@ export const TIMETABLE_ARRANGEMENTS: SlotTemplate[][] = [
       "period": 5,
       "g7": "Integrated Science",
       "g8": "Creative Arts and Sports",
-      "g9": "Social Studies",
+      "g9": "CRE",
       "g7Double": true,
       "g8Double": false,
       "g9Double": false
@@ -1286,8 +1286,8 @@ export const TIMETABLE_ARRANGEMENTS: SlotTemplate[][] = [
       "day": "Monday",
       "period": 6,
       "g7": "Integrated Science",
-      "g8": "CRE",
-      "g9": "Creative Arts and Sports",
+      "g8": "Social Studies",
+      "g9": "Pre-Technical",
       "g7Double": true,
       "g8Double": false,
       "g9Double": false
@@ -1296,8 +1296,8 @@ export const TIMETABLE_ARRANGEMENTS: SlotTemplate[][] = [
       "day": "Monday",
       "period": 7,
       "g7": "CRE",
-      "g8": "Agriculture",
-      "g9": "Pre-Technical",
+      "g8": "Creative Arts and Sports",
+      "g9": "Agriculture",
       "g7Double": false,
       "g8Double": false,
       "g9Double": false
@@ -1305,8 +1305,8 @@ export const TIMETABLE_ARRANGEMENTS: SlotTemplate[][] = [
     {
       "day": "Monday",
       "period": 8,
-      "g7": "Agriculture",
-      "g8": "Pre-Technical",
+      "g7": "Creative Arts and Sports",
+      "g8": "Agriculture",
       "g9": "CRE",
       "g7Double": false,
       "g8Double": false,
@@ -1337,7 +1337,7 @@ export const TIMETABLE_ARRANGEMENTS: SlotTemplate[][] = [
       "period": 3,
       "g7": "Kiswahili",
       "g8": "Mathematics",
-      "g9": "English",
+      "g9": "Agriculture",
       "g7Double": false,
       "g8Double": false,
       "g9Double": false
@@ -1345,9 +1345,9 @@ export const TIMETABLE_ARRANGEMENTS: SlotTemplate[][] = [
     {
       "day": "Tuesday",
       "period": 4,
-      "g7": "Pre-Technical",
-      "g8": "Social Studies",
-      "g9": "Integrated Science",
+      "g7": "Agriculture",
+      "g8": "CRE",
+      "g9": "English",
       "g7Double": false,
       "g8Double": false,
       "g9Double": false
@@ -1355,7 +1355,7 @@ export const TIMETABLE_ARRANGEMENTS: SlotTemplate[][] = [
     {
       "day": "Tuesday",
       "period": 5,
-      "g7": "Creative Arts and Sports",
+      "g7": "Pre-Technical",
       "g8": "Integrated Science",
       "g9": "Social Studies",
       "g7Double": false,
@@ -1365,9 +1365,9 @@ export const TIMETABLE_ARRANGEMENTS: SlotTemplate[][] = [
     {
       "day": "Tuesday",
       "period": 6,
-      "g7": "Social Studies",
+      "g7": "CRE",
       "g8": "Integrated Science",
-      "g9": "Creative Arts and Sports",
+      "g9": "Pre-Technical",
       "g7Double": false,
       "g8Double": true,
       "g9Double": false
@@ -1375,8 +1375,8 @@ export const TIMETABLE_ARRANGEMENTS: SlotTemplate[][] = [
     {
       "day": "Tuesday",
       "period": 7,
-      "g7": "Agriculture",
-      "g8": "Pre-Technical",
+      "g7": "Pre-Technical",
+      "g8": "Creative Arts and Sports",
       "g9": "CRE",
       "g7Double": false,
       "g8Double": false,
@@ -1386,7 +1386,7 @@ export const TIMETABLE_ARRANGEMENTS: SlotTemplate[][] = [
       "day": "Tuesday",
       "period": 8,
       "g7": "CRE",
-      "g8": "Agriculture",
+      "g8": "Integrated Science",
       "g9": "Pre-Technical",
       "g7Double": false,
       "g8Double": false,
@@ -1405,9 +1405,9 @@ export const TIMETABLE_ARRANGEMENTS: SlotTemplate[][] = [
     {
       "day": "Wednesday",
       "period": 2,
-      "g7": "English",
+      "g7": "Agriculture",
       "g8": "Kiswahili",
-      "g9": "Mathematics",
+      "g9": "Pre-Technical",
       "g7Double": false,
       "g8Double": false,
       "g9Double": false
@@ -1425,9 +1425,9 @@ export const TIMETABLE_ARRANGEMENTS: SlotTemplate[][] = [
     {
       "day": "Wednesday",
       "period": 4,
-      "g7": "Integrated Science",
-      "g8": "Social Studies",
-      "g9": "Pre-Technical",
+      "g7": "English",
+      "g8": "CRE",
+      "g9": "Mathematics",
       "g7Double": false,
       "g8Double": false,
       "g9Double": false
@@ -1435,8 +1435,8 @@ export const TIMETABLE_ARRANGEMENTS: SlotTemplate[][] = [
     {
       "day": "Wednesday",
       "period": 5,
-      "g7": "Social Studies",
-      "g8": "Creative Arts and Sports",
+      "g7": "CRE",
+      "g8": "Pre-Technical",
       "g9": "Integrated Science",
       "g7Double": false,
       "g8Double": false,
@@ -1446,7 +1446,7 @@ export const TIMETABLE_ARRANGEMENTS: SlotTemplate[][] = [
       "day": "Wednesday",
       "period": 6,
       "g7": "Creative Arts and Sports",
-      "g8": "CRE",
+      "g8": "Social Studies",
       "g9": "Integrated Science",
       "g7Double": false,
       "g8Double": false,
@@ -1455,9 +1455,9 @@ export const TIMETABLE_ARRANGEMENTS: SlotTemplate[][] = [
     {
       "day": "Wednesday",
       "period": 7,
-      "g7": "Pre-Technical",
+      "g7": "Social Studies",
       "g8": "Integrated Science",
-      "g9": "Social Studies",
+      "g9": "Creative Arts and Sports",
       "g7Double": false,
       "g8Double": false,
       "g9Double": false
@@ -1465,9 +1465,9 @@ export const TIMETABLE_ARRANGEMENTS: SlotTemplate[][] = [
     {
       "day": "Wednesday",
       "period": 8,
-      "g7": "CRE",
-      "g8": "Pre-Technical",
-      "g9": "Agriculture",
+      "g7": "Agriculture",
+      "g8": "Creative Arts and Sports",
+      "g9": "Social Studies",
       "g7Double": false,
       "g8Double": false,
       "g9Double": false
@@ -1475,7 +1475,7 @@ export const TIMETABLE_ARRANGEMENTS: SlotTemplate[][] = [
     {
       "day": "Thursday",
       "period": 1,
-      "g7": "Integrated Science",
+      "g7": "Mathematics",
       "g8": "Social Studies",
       "g9": "English",
       "g7Double": false,
@@ -1495,7 +1495,7 @@ export const TIMETABLE_ARRANGEMENTS: SlotTemplate[][] = [
     {
       "day": "Thursday",
       "period": 3,
-      "g7": "Mathematics",
+      "g7": "Integrated Science",
       "g8": "English",
       "g9": "Kiswahili",
       "g7Double": false,
@@ -1515,9 +1515,9 @@ export const TIMETABLE_ARRANGEMENTS: SlotTemplate[][] = [
     {
       "day": "Thursday",
       "period": 5,
-      "g7": "Creative Arts and Sports",
-      "g8": "Integrated Science",
-      "g9": "Social Studies",
+      "g7": "Social Studies",
+      "g8": "Pre-Technical",
+      "g9": "Integrated Science",
       "g7Double": false,
       "g8Double": false,
       "g9Double": false
@@ -1526,8 +1526,8 @@ export const TIMETABLE_ARRANGEMENTS: SlotTemplate[][] = [
       "day": "Thursday",
       "period": 6,
       "g7": "Social Studies",
-      "g8": "Creative Arts and Sports",
-      "g9": "Agriculture",
+      "g8": "Agriculture",
+      "g9": "Creative Arts and Sports",
       "g7Double": false,
       "g8Double": false,
       "g9Double": false
@@ -1535,7 +1535,7 @@ export const TIMETABLE_ARRANGEMENTS: SlotTemplate[][] = [
     {
       "day": "Thursday",
       "period": 7,
-      "g7": "Agriculture",
+      "g7": "Pre-Technical",
       "g8": "CRE",
       "g9": "Creative Arts and Sports",
       "g7Double": false,
@@ -1547,7 +1547,7 @@ export const TIMETABLE_ARRANGEMENTS: SlotTemplate[][] = [
       "period": 8,
       "g7": "Pre-Technical",
       "g8": "Agriculture",
-      "g9": "CRE",
+      "g9": "Social Studies",
       "g7Double": false,
       "g8Double": false,
       "g9Double": false
@@ -1556,8 +1556,8 @@ export const TIMETABLE_ARRANGEMENTS: SlotTemplate[][] = [
       "day": "Friday",
       "period": 1,
       "g7": "Mathematics",
-      "g8": "English",
-      "g9": "Kiswahili",
+      "g8": "CRE",
+      "g9": "English",
       "g7Double": false,
       "g8Double": false,
       "g9Double": false
@@ -1565,9 +1565,9 @@ export const TIMETABLE_ARRANGEMENTS: SlotTemplate[][] = [
     {
       "day": "Friday",
       "period": 2,
-      "g7": "Kiswahili",
-      "g8": "Integrated Science",
-      "g9": "Mathematics",
+      "g7": "English",
+      "g8": "Mathematics",
+      "g9": "Kiswahili",
       "g7Double": false,
       "g8Double": false,
       "g9Double": false
@@ -1577,7 +1577,7 @@ export const TIMETABLE_ARRANGEMENTS: SlotTemplate[][] = [
       "period": 3,
       "g7": "Integrated Science",
       "g8": "Kiswahili",
-      "g9": "English",
+      "g9": "Mathematics",
       "g7Double": false,
       "g8Double": false,
       "g9Double": false
@@ -1585,9 +1585,9 @@ export const TIMETABLE_ARRANGEMENTS: SlotTemplate[][] = [
     {
       "day": "Friday",
       "period": 4,
-      "g7": "English",
-      "g8": "Mathematics",
-      "g9": "Integrated Science",
+      "g7": "Kiswahili",
+      "g8": "English",
+      "g9": "Agriculture",
       "g7Double": false,
       "g8Double": false,
       "g9Double": false
@@ -1596,8 +1596,8 @@ export const TIMETABLE_ARRANGEMENTS: SlotTemplate[][] = [
       "day": "Friday",
       "period": 5,
       "g7": "Creative Arts and Sports",
-      "g8": "Agriculture",
-      "g9": "CRE",
+      "g8": "Integrated Science",
+      "g9": "Social Studies",
       "g7Double": false,
       "g8Double": false,
       "g9Double": false
@@ -1605,9 +1605,9 @@ export const TIMETABLE_ARRANGEMENTS: SlotTemplate[][] = [
     {
       "day": "Friday",
       "period": 6,
-      "g7": "Social Studies",
-      "g8": "Creative Arts and Sports",
-      "g9": "Agriculture",
+      "g7": "Creative Arts and Sports",
+      "g8": "Pre-Technical",
+      "g9": "Integrated Science",
       "g7Double": false,
       "g8Double": false,
       "g9Double": false
@@ -1615,9 +1615,9 @@ export const TIMETABLE_ARRANGEMENTS: SlotTemplate[][] = [
     {
       "day": "Friday",
       "period": 7,
-      "g7": "Agriculture",
-      "g8": "CRE",
-      "g9": "Pre-Technical",
+      "g7": "Social Studies",
+      "g8": "Agriculture",
+      "g9": "Creative Arts and Sports",
       "g7Double": false,
       "g8Double": false,
       "g9Double": false
@@ -1625,9 +1625,9 @@ export const TIMETABLE_ARRANGEMENTS: SlotTemplate[][] = [
     {
       "day": "Friday",
       "period": 8,
-      "g7": "CRE",
+      "g7": "Agriculture",
       "g8": "Pre-Technical",
-      "g9": "Creative Arts and Sports",
+      "g9": "CRE",
       "g7Double": false,
       "g8Double": false,
       "g9Double": false
@@ -1637,7 +1637,7 @@ export const TIMETABLE_ARRANGEMENTS: SlotTemplate[][] = [
     {
       "day": "Monday",
       "period": 1,
-      "g7": "Mathematics",
+      "g7": "Agriculture",
       "g8": "English",
       "g9": "Kiswahili",
       "g7Double": false,
@@ -1648,7 +1648,7 @@ export const TIMETABLE_ARRANGEMENTS: SlotTemplate[][] = [
       "day": "Monday",
       "period": 2,
       "g7": "English",
-      "g8": "Kiswahili",
+      "g8": "CRE",
       "g9": "Mathematics",
       "g7Double": false,
       "g8Double": false,
@@ -1659,7 +1659,7 @@ export const TIMETABLE_ARRANGEMENTS: SlotTemplate[][] = [
       "period": 3,
       "g7": "Kiswahili",
       "g8": "Mathematics",
-      "g9": "English",
+      "g9": "Agriculture",
       "g7Double": false,
       "g8Double": false,
       "g9Double": false
@@ -1667,9 +1667,9 @@ export const TIMETABLE_ARRANGEMENTS: SlotTemplate[][] = [
     {
       "day": "Monday",
       "period": 4,
-      "g7": "Pre-Technical",
-      "g8": "Social Studies",
-      "g9": "Agriculture",
+      "g7": "Mathematics",
+      "g8": "Kiswahili",
+      "g9": "English",
       "g7Double": false,
       "g8Double": false,
       "g9Double": false
@@ -1688,8 +1688,8 @@ export const TIMETABLE_ARRANGEMENTS: SlotTemplate[][] = [
       "day": "Monday",
       "period": 6,
       "g7": "Integrated Science",
-      "g8": "CRE",
-      "g9": "Creative Arts and Sports",
+      "g8": "Social Studies",
+      "g9": "Pre-Technical",
       "g7Double": true,
       "g8Double": false,
       "g9Double": false
@@ -1697,7 +1697,7 @@ export const TIMETABLE_ARRANGEMENTS: SlotTemplate[][] = [
     {
       "day": "Monday",
       "period": 7,
-      "g7": "CRE",
+      "g7": "Social Studies",
       "g8": "Agriculture",
       "g9": "Pre-Technical",
       "g7Double": false,
@@ -1708,8 +1708,8 @@ export const TIMETABLE_ARRANGEMENTS: SlotTemplate[][] = [
       "day": "Monday",
       "period": 8,
       "g7": "Agriculture",
-      "g8": "Pre-Technical",
-      "g9": "CRE",
+      "g8": "Creative Arts and Sports",
+      "g9": "Social Studies",
       "g7Double": false,
       "g8Double": false,
       "g9Double": false
@@ -1717,8 +1717,8 @@ export const TIMETABLE_ARRANGEMENTS: SlotTemplate[][] = [
     {
       "day": "Tuesday",
       "period": 1,
-      "g7": "English",
-      "g8": "Kiswahili",
+      "g7": "Kiswahili",
+      "g8": "Agriculture",
       "g9": "Mathematics",
       "g7Double": false,
       "g8Double": false,
@@ -1727,7 +1727,7 @@ export const TIMETABLE_ARRANGEMENTS: SlotTemplate[][] = [
     {
       "day": "Tuesday",
       "period": 2,
-      "g7": "Mathematics",
+      "g7": "Integrated Science",
       "g8": "English",
       "g9": "Kiswahili",
       "g7Double": false,
@@ -1737,9 +1737,9 @@ export const TIMETABLE_ARRANGEMENTS: SlotTemplate[][] = [
     {
       "day": "Tuesday",
       "period": 3,
-      "g7": "Kiswahili",
+      "g7": "English",
       "g8": "Mathematics",
-      "g9": "English",
+      "g9": "Integrated Science",
       "g7Double": false,
       "g8Double": false,
       "g9Double": false
@@ -1747,9 +1747,9 @@ export const TIMETABLE_ARRANGEMENTS: SlotTemplate[][] = [
     {
       "day": "Tuesday",
       "period": 4,
-      "g7": "Pre-Technical",
-      "g8": "Social Studies",
-      "g9": "Integrated Science",
+      "g7": "Mathematics",
+      "g8": "Kiswahili",
+      "g9": "English",
       "g7Double": false,
       "g8Double": false,
       "g9Double": false
@@ -1759,7 +1759,7 @@ export const TIMETABLE_ARRANGEMENTS: SlotTemplate[][] = [
       "period": 5,
       "g7": "Creative Arts and Sports",
       "g8": "Integrated Science",
-      "g9": "Social Studies",
+      "g9": "CRE",
       "g7Double": false,
       "g8Double": true,
       "g9Double": false
@@ -1777,9 +1777,9 @@ export const TIMETABLE_ARRANGEMENTS: SlotTemplate[][] = [
     {
       "day": "Tuesday",
       "period": 7,
-      "g7": "Agriculture",
-      "g8": "Pre-Technical",
-      "g9": "CRE",
+      "g7": "Creative Arts and Sports",
+      "g8": "Integrated Science",
+      "g9": "Social Studies",
       "g7Double": false,
       "g8Double": false,
       "g9Double": false
@@ -1788,8 +1788,8 @@ export const TIMETABLE_ARRANGEMENTS: SlotTemplate[][] = [
       "day": "Tuesday",
       "period": 8,
       "g7": "CRE",
-      "g8": "Agriculture",
-      "g9": "Pre-Technical",
+      "g8": "Creative Arts and Sports",
+      "g9": "Integrated Science",
       "g7Double": false,
       "g8Double": false,
       "g9Double": false
@@ -1808,7 +1808,7 @@ export const TIMETABLE_ARRANGEMENTS: SlotTemplate[][] = [
       "day": "Wednesday",
       "period": 2,
       "g7": "English",
-      "g8": "Kiswahili",
+      "g8": "CRE",
       "g9": "Mathematics",
       "g7Double": false,
       "g8Double": false,
@@ -1828,7 +1828,7 @@ export const TIMETABLE_ARRANGEMENTS: SlotTemplate[][] = [
       "day": "Wednesday",
       "period": 4,
       "g7": "Integrated Science",
-      "g8": "Social Studies",
+      "g8": "Kiswahili",
       "g9": "Pre-Technical",
       "g7Double": false,
       "g8Double": false,
@@ -1837,8 +1837,8 @@ export const TIMETABLE_ARRANGEMENTS: SlotTemplate[][] = [
     {
       "day": "Wednesday",
       "period": 5,
-      "g7": "Social Studies",
-      "g8": "Creative Arts and Sports",
+      "g7": "CRE",
+      "g8": "Pre-Technical",
       "g9": "Integrated Science",
       "g7Double": false,
       "g8Double": false,
@@ -1847,8 +1847,8 @@ export const TIMETABLE_ARRANGEMENTS: SlotTemplate[][] = [
     {
       "day": "Wednesday",
       "period": 6,
-      "g7": "Creative Arts and Sports",
-      "g8": "CRE",
+      "g7": "Pre-Technical",
+      "g8": "Social Studies",
       "g9": "Integrated Science",
       "g7Double": false,
       "g8Double": false,
@@ -1857,6 +1857,66 @@ export const TIMETABLE_ARRANGEMENTS: SlotTemplate[][] = [
     {
       "day": "Wednesday",
       "period": 7,
+      "g7": "Integrated Science",
+      "g8": "Social Studies",
+      "g9": "Creative Arts and Sports",
+      "g7Double": false,
+      "g8Double": false,
+      "g9Double": false
+    },
+    {
+      "day": "Wednesday",
+      "period": 8,
+      "g7": "Social Studies",
+      "g8": "Creative Arts and Sports",
+      "g9": "Integrated Science",
+      "g7Double": false,
+      "g8Double": false,
+      "g9Double": false
+    },
+    {
+      "day": "Thursday",
+      "period": 1,
+      "g7": "Mathematics",
+      "g8": "Social Studies",
+      "g9": "English",
+      "g7Double": false,
+      "g8Double": false,
+      "g9Double": false
+    },
+    {
+      "day": "Thursday",
+      "period": 2,
+      "g7": "Kiswahili",
+      "g8": "English",
+      "g9": "Pre-Technical",
+      "g7Double": false,
+      "g8Double": false,
+      "g9Double": false
+    },
+    {
+      "day": "Thursday",
+      "period": 3,
+      "g7": "Agriculture",
+      "g8": "Mathematics",
+      "g9": "Kiswahili",
+      "g7Double": false,
+      "g8Double": false,
+      "g9Double": false
+    },
+    {
+      "day": "Thursday",
+      "period": 4,
+      "g7": "English",
+      "g8": "Kiswahili",
+      "g9": "Mathematics",
+      "g7Double": false,
+      "g8Double": false,
+      "g9Double": false
+    },
+    {
+      "day": "Thursday",
+      "period": 5,
       "g7": "Pre-Technical",
       "g8": "Integrated Science",
       "g9": "Social Studies",
@@ -1865,70 +1925,10 @@ export const TIMETABLE_ARRANGEMENTS: SlotTemplate[][] = [
       "g9Double": false
     },
     {
-      "day": "Wednesday",
-      "period": 8,
-      "g7": "CRE",
-      "g8": "Pre-Technical",
-      "g9": "Agriculture",
-      "g7Double": false,
-      "g8Double": false,
-      "g9Double": false
-    },
-    {
-      "day": "Thursday",
-      "period": 1,
-      "g7": "Integrated Science",
-      "g8": "Social Studies",
-      "g9": "English",
-      "g7Double": false,
-      "g8Double": false,
-      "g9Double": false
-    },
-    {
-      "day": "Thursday",
-      "period": 2,
-      "g7": "Kiswahili",
-      "g8": "Mathematics",
-      "g9": "Integrated Science",
-      "g7Double": false,
-      "g8Double": false,
-      "g9Double": false
-    },
-    {
-      "day": "Thursday",
-      "period": 3,
-      "g7": "Mathematics",
-      "g8": "English",
-      "g9": "Kiswahili",
-      "g7Double": false,
-      "g8Double": false,
-      "g9Double": false
-    },
-    {
-      "day": "Thursday",
-      "period": 4,
-      "g7": "English",
-      "g8": "Kiswahili",
-      "g9": "Mathematics",
-      "g7Double": false,
-      "g8Double": false,
-      "g9Double": false
-    },
-    {
-      "day": "Thursday",
-      "period": 5,
-      "g7": "Creative Arts and Sports",
-      "g8": "Integrated Science",
-      "g9": "Social Studies",
-      "g7Double": false,
-      "g8Double": false,
-      "g9Double": false
-    },
-    {
       "day": "Thursday",
       "period": 6,
-      "g7": "Social Studies",
-      "g8": "Creative Arts and Sports",
+      "g7": "Pre-Technical",
+      "g8": "CRE",
       "g9": "Agriculture",
       "g7Double": false,
       "g8Double": false,
@@ -1937,7 +1937,7 @@ export const TIMETABLE_ARRANGEMENTS: SlotTemplate[][] = [
     {
       "day": "Thursday",
       "period": 7,
-      "g7": "Agriculture",
+      "g7": "Pre-Technical",
       "g8": "CRE",
       "g9": "Creative Arts and Sports",
       "g7Double": false,
@@ -1947,56 +1947,6 @@ export const TIMETABLE_ARRANGEMENTS: SlotTemplate[][] = [
     {
       "day": "Thursday",
       "period": 8,
-      "g7": "Pre-Technical",
-      "g8": "Agriculture",
-      "g9": "CRE",
-      "g7Double": false,
-      "g8Double": false,
-      "g9Double": false
-    },
-    {
-      "day": "Friday",
-      "period": 1,
-      "g7": "Mathematics",
-      "g8": "English",
-      "g9": "Kiswahili",
-      "g7Double": false,
-      "g8Double": false,
-      "g9Double": false
-    },
-    {
-      "day": "Friday",
-      "period": 2,
-      "g7": "Kiswahili",
-      "g8": "Integrated Science",
-      "g9": "Mathematics",
-      "g7Double": false,
-      "g8Double": false,
-      "g9Double": false
-    },
-    {
-      "day": "Friday",
-      "period": 3,
-      "g7": "English",
-      "g8": "Mathematics",
-      "g9": "Integrated Science",
-      "g7Double": false,
-      "g8Double": false,
-      "g9Double": false
-    },
-    {
-      "day": "Friday",
-      "period": 4,
-      "g7": "Integrated Science",
-      "g8": "Kiswahili",
-      "g9": "English",
-      "g7Double": false,
-      "g8Double": false,
-      "g9Double": false
-    },
-    {
-      "day": "Friday",
-      "period": 5,
       "g7": "Creative Arts and Sports",
       "g8": "Agriculture",
       "g9": "CRE",
@@ -2006,9 +1956,59 @@ export const TIMETABLE_ARRANGEMENTS: SlotTemplate[][] = [
     },
     {
       "day": "Friday",
+      "period": 1,
+      "g7": "Kiswahili",
+      "g8": "Mathematics",
+      "g9": "English",
+      "g7Double": false,
+      "g8Double": false,
+      "g9Double": false
+    },
+    {
+      "day": "Friday",
+      "period": 2,
+      "g7": "Mathematics",
+      "g8": "English",
+      "g9": "Kiswahili",
+      "g7Double": false,
+      "g8Double": false,
+      "g9Double": false
+    },
+    {
+      "day": "Friday",
+      "period": 3,
+      "g7": "CRE",
+      "g8": "Integrated Science",
+      "g9": "Mathematics",
+      "g7Double": false,
+      "g8Double": false,
+      "g9Double": false
+    },
+    {
+      "day": "Friday",
+      "period": 4,
+      "g7": "English",
+      "g8": "Kiswahili",
+      "g9": "Agriculture",
+      "g7Double": false,
+      "g8Double": false,
+      "g9Double": false
+    },
+    {
+      "day": "Friday",
+      "period": 5,
+      "g7": "Agriculture",
+      "g8": "Pre-Technical",
+      "g9": "CRE",
+      "g7Double": false,
+      "g8Double": false,
+      "g9Double": false
+    },
+    {
+      "day": "Friday",
       "period": 6,
-      "g7": "Social Studies",
-      "g8": "Creative Arts and Sports",
+      "g7": "CRE",
+      "g8": "Pre-Technical",
       "g9": "Agriculture",
       "g7Double": false,
       "g8Double": false,
@@ -2017,9 +2017,9 @@ export const TIMETABLE_ARRANGEMENTS: SlotTemplate[][] = [
     {
       "day": "Friday",
       "period": 7,
-      "g7": "Agriculture",
-      "g8": "CRE",
-      "g9": "Pre-Technical",
+      "g7": "Creative Arts and Sports",
+      "g8": "Agriculture",
+      "g9": "CRE",
       "g7Double": false,
       "g8Double": false,
       "g9Double": false
@@ -2027,7 +2027,7 @@ export const TIMETABLE_ARRANGEMENTS: SlotTemplate[][] = [
     {
       "day": "Friday",
       "period": 8,
-      "g7": "CRE",
+      "g7": "Social Studies",
       "g8": "Pre-Technical",
       "g9": "Creative Arts and Sports",
       "g7Double": false,

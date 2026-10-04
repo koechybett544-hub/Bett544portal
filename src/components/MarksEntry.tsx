@@ -8,6 +8,7 @@ import {
   validatePointsInput,
 } from '../utils/grading';
 import { StorageService, TeacherLastSelection } from '../utils/storage';
+import { DateService } from '../utils/dateService';
 import { NativeBridge } from '../utils/nativeBridge';
 import {
   Save,
@@ -55,13 +56,16 @@ export const MarksEntry: React.FC<MarksEntryProps> = ({
     return StorageService.getLastSelection().subject || 'Mathematics';
   });
   const [selectedTerm, setSelectedTerm] = useState<'Term 1' | 'Term 2' | 'Term 3'>(() => {
-    return StorageService.getLastSelection().term || 'Term 3';
+    return StorageService.getLastSelection().term || DateService.getCurrentTerm();
   });
   const [selectedYear, setSelectedYear] = useState<string>(() => {
-    return StorageService.getLastSelection().academicYear || '2026';
+    return StorageService.getLastSelection().academicYear || DateService.getCurrentYear();
   });
 
-  const ACADEMIC_YEARS = ['2026', '2027', '2028', '2029', '2030'];
+  const ACADEMIC_YEARS = useMemo(() => {
+    const existing = learners.map((l) => l.academicYear).filter(Boolean);
+    return DateService.getAvailableAcademicYears(existing);
+  }, [learners]);
 
   // Filter missing marks toggle
   const [showMissingOnly, setShowMissingOnly] = useState(false);

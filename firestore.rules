@@ -65,6 +65,27 @@ service cloud.firestore {
       allow create, update, delete: if isSignedIn() && isValidId(docId);
     }
 
+    // Academic Year Management & Archives
+    match /academic_years/{yearId} {
+      allow read: if isSignedIn() && isValidId(yearId);
+      allow create, update: if isSignedIn() && isValidId(yearId);
+      allow delete: if isAdmin() && isValidId(yearId);
+    }
+
+    // Assessments & Batch Mark records
+    match /assessments/{docId} {
+      allow read: if isSignedIn() && isValidId(docId);
+      allow create, update: if isSignedIn() && isValidId(docId);
+      allow delete: if isAdmin() && isValidId(docId);
+    }
+
+    // Did You Know facts & admin overrides
+    match /did_you_know/{docId} {
+      allow read: if isSignedIn() && isValidId(docId);
+      allow create, update: if isSignedIn() && isValidId(docId);
+      allow delete: if isAdmin() && isValidId(docId);
+    }
+
     // Connection testing
     match /test/{docId} {
       allow read, write: if true;

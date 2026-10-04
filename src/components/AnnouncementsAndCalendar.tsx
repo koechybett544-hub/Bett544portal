@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Announcement, SchoolEvent, UserProfile } from '../types';
 import { DateService } from '../utils/dateService';
+import { WeeklyInspirationCard } from './WeeklyInspirationCard';
 import {
   Megaphone,
   Calendar,
@@ -18,6 +19,7 @@ interface AnnouncementsAndCalendarProps {
   currentUser: UserProfile;
   onAddAnnouncement: (announcement: Announcement) => void;
   onShowSuccessToast: (msg: string) => void;
+  initialTab?: 'announcements' | 'calendar';
 }
 
 export const AnnouncementsAndCalendar: React.FC<AnnouncementsAndCalendarProps> = ({
@@ -26,8 +28,15 @@ export const AnnouncementsAndCalendar: React.FC<AnnouncementsAndCalendarProps> =
   currentUser,
   onAddAnnouncement,
   onShowSuccessToast,
+  initialTab = 'announcements',
 }) => {
-  const [activeTab, setActiveTab] = useState<'announcements' | 'calendar'>('announcements');
+  const [activeTab, setActiveTab] = useState<'announcements' | 'calendar'>(initialTab);
+
+  React.useEffect(() => {
+    if (initialTab) {
+      setActiveTab(initialTab);
+    }
+  }, [initialTab]);
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
   const [showAddModal, setShowAddModal] = useState(false);
 
@@ -91,8 +100,8 @@ export const AnnouncementsAndCalendar: React.FC<AnnouncementsAndCalendarProps> =
                   : 'text-stone-600 dark:text-stone-400 hover:text-stone-900 dark:hover:text-stone-200'
               }`}
             >
-              <Megaphone className="w-3.5 h-3.5" />
-              <span>Announcements</span>
+              <Megaphone className="w-3.5 h-3.5 text-[#6b1426] dark:text-rose-400" />
+              <span>Announcements &amp; Weekly Inspiration</span>
             </button>
 
             <button
@@ -120,7 +129,10 @@ export const AnnouncementsAndCalendar: React.FC<AnnouncementsAndCalendarProps> =
 
       {/* VIEW 1: ANNOUNCEMENTS */}
       {activeTab === 'announcements' && (
-        <div className="space-y-4">
+        <div className="space-y-5">
+          {/* WEEKLY INSPIRATION SECTION (Prominent Notice Board Feature) */}
+          <WeeklyInspirationCard currentUser={currentUser} onShowSuccessToast={onShowSuccessToast} />
+
           {/* Category filter pills */}
           <div className="flex flex-wrap gap-1.5 text-xs">
             {(['all', 'Deadlines', 'Staff Meeting', 'Administrative', 'School Events'] as const).map(

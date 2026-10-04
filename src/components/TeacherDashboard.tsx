@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { UserProfile, TeacherActivity, Announcement } from '../types';
 import { SCHOOL_INFO, SUBJECTS } from '../data/initialData';
 import { TeachersDetailsModal } from './TeachersDetailsModal';
+import { WeeklyInspirationCard } from './WeeklyInspirationCard';
+import { getCurrentWeekInspiration } from '../data/weeklyInspirationData';
 import { useRealtimeDate } from '../utils/dateService';
 import { generateLearningResourcePdf } from '../utils/pdfExport';
 import { INITIAL_LEARNING_RESOURCES, LearningResourceItem } from './DocumentCenter';
@@ -32,6 +34,8 @@ import {
   Award,
   Activity,
   History,
+  Sparkles,
+  Eye,
 } from 'lucide-react';
 
 interface TeacherDashboardProps {
@@ -160,7 +164,7 @@ export const TeacherDashboard: React.FC<TeacherDashboardProps> = ({
       grade: newResGrade,
       subject: newResSubject,
       category: newResCategory,
-      term: 'Term 3',
+      term: SCHOOL_INFO.currentTerm,
       fileType: 'PDF',
       fileSize: newResFile ? `${(newResFile.size / (1024 * 1024)).toFixed(1)} MB` : '1.2 MB',
       author: currentUser?.name || 'Teacher Staff',
@@ -251,6 +255,50 @@ export const TeacherDashboard: React.FC<TeacherDashboardProps> = ({
         onShowSuccessToast={onShowSuccessToast}
       />
 
+      {/* 🌟 WEEKLY INSPIRATION (ASPIRATION) HERO NOTICE BOARD BANNER */}
+      {(() => {
+        const currentInsp = getCurrentWeekInspiration();
+        return (
+          <div className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-amber-50 via-white to-rose-50 dark:from-stone-900 dark:via-stone-900 dark:to-rose-950/30 border-2 border-rose-200/90 dark:border-rose-900/60 p-4 sm:p-5 shadow-sm transition hover:shadow-md">
+            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+              <div className="flex items-start sm:items-center gap-3.5 min-w-0">
+                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-[#6b1426] text-amber-300 shadow-md">
+                  <Sparkles className="w-6 h-6 animate-pulse" />
+                </div>
+                <div className="min-w-0">
+                  <div className="flex flex-wrap items-center gap-2">
+                    <span className="text-[10px] font-black uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-[#6b1426] text-white">
+                      Notice Board • Weekly Inspiration
+                    </span>
+                    <span className="text-xs font-black text-[#6b1426] dark:text-rose-400">
+                      {currentInsp.weekDatesFormatted}
+                    </span>
+                  </div>
+                  <h3 className="text-sm sm:text-base font-black text-stone-900 dark:text-stone-100 mt-1 truncate">
+                    "{currentInsp.inspiration.motivation}"
+                  </h3>
+                  <p className="text-xs text-stone-600 dark:text-stone-400 italic line-clamp-1">
+                    Wisdom: "{currentInsp.inspiration.verseOrWisdom}"
+                    {currentInsp.inspiration.verseReference ? ` — ${currentInsp.inspiration.verseReference}` : ''}
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex items-center gap-2 shrink-0 self-start md:self-auto">
+                <button
+                  type="button"
+                  onClick={() => onNavigate('announcements')}
+                  className="px-4 py-2.5 rounded-2xl bg-[#6b1426] hover:bg-[#520f1d] active:scale-95 text-white text-xs font-black flex items-center gap-1.5 shadow-sm transition cursor-pointer"
+                >
+                  <Eye className="w-4 h-4 text-amber-300" />
+                  <span>View Weekly Inspiration &amp; Posters</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        );
+      })()}
+
       {/* Academic Management Modules */}
       <div>
         <div className="flex items-center justify-between mb-3">
@@ -332,7 +380,7 @@ export const TeacherDashboard: React.FC<TeacherDashboardProps> = ({
                 />
               </div>
               <span className="text-[10px] font-extrabold px-1.5 py-0.5 rounded-full bg-rose-100 dark:bg-rose-950 text-[#6b1426] dark:text-rose-200 border border-rose-300">
-                Bell 2026
+                Bell {SCHOOL_INFO.currentYear}
               </span>
             </div>
             <div className="text-xs sm:text-sm font-black text-stone-900 dark:text-stone-100 group-hover:text-[#6b1426] dark:group-hover:text-rose-400 tracking-tight">
@@ -471,30 +519,30 @@ export const TeacherDashboard: React.FC<TeacherDashboardProps> = ({
             <div className="text-[11px] text-stone-500 dark:text-stone-400 mt-0.5 truncate">Staff Action Logs</div>
           </button>
 
-          {/* 9. SCHOOL ANNOUNCEMENTS */}
+          {/* 9. SCHOOL ANNOUNCEMENTS & WEEKLY INSPIRATION */}
           <button
             id="module-announcements"
-            onClick={() => setAnnouncementsModalOpen(true)}
-            className="flex flex-col p-3.5 sm:p-4 rounded-3xl bg-white dark:bg-stone-900 border-2 border-sky-200 dark:border-sky-900/60 hover:border-sky-600 dark:hover:border-sky-500 shadow-xs hover:shadow-lg transition-all duration-200 text-left active:scale-[0.98] group relative overflow-hidden"
+            onClick={() => onNavigate('announcements')}
+            className="flex flex-col p-3.5 sm:p-4 rounded-3xl bg-white dark:bg-stone-900 border-2 border-rose-200 dark:border-rose-900/60 hover:border-[#6b1426] dark:hover:border-rose-600 shadow-xs hover:shadow-lg transition-all duration-200 text-left active:scale-[0.98] group relative overflow-hidden"
           >
-            <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-sky-400 to-cyan-600" />
+            <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-amber-400 via-rose-500 to-sky-500" />
             <div className="flex items-center justify-between mb-2.5">
               <div className="h-12 w-12 rounded-2xl overflow-hidden shadow-xs border border-stone-200 dark:border-stone-700 group-hover:scale-105 transition shrink-0 bg-stone-100 dark:bg-stone-800">
                 <img
                   src="https://images.unsplash.com/photo-1557804506-669a67965ba0?auto=format&fit=crop&w=160&q=80"
-                  alt="School Announcements"
+                  alt="School Announcements & Weekly Inspiration"
                   className="h-full w-full object-cover"
                   loading="lazy"
                 />
               </div>
-              <span className="text-[10px] font-extrabold px-1.5 py-0.5 rounded-full bg-sky-100 dark:bg-sky-950 text-sky-900 dark:text-sky-200 border border-sky-300">
-                Circulars
+              <span className="text-[10px] font-extrabold px-1.5 py-0.5 rounded-full bg-rose-100 dark:bg-rose-950 text-[#6b1426] dark:text-rose-300 border border-rose-300 animate-pulse">
+                Weekly Inspiration
               </span>
             </div>
-            <div className="text-xs sm:text-sm font-black text-stone-900 dark:text-stone-100 group-hover:text-sky-900 dark:group-hover:text-sky-300 tracking-tight">
+            <div className="text-xs sm:text-sm font-black text-stone-900 dark:text-stone-100 group-hover:text-[#6b1426] dark:group-hover:text-rose-300 tracking-tight">
               ANNOUNCEMENTS
             </div>
-            <div className="text-[11px] text-stone-500 dark:text-stone-400 mt-0.5 truncate">Circulars &amp; Notices</div>
+            <div className="text-[11px] text-stone-500 dark:text-stone-400 mt-0.5 truncate">Weekly Inspiration &amp; Notices</div>
           </button>
 
           {/* 10. MY PROFILE */}
@@ -677,6 +725,28 @@ export const TeacherDashboard: React.FC<TeacherDashboardProps> = ({
 
             {/* Announcements List */}
             <div className="p-4 sm:p-6 overflow-y-auto space-y-4 flex-1 bg-white dark:bg-stone-900">
+              {/* Weekly Inspiration Section inside Modal */}
+              <WeeklyInspirationCard
+                currentUser={currentUser || undefined}
+                onShowSuccessToast={onShowSuccessToast}
+              />
+
+              <div className="pt-2 border-t border-stone-200 dark:border-stone-800 flex items-center justify-between">
+                <span className="text-xs font-black uppercase text-stone-500 tracking-wider">
+                  School Circulars &amp; Notices
+                </span>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setAnnouncementsModalOpen(false);
+                    onNavigate('announcements');
+                  }}
+                  className="text-xs font-bold text-[#6b1426] dark:text-rose-400 hover:underline"
+                >
+                  View Full Notice Board Page →
+                </button>
+              </div>
+
               {filteredAnnouncements.length > 0 ? (
                 filteredAnnouncements.map((ann) => (
                   <div

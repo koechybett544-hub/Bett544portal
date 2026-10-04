@@ -138,7 +138,7 @@ export const MoreMenuModal: React.FC<MoreMenuModalProps> = ({
             className="flex flex-col items-center justify-center p-3 rounded-xl bg-stone-50 dark:bg-stone-800/80 hover:bg-orange-50 dark:hover:bg-stone-700 border border-stone-200 dark:border-stone-700 text-stone-800 dark:text-stone-200 hover:text-orange-950 dark:hover:text-stone-100 font-bold transition"
           >
             <Megaphone className="w-5 h-5 text-orange-700 dark:text-orange-400 mb-1" />
-            <span>Announcements</span>
+            <span className="text-center leading-tight">Announcements &amp; Inspiration</span>
           </button>
 
           <button

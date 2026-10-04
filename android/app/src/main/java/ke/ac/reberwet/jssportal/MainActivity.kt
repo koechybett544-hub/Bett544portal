@@ -1,9 +1,11 @@
 package ke.ac.reberwet.jssportal
 
+import android.Manifest
 import android.annotation.SuppressLint
 import android.app.DownloadManager
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.net.Uri
@@ -22,6 +24,7 @@ import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 
 class MainActivity : AppCompatActivity() {
@@ -31,8 +34,15 @@ class MainActivity : AppCompatActivity() {
     private lateinit var progressBar: ProgressBar
     private lateinit var offlineLayout: LinearLayout
     private lateinit var btnRetry: Button
+    private lateinit var appInterface: WebAppInterface
 
     private var fileUploadCallback: ValueCallback<Array<Uri>>? = null
+
+    // Pending download parameters if runtime permission is needed (Android 9 and below)
+    private var pendingDownloadUrl: String? = null
+    private var pendingUserAgent: String? = null
+    private var pendingContentDisposition: String? = null
+    private var pendingMimetype: String? = null
 
     // Launcher for file selection (student photos, reports, csv)
     private val filePickerLauncher = registerForActivityResult(
@@ -57,9 +67,31 @@ class MainActivity : AppCompatActivity() {
         fileUploadCallback = null
     }
 
+    // Permission launcher for older Android devices (API <= 28)
+    private val storagePermissionLauncher = registerForActivityResult(
+        ActivityResultContracts.RequestPermission()
+    ) { isGranted ->
+        if (isGranted) {
+            pendingDownloadUrl?.let { url ->
+                enqueueDownloadManager(
+                    url,
+                    pendingUserAgent ?: "",
+                    pendingContentDisposition ?: "",
+                    pendingMimetype ?: "application/octet-stream"
+                )
+            }
+        } else {
+            Toast.makeText(this, "Storage permission is required to save downloads on this Android version.", Toast.LENGTH_LONG).show()
+        }
+        pendingDownloadUrl = null
+        pendingUserAgent = null
+        pendingContentDisposition = null
+        pendingMimetype = null
+    }
+
     companion object {
         // Direct Standalone Reberwet Portal URL - Launches directly with zero AI Studio dependencies
-        const val PRODUCTION_PORTAL_URL = "https://ais-pre-azyu2vozxqh6ytvyj4vnty-874645802870.europe-west2.run.app"
+        const val PRODUCTION_PORTAL_URL = "https://ais-pre-brto7rvnc34xdj7v3kvy3y-516798102925.europe-west2.run.app"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -69,7 +101,6 @@ class MainActivity : AppCompatActivity() {
         initViews()
         setupWebView()
         setupBackNavigation()
-
         loadPortalUrl()
     }
 
@@ -103,7 +134,7 @@ class MainActivity : AppCompatActivity() {
                 webView.visibility = View.VISIBLE
                 loadPortalUrl()
             } else {
-                Toast.makeText(this, "No internet connection detected. Please check data/Wi-Fi.", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "No internet connection detected.", Toast.LENGTH_SHORT).show()
             }
         }
     }
@@ -133,7 +164,9 @@ class MainActivity : AppCompatActivity() {
         settings.userAgentString = "$defaultUserAgent ReberwetAndroidApp/2.6.0 StandaloneMobile"
 
         // Inject Native JavaScript Bridge
-        webView.addJavascriptInterface(WebAppInterface(this, webView), "AndroidBridge")
+        appInterface = WebAppInterface(this, webView)
+        webView.addJavascriptInterface(appInterface, "AndroidBridge")
+        webView.addJavascriptInterface(appInterface, "Android")
 
         // Attach Clients
         webView.webViewClient = PortalWebViewClient(
@@ -165,28 +198,95 @@ class MainActivity : AppCompatActivity() {
         )
 
         // Native Download Listener for report cards, certificates, CSV exports
+        // Properly handles blob:, data:, and remote URLs without "permission not granted" failures
         webView.setDownloadListener { url, userAgent, contentDisposition, mimetype, _ ->
             try {
-                val request = DownloadManager.Request(Uri.parse(url)).apply {
-                    setMimeType(mimetype)
-                    addRequestHeader("User-Agent", userAgent)
-                    setDescription("Downloading Reberwet JSS Document")
-                    setTitle(URLUtil.guessFileName(url, contentDisposition, mimetype))
-                    setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
-                    setDestinationInExternalPublicDir(
-                        Environment.DIRECTORY_DOWNLOADS,
-                        URLUtil.guessFileName(url, contentDisposition, mimetype)
-                    )
+                val guessedFileName = URLUtil.guessFileName(url, contentDisposition, mimetype)
+                val finalFileName = if (guessedFileName.contains(".")) guessedFileName else "$guessedFileName.pdf"
+
+                if (url.startsWith("data:")) {
+                    // Direct base64 data URI handling via AndroidBridge (no DownloadManager error)
+                    appInterface.saveBase64File(url, finalFileName, mimetype ?: "application/octet-stream")
+                } else if (url.startsWith("blob:")) {
+                    // Blob URLs cannot be handled by DownloadManager. Convert to base64 via JavaScript!
+                    handleBlobDownload(url, finalFileName, mimetype ?: "application/pdf")
+                } else {
+                    // Standard remote HTTP/HTTPS URL
+                    if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.P) {
+                        if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                            pendingDownloadUrl = url
+                            pendingUserAgent = userAgent
+                            pendingContentDisposition = contentDisposition
+                            pendingMimetype = mimetype
+                            storagePermissionLauncher.launch(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                            return@setDownloadListener
+                        }
+                    }
+                    enqueueDownloadManager(url, userAgent, contentDisposition, mimetype)
                 }
-                val dm = getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
-                dm.enqueue(request)
-                Toast.makeText(this, "Downloading file to Downloads folder...", Toast.LENGTH_SHORT).show()
             } catch (e: Exception) {
-                // If it's a blob/data URI or custom scheme
-                val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
-                startActivity(intent)
+                try {
+                    val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+                    startActivity(intent)
+                } catch (_: Exception) {
+                    Toast.makeText(this, "Could not complete download: ${e.message}", Toast.LENGTH_SHORT).show()
+                }
             }
         }
+    }
+
+    /**
+     * Converts a local WebView blob: URL into base64 and saves it directly to Downloads.
+     * Prevents the "permission not granted. download failed" error when downloading PDFs in WebViews!
+     */
+    private fun handleBlobDownload(blobUrl: String, fileName: String, mimeType: String) {
+        val safeFileName = fileName.replace("'", "\\'").replace("\"", "\\\"")
+        val safeMimeType = mimeType.replace("'", "\\'").replace("\"", "\\\"")
+        val js = """
+            (function() {
+                try {
+                    var xhr = new XMLHttpRequest();
+                    xhr.open('GET', '$blobUrl', true);
+                    xhr.responseType = 'blob';
+                    xhr.onload = function() {
+                        if (this.status === 200 || this.status === 0) {
+                            var blob = this.response;
+                            var reader = new FileReader();
+                            reader.readAsDataURL(blob);
+                            reader.onloadend = function() {
+                                if (window.AndroidBridge && typeof window.AndroidBridge.saveBase64File === 'function') {
+                                    window.AndroidBridge.saveBase64File(reader.result, '$safeFileName', '$safeMimeType');
+                                }
+                            };
+                        }
+                    };
+                    xhr.onerror = function() {
+                        console.error('Blob download network error');
+                    };
+                    xhr.send();
+                } catch(e) {
+                    console.error('Blob convert error', e);
+                }
+            })();
+        """.trimIndent()
+        webView.evaluateJavascript(js, null)
+    }
+
+    private fun enqueueDownloadManager(url: String, userAgent: String, contentDisposition: String, mimetype: String) {
+        val request = DownloadManager.Request(Uri.parse(url)).apply {
+            setMimeType(mimetype)
+            addRequestHeader("User-Agent", userAgent)
+            setDescription("Downloading Reberwet JSS Document")
+            setTitle(URLUtil.guessFileName(url, contentDisposition, mimetype))
+            setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
+            setDestinationInExternalPublicDir(
+                Environment.DIRECTORY_DOWNLOADS,
+                URLUtil.guessFileName(url, contentDisposition, mimetype)
+            )
+        }
+        val dm = getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
+        dm.enqueue(request)
+        Toast.makeText(this, "Downloading file to Downloads folder...", Toast.LENGTH_SHORT).show()
     }
 
     private fun setupBackNavigation() {
@@ -203,30 +303,18 @@ class MainActivity : AppCompatActivity() {
 
     private fun loadPortalUrl() {
         progressBar.visibility = View.VISIBLE
-        if (isNetworkAvailable()) {
-            webView.loadUrl(PRODUCTION_PORTAL_URL)
-        } else {
-            // Attempt to load from cache
-            webView.settings.cacheMode = WebSettings.LOAD_CACHE_ELSE_NETWORK
-            webView.loadUrl(PRODUCTION_PORTAL_URL)
-        }
-    }
-
-    private fun showOfflineNotice() {
-        progressBar.visibility = View.GONE
-        offlineLayout.visibility = View.VISIBLE
-        webView.visibility = View.GONE
+        webView.loadUrl(PRODUCTION_PORTAL_URL)
     }
 
     private fun isNetworkAvailable(): Boolean {
         val connectivityManager = getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         val network = connectivityManager.activeNetwork ?: return false
-        val actNw = connectivityManager.getNetworkCapabilities(network) ?: return false
-        return actNw.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
+        val capabilities = connectivityManager.getNetworkCapabilities(network) ?: return false
+        return capabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
     }
 
-    override fun onDestroy() {
-        webView.destroy()
-        super.onDestroy()
+    private fun showOfflineNotice() {
+        offlineLayout.visibility = View.VISIBLE
+        progressBar.visibility = View.GONE
     }
 }

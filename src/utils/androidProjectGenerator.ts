@@ -182,6 +182,7 @@ dependencies {
         android:supportsRtl="true"
         android:theme="@style/Theme.ReberwetPortal"
         android:networkSecurityConfig="@xml/network_security_config"
+        android:requestLegacyExternalStorage="true"
         android:usesCleartextTraffic="false"
         tools:targetApi="35">
 
@@ -202,7 +203,7 @@ dependencies {
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
                 <data android:scheme="https"
-                    android:host="ais-pre-azyu2vozxqh6ytvyj4vnty-874645802870.europe-west2.run.app" />
+                    android:host="ais-pre-brto7rvnc34xdj7v3kvy3y-516798102925.europe-west2.run.app" />
             </intent-filter>
         </activity>
 
@@ -226,10 +227,12 @@ dependencies {
     'app/src/main/java/ke/ac/reberwet/jssportal/MainActivity.kt',
     `package ke.ac.reberwet.jssportal
 
+import android.Manifest
 import android.annotation.SuppressLint
 import android.app.DownloadManager
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.net.Uri
@@ -248,6 +251,7 @@ import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 
 class MainActivity : AppCompatActivity() {
@@ -257,9 +261,17 @@ class MainActivity : AppCompatActivity() {
     private lateinit var progressBar: ProgressBar
     private lateinit var offlineLayout: LinearLayout
     private lateinit var btnRetry: Button
+    private lateinit var appInterface: WebAppInterface
 
     private var fileUploadCallback: ValueCallback<Array<Uri>>? = null
 
+    // Pending download parameters if runtime permission is needed (Android 9 and below)
+    private var pendingDownloadUrl: String? = null
+    private var pendingUserAgent: String? = null
+    private var pendingContentDisposition: String? = null
+    private var pendingMimetype: String? = null
+
+    // Launcher for file selection (student photos, reports, csv)
     private val filePickerLauncher = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()
     ) { result ->
@@ -282,8 +294,30 @@ class MainActivity : AppCompatActivity() {
         fileUploadCallback = null
     }
 
+    // Permission launcher for older Android devices (API <= 28)
+    private val storagePermissionLauncher = registerForActivityResult(
+        ActivityResultContracts.RequestPermission()
+    ) { isGranted ->
+        if (isGranted) {
+            pendingDownloadUrl?.let { url ->
+                enqueueDownloadManager(
+                    url,
+                    pendingUserAgent ?: "",
+                    pendingContentDisposition ?: "",
+                    pendingMimetype ?: "application/octet-stream"
+                )
+            }
+        } else {
+            Toast.makeText(this, "Storage permission is required to save downloads on this Android version.", Toast.LENGTH_LONG).show()
+        }
+        pendingDownloadUrl = null
+        pendingUserAgent = null
+        pendingContentDisposition = null
+        pendingMimetype = null
+    }
+
     companion object {
-        const val PRODUCTION_PORTAL_URL = "https://ais-pre-azyu2vozxqh6ytvyj4vnty-874645802870.europe-west2.run.app"
+        const val PRODUCTION_PORTAL_URL = "https://ais-pre-brto7rvnc34xdj7v3kvy3y-516798102925.europe-west2.run.app"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -353,7 +387,9 @@ class MainActivity : AppCompatActivity() {
         val defaultUserAgent = settings.userAgentString
         settings.userAgentString = "$defaultUserAgent ReberwetAndroidApp/2.6.0 StandaloneMobile"
 
-        webView.addJavascriptInterface(WebAppInterface(this, webView), "AndroidBridge")
+        appInterface = WebAppInterface(this, webView)
+        webView.addJavascriptInterface(appInterface, "AndroidBridge")
+        webView.addJavascriptInterface(appInterface, "Android")
 
         webView.webViewClient = PortalWebViewClient(
             swipeRefreshLayout = swipeRefreshLayout,
@@ -383,65 +419,96 @@ class MainActivity : AppCompatActivity() {
             }
         )
 
+        // Native Download Listener for report cards, certificates, CSV exports
+        // Properly handles blob:, data:, and remote URLs without "permission not granted" failures
         webView.setDownloadListener { url, userAgent, contentDisposition, mimetype, _ ->
             try {
-                if (url.startsWith("data:application/pdf;base64,")) {
-                    val base64Data = url.substringAfter("base64,")
-                    val fileName = URLUtil.guessFileName(url, contentDisposition, "application/pdf")
-                    val finalName = if (fileName.endsWith(".pdf")) fileName else "$fileName.pdf"
-                    val bytes = android.util.Base64.decode(base64Data, android.util.Base64.DEFAULT)
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-                        val resolver = contentResolver
-                        val contentValues = android.content.ContentValues().apply {
-                            put(android.provider.MediaStore.MediaColumns.DISPLAY_NAME, finalName)
-                            put(android.provider.MediaStore.MediaColumns.MIME_TYPE, "application/pdf")
-                            put(android.provider.MediaStore.MediaColumns.RELATIVE_PATH, android.os.Environment.DIRECTORY_DOWNLOADS)
-                        }
-                        val uri = resolver.insert(android.provider.MediaStore.Downloads.EXTERNAL_CONTENT_URI, contentValues)
-                        if (uri != null) {
-                            resolver.openOutputStream(uri)?.use { os ->
-                                os.write(bytes)
-                                os.flush()
-                            }
-                            Toast.makeText(this, "Saved $finalName to Downloads folder", Toast.LENGTH_LONG).show()
-                        }
-                    } else {
-                        val downloadsDir = android.os.Environment.getExternalStoragePublicDirectory(android.os.Environment.DIRECTORY_DOWNLOADS)
-                        if (!downloadsDir.exists()) downloadsDir.mkdirs()
-                        val file = java.io.File(downloadsDir, finalName)
-                        java.io.FileOutputStream(file).use { fos ->
-                            fos.write(bytes)
-                            fos.flush()
-                        }
-                        android.media.MediaScannerConnection.scanFile(this, arrayOf(file.absolutePath), arrayOf("application/pdf"), null)
-                        Toast.makeText(this, "Saved $finalName to Downloads folder", Toast.LENGTH_LONG).show()
-                    }
-                    return@setDownloadListener
-                }
+                val guessedFileName = URLUtil.guessFileName(url, contentDisposition, mimetype)
+                val finalFileName = if (guessedFileName.contains(".")) guessedFileName else "$guessedFileName.pdf"
 
-                val request = DownloadManager.Request(Uri.parse(url)).apply {
-                    setMimeType(mimetype)
-                    addRequestHeader("User-Agent", userAgent)
-                    setDescription("Downloading Reberwet JSS Document")
-                    setTitle(URLUtil.guessFileName(url, contentDisposition, mimetype))
-                    setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
-                    setDestinationInExternalPublicDir(
-                        Environment.DIRECTORY_DOWNLOADS,
-                        URLUtil.guessFileName(url, contentDisposition, mimetype)
-                    )
+                if (url.startsWith("data:")) {
+                    // Direct base64 data URI handling via AndroidBridge (no DownloadManager error)
+                    appInterface.saveBase64File(url, finalFileName, mimetype ?: "application/octet-stream")
+                } else if (url.startsWith("blob:")) {
+                    // Blob URLs cannot be handled by DownloadManager. Convert to base64 via JavaScript!
+                    handleBlobDownload(url, finalFileName, mimetype ?: "application/pdf")
+                } else {
+                    // Standard remote HTTP/HTTPS URL
+                    if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.P) {
+                        if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                            pendingDownloadUrl = url
+                            pendingUserAgent = userAgent
+                            pendingContentDisposition = contentDisposition
+                            pendingMimetype = mimetype
+                            storagePermissionLauncher.launch(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                            return@setDownloadListener
+                        }
+                    }
+                    enqueueDownloadManager(url, userAgent, contentDisposition, mimetype)
                 }
-                val dm = getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
-                dm.enqueue(request)
-                Toast.makeText(this, "Downloading file to Downloads folder...", Toast.LENGTH_SHORT).show()
-            } catch (_: Exception) {
+            } catch (e: Exception) {
                 try {
                     val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
                     startActivity(intent)
-                } catch (__: Exception) {
-                    Toast.makeText(this, "Download failed", Toast.LENGTH_SHORT).show()
+                } catch (_: Exception) {
+                    Toast.makeText(this, "Could not complete download: \${e.message}", Toast.LENGTH_SHORT).show()
                 }
             }
         }
+    }
+
+    /**
+     * Converts a local WebView blob: URL into base64 and saves it directly to Downloads.
+     * Prevents the "permission not granted. download failed" error when downloading PDFs in WebViews!
+     */
+    private fun handleBlobDownload(blobUrl: String, fileName: String, mimeType: String) {
+        val safeFileName = fileName.replace("'", "\\'").replace("\"", "\\\"")
+        val safeMimeType = mimeType.replace("'", "\\'").replace("\"", "\\\"")
+        val js = """
+            (function() {
+                try {
+                    var xhr = new XMLHttpRequest();
+                    xhr.open('GET', '$blobUrl', true);
+                    xhr.responseType = 'blob';
+                    xhr.onload = function() {
+                        if (this.status === 200 || this.status === 0) {
+                            var blob = this.response;
+                            var reader = new FileReader();
+                            reader.readAsDataURL(blob);
+                            reader.onloadend = function() {
+                                if (window.AndroidBridge && typeof window.AndroidBridge.saveBase64File === 'function') {
+                                    window.AndroidBridge.saveBase64File(reader.result, '$safeFileName', '$safeMimeType');
+                                }
+                            };
+                        }
+                    };
+                    xhr.onerror = function() {
+                        console.error('Blob download network error');
+                    };
+                    xhr.send();
+                } catch(e) {
+                    console.error('Blob convert error', e);
+                }
+            })();
+        """.trimIndent()
+        webView.evaluateJavascript(js, null)
+    }
+
+    private fun enqueueDownloadManager(url: String, userAgent: String, contentDisposition: String, mimetype: String) {
+        val request = DownloadManager.Request(Uri.parse(url)).apply {
+            setMimeType(mimetype)
+            addRequestHeader("User-Agent", userAgent)
+            setDescription("Downloading Reberwet JSS Document")
+            setTitle(URLUtil.guessFileName(url, contentDisposition, mimetype))
+            setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
+            setDestinationInExternalPublicDir(
+                Environment.DIRECTORY_DOWNLOADS,
+                URLUtil.guessFileName(url, contentDisposition, mimetype)
+            )
+        }
+        val dm = getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
+        dm.enqueue(request)
+        Toast.makeText(this, "Downloading file to Downloads folder...", Toast.LENGTH_SHORT).show()
     }
 
     private fun setupBackNavigation() {
@@ -491,23 +558,38 @@ class MainActivity : AppCompatActivity() {
     'app/src/main/java/ke/ac/reberwet/jssportal/WebAppInterface.kt',
     `package ke.ac.reberwet.jssportal
 
+import android.content.ContentValues
 import android.content.Context
 import android.content.Intent
+import android.media.MediaScannerConnection
+import android.net.Uri
 import android.os.Build
+import android.os.Environment
 import android.os.VibrationEffect
 import android.os.Vibrator
 import android.os.VibratorManager
+import android.provider.MediaStore
+import android.util.Base64
 import android.webkit.JavascriptInterface
 import android.webkit.WebView
 import android.widget.Toast
+import java.io.File
+import java.io.FileOutputStream
 
+/**
+ * Native JavaScript Bridge exposed to the Reberwet JSS Web Portal as \`window.AndroidBridge\`
+ */
 class WebAppInterface(private val context: Context, private val webView: WebView) {
 
     @JavascriptInterface
-    fun isAndroidApp(): Boolean = true
+    fun isAndroidApp(): Boolean {
+        return true
+    }
 
     @JavascriptInterface
-    fun getAppVersion(): String = "2.6.0"
+    fun getAppVersion(): String {
+        return "2.6.0"
+    }
 
     @JavascriptInterface
     fun showToast(message: String) {
@@ -517,52 +599,15 @@ class WebAppInterface(private val context: Context, private val webView: WebView
     }
 
     @JavascriptInterface
-    fun savePdfToDownloads(base64Data: String, fileName: String): Boolean {
-        return try {
-            val bytes = android.util.Base64.decode(base64Data, android.util.Base64.DEFAULT)
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-                val resolver = context.contentResolver
-                val contentValues = android.content.ContentValues().apply {
-                    put(android.provider.MediaStore.MediaColumns.DISPLAY_NAME, fileName)
-                    put(android.provider.MediaStore.MediaColumns.MIME_TYPE, "application/pdf")
-                    put(android.provider.MediaStore.MediaColumns.RELATIVE_PATH, android.os.Environment.DIRECTORY_DOWNLOADS)
-                }
-                val uri = resolver.insert(android.provider.MediaStore.Downloads.EXTERNAL_CONTENT_URI, contentValues)
-                if (uri != null) {
-                    resolver.openOutputStream(uri)?.use { outputStream ->
-                        outputStream.write(bytes)
-                        outputStream.flush()
-                    }
-                    webView.post {
-                        Toast.makeText(context, "Saved $fileName to Downloads", Toast.LENGTH_LONG).show()
-                    }
-                    true
-                } else false
-            } else {
-                val downloadsDir = android.os.Environment.getExternalStoragePublicDirectory(android.os.Environment.DIRECTORY_DOWNLOADS)
-                if (!downloadsDir.exists()) downloadsDir.mkdirs()
-                val file = java.io.File(downloadsDir, fileName)
-                java.io.FileOutputStream(file).use { fos ->
-                    fos.write(bytes)
-                    fos.flush()
-                }
-                android.media.MediaScannerConnection.scanFile(context, arrayOf(file.absolutePath), arrayOf("application/pdf"), null)
-                webView.post {
-                    Toast.makeText(context, "Saved $fileName to Downloads", Toast.LENGTH_LONG).show()
-                }
-                true
+    fun openInBrowser(url: String) {
+        try {
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url)).apply {
+                addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
             }
-        } catch (e: Exception) {
-            webView.post {
-                Toast.makeText(context, "Error saving PDF: \${e.message}", Toast.LENGTH_SHORT).show()
-            }
-            false
+            context.startActivity(intent)
+        } catch (_: Exception) {
+            showToast("Could not open browser")
         }
-    }
-
-    @JavascriptInterface
-    fun savePdfToDocuments(base64Data: String, fileName: String): Boolean {
-        return savePdfToDownloads(base64Data, fileName)
     }
 
     @JavascriptInterface
@@ -589,9 +634,107 @@ class WebAppInterface(private val context: Context, private val webView: WebView
             } else {
                 @Suppress("DEPRECATION")
                 val vibrator = context.getSystemService(Context.VIBRATOR_SERVICE) as? Vibrator
-                vibrator?.vibrate(durationMs)
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    vibrator?.vibrate(VibrationEffect.createOneShot(durationMs, VibrationEffect.DEFAULT_AMPLITUDE))
+                } else {
+                    @Suppress("DEPRECATION")
+                    vibrator?.vibrate(durationMs)
+                }
             }
-        } catch (_: Exception) {}
+        } catch (_: Exception) {
+            // Graceful fallback if vibration permission not granted
+        }
+    }
+
+    /**
+     * Saves a generated PDF directly to the Android device's Downloads folder
+     * Works on Android 7.0 through Android 15+ using MediaStore and Scoped Storage
+     */
+    @JavascriptInterface
+    fun savePdfToDownloads(base64Data: String, fileName: String): Boolean {
+        val cleanFileName = if (fileName.endsWith(".pdf", ignoreCase = true)) fileName else "$fileName.pdf"
+        return saveBase64File(base64Data, cleanFileName, "application/pdf")
+    }
+
+    @JavascriptInterface
+    fun savePdfToDocuments(base64Data: String, fileName: String): Boolean {
+        return savePdfToDownloads(base64Data, fileName)
+    }
+
+    /**
+     * Universal file saver for PDFs, CSVs, and documents.
+     * Uses MediaStore.Downloads on Android 10+ (API 29+) which requires 0 storage permissions!
+     * Fallbacks gracefully to public Downloads on older Android devices.
+     */
+    @JavascriptInterface
+    fun saveBase64File(base64Data: String, fileName: String, mimeType: String): Boolean {
+        return try {
+            val cleanBase64 = if (base64Data.contains(",")) {
+                base64Data.substringAfter(",")
+            } else {
+                base64Data
+            }
+            val fileBytes = Base64.decode(cleanBase64, Base64.DEFAULT)
+            val cleanFileName = fileName.replace("[/\\\\?%*:|\"<>]".toRegex(), "_")
+            val cleanMime = when {
+                mimeType.isNotBlank() && mimeType != "*/*" -> mimeType
+                cleanFileName.endsWith(".pdf", ignoreCase = true) -> "application/pdf"
+                cleanFileName.endsWith(".csv", ignoreCase = true) -> "text/csv"
+                cleanFileName.endsWith(".docx", ignoreCase = true) -> "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+                cleanFileName.endsWith(".png", ignoreCase = true) -> "image/png"
+                cleanFileName.endsWith(".jpg", ignoreCase = true) || cleanFileName.endsWith(".jpeg", ignoreCase = true) -> "image/jpeg"
+                else -> "application/octet-stream"
+            }
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                // Android 10+ (Scoped Storage): MediaStore.Downloads requires ZERO runtime permissions!
+                val contentValues = ContentValues().apply {
+                    put(MediaStore.MediaColumns.DISPLAY_NAME, cleanFileName)
+                    put(MediaStore.MediaColumns.MIME_TYPE, cleanMime)
+                    put(MediaStore.MediaColumns.RELATIVE_PATH, Environment.DIRECTORY_DOWNLOADS)
+                    put(MediaStore.MediaColumns.IS_PENDING, 1)
+                }
+                val resolver = context.contentResolver
+                val uri: Uri? = resolver.insert(MediaStore.Downloads.EXTERNAL_CONTENT_URI, contentValues)
+                if (uri != null) {
+                    resolver.openOutputStream(uri)?.use { os ->
+                        os.write(fileBytes)
+                        os.flush()
+                    }
+                    contentValues.clear()
+                    contentValues.put(MediaStore.MediaColumns.IS_PENDING, 0)
+                    resolver.update(uri, contentValues, null, null)
+                    showToast("Downloaded $cleanFileName to Downloads folder")
+                    true
+                } else {
+                    showToast("Failed to create download file on Android device.")
+                    false
+                }
+            } else {
+                // Android 9 and lower: Legacy external storage
+                val downloadsDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
+                if (!downloadsDir.exists()) {
+                    downloadsDir.mkdirs()
+                }
+                val file = File(downloadsDir, cleanFileName)
+                FileOutputStream(file).use { fos ->
+                    fos.write(fileBytes)
+                    fos.flush()
+                }
+                MediaScannerConnection.scanFile(
+                    context,
+                    arrayOf(file.absolutePath),
+                    arrayOf(cleanMime),
+                    null
+                )
+                showToast("Downloaded $cleanFileName to Downloads folder")
+                true
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+            showToast("Download error: \${e.localizedMessage ?: e.message}")
+            false
+        }
     }
 }
 `

@@ -8,8 +8,10 @@ import {
   TeacherActivity,
   UserProfile,
   TimetableData,
+  AnnualPromotionRecord,
 } from '../types';
 import { getTimetableFromStorage, saveTimetableToStorage } from './timetableService';
+import { DateService } from './dateService';
 import {
   INITIAL_LEARNERS,
   INITIAL_MARKS,
@@ -35,7 +37,24 @@ const STORAGE_KEYS = {
   ONBOARDING_SEEN: 'reberwet_teacher_onboarding_seen_v3',
   FIRST_MARKS_HELP_SEEN: 'reberwet_first_marks_help_seen_v3',
   TIMETABLE: 'reberwet_timetable_v1',
+  ALLOCATION_REQUESTS: 'reberwet_allocation_requests_v1',
+  PROMOTIONS: 'reberwet_annual_promotions_v1',
 };
+
+export interface TeacherAllocationRequest {
+  id: string;
+  teacherId: string;
+  teacherName: string;
+  proposedAssignments: { grade: string; subject: string }[];
+  previousAssignments: { grade: string; subject: string }[];
+  requestedBy: string;
+  requestedByRole: string;
+  requestedAt: string;
+  reason?: string;
+  status: 'pending' | 'approved' | 'rejected';
+  reviewedBy?: string;
+  reviewedAt?: string;
+}
 
 export interface TeacherLastSelection {
   grade: string;
@@ -163,9 +182,18 @@ export const StorageService = {
 
   // Last selection for marks
   getLastSelection(): TeacherLastSelection {
+    const curYear = DateService.getCurrentYear();
+    const curTerm = DateService.getCurrentTerm();
     try {
       const saved = localStorage.getItem(STORAGE_KEYS.LAST_SELECTION);
-      if (saved) return JSON.parse(saved);
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        return {
+          ...parsed,
+          academicYear: parsed.academicYear || curYear,
+          term: parsed.term || curTerm,
+        };
+      }
     } catch {
       // ignore
     }
@@ -173,8 +201,8 @@ export const StorageService = {
       grade: 'Grade 8',
       stream: '',
       subject: 'Mathematics',
-      term: 'Term 3',
-      academicYear: '2026',
+      term: curTerm,
+      academicYear: curYear,
     };
   },
 
@@ -432,6 +460,57 @@ export const StorageService = {
 
   saveTimetable(data: TimetableData) {
     saveTimetableToStorage(data);
+  },
+
+  // Teacher Subject Allocation Requests & Approvals
+  getAllocationRequests(): TeacherAllocationRequest[] {
+    try {
+      const saved = localStorage.getItem(STORAGE_KEYS.ALLOCATION_REQUESTS);
+      if (saved) return JSON.parse(saved);
+    } catch {
+      // ignore
+    }
+    return [];
+  },
+
+  saveAllocationRequests(requests: TeacherAllocationRequest[]) {
+    try {
+      localStorage.setItem(STORAGE_KEYS.ALLOCATION_REQUESTS, JSON.stringify(requests));
+    } catch {
+      // ignore
+    }
+  },
+
+  addAllocationRequest(req: TeacherAllocationRequest) {
+    const existing = this.getAllocationRequests();
+    const updated = [req, ...existing.filter((r) => r.id !== req.id)];
+    this.saveAllocationRequests(updated);
+  },
+
+  // Annual Learner Promotion Records
+  getPromotionRecords(): AnnualPromotionRecord[] {
+    try {
+      const saved = localStorage.getItem(STORAGE_KEYS.PROMOTIONS);
+      if (saved) return JSON.parse(saved);
+    } catch {
+      // ignore
+    }
+    return [];
+  },
+
+  savePromotionRecords(records: AnnualPromotionRecord[]) {
+    try {
+      localStorage.setItem(STORAGE_KEYS.PROMOTIONS, JSON.stringify(records));
+    } catch {
+      // ignore
+    }
+  },
+
+  addPromotionRecord(record: AnnualPromotionRecord): AnnualPromotionRecord[] {
+    const existing = this.getPromotionRecords();
+    const updated = [record, ...existing.filter((r) => r.id !== record.id)];
+    this.savePromotionRecords(updated);
+    return updated;
   },
 
   // 100% Offline Pre-population: Ensures all data is cached locally in device memory so app works in airplane mode

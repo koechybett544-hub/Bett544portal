@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { SchoolDocument, UserProfile } from '../types';
 import { SCHOOL_INFO, SUBJECTS } from '../data/initialData';
 import { generateLearningResourcePdf } from '../utils/pdfExport';
+import { downloadFileUniversally } from '../utils/fileDownloader';
 import {
   FolderOpen,
   FileText,
@@ -18,6 +19,11 @@ import {
   Upload,
   Calendar,
   Layers,
+  Printer,
+  Copy,
+  Check,
+  Share2,
+  Loader2,
 } from 'lucide-react';
 
 interface DocumentCenterProps {
@@ -192,6 +198,8 @@ export const DocumentCenter: React.FC<DocumentCenterProps> = ({
 
   // Preview Resource Modal
   const [previewResource, setPreviewResource] = useState<LearningResourceItem | null>(null);
+  const [downloadingId, setDownloadingId] = useState<string | null>(null);
+  const [copiedId, setCopiedId] = useState<string | null>(null);
 
   const saveResources = (items: LearningResourceItem[]) => {
     setResources(items);
@@ -273,31 +281,117 @@ export const DocumentCenter: React.FC<DocumentCenterProps> = ({
     onShowSuccessToast('Learning resource saved and ready for PDF export!');
   };
 
-  const handleExportResourcePdf = (resource: LearningResourceItem) => {
-    if (resource.fileDataUrl) {
-      // Direct download of stored PDF
-      const a = document.createElement('a');
-      a.href = resource.fileDataUrl;
-      a.download = `${resource.title.replace(/[^a-zA-Z0-9_-]/g, '_')}.pdf`;
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
-      onShowSuccessToast(`Exported "${resource.title}" as PDF!`);
-    } else {
-      // Generate formatted PDF using jsPDF
-      generateLearningResourcePdf({
-        title: resource.title,
-        grade: resource.grade,
-        subject: resource.subject,
-        category: resource.category,
-        term: resource.term,
-        author: resource.author,
-        date: resource.date,
-        content: resource.content,
-        keyOutcomes: resource.keyOutcomes,
-      });
-      onShowSuccessToast(`Exported "${resource.title}" as PDF document!`);
+  const handleExportResourcePdf = async (resource: LearningResourceItem) => {
+    setDownloadingId(resource.id);
+    const cleanTitle = resource.title.replace(/[^a-zA-Z0-9_-]/g, '_');
+    const filename = `${cleanTitle}.pdf`;
+
+    try {
+      if (resource.fileDataUrl) {
+        // Direct download of stored/uploaded PDF via Universal File Downloader
+        const res = await downloadFileUniversally({
+          filename,
+          dataUrl: resource.fileDataUrl,
+          mimeType: 'application/pdf',
+          title: resource.title,
+          onFeedback: (msg) => {
+            onShowSuccessToast(msg);
+          },
+        });
+        if (res.success) {
+          onShowSuccessToast(`Saved "${resource.title}" to device!`);
+        }
+      } else {
+        // Generate formatted PDF using jsPDF + savePdfToDevice + AndroidBridge
+        const res = await generateLearningResourcePdf(
+          {
+            title: resource.title,
+            grade: resource.grade,
+            subject: resource.subject,
+            category: resource.category,
+            term: resource.term,
+            author: resource.author,
+            date: resource.date,
+            content: resource.content,
+            keyOutcomes: resource.keyOutcomes,
+          },
+          (msg) => {
+            onShowSuccessToast(msg);
+          }
+        );
+        if (res.success) {
+          onShowSuccessToast(`Saved "${resource.title}" as PDF document!`);
+        }
+      }
+    } catch (err: any) {
+      console.error('Failed to export resource:', err);
+      onShowSuccessToast(`Download failed: ${err?.message || 'Error saving file'}`);
+    } finally {
+      setDownloadingId(null);
     }
+  };
+
+  const handlePrintResource = (resource: LearningResourceItem) => {
+    const printWindow = window.open('', '_blank');
+    if (printWindow) {
+      const outcomesHtml = resource.keyOutcomes && resource.keyOutcomes.length > 0
+        ? `<div style="background:#f8fafc;padding:12px;border:1px solid #cbd5e1;border-radius:8px;margin-bottom:16px;">
+             <strong style="color:#6b1426;">KEY LEARNING OUTCOMES:</strong>
+             <ul style="margin:6px 0 0 18px;color:#1e293b;">
+               ${resource.keyOutcomes.map(o => `<li>${o}</li>`).join('')}
+             </ul>
+           </div>`
+        : '';
+
+      printWindow.document.write(`
+        <!DOCTYPE html>
+        <html>
+          <head>
+            <title>${resource.title} - Reberwet JSS</title>
+            <style>
+              body { font-family: system-ui, -apple-system, sans-serif; padding: 28px; color: #0f172a; line-height: 1.5; }
+              .header { border-bottom: 3px double #6b1426; padding-bottom: 12px; margin-bottom: 16px; }
+              .school-name { font-size: 20px; font-weight: 900; color: #6b1426; margin: 0; }
+              .sub-title { font-size: 11px; color: #64748b; font-weight: bold; margin-top: 2px; }
+              .meta-box { background: #f1f5f9; padding: 10px 14px; border-radius: 6px; font-size: 13px; font-weight: 600; margin-bottom: 16px; }
+              .content { font-family: monospace; white-space: pre-wrap; font-size: 13px; line-height: 1.6; }
+              @media print {
+                body { padding: 0; }
+                button { display: none; }
+              }
+            </style>
+          </head>
+          <body>
+            <div class="header">
+              <h1 class="school-name">REBERWET JUNIOR SECONDARY SCHOOL</h1>
+              <div class="sub-title">MINISTRY OF EDUCATION CBC OFFICIAL LEARNING MATERIAL • SIONGIROI</div>
+            </div>
+            <div class="meta-box">
+              <strong>${resource.title}</strong><br/>
+              Grade: ${resource.grade} | Subject: ${resource.subject} | Term: ${resource.term} | Author: ${resource.author}
+            </div>
+            ${outcomesHtml}
+            <div class="content">${resource.content}</div>
+            <script>
+              window.onload = function() {
+                window.print();
+              };
+            </script>
+          </body>
+        </html>
+      `);
+      printWindow.document.close();
+    } else {
+      window.print();
+    }
+  };
+
+  const handleCopyContent = (resource: LearningResourceItem) => {
+    const text = `${resource.title}\nGrade: ${resource.grade} | Subject: ${resource.subject} | Term: ${resource.term}\nCompiled by: ${resource.author}\n\n${resource.keyOutcomes?.length ? 'Key Outcomes:\n- ' + resource.keyOutcomes.join('\n- ') + '\n\n' : ''}${resource.content}`;
+    navigator.clipboard?.writeText(text);
+    setCopiedId(resource.id);
+    onShowSuccessToast(`Copied document text to clipboard!`);
+    setTimeout(() => setCopiedId(null), 2500);
   };
 
   const filteredResources = resources.filter((item) => {
@@ -461,12 +555,22 @@ export const DocumentCenter: React.FC<DocumentCenterProps> = ({
 
                 <button
                   type="button"
+                  disabled={downloadingId === res.id}
                   onClick={() => handleExportResourcePdf(res)}
-                  className="flex items-center gap-1 bg-[#6b1426] hover:bg-[#520e1c] text-white px-2.5 py-1.5 rounded-lg text-xs font-bold transition active:scale-95 shadow-2xs"
-                  title="Export this resource as PDF document"
+                  className="flex items-center gap-1 bg-[#6b1426] hover:bg-[#520e1c] text-white px-2.5 py-1.5 rounded-lg text-xs font-bold transition active:scale-95 shadow-2xs disabled:opacity-60"
+                  title="Export this resource as PDF document (Downloads to device)"
                 >
-                  <FileDown className="w-3.5 h-3.5" />
-                  <span>Export PDF</span>
+                  {downloadingId === res.id ? (
+                    <>
+                      <Loader2 className="w-3.5 h-3.5 animate-spin" />
+                      <span>Saving...</span>
+                    </>
+                  ) : (
+                    <>
+                      <FileDown className="w-3.5 h-3.5" />
+                      <span>Export PDF</span>
+                    </>
+                  )}
                 </button>
               </div>
             </div>
@@ -683,26 +787,57 @@ export const DocumentCenter: React.FC<DocumentCenterProps> = ({
               {previewResource.content}
             </div>
 
-            <div className="pt-3 border-t border-stone-200 dark:border-stone-800 flex justify-between items-center text-xs">
+            <div className="pt-3 border-t border-stone-200 dark:border-stone-800 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 text-xs">
               <span className="text-stone-500 dark:text-stone-400">Compiled by {previewResource.author}</span>
-              <div className="flex items-center gap-2">
+              <div className="flex flex-wrap items-center gap-2 w-full sm:w-auto justify-end">
                 <button
                   type="button"
-                  onClick={() => setPreviewResource(null)}
-                  className="px-3.5 py-1.5 rounded-xl text-stone-600 dark:text-stone-400 hover:bg-stone-100 dark:hover:bg-stone-800 font-bold"
+                  onClick={() => handleCopyContent(previewResource)}
+                  className="flex items-center gap-1 px-3 py-1.5 rounded-xl border border-stone-300 dark:border-stone-700 text-stone-700 dark:text-stone-300 hover:bg-stone-100 dark:hover:bg-stone-800 font-bold"
+                  title="Copy document text to clipboard"
                 >
-                  Close
+                  {copiedId === previewResource.id ? (
+                    <>
+                      <Check className="w-3.5 h-3.5 text-emerald-600" />
+                      <span className="text-emerald-600">Copied</span>
+                    </>
+                  ) : (
+                    <>
+                      <Copy className="w-3.5 h-3.5" />
+                      <span>Copy Text</span>
+                    </>
+                  )}
                 </button>
+
                 <button
                   type="button"
+                  onClick={() => handlePrintResource(previewResource)}
+                  className="flex items-center gap-1 px-3 py-1.5 rounded-xl border border-stone-300 dark:border-stone-700 text-stone-700 dark:text-stone-300 hover:bg-stone-100 dark:hover:bg-stone-800 font-bold"
+                  title="Print or Save as PDF via system dialog (Zero storage permissions required)"
+                >
+                  <Printer className="w-3.5 h-3.5 text-stone-600 dark:text-stone-400" />
+                  <span>Print / Save</span>
+                </button>
+
+                <button
+                  type="button"
+                  disabled={downloadingId === previewResource.id}
                   onClick={() => {
                     handleExportResourcePdf(previewResource);
-                    setPreviewResource(null);
                   }}
-                  className="flex items-center gap-1.5 px-4 py-2 rounded-xl bg-[#6b1426] hover:bg-[#520e1c] text-white font-bold"
+                  className="flex items-center gap-1.5 px-4 py-2 rounded-xl bg-[#6b1426] hover:bg-[#520e1c] text-white font-bold disabled:opacity-60 shadow-xs"
                 >
-                  <FileDown className="w-4 h-4" />
-                  <span>Download as PDF</span>
+                  {downloadingId === previewResource.id ? (
+                    <>
+                      <Loader2 className="w-4 h-4 animate-spin" />
+                      <span>Downloading...</span>
+                    </>
+                  ) : (
+                    <>
+                      <FileDown className="w-4 h-4" />
+                      <span>Download as PDF</span>
+                    </>
+                  )}
                 </button>
               </div>
             </div>

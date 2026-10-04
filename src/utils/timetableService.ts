@@ -776,12 +776,13 @@ export async function downloadTeacherTimetablePdf(
 
   // Footer: Prepared By & School Stamp as shown on user reference sheet
   const footerY = startY + gridHeight + 16;
+  const currentDateStr = new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
   doc.setFont('helvetica', 'bold');
   doc.setFontSize(8.5);
   doc.setTextColor(0, 0, 0);
 
-  doc.text('PREPARED BY: ................................................................................', margin + 5, footerY);
-  doc.text('SCHOOL STAMP: ................................................................................', margin + 145, footerY);
+  doc.text(`PREPARED BY: ................................................ DATE: ${currentDateStr}`, margin + 5, footerY);
+  doc.text(`APPROVED / STAMP: ....................................... DATE: ${currentDateStr}`, margin + 145, footerY);
 
   const cleanFilename = `Reberwet_Timetable_${teacher.name.replace(/\s+/g, '_')}_${timetable.term.replace(/\s+/g, '_')}`;
   return await savePdfToDevice(doc, cleanFilename, onFeedback);
@@ -1004,12 +1005,13 @@ export async function downloadClassTimetablePdf(
   });
 
   const footerY = startY + gridHeight + 16;
+  const currentDateStr = new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
   doc.setFont('helvetica', 'bold');
   doc.setFontSize(8.5);
   doc.setTextColor(0, 0, 0);
 
-  doc.text('PREPARED BY: ................................................................................', margin + 5, footerY);
-  doc.text('SCHOOL STAMP: ................................................................................', margin + 145, footerY);
+  doc.text(`PREPARED BY: ................................................ DATE: ${currentDateStr}`, margin + 5, footerY);
+  doc.text(`APPROVED / STAMP: ....................................... DATE: ${currentDateStr}`, margin + 145, footerY);
 
   const cleanFilename = `Reberwet_Timetable_${grade.replace(/\s+/g, '_')}_${timetable.term.replace(/\s+/g, '_')}`;
   return await savePdfToDevice(doc, cleanFilename, onFeedback);
@@ -1221,12 +1223,13 @@ export async function downloadMasterSchoolTimetablePdf(
   });
 
   const footerY = startY + gridHeight + 16;
+  const currentDateStr = new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
   doc.setFont('helvetica', 'bold');
   doc.setFontSize(8.5);
   doc.setTextColor(0, 0, 0);
 
-  doc.text('PREPARED BY: ................................................................................', margin + 5, footerY);
-  doc.text('SCHOOL STAMP: ................................................................................', margin + 145, footerY);
+  doc.text(`PREPARED BY: ................................................ DATE: ${currentDateStr}`, margin + 5, footerY);
+  doc.text(`APPROVED / STAMP: ....................................... DATE: ${currentDateStr}`, margin + 145, footerY);
 
   const cleanFilename = `Reberwet_Master_Timetable_${timetable.academicYear}_${timetable.term.replace(/\s+/g, '_')}`;
   return await savePdfToDevice(doc, cleanFilename, onFeedback);
